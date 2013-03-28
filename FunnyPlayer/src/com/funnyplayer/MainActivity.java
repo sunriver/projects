@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
@@ -38,12 +39,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
 	private ImageView mNextImg;
 	private ImageView mStartOrStopImg;
 	private ListView  mMusicListView;
-	private ArrayAdapter mAdapter;
+	private ArrayAdapter<String> mAdapter;
 	private boolean isPlaying;
 	private int mCurrentPosition = 0;
 	
-	private List<String> mMusicList;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,7 +51,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 		mNextImg = (ImageView) findViewById(R.id.next);
 		mStartOrStopImg = (ImageView) findViewById(R.id.startOrStop);
 		mMusicListView = (ListView) findViewById(R.id.listview);
-		mAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, new ArrayList<String>());
+		mAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, new ArrayList<String>());
 		mAsyncPlayer = new AsyncPlayer(TAG);
 		mMusicListView.setAdapter(mAdapter);
 		mMusicDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_RINGTONES);
@@ -92,19 +91,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
 		mNextImg.setOnClickListener(this);
 		mStartOrStopImg.setOnClickListener(this);
 		
-		mMusicListView.setOnItemSelectedListener(new OnItemSelectedListener() {
+		mMusicListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemSelected(AdapterView<?> parent, View view,
+			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				mCurrentPosition = position;
 				play();
 			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-				// TODO Auto-generated method stub
-				
-			}});
+			
+		});
 	}
 
 
@@ -139,7 +134,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 	}
 
 	private void play() {
-		String fileName = "/" + (String) mAdapter.getItem(mCurrentPosition);
+		isPlaying = true;
+		String fileName = "/" + mAdapter.getItem(mCurrentPosition);
 		Uri uri = Uri.parse("file://"+ mMusicDir + fileName);
 		mAsyncPlayer.play(getApplication(), uri,  false, AudioManager.STREAM_MUSIC);
 	}
