@@ -1,6 +1,9 @@
 package com.funnyplayer;
 
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import android.media.AsyncPlayer;
@@ -15,19 +18,31 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.view.View;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 	private static final String TAG = "AsyncPlayer";
 	private static final int NOTIFICATION_ID = 133948384;
-
+	
+	
+	private File  mMusicDir;
 	private AsyncPlayer mAsyncPlayer;
 	private ImageView mPreviousImg;
 	private ImageView mNextImg;
 	private ImageView mStartOrStopImg;
-
+	private ListView  mMusicListView;
+	private ArrayAdapter mAdapter;
 	private boolean isPlaying;
+	private int mCurrentPosition = 0;
+	
+	private List<String> mMusicList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +51,37 @@ public class MainActivity extends Activity implements View.OnClickListener {
 		mPreviousImg = (ImageView) findViewById(R.id.previous);
 		mNextImg = (ImageView) findViewById(R.id.next);
 		mStartOrStopImg = (ImageView) findViewById(R.id.startOrStop);
+		mMusicListView = (ListView) findViewById(R.id.listview);
+		mAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, new ArrayList<String>());
 		mAsyncPlayer = new AsyncPlayer(TAG);
+		mMusicListView.setAdapter(mAdapter);
+		mMusicDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_RINGTONES);
+		init();
+	}
+	
+	private void init() {
 		initListener();
-		play();
+		initAdapter();
 		showNotification();
 	}
 	
+	private void initAdapter() {
+		for (String fileName : mMusicDir.list()) {
+			if (fileName.endsWith(".mp3")) {
+				mAdapter.add(fileName);
+			}
+		}
+		mAdapter.notifyDataSetChanged();
+	}
 
-    
+
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+	}
+	
+	
     @Override
     protected void onPause() {
     	super.onPause();
@@ -53,6 +91,20 @@ public class MainActivity extends Activity implements View.OnClickListener {
 		mPreviousImg.setOnClickListener(this);
 		mNextImg.setOnClickListener(this);
 		mStartOrStopImg.setOnClickListener(this);
+		
+		mMusicListView.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				mCurrentPosition = position;
+				play();
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}});
 	}
 
 
@@ -70,27 +122,27 @@ public class MainActivity extends Activity implements View.OnClickListener {
 				mAsyncPlayer.stop();
 				isPlaying = false;
 			} else {
-				play();
+				isPlaying = true;
 			}
 			break;
 		}
 	}
 
 	private void previous() {
-
+		mCurrentPosition = Math.max(0, mCurrentPosition - 1);
+		play();
 	}
 
 	private void next() {
-
+		mCurrentPosition = Math.min(mAdapter.getCount(), mCurrentPosition + 1);
+		play();
 	}
-	
+
 	private void play() {
-		isPlaying = true;
-		mAsyncPlayer.play(this,Uri.parse("file://"
-				+ Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_RINGTONES)
-				+ "/test.mp3"), false, AudioManager.STREAM_MUSIC);
+		String fileName = "/" + (String) mAdapter.getItem(mCurrentPosition);
+		Uri uri = Uri.parse("file://"+ mMusicDir + fileName);
+		mAsyncPlayer.play(getApplication(), uri,  false, AudioManager.STREAM_MUSIC);
 	}
-
 	
 	private void showNotification() {
 		NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -103,5 +155,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 		notification.setLatestEventInfo(this, title, title, pendintIntent);
 		nm.notify(NOTIFICATION_ID, notification);
 	}
+
+
 
 }
