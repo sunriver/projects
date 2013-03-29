@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.funnyplayer.net.DownLoadThread;
+import com.funnyplayer.net.HttpCallback;
+
 import android.media.AsyncPlayer;
 import android.media.AudioManager;
 import android.net.Uri;
@@ -15,6 +18,7 @@ import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
@@ -26,6 +30,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.VideoView;
 import android.view.View;
 
 public class MainActivity extends Activity implements View.OnClickListener {
@@ -42,6 +47,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 	private ArrayAdapter<String> mAdapter;
 	private boolean isPlaying;
 	private int mCurrentPosition = 0;
+	private DownLoadThread mDownLoadThread;
+	private VideoView mVideoView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,17 +58,21 @@ public class MainActivity extends Activity implements View.OnClickListener {
 		mNextImg = (ImageView) findViewById(R.id.next);
 		mStartOrStopImg = (ImageView) findViewById(R.id.startOrStop);
 		mMusicListView = (ListView) findViewById(R.id.listview);
+		mVideoView = (VideoView) findViewById(R.id.videoview);
 		mAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, new ArrayList<String>());
 		mAsyncPlayer = new AsyncPlayer(TAG);
 		mMusicListView.setAdapter(mAdapter);
 		mMusicDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_RINGTONES);
+		
+		mDownLoadThread = new DownLoadThread(getApplicationContext());
+		mDownLoadThread.start();
 		init();
 	}
 	
 	private void init() {
 		initListener();
 		initAdapter();
-		showNotification();
+//		showNotification();
 	}
 	
 	private void initAdapter() {
@@ -117,10 +128,26 @@ public class MainActivity extends Activity implements View.OnClickListener {
 				mAsyncPlayer.stop();
 				isPlaying = false;
 			} else {
+				playFromUrl();
 				isPlaying = true;
 			}
 			break;
 		}
+	}
+	
+	private void playFromUrl() {
+		String url = "http://down.51voa.com/201303/0_k9ewwln6_0_2euw79ko.mp3";
+		Uri uri = Uri.parse(url);
+		mAsyncPlayer.play(getApplication(), uri,  false, AudioManager.STREAM_MUSIC);
+		
+//		mDownLoadThread.add(url, new HttpCallback() {
+//			@Override
+//			public int callback(String fileName, long totalSize, long progress) {
+//				Log.v(TAG, "MainActivity::HttpCallback(): totalSize = " + totalSize + "  progress:" + progress);
+//				Uri uri = Uri.parse(fileName);
+//				mAsyncPlayer.play(getApplication(), uri,  false, AudioManager.STREAM_MUSIC);
+//				return 0;
+//			}});
 	}
 
 	private void previous() {
