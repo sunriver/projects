@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="key_shift_value">100</integer>
+    <integer name="key_ctrl_value">101</integer>
+    <integer name="key_win_value">102</integer>
+    <integer name="key_alt_value">104</integer>
+    <integer name="key_esc_value">106</integer>
+    <integer name="key_tab_value">105</integer>
+    <integer name="key_del_value">103</integer>
+    <integer name="key_more_value">-1</integer>
+</resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/tabhost"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TabWidget android:id="@android:id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TabWidget>
+        <FrameLayout android:id="@android:id/tabcontent"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1">
+            	<LinearLayout android:id="@+id/Option01"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:orientation="vertical" android:paddingTop="80px"
+				android:paddingLeft="10px">
+				<TextView android:id="@+id/TextView01"
+					android:layout_width="fill_parent" android:layout_height="wrap_content"
+					android:text="控制服务器" />
+				<RadioGroup android:id="@+id/radioGroup01" android:paddingTop="10px"
+					android:layout_width="wrap_content" android:layout_height="wrap_content">
+					<RadioButton android:id="@+id/radioButtonStart"
+						android:layout_width="wrap_content" android:layout_height="wrap_content"
+						android:text="启动" />
+					<RadioButton android:id="@+id/radioButtonStop"
+						android:layout_width="wrap_content" android:layout_height="wrap_content"
+						android:text="停止" />
+				</RadioGroup>
+			</LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+</TabHost>

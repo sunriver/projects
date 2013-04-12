@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, OOBE</string>
+    <string name="app_name">OOBE</string>
+    <string name="menu_item1">menuA</string>
+    <string name="menu_item2">menuB</string>
+    <string name="description_plus_button">description_plus_button</string>
+    <string name="unlicensed_dialog_title">unlicensed dialog title</string>
+    <string name="buy_button">buy_button</string>
+    <string name="retry_button">retry_button</string>
+    <string name="quit_button">quit_button</string>
+    <string name="add_note">add note</string>
+    <string name="menu_search">Search</string>
+    <string name="send">Send</string>
+    <string name="clear">Clear</string>
+    <string name="email_msg">Email Message</string>
+    <string name="content_hint">Please type in here</string>
+    
+    <string name="two_handed_sword">Two-handed sword</string>
+    <string name="potions">Potions</string>
+
+    <!-- The following are reserved skus defined by Market for testing. -->
+    <string name="android_test_canceled">android.test.canceled</string>
+    <string name="android_test_purchased">android.test.purchased</string>
+    <string name="android_test_item_unavailable">android.test.item unavailable</string>
+    <string name="android_test_refunded">android.test.refunded</string>
+    
+    <!-- progress bar  -->
+    <string name="oobe_progress_bar_text">progress bar------</string>
+    
+
+    <string name="key_content_description">hotkey</string>
+    <!-- common key string -->
+    <string name="key_shift_text">shift</string>
+    <string name="key_ctrl_text">ctrl</string>
+    <string name="key_win_text">win</string>
+    <string name="key_alt_text">alt</string>
+    <string name="key_esc_text">esc</string>
+    <string name="key_tab_text">tab</string>
+    <string name="key_del_text">del</string>
+    <string name="key_more_text">more</string>
+    
+    <!--combo key string  -->
+    <string name="key_ctrl_c_text">ctrl+c</string>
+    <string name="key_ctrl_v_text">ctrl+v</string>
+    <string name="key_ctrl_x_text">ctrl+x</string>
+    <string name="key_alt_f4_text">alt+f4</string>
+    <string name="key_cmd_d_text">cmd+d</string>
+    <string name="key_ctrl_alt_del_text">ctrl_alt_del</string>
+    <string name="key_revert_text">revert</string>
+    
+    <!-- direction key string -->
+    <string name="key_left_text">left</string>
+    <string name="key_right_text">right</string>
+    <string name="key_top_text">top</string>
+    <string name="key_bottom_text">bottom</string>
+    
+    <!-- function key string -->
+    <string name="key_function_text">f1-f12</string>
+    <string name="key_f1_text">f1</string>
+    <string name="key_f2_text">f2</string>
+    <string name="key_f3_text">f3</string>
+    <string name="key_f4_text">f4</string>
+    <string name="key_f5_text">f5</string>
+    <string name="key_f6_text">f6</string>
+    <string name="key_f7_text">f7</string>
+    <string name="key_f8_text">f8</string>
+    <string name="key_f9_text">f9</string>
+    <string name="key_f10_text">f10</string>
+</resources>
