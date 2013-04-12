@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/menu_item1" 
+         android:id="@+id/men1"
+         android:actionProviderClass="android.widget.ShareActionProvider"
+         android:showAsAction="ifRoom|withText"/>
+    <item android:title="@string/menu_item2" 
+           android:id="@+id/men2"/>
+    <item android:id="@+id/menu_search"
+          android:title="@string/menu_search"
+          android:showAsAction="ifRoom|withText"
+          android:actionViewClass="android.widget.SearchView" />
+</menu>

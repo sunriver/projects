@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/hotkeybar_common"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/background_light" >
+
+        <Button
+            android:id="@+id/key_shift"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/key_content_description"
+            android:tag="@integer/key_shift_value"
+            android:text="@string/key_shift_text" />
+
+        <Button
+            android:id="@+id/key_ctrl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/key_content_description"
+            android:tag="@integer/key_ctrl_value"
+            android:text="@string/key_ctrl_text" />
+
+        <Button
+            android:id="@+id/key_cmd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/key_content_description"
+            android:tag="@integer/key_win_value"
+            android:text="@string/key_win_text" />
+
+        <Button
+            android:id="@+id/key_alt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/key_content_description"
+            android:tag="@integer/key_alt_value"
+            android:text="@string/key_alt_text" />
+
+        <Button
+            android:id="@+id/key_esc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/key_content_description"
+            android:tag="@integer/key_esc_value"
+            android:text="@string/key_esc_text" />
+
+        <Button
+            android:id="@+id/key_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/key_content_description"
+            android:tag="@integer/key_tab_value"
+            android:text="@string/key_tab_text" />
+
+        <Button
+            android:id="@+id/key_del"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/key_content_description"
+            android:tag="@integer/key_del_value"
+            android:text="@string/key_del_text" />
+
+        <Button
+            android:id="@+id/key_common_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/key_content_description"
+            android:tag="@integer/key_more_value"
+            android:text="@string/key_more_text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/hotkeybar_combo"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/background_light"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/key_ctrl_c"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/key_content_description"
+                android:tag="@integer/key_shift_value"
+                android:text="@string/key_ctrl_c_text" />
+
+            <Button
+                android:id="@+id/key_ctrl_v"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/key_content_description"
+                android:tag="@integer/key_ctrl_value"
+                android:text="@string/key_ctrl_v_text" />
+
+            <Button
+                android:id="@+id/key_ctrl_x"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/key_content_description"
+                android:tag="@integer/key_win_value"
+                android:text="@string/key_ctrl_x_text" />
+
+            <Button
+                android:id="@+id/key_alt_f4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/key_content_description"
+                android:tag="@integer/key_alt_value"
+                android:text="@string/key_alt_f4_text" />
+
+            <Button
+                android:id="@+id/key_cmd_d"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/key_content_description"
+                android:tag="@integer/key_esc_value"
+                android:text="@string/key_cmd_d_text" />
+
+            <Button
+                android:id="@+id/key_ctrl_alt_del"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/key_content_description"
+                android:tag="@integer/key_tab_value"
+                android:text="@string/key_ctrl_alt_del_text" />
+
+            <Button
+                android:id="@+id/key_revert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/key_content_description"
+                android:tag="@integer/key_del_value"
+                android:text="@string/key_revert_text" />
+        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+            <Button
+                android:id="@+id/key_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/key_content_description"
+                android:tag="@integer/key_win_value"
+                android:text="@string/key_left_text" />
+
+            <Button
+                android:id="@+id/key_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/key_content_description"
+                android:tag="@integer/key_alt_value"
+                android:text="@string/key_right_text" />
+
+            <Button
+                android:id="@+id/key_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/key_content_description"
+                android:tag="@integer/key_esc_value"
+                android:text="@string/key_top_text" />
+
+            <Button
+                android:id="@+id/key_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/key_content_description"
+                android:tag="@integer/key_tab_value"
+                android:text="@string/key_bottom_text" />
+
+             <Button
+                android:id="@+id/key_function"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/key_content_description"
+                android:tag="@integer/key_tab_value"
+                android:text="@string/key_function_text" />
+            </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
