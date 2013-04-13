@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<features>
-   <feature code="relay"     kind="subscription" time_left="14400" />
-	<feature code="feature_A"  kind="purchase"      time_left="" />
-	<feature code="feature_B"  kind="subscription" time_left="0"  />
-</features>
