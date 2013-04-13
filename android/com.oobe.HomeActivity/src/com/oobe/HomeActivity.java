@@ -18,6 +18,7 @@ import com.oobe.palette.PaletteActivity;
 import com.oobe.shortcut.ShortCutActivity;
 import com.oobe.store.StoreActivity;
 import com.oobe.tab.OOBETabActivity;
+import com.oobe.tcp.TcpActivity;
 import com.oobe.touch.TouchActivity;
 import com.oobe.video.VideoPlayerActivity;
 import com.oobe.webservice.WebserviceActivity;
@@ -155,6 +156,9 @@ public class HomeActivity extends Activity {
 			break;
 		case 19:
 			intent = new Intent(this, HotBarActivity.class);
+			break;
+		case 20:
+			intent = new Intent(this, TcpActivity.class);
 			break;
 		default:
 			intent = new Intent(this, MainActivity.class);	

@@ -7,6 +7,7 @@ public class OOBEConst {
 			"OOOBETabActivity", "MainActivity", "FragmentActivity",
 			"ShortCutActivity", "DanamicLoadBitmapActivity", "VideoPlayerActivity",
 			"StoreActivity", "TouchActivity", "BillActivity", "WebserviceActivity",
-			"ManageActivity", "ProgressbarActivity", "OpenGlActivity", "HotBarActivity"
+			"ManageActivity", "ProgressbarActivity", "OpenGlActivity", "HotBarActivity",
+			"TcpActivity"
 	};
 }
