@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "./sort/shell.h"
+#include "./template/ClassTest.h"
 using namespace std;
 
 char * testSprintf() {
@@ -60,6 +61,10 @@ int atoi(const char* str) {
 		num = 0 - num;
 	}
 	return num;
+}
+
+void accessPrivateVirtualMethod() {
+
 }
 
 int main() {
