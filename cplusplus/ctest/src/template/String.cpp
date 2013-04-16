@@ -21,6 +21,7 @@ String& String::operator=(const String& str) {
 	if (this == &str) {
 		return *this;
 	}
+
 	//Allocate new memory and Delete useless str memory
 	mData = new char[strlen(str.mData) + 1];
 	strcpy(mData, str.mData);
