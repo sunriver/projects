@@ -12,6 +12,8 @@
 #include <string.h>
 #include "./sort/shell.h"
 #include "./template/ClassTest.h"
+#include "./thread/ThreadTest.h"
+
 using namespace std;
 
 char * testSprintf() {
