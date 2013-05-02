@@ -7,6 +7,7 @@ import java.util.List;
 import com.funnyplayer.R;
 
 import android.content.Context;
+import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ public class FolderAdapter extends BaseAdapter {
 	
 	public FolderAdapter(Context context) {
 		super();
-		mContext = context.getApplicationContext();
+		mContext = context;
         mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mPathList = new ArrayList<String>();
 	}
