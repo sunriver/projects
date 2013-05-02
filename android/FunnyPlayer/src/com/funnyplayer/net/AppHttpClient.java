@@ -2,6 +2,7 @@ package com.funnyplayer.net;
 
 import java.lang.reflect.Method;
 
+
 import org.apache.http.HttpVersion;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.scheme.PlainSocketFactory;
@@ -21,6 +22,12 @@ import com.funnyplayer.GlobeApp;
 
 import android.content.Context;
 import android.util.Log;
+
+/**
+ * Common http client
+ * @author leon
+ *
+ */
 
 public class AppHttpClient extends DefaultHttpClient {
 	
