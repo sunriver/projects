@@ -3,50 +3,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <VideoView
-        android:id="@+id/videoview"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="invisible" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </LinearLayout>
 
-        <ListView
-            android:id="@+id/listview"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/white" >
-        </ListView>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@color/gray" >
+        <include
+            android:id="@+id/tab_folder"
+            layout="@layout/tab_folder" />
 
-            <ImageView
-                android:id="@+id/previous"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical|left"
-                android:layout_margin="10dp"
-                android:background="@color/blue" />
-
-            <ImageView
-                android:id="@+id/startOrStop"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:background="@color/blue" />
-
-            <ImageView
-                android:id="@+id/next"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical|right"
-                android:layout_margin="5dp"
-                android:background="@color/blue" />
-        </LinearLayout>
-    </VideoView>
+        <include
+            android:id="@+id/tab_playlist"
+            layout="@layout/tab_folder" />
+    </FrameLayout>
 
 </LinearLayout>
