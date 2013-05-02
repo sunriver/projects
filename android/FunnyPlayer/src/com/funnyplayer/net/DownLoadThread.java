@@ -9,6 +9,7 @@ import java.util.LinkedList;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 
@@ -37,17 +38,19 @@ public class DownLoadThread extends Thread {
     private File mCacheDir;
     
     private LinkedList<Task>  mTaskQueue;
+    private HttpClient mHttpClient;
     
 	public DownLoadThread(Context context) {
         super(TAG);
 		mTaskQueue = new LinkedList<Task>();
 		mCacheDir = context.getDir("Download", Context.MODE_PRIVATE);
 		Environment.getDataDirectory();
+		mHttpClient = AppHttpClient.getSingleInstance(context);
 	}
 
 	@Override
 	public void run() {
-		AppHttpClient httpClient = AppHttpClient.getSingleInstance();
+	
 		FileOutputStream out = null;
 		InputStream is = null;
 		
@@ -62,7 +65,7 @@ public class DownLoadThread extends Thread {
 				}
 				
 				HttpGet request = new HttpGet(task.url);
-				HttpResponse response = httpClient.execute(request);
+				HttpResponse response = mHttpClient.execute(request);
 				int statusCode = response.getStatusLine().getStatusCode();
 				if ( statusCode == HttpStatus.SC_OK) {
 					out = new FileOutputStream(task.fileName);

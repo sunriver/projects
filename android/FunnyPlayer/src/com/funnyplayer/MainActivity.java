@@ -35,6 +35,7 @@ import android.view.View;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 	private static final String TAG = "AsyncPlayer";
+	
 	private static final int NOTIFICATION_ID = 133948384;
 	
 	
