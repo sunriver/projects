@@ -8,6 +8,8 @@ import java.util.Random;
 
 import com.funnyplayer.net.DownLoadThread;
 import com.funnyplayer.net.HttpCallback;
+import com.funnyplayer.tab.FolderTab;
+import com.funnyplayer.tab.PlaylistTab;
 
 import android.media.AsyncPlayer;
 import android.media.AudioManager;
@@ -51,23 +53,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
 	private DownLoadThread mDownLoadThread;
 	private VideoView mVideoView;
 	
+	private FolderTab mFolderTab;
+	private PlaylistTab mPlaylistTab;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		mPreviousImg = (ImageView) findViewById(R.id.previous);
-		mNextImg = (ImageView) findViewById(R.id.next);
-		mStartOrStopImg = (ImageView) findViewById(R.id.startOrStop);
-		mMusicListView = (ListView) findViewById(R.id.listview);
-		mVideoView = (VideoView) findViewById(R.id.videoview);
-		mAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, new ArrayList<String>());
-		mAsyncPlayer = new AsyncPlayer(TAG);
-		mMusicListView.setAdapter(mAdapter);
-		mMusicDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_RINGTONES);
 		
-		mDownLoadThread = new DownLoadThread(getApplicationContext());
-		mDownLoadThread.start();
-		init();
+		mFolderTab = new FolderTab(findViewById(R.id.tab_folder));
+		mPlaylistTab = new PlaylistTab(findViewById(R.id.tab_playlist));
+
 	}
 	
 	private void init() {
@@ -117,23 +113,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.previous:
-			previous();
-			break;
-		case R.id.next:
-			next();
-			break;
-		case R.id.startOrStop:
-			if (isPlaying) {
-				mAsyncPlayer.stop();
-				isPlaying = false;
-			} else {
-				playFromUrl();
-				isPlaying = true;
-			}
-			break;
-		}
+		
 	}
 	
 	private void playFromUrl() {
