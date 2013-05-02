@@ -12,12 +12,12 @@ import android.widget.ListView;
 
 public class FolderTab extends BaseTab {
 	private ListView mListView;
-	private List<String> mPathList;
+	private FolderAdapter mAdapter;
+
 	
 	public FolderTab(View contentView) {
 		super(contentView);
-		
-		mPathList = new ArrayList<String>();
+		mAdapter = new FolderAdapter(contentView.getContext());
 		mListView = (ListView) contentView.findViewById(R.id.tab_folder_listview);
 		init();
 	}
@@ -37,7 +37,7 @@ public class FolderTab extends BaseTab {
 
 		@Override
 		protected void onPostExecute(List<String> result) {
-			Collections.copy(mPathList, result);
+			mAdapter.addPath(result);
 		}
 		
 	}
