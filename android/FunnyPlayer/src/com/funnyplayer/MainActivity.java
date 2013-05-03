@@ -40,8 +40,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 	private static final int NOTIFICATION_ID = 133948384;
 
-	private File mMusicDir;
-
 	private FolderTab mFolderTab;
 	private PlaylistTab mPlaylistTab;
 
