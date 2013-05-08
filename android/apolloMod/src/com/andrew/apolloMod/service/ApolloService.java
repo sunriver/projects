@@ -1399,8 +1399,7 @@ public class ApolloService extends Service implements GetBitmapTask.OnBitmapRead
         status.bigContentView = bigViews;
         status.flags = Notification.FLAG_ONGOING_EVENT;
         status.icon = R.drawable.stat_notify_music;
-        status.contentIntent = PendingIntent
-                .getActivity(this, 0, new Intent("com.andrew.apolloMod.PLAYBACK_VIEWER")
+        status.contentIntent = PendingIntent.getActivity(this, 0, new Intent("com.andrew.apolloMod.PLAYBACK_VIEWER")
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK), 0);
         startForeground(PLAYBACKSERVICE_STATUS, status);
     }
