@@ -23,11 +23,6 @@ public class HomeActivity extends Activity {
 	}
 	
 	private void init() {
-		initTabs();
-		initViewPager();
-	}
-	
-	private void initViewPager() {
         // Initiate PagerAdapter
         PagerAdapter pagerAdapter = new PagerAdapter(getFragmentManager());
         
@@ -36,12 +31,14 @@ public class HomeActivity extends Activity {
         pagerAdapter.addFragment(new AlbumFragment());
         
         mViewPager.setAdapter(pagerAdapter);
-		mViewPager.setOnPageChangeListener(mTabView);
-	}
-	
-	private void initTabs() {
+        mViewPager.setOffscreenPageLimit(pagerAdapter.getCount());
+        mViewPager.setOnPageChangeListener(mTabView);
+		
         ScrollTabAdapter tabAdapter = new ScrollTabAdapter(this);
+        mTabView.setViewPager(mViewPager);
         mTabView.setAdapter(tabAdapter);
 	}
+	
+
 
 }
