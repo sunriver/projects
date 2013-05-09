@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Tabs -->
+    <dimen name="tab_padding_top_bottom">6dp</dimen>
+    <dimen name="tab_padding_left_right">40dp</dimen>
+    <dimen name="tab_height">30dp</dimen>
+
+    <!-- Text sizes -->
+    <dimen name="text_size_extra_micro">10sp</dimen>
+    <dimen name="text_size_micro">12sp</dimen>
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+
+</resources>
