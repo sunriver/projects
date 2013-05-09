@@ -3,21 +3,24 @@
     package="com.funnyplayer"
     android:versionCode="1"
     android:versionName="1.0" >
-    
+
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="16" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.INTERNET"   />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" >
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Holo.Light" >
         <activity
+            android:name="com.funnyplayer.HomeActivity"
+            android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:name="com.funnyplayer.MainActivity"
-            android:label="@string/app_name" >
+            android:theme="@android:style/Theme.Holo.Light" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
