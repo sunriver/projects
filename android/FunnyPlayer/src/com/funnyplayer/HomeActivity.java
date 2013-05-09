@@ -1,6 +1,7 @@
 package com.funnyplayer;
 
 import com.funnyplayer.ui.adapter.PagerAdapter;
+import com.funnyplayer.ui.fragment.AlbumFragment;
 import com.funnyplayer.ui.widgets.ScrollTabView;
 
 import android.app.Activity;
@@ -30,6 +31,7 @@ public class HomeActivity extends Activity {
         PagerAdapter pagerAdapter = new PagerAdapter(getFragmentManager());
         
         //add fragment
+        pagerAdapter.addFragment(new AlbumFragment());
         
         mViewPager.setAdapter(pagerAdapter);
 		mViewPager.setOnPageChangeListener(mTabView);
