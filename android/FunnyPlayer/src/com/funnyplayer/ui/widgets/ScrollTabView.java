@@ -126,6 +126,9 @@ public class ScrollTabView extends HorizontalScrollView implements
 		}
 
 		View selectedTab = mContainer.getChildAt(position);
+		if (null == selectedTab) {
+			return;
+		}
 
 		final int w = selectedTab.getMeasuredWidth();
 		final int l = selectedTab.getLeft();
