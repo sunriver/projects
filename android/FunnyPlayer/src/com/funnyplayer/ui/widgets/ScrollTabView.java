@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
-public class ScrollTAbView extends HorizontalScrollView implements
+public class ScrollTabView extends HorizontalScrollView implements
 		ViewPager.OnPageChangeListener {
 
 	private ViewPager mPager = null;
@@ -21,15 +21,15 @@ public class ScrollTAbView extends HorizontalScrollView implements
 
 	private final ArrayList<View> mTabs = new ArrayList<View>();
 
-	public ScrollTAbView(Context context) {
+	public ScrollTabView(Context context) {
 		this(context, null);
 	}
 
-	public ScrollTAbView(Context context, AttributeSet attrs) {
+	public ScrollTabView(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
 	}
 
-	public ScrollTAbView(Context context, AttributeSet attrs, int defStyle) {
+	public ScrollTabView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs);
 
 		this.setHorizontalScrollBarEnabled(false);
