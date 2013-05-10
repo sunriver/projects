@@ -6,9 +6,14 @@ import com.funnyplayer.ui.adapter.AlbumAdapter;
 
 import android.app.Fragment;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.BaseColumns;
+import android.provider.MediaStore.Audio;
+import android.provider.MediaStore.Audio.AlbumColumns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +25,12 @@ public class AlbumFragment extends Fragment implements OnItemClickListener, Load
     private GridView mGridView;
     
     private AlbumAdapter mAlbumAdapter;
+    
+    private Cursor mCursor;
+    
+    private String mCurrentAlbumId;
+
+    public static int mAlbumIdIndex, mAlbumNameIndex, mArtistNameIndex;
     
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -51,19 +62,31 @@ public class AlbumFragment extends Fragment implements OnItemClickListener, Load
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		// TODO Auto-generated method stub
-		return null;
+        String[] projection = { BaseColumns._ID, AlbumColumns.ALBUM, AlbumColumns.ARTIST, AlbumColumns.ALBUM_ART };
+        Uri uri = Audio.Albums.EXTERNAL_CONTENT_URI;
+        String sortOrder = Audio.Albums.DEFAULT_SORT_ORDER;
+        return new CursorLoader(getActivity(), uri, projection, null, null, sortOrder);
 	}
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-		// TODO Auto-generated method stub
+        // Check for database errors
+        if (data == null) {
+            return;
+        }
+
+        mAlbumIdIndex = data.getColumnIndexOrThrow(BaseColumns._ID);
+        mAlbumNameIndex = data.getColumnIndexOrThrow(AlbumColumns.ALBUM);
+        mArtistNameIndex = data.getColumnIndexOrThrow(AlbumColumns.ARTIST);
+        mAlbumAdapter.changeCursor(data);
+        mCursor = data;
 		
 	}
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
-		// TODO Auto-generated method stub
-		
+        if (mAlbumAdapter != null) {
+        	mAlbumAdapter.changeCursor(null);
+        }
 	}
 }
