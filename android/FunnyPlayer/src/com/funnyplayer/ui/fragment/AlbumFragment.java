@@ -28,10 +28,6 @@ public class AlbumFragment extends Fragment implements OnItemClickListener, Load
     
     private Cursor mCursor;
     
-    private String mCurrentAlbumId;
-
-    public static int mAlbumIdIndex, mAlbumNameIndex, mArtistNameIndex;
-    
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -40,10 +36,10 @@ public class AlbumFragment extends Fragment implements OnItemClickListener, Load
         mGridView.setOnCreateContextMenuListener(this);
         mGridView.setOnItemClickListener(this);
         mGridView.setTextFilterEnabled(true);
-        mGridView.setAdapter(mAlbumAdapter);
-
         // Important!
         getLoaderManager().initLoader(0, null, this);
+        
+        mGridView.setAdapter(mAlbumAdapter);
     }
     
 	@Override
@@ -75,9 +71,13 @@ public class AlbumFragment extends Fragment implements OnItemClickListener, Load
             return;
         }
 
-        mAlbumIdIndex = data.getColumnIndexOrThrow(BaseColumns._ID);
-        mAlbumNameIndex = data.getColumnIndexOrThrow(AlbumColumns.ALBUM);
-        mArtistNameIndex = data.getColumnIndexOrThrow(AlbumColumns.ARTIST);
+        int albumIdIndex = data.getColumnIndexOrThrow(BaseColumns._ID);
+        int albumNameIndex = data.getColumnIndexOrThrow(AlbumColumns.ALBUM);
+        int artistNameIndex = data.getColumnIndexOrThrow(AlbumColumns.ARTIST);
+        
+        mAlbumAdapter.setAlbumIdIndex(albumIdIndex);
+        mAlbumAdapter.setAlbumNameIndex(albumNameIndex);
+        mAlbumAdapter.setArtistNameIndex(artistNameIndex);
         mAlbumAdapter.changeCursor(data);
         mCursor = data;
 		
