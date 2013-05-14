@@ -4,16 +4,18 @@ import java.io.File;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 
 public class ImageProvider {
 	private static ImageProvider mInstance;
 	private Context mContext;
-	private LruCache
+	private ImageCache mCache;
 	
 	private ImageProvider(Context context) {
 		mContext = context.getApplicationContext();
+		mCache = new ImageCache();
 	}
 	
 	/**
@@ -36,8 +38,8 @@ public class ImageProvider {
 	public void loadImage(ImageInfo imageInfo, ImageView v, LoadCallback callback) {
 		//Get bitmap from cache if exists.
 		//Create a thread to get bitmap from media store.
-		Task task = new Task(v, callback);
-		task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, imageInfo);
+		Task task = new Task(imageInfo, v, callback);
+		task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
 	
 	
@@ -45,28 +47,37 @@ public class ImageProvider {
 		public void onLoadFinished(ImageView v, Bitmap bitmap);
 	}
 	
-	class Task extends AsyncTask<ImageInfo, Void, Bitmap> {
+	
+	class Task extends AsyncTask<Void, Void, Bitmap> {
+		private ImageInfo mImageInfo;
 		private ImageView mImageView;
 		private LoadCallback mCallback;
 		private Context mContext;
 		
-		public Task(ImageView v, LoadCallback callback) {
+		public Task(ImageInfo info, ImageView v, LoadCallback callback) {
+			this.mImageInfo = info;
 			this.mImageView = v;
 			this.mCallback = callback;
 			this.mContext = v.getContext().getApplicationContext();
 		}
 
 		@Override
-		protected Bitmap doInBackground(ImageInfo... params) {
-			ImageInfo imageInfo = params[0];
-			ImageUtils.getImageFromMediaStore(mContext, imageInfo);
+		protected Bitmap doInBackground(Void... params) {
+			File f = ImageUtils.getImageFromMediaStore(mContext, mImageInfo);
+			if (f != null) {
+				return BitmapFactory.decodeFile(f.getAbsolutePath());
+			}
 			return null;
 		}
 
 		@Override
 		protected void onPostExecute(Bitmap result) {
-			mCallback.onLoadFinished(mImageView, result);
+			if (result != null) {
+				mCache.put(ImageUtils.getIndentifier(mImageInfo), result);
+				mCallback.onLoadFinished(mImageView, result);
+			}
 		}
+		
 	}
 	
 }

@@ -1,12 +1,9 @@
 package com.funnyplayer.ui.adapter;
 
-import java.lang.ref.WeakReference;
-
 import static com.funnyplayer.cache.Consts.SIZE_THUMB;
 import static com.funnyplayer.cache.Consts.SRC_FIRST_AVAILABLE;
 import static com.funnyplayer.cache.Consts.TYPE_ALBUM;
 
-import com.andrew.apolloMod.ui.fragments.grid.AlbumsFragment;
 import com.funnyplayer.R;
 import com.funnyplayer.cache.ImageInfo;
 import com.funnyplayer.cache.ImageProvider;

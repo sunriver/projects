@@ -61,4 +61,7 @@ public class ImageUtils {
 		  return imageInfo.type + imageInfo.data[0] + ".png";
 	   }
 	    
+	   public static String getIndentifier(final ImageInfo imageInfo) {
+		  return imageInfo.type + imageInfo.data[0];
+	   }
 }
