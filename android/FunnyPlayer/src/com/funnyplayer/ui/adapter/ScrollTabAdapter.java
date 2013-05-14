@@ -14,7 +14,7 @@ public class ScrollTabAdapter implements TabAdapter {
 	
 	public ScrollTabAdapter(Context context) {
 	      data = context.getResources().getStringArray(R.array.tab_titles);
-	       mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	      mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
 	@Override

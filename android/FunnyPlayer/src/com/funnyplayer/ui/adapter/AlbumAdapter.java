@@ -1,8 +1,12 @@
 package com.funnyplayer.ui.adapter;
 
-
 import java.lang.ref.WeakReference;
 
+import static com.funnyplayer.cache.Consts.SIZE_THUMB;
+import static com.funnyplayer.cache.Consts.SRC_FIRST_AVAILABLE;
+import static com.funnyplayer.cache.Consts.TYPE_ALBUM;
+
+import com.andrew.apolloMod.ui.fragments.grid.AlbumsFragment;
 import com.funnyplayer.R;
 import com.funnyplayer.cache.ImageInfo;
 import com.funnyplayer.cache.ImageProvider;
@@ -39,9 +43,8 @@ public class AlbumAdapter extends SimpleCursorAdapter implements LoadCallback {
 			v = super.getView(position, convertView, parent);
 			if (v != null) {
 				holder = new ViewHolder();
-				WeakReference<ViewHolder> holdRef = new WeakReference<ViewHolder>(holder);
 				holder.image = (ImageView) v.findViewById(R.id.album_gridview_image);
-				v.setTag(holdRef.get());
+				v.setTag(holder);
 			}
 		}
 		if (null == holder) {
@@ -49,14 +52,15 @@ public class AlbumAdapter extends SimpleCursorAdapter implements LoadCallback {
 		}
 		
         Cursor cursor = (Cursor) getItem(position);
+        String albumId = cursor.getString(mAlbumIdIndex);
         String albumName = cursor.getString(mAlbumNameIndex);
-        String mrtistName = cursor.getString(mArtistNameIndex);
+        String martistName = cursor.getString(mArtistNameIndex);
         
         ImageInfo imageInfo = new ImageInfo();
-//        mageInfo.type = TYPE_ALBUM;
-//        mageInfo.size = SIZE_THUMB;
-//        mageInfo.source = SRC_FIRST_AVAILABLE;
-//        mageInfo.data = new String[]{ albumId , artistName, albumName };
+        imageInfo.type = TYPE_ALBUM;
+        imageInfo.size = SIZE_THUMB;
+        imageInfo.source = SRC_FIRST_AVAILABLE;
+        imageInfo.data = new String[]{ albumId , martistName, albumName };
         
         mImageProvider.loadImage(imageInfo, holder.image, this);
         
