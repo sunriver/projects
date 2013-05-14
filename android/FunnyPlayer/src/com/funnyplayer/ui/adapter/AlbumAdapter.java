@@ -84,7 +84,6 @@ public class AlbumAdapter extends SimpleCursorAdapter implements LoadCallback {
 
 	@Override
 	public void onLoadFinished(ImageView v, Bitmap bitmap) {
-		v.setImageBitmap(bitmap);
 	}
 	
 

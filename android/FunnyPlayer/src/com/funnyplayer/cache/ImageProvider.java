@@ -37,9 +37,17 @@ public class ImageProvider {
 	 */
 	public void loadImage(ImageInfo imageInfo, ImageView v, LoadCallback callback) {
 		//Get bitmap from cache if exists.
+		Bitmap bm = mCache.get(ImageUtils.getIndentifier(imageInfo));
+		if (bm != null) {
+			setImageDrawable(v, bm);
+		}
 		//Create a thread to get bitmap from media store.
 		Task task = new Task(imageInfo, v, callback);
 		task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+	}
+	
+	private void setImageDrawable(ImageView v, Bitmap bitmap) {
+		v.setImageBitmap(bitmap);
 	}
 	
 	
@@ -74,6 +82,7 @@ public class ImageProvider {
 		protected void onPostExecute(Bitmap result) {
 			if (result != null) {
 				mCache.put(ImageUtils.getIndentifier(mImageInfo), result);
+				setImageDrawable(mImageView, result);
 				mCallback.onLoadFinished(mImageView, result);
 			}
 		}
