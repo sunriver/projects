@@ -51,6 +51,8 @@ public class PlaylistAdapter extends SimpleCursorAdapter {
 		}
 		
 		Cursor cursor = (Cursor) getItem(position);
+		String musicName =  cursor.getString(mPlaylistNameIndex);
+		holder.mTitleView.setText(musicName);
 		return v;
 	}
 

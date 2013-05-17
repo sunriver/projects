@@ -1,12 +1,15 @@
 package com.funnyplayer.ui.fragment;
 
 
+import com.funnyplayer.PlayActivity;
 import com.funnyplayer.R;
+import com.funnyplayer.cache.Consts;
 import com.funnyplayer.ui.adapter.AlbumAdapter;
 
 import android.app.Fragment;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
@@ -27,6 +30,10 @@ public class AlbumFragment extends Fragment implements OnItemClickListener, Load
     private AlbumAdapter mAlbumAdapter;
     
     private Cursor mCursor;
+    
+    private int mAlbumIdIndex;
+    private int mAlbumNameIndex;
+    private int mArtistNameIndex;
     
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -52,7 +59,21 @@ public class AlbumFragment extends Fragment implements OnItemClickListener, Load
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		// TODO Auto-generated method stub
+        String artistName = mCursor.getString(mArtistNameIndex);
+        String albumName = mCursor.getString(mAlbumNameIndex);
+        String albumId = mCursor.getString(mAlbumIdIndex);
+
+        Bundle bundle = new Bundle();
+//        bundle.putString(Consts.MIME_TYPE, Audio.Albums.CONTENT_TYPE);
+//        bundle.putString(Consts.ARTIST_KEY, artistName);
+//        bundle.putString(Consts.ALBUM_KEY, albumName);
+//        bundle.putString(Consts.ALBUM_ID_KEY, albumId);
+        bundle.putLong(BaseColumns._ID, id);
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setClass(getActivity(), PlayActivity.class);
+        intent.putExtras(bundle);
+        getActivity().startActivity(intent);
 		
 	}
 
@@ -71,13 +92,13 @@ public class AlbumFragment extends Fragment implements OnItemClickListener, Load
             return;
         }
 
-        int albumIdIndex = data.getColumnIndexOrThrow(BaseColumns._ID);
-        int albumNameIndex = data.getColumnIndexOrThrow(AlbumColumns.ALBUM);
-        int artistNameIndex = data.getColumnIndexOrThrow(AlbumColumns.ARTIST);
+        mAlbumIdIndex = data.getColumnIndexOrThrow(BaseColumns._ID);
+        mAlbumNameIndex = data.getColumnIndexOrThrow(AlbumColumns.ALBUM);
+        mArtistNameIndex = data.getColumnIndexOrThrow(AlbumColumns.ARTIST);
         
-        mAlbumAdapter.setAlbumIdIndex(albumIdIndex);
-        mAlbumAdapter.setAlbumNameIndex(albumNameIndex);
-        mAlbumAdapter.setArtistNameIndex(artistNameIndex);
+        mAlbumAdapter.setAlbumIdIndex(mAlbumIdIndex);
+        mAlbumAdapter.setAlbumNameIndex(mAlbumNameIndex);
+        mAlbumAdapter.setArtistNameIndex(mArtistNameIndex);
         mAlbumAdapter.changeCursor(data);
         mCursor = data;
 		

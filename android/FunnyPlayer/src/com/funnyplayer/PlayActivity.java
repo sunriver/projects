@@ -1,16 +1,20 @@
 package com.funnyplayer;
 
+import com.funnyplayer.cache.Consts;
 import com.funnyplayer.ui.adapter.PlaylistAdapter;
 
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.provider.MediaStore.Audio;
+import android.provider.MediaStore.MediaColumns;
+import android.provider.MediaStore.Audio.AudioColumns;
 import android.provider.MediaStore.Audio.PlaylistsColumns;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -31,7 +35,10 @@ public class PlayActivity extends Activity implements LoaderCallbacks<Cursor> {
 		
 		mPlayListView.setAdapter(mAdapter);
 		
-		getLoaderManager().initLoader(0, null, this);
+		Intent intent = getIntent();
+		Bundle args = (intent != null) ? intent.getExtras() : null; 
+		
+		getLoaderManager().initLoader(0, args, this);
 	}
 	
 	
@@ -43,11 +50,20 @@ public class PlayActivity extends Activity implements LoaderCallbacks<Cursor> {
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        String[] projection = new String[] {BaseColumns._ID, PlaylistsColumns.NAME
+        StringBuilder where = new StringBuilder();
+        where.append(AudioColumns.IS_MUSIC + "=1").append(" AND " + MediaColumns.TITLE + " != ''");
+		if (args != null) {
+			long albumId = args.getLong(BaseColumns._ID);
+//			String albumName = args.getString(Consts.ALBUM_KEY);
+			where.append(" AND " + AudioColumns.ALBUM_ID + "=" + albumId);
+		}
+        String[] projection = new String[] {
+                BaseColumns._ID, MediaColumns.TITLE, AudioColumns.ALBUM, AudioColumns.ARTIST
         };
-        Uri uri = Audio.Playlists.EXTERNAL_CONTENT_URI;
-        String sortOrder = Audio.Playlists.DEFAULT_SORT_ORDER;
-        return new CursorLoader(this, uri, projection, null, null, sortOrder);
+        Uri uri = Audio.Media.EXTERNAL_CONTENT_URI;
+        String sortOrder = Audio.Media.DEFAULT_SORT_ORDER;
+        sortOrder = Audio.Media.TRACK + ", " + sortOrder;
+        return new CursorLoader(this, uri, projection, where.toString(), null, sortOrder);
 	}
 
 	@Override
@@ -57,10 +73,11 @@ public class PlayActivity extends Activity implements LoaderCallbacks<Cursor> {
             return;
         }
 
-        int playlistIdIndex = data.getColumnIndexOrThrow(BaseColumns._ID);
-        int playlistNameIndex = data.getColumnIndexOrThrow(PlaylistsColumns.NAME);
-        mAdapter.setPlaylistIdIndex(playlistIdIndex);
-        mAdapter.setPlaylistNameIndex(playlistNameIndex);
+       int  mMediaIdIndex = data.getColumnIndexOrThrow(BaseColumns._ID);
+        int mTitleIndex = data.getColumnIndexOrThrow(MediaColumns.TITLE);
+        int mArtistIndex = data.getColumnIndexOrThrow(AudioColumns.ARTIST);
+        mAdapter.setPlaylistIdIndex(mMediaIdIndex);
+        mAdapter.setPlaylistNameIndex(mTitleIndex);
         mAdapter.changeCursor(data);
         mCursor = data;
 	}
