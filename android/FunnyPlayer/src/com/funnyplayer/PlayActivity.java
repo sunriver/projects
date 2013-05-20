@@ -16,6 +16,7 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Audio;
@@ -36,6 +37,7 @@ public class PlayActivity extends Activity implements LoaderCallbacks<Cursor>, O
 	private PlaylistAdapter mAdapter;
 	private Cursor mCursor;
     private MediaPlayer mCurrentMediaPlayer;
+    private int mCurrPos;
 
     private String[] mCursorCols = new String[] {
             "audio._id AS _id", MediaStore.Audio.Media.ARTIST, MediaStore.Audio.Media.ALBUM,
@@ -50,13 +52,18 @@ public class PlayActivity extends Activity implements LoaderCallbacks<Cursor>, O
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.playlist);
 		mPlayListView = (ListView) findViewById(R.id.playListView);
+
 		mPlayImgView = (ImageView) findViewById(R.id.playImageView);
 		mAdapter = new PlaylistAdapter(this, R.layout.playlist_item);
 		
 		mPlayListView.setAdapter(mAdapter);
 		mPlayListView.setOnItemClickListener(this);
+		
 		mCurrentMediaPlayer = new MediaPlayer();
+        mCurrentMediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
 		mCurrentMediaPlayer.setOnCompletionListener(this);
+		
+		mCurrPos = 0;
 		
 		Intent intent = getIntent();
 		Bundle args = (intent != null) ? intent.getExtras() : null; 
@@ -111,13 +118,44 @@ public class PlayActivity extends Activity implements LoaderCallbacks<Cursor>, O
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-		
-		Cursor cursor = getCursorForId(id);
-
-        open(uri + "/" + cursor.getLong(0));
-        
+		mCurrPos = position;
+		view.setSelected(true);
+		startPlay(id);
 	}
+	
+	
+	private void startPlay(long id) {
+		Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+		Cursor cursor = getCursorForId(id);
+        open(uri + "/" + cursor.getLong(0));
+	}
+	
+	
+	
+	private void next() {
+		int count = mAdapter.getCount();
+		int nextPos = mCurrPos + 1;
+		if (nextPos < count) {
+			View currView = mPlayListView.getChildAt(mCurrPos);
+			currView.setSelected(false);
+			View nextView = mPlayListView.getChildAt(nextPos);
+			nextView.setSelected(true);
+			startPlay(mAdapter.getItemId(nextPos));
+		}
+	}
+	
+	private void previous() {
+		int count = mAdapter.getCount();
+		int prevPos = mCurrPos - 1;
+		if (prevPos >= 0) {
+			View currView = mPlayListView.getChildAt(mCurrPos);
+			currView.setSelected(false);
+			View nextView = mPlayListView.getChildAt(prevPos);
+			nextView.setSelected(true);
+			startPlay(mAdapter.getItemId(prevPos));
+		}
+	}
+	
 	
     private Cursor getCursorForId(long lid) {
         String id = String.valueOf(lid);
@@ -155,7 +193,8 @@ public class PlayActivity extends Activity implements LoaderCallbacks<Cursor>, O
 
 	@Override
 	public void onCompletion(MediaPlayer mp) {
-		mp.release();		
+		mp.release();
+		next();
 	}
 
 }
