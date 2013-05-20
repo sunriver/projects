@@ -1,5 +1,7 @@
 package com.funnyplayer;
 
+import java.io.IOException;
+
 import com.funnyplayer.cache.Consts;
 import com.funnyplayer.ui.adapter.PlaylistAdapter;
 
@@ -9,22 +11,40 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.BaseColumns;
+import android.provider.MediaStore;
 import android.provider.MediaStore.Audio;
 import android.provider.MediaStore.MediaColumns;
 import android.provider.MediaStore.Audio.AudioColumns;
 import android.provider.MediaStore.Audio.PlaylistsColumns;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-public class PlayActivity extends Activity implements LoaderCallbacks<Cursor> {
+public class PlayActivity extends Activity implements LoaderCallbacks<Cursor>, OnItemClickListener, OnCompletionListener {
+	private final static String TAG = "FunnyPlayer";
 	private ListView mPlayListView;
 	private ImageView mPlayImgView;
 	private PlaylistAdapter mAdapter;
 	private Cursor mCursor;
+    private MediaPlayer mCurrentMediaPlayer;
 
+    private String[] mCursorCols = new String[] {
+            "audio._id AS _id", MediaStore.Audio.Media.ARTIST, MediaStore.Audio.Media.ALBUM,
+            MediaStore.Audio.Media.TITLE, MediaStore.Audio.Media.DATA,
+            MediaStore.Audio.Media.MIME_TYPE, MediaStore.Audio.Media.ALBUM_ID,
+            MediaStore.Audio.Media.ARTIST_ID, MediaStore.Audio.Media.IS_PODCAST,
+            MediaStore.Audio.Media.BOOKMARK
+    };
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,18 +54,15 @@ public class PlayActivity extends Activity implements LoaderCallbacks<Cursor> {
 		mAdapter = new PlaylistAdapter(this, R.layout.playlist_item);
 		
 		mPlayListView.setAdapter(mAdapter);
+		mPlayListView.setOnItemClickListener(this);
+		mCurrentMediaPlayer = new MediaPlayer();
+		mCurrentMediaPlayer.setOnCompletionListener(this);
 		
 		Intent intent = getIntent();
 		Bundle args = (intent != null) ? intent.getExtras() : null; 
 		
 		getLoaderManager().initLoader(0, args, this);
 	}
-	
-	
-	private void extractValues(Bundle bundle) {
-		
-	}
-	
 	
 
 	@Override
@@ -88,6 +105,57 @@ public class PlayActivity extends Activity implements LoaderCallbacks<Cursor> {
 			mAdapter.changeCursor(null);
 			mCursor = null;
 		}
+	}
+
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+		
+		Cursor cursor = getCursorForId(id);
+
+        open(uri + "/" + cursor.getLong(0));
+        
+	}
+	
+    private Cursor getCursorForId(long lid) {
+        String id = String.valueOf(lid);
+
+        Cursor c = getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,  mCursorCols, "_id=" + id , null, null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+    
+    public boolean open(String path) {
+    	String str = "content://media/external/audio/media/7663";
+    	Log.v(TAG, "PlayActivity::open() path:" + path);
+    	try {
+    		mCurrentMediaPlayer.reset();
+
+    		mCurrentMediaPlayer.setOnPreparedListener(null);
+            if (path.startsWith("content://")) {
+            	mCurrentMediaPlayer.setDataSource(this, Uri.parse(path));
+            } else {
+            	mCurrentMediaPlayer.setDataSource(path);
+            }
+            mCurrentMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mCurrentMediaPlayer.prepare();
+			mCurrentMediaPlayer.start();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			return true;
+		}
+    }
+
+
+	@Override
+	public void onCompletion(MediaPlayer mp) {
+		mp.release();		
 	}
 
 }

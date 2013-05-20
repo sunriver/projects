@@ -1,5 +1,7 @@
 package com.funnyplayer.ui.adapter;
 
+import java.util.List;
+
 import com.funnyplayer.R;
 
 import android.content.Context;
@@ -55,5 +57,6 @@ public class PlaylistAdapter extends SimpleCursorAdapter {
 		holder.mTitleView.setText(musicName);
 		return v;
 	}
+	
 
 }
