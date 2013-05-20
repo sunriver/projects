@@ -6,13 +6,15 @@
 
     <com.funnyplayer.ui.widgets.ScrollTabView
         android:id="@+id/scrollTabs"
-        android:background="@color/light_gray"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"
+        android:background="@color/light_gray" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
 
 </LinearLayout>
