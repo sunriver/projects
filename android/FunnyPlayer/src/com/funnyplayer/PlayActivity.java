@@ -30,7 +30,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-public class PlayActivity extends Activity implements LoaderCallbacks<Cursor>, OnItemClickListener, OnCompletionListener {
+public class PlayActivity extends Activity implements LoaderCallbacks<Cursor>, OnItemClickListener, OnCompletionListener, View.OnClickListener {
 	private final static String TAG = "FunnyPlayer";
 	private ListView mPlayListView;
 	private ImageView mPlayImgView;
@@ -38,6 +38,9 @@ public class PlayActivity extends Activity implements LoaderCallbacks<Cursor>, O
 	private Cursor mCursor;
     private MediaPlayer mCurrentMediaPlayer;
     private int mCurrPos;
+    private ImageView mPrevImg;
+    private ImageView mPauseImg;
+    private ImageView mNextImg;
 
     private String[] mCursorCols = new String[] {
             "audio._id AS _id", MediaStore.Audio.Media.ARTIST, MediaStore.Audio.Media.ALBUM,
@@ -55,6 +58,13 @@ public class PlayActivity extends Activity implements LoaderCallbacks<Cursor>, O
 
 		mPlayImgView = (ImageView) findViewById(R.id.playImageView);
 		mAdapter = new PlaylistAdapter(this, R.layout.playlist_item);
+		
+		mPrevImg = (ImageView) findViewById(R.id.playPrevious);
+		mPauseImg = (ImageView) findViewById(R.id.playOrPause);
+		mNextImg = (ImageView) findViewById(R.id.playNext);
+		mPrevImg.setOnClickListener(this);
+		mPauseImg.setOnClickListener(this);
+		mNextImg.setOnClickListener(this);
 		
 		mPlayListView.setAdapter(mAdapter);
 		mPlayListView.setOnItemClickListener(this);
@@ -141,6 +151,7 @@ public class PlayActivity extends Activity implements LoaderCallbacks<Cursor>, O
 			View nextView = mPlayListView.getChildAt(nextPos);
 			nextView.setSelected(true);
 			startPlay(mAdapter.getItemId(nextPos));
+			mCurrPos = nextPos;
 		}
 	}
 	
@@ -153,6 +164,15 @@ public class PlayActivity extends Activity implements LoaderCallbacks<Cursor>, O
 			View nextView = mPlayListView.getChildAt(prevPos);
 			nextView.setSelected(true);
 			startPlay(mAdapter.getItemId(prevPos));
+			mCurrPos = prevPos;
+		}
+	}
+	
+	private void playOrPause() {
+		if (mCurrentMediaPlayer.isPlaying()) {
+			mCurrentMediaPlayer.pause();
+		} else {
+			mCurrentMediaPlayer.start();
 		}
 	}
 	
@@ -168,7 +188,6 @@ public class PlayActivity extends Activity implements LoaderCallbacks<Cursor>, O
     }
     
     public boolean open(String path) {
-    	String str = "content://media/external/audio/media/7663";
     	Log.v(TAG, "PlayActivity::open() path:" + path);
     	try {
     		mCurrentMediaPlayer.reset();
@@ -195,6 +214,22 @@ public class PlayActivity extends Activity implements LoaderCallbacks<Cursor>, O
 	public void onCompletion(MediaPlayer mp) {
 		mp.release();
 		next();
+	}
+
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.playPrevious:
+			previous();
+			break;
+		case R.id.playOrPause:
+			playOrPause();
+			break;
+		case R.id.playNext:
+			next();
+			break;
+		}
 	}
 
 }
