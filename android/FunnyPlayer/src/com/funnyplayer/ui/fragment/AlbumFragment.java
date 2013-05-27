@@ -1,10 +1,10 @@
 package com.funnyplayer.ui.fragment;
 
 
-import com.funnyplayer.PlayActivity;
 import com.funnyplayer.R;
-import com.funnyplayer.cache.Consts;
+import com.funnyplayer.TrackActivity;
 import com.funnyplayer.ui.adapter.AlbumAdapter;
+import com.funnyplayer.util.MusicUtil;
 
 import android.app.Fragment;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -43,6 +43,8 @@ public class AlbumFragment extends Fragment implements OnItemClickListener, Load
         mGridView.setOnCreateContextMenuListener(this);
         mGridView.setOnItemClickListener(this);
         mGridView.setTextFilterEnabled(true);
+        
+        MusicUtil.bindService(getActivity());
         // Important!
         getLoaderManager().initLoader(0, null, this);
         
@@ -71,7 +73,7 @@ public class AlbumFragment extends Fragment implements OnItemClickListener, Load
         bundle.putLong(BaseColumns._ID, id);
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setClass(getActivity(), PlayActivity.class);
+        intent.setClass(getActivity(), TrackActivity.class);
         intent.putExtras(bundle);
         getActivity().startActivity(intent);
 		
@@ -110,4 +112,6 @@ public class AlbumFragment extends Fragment implements OnItemClickListener, Load
         	mAlbumAdapter.changeCursor(null);
         }
 	}
+	
+	
 }

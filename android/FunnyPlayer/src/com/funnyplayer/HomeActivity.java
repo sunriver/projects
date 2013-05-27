@@ -38,6 +38,12 @@ public class HomeActivity extends Activity {
         mTabView.setViewPager(mViewPager);
         mTabView.setAdapter(tabAdapter);
 	}
+
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+	}
 	
 
 

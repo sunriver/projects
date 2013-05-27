@@ -1,9 +1,13 @@
 package com.funnyplayer;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.funnyplayer.cache.Consts;
+import com.funnyplayer.service.MusicService;
 import com.funnyplayer.ui.adapter.PlaylistAdapter;
+import com.funnyplayer.util.MusicUtil;
 
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -30,26 +34,16 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-public class PlayActivity extends Activity implements LoaderCallbacks<Cursor>, OnItemClickListener, OnCompletionListener, View.OnClickListener {
+public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>, OnItemClickListener, View.OnClickListener {
 	private final static String TAG = "FunnyPlayer";
 	private ListView mPlayListView;
 	private ImageView mPlayImgView;
 	private PlaylistAdapter mAdapter;
-	private Cursor mCursor;
-    private MediaPlayer mCurrentMediaPlayer;
-    private int mCurrPos;
     private ImageView mPrevImg;
     private ImageView mPauseImg;
     private ImageView mNextImg;
+    private MusicService mMusicService;
 
-    private String[] mCursorCols = new String[] {
-            "audio._id AS _id", MediaStore.Audio.Media.ARTIST, MediaStore.Audio.Media.ALBUM,
-            MediaStore.Audio.Media.TITLE, MediaStore.Audio.Media.DATA,
-            MediaStore.Audio.Media.MIME_TYPE, MediaStore.Audio.Media.ALBUM_ID,
-            MediaStore.Audio.Media.ARTIST_ID, MediaStore.Audio.Media.IS_PODCAST,
-            MediaStore.Audio.Media.BOOKMARK
-    };
-    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -69,11 +63,7 @@ public class PlayActivity extends Activity implements LoaderCallbacks<Cursor>, O
 		mPlayListView.setAdapter(mAdapter);
 		mPlayListView.setOnItemClickListener(this);
 		
-		mCurrentMediaPlayer = new MediaPlayer();
-        mCurrentMediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
-		mCurrentMediaPlayer.setOnCompletionListener(this);
-		
-		mCurrPos = 0;
+		MusicUtil.bindService(this);
 		
 		Intent intent = getIntent();
 		Bundle args = (intent != null) ? intent.getExtras() : null; 
@@ -110,10 +100,20 @@ public class PlayActivity extends Activity implements LoaderCallbacks<Cursor>, O
        int  mMediaIdIndex = data.getColumnIndexOrThrow(BaseColumns._ID);
         int mTitleIndex = data.getColumnIndexOrThrow(MediaColumns.TITLE);
         int mArtistIndex = data.getColumnIndexOrThrow(AudioColumns.ARTIST);
+        
+        List<Long> idList = new ArrayList<Long>();
+        if (data.moveToFirst()) {
+        	idList.add(data.getLong(mMediaIdIndex));
+        	while (data.moveToNext()) {
+            	idList.add(data.getLong(mMediaIdIndex));
+        	}
+        }
+        mMusicService.addPlayList(idList);
+        data.moveToFirst();
+        
         mAdapter.setPlaylistIdIndex(mMediaIdIndex);
         mAdapter.setPlaylistNameIndex(mTitleIndex);
         mAdapter.changeCursor(data);
-        mCursor = data;
         
 	}
 
@@ -121,116 +121,41 @@ public class PlayActivity extends Activity implements LoaderCallbacks<Cursor>, O
 	public void onLoaderReset(Loader<Cursor> loader) {
 		if (mAdapter != null) {
 			mAdapter.changeCursor(null);
-			mCursor = null;
 		}
 	}
 
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
-		mCurrPos = position;
-		view.setSelected(true);
-		startPlay(id);
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		mMusicService.start(position);
 	}
 	
 	
-	private void startPlay(long id) {
-		Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-		Cursor cursor = getCursorForId(id);
-        open(uri + "/" + cursor.getLong(0));
-	}
-	
-	
-	
-	private void next() {
-		int count = mAdapter.getCount();
-		int nextPos = mCurrPos + 1;
-		if (nextPos < count) {
-			View currView = mPlayListView.getChildAt(mCurrPos);
-			currView.setSelected(false);
-			View nextView = mPlayListView.getChildAt(nextPos);
-			nextView.setSelected(true);
-			startPlay(mAdapter.getItemId(nextPos));
-			mCurrPos = nextPos;
-		}
-	}
-	
-	private void previous() {
-		int count = mAdapter.getCount();
-		int prevPos = mCurrPos - 1;
-		if (prevPos >= 0) {
-			View currView = mPlayListView.getChildAt(mCurrPos);
-			currView.setSelected(false);
-			View nextView = mPlayListView.getChildAt(prevPos);
-			nextView.setSelected(true);
-			startPlay(mAdapter.getItemId(prevPos));
-			mCurrPos = prevPos;
-		}
-	}
-	
-	private void playOrPause() {
-		if (mCurrentMediaPlayer.isPlaying()) {
-			mCurrentMediaPlayer.pause();
-		} else {
-			mCurrentMediaPlayer.start();
-		}
-	}
-	
-	
-    private Cursor getCursorForId(long lid) {
-        String id = String.valueOf(lid);
-
-        Cursor c = getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,  mCursorCols, "_id=" + id , null, null);
-        if (c != null) {
-            c.moveToFirst();
-        }
-        return c;
-    }
-    
-    public boolean open(String path) {
-    	Log.v(TAG, "PlayActivity::open() path:" + path);
-    	try {
-    		mCurrentMediaPlayer.reset();
-
-    		mCurrentMediaPlayer.setOnPreparedListener(null);
-            if (path.startsWith("content://")) {
-            	mCurrentMediaPlayer.setDataSource(this, Uri.parse(path));
-            } else {
-            	mCurrentMediaPlayer.setDataSource(path);
-            }
-            mCurrentMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mCurrentMediaPlayer.prepare();
-			mCurrentMediaPlayer.start();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		} finally {
-			return true;
-		}
-    }
-
-
-	@Override
-	public void onCompletion(MediaPlayer mp) {
-		mp.release();
-		next();
-	}
-
-
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.playPrevious:
-			previous();
+			mMusicService.previous();
 			break;
 		case R.id.playOrPause:
-			playOrPause();
+			if (mMusicService.isPlaying()) {
+				mMusicService.pause();
+			} else {
+				mMusicService.play();
+			}
 			break;
 		case R.id.playNext:
-			next();
+			mMusicService.next();
 			break;
 		}
 	}
 
+
+	@Override
+	protected void onStart() {
+		mMusicService = MusicUtil.getService(this);
+		super.onStart();
+	}
+
+	
 }
