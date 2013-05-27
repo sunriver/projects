@@ -34,14 +34,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>, OnItemClickListener, View.OnClickListener {
+public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>, OnItemClickListener {
 	private final static String TAG = "FunnyPlayer";
 	private ListView mPlayListView;
-	private ImageView mPlayImgView;
 	private PlaylistAdapter mAdapter;
-    private ImageView mPrevImg;
-    private ImageView mPauseImg;
-    private ImageView mNextImg;
     private MusicService mMusicService;
 
 	@Override
@@ -50,15 +46,7 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>, 
 		setContentView(R.layout.playlist);
 		mPlayListView = (ListView) findViewById(R.id.playListView);
 
-		mPlayImgView = (ImageView) findViewById(R.id.playImageView);
 		mAdapter = new PlaylistAdapter(this, R.layout.playlist_item);
-		
-		mPrevImg = (ImageView) findViewById(R.id.playPrevious);
-		mPauseImg = (ImageView) findViewById(R.id.playOrPause);
-		mNextImg = (ImageView) findViewById(R.id.playNext);
-		mPrevImg.setOnClickListener(this);
-		mPauseImg.setOnClickListener(this);
-		mNextImg.setOnClickListener(this);
 		
 		mPlayListView.setAdapter(mAdapter);
 		mPlayListView.setOnItemClickListener(this);
@@ -129,27 +117,6 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>, 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		mMusicService.start(position);
 	}
-	
-	
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.playPrevious:
-			mMusicService.previous();
-			break;
-		case R.id.playOrPause:
-			if (mMusicService.isPlaying()) {
-				mMusicService.pause();
-			} else {
-				mMusicService.play();
-			}
-			break;
-		case R.id.playNext:
-			mMusicService.next();
-			break;
-		}
-	}
-
 
 	@Override
 	protected void onStart() {
