@@ -13,7 +13,6 @@ import android.widget.ImageView;
 
 
 public class ControlBarFragment extends Fragment implements View.OnClickListener {
-    private MusicService mMusicService;
     private ImageView mPrevImg;
     private ImageView mPlayOrPauseImg;
     private ImageView mNextImg;
@@ -34,7 +33,6 @@ public class ControlBarFragment extends Fragment implements View.OnClickListener
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
-		mMusicService = MusicUtil.getService(getActivity());
 		super.onActivityCreated(savedInstanceState);
 	}
 
@@ -42,19 +40,19 @@ public class ControlBarFragment extends Fragment implements View.OnClickListener
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.playPrevious:
-			mMusicService.previous();
+			MusicUtil.play(getActivity());
 			break;
 		case R.id.playOrPause:
-			if (mMusicService.isPlaying()) {
-				mMusicService.pause();
+			if (MusicUtil.isPlaying()) {
+				MusicUtil.Pause(getActivity());
 				mPlayOrPauseImg.setSelected(false);
 			} else {
 				mPlayOrPauseImg.setSelected(true);
-				mMusicService.play();
+				MusicUtil.play(getActivity());
 			}
 			break;
 		case R.id.playNext:
-			mMusicService.next();
+			MusicUtil.next(getActivity());
 			break;
 		}
 	}

@@ -45,7 +45,6 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>,
 	private final static String TAG = "FunnyPlayer";
 	private ListView mPlayListView;
 	private PlaylistAdapter mAdapter;
-	private MusicService mMusicService;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +58,6 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>,
 		mPlayListView.setOnItemClickListener(this);
 		
 		initActionBar();
-
-		MusicUtil.bindService(this);
 
 		Intent intent = getIntent();
 		Bundle args = (intent != null) ? intent.getExtras() : null;
@@ -116,7 +113,7 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>,
 				idList.add(data.getLong(mMediaIdIndex));
 			}
 		}
-		mMusicService.addPlayList(idList);
+		MusicUtil.addPlaylist(getApplicationContext(), idList);
 		data.moveToFirst();
 
 		mAdapter.setPlaylistIdIndex(mMediaIdIndex);
@@ -135,13 +132,7 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>,
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		mMusicService.start(position);
-	}
-
-	@Override
-	protected void onStart() {
-		mMusicService = MusicUtil.getService(this);
-		super.onStart();
+		MusicUtil.start(getApplicationContext(), position);
 	}
 
 	@Override

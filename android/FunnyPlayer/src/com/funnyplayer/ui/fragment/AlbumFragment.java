@@ -4,7 +4,6 @@ package com.funnyplayer.ui.fragment;
 import com.funnyplayer.R;
 import com.funnyplayer.TrackActivity;
 import com.funnyplayer.ui.adapter.AlbumAdapter;
-import com.funnyplayer.util.MusicUtil;
 
 import android.app.Fragment;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -44,7 +43,6 @@ public class AlbumFragment extends Fragment implements OnItemClickListener, Load
         mGridView.setOnItemClickListener(this);
         mGridView.setTextFilterEnabled(true);
         
-        MusicUtil.bindService(getActivity());
         // Important!
         getLoaderManager().initLoader(0, null, this);
         
