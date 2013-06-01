@@ -86,7 +86,7 @@ public class MusicUtil {
 	
 	public static void next(Context context) {
 		if (mService != null) {
-			mService.previous();
+			mService.next();
 		} else {
 			mLastRequest = new NextRequest();
 			bindService(context);
@@ -95,7 +95,7 @@ public class MusicUtil {
 	
 	public static void Pause(Context context) {
 		if (mService != null) {
-			mService.previous();
+			mService.pause();
 		} else {
 			mLastRequest = new PauseRequest();
 			bindService(context);
