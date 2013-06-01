@@ -5,6 +5,7 @@ import java.io.File;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 
@@ -47,7 +48,7 @@ public class ImageProvider {
 	}
 	
 	private void setImageDrawable(ImageView v, Bitmap bitmap) {
-		v.setImageBitmap(bitmap);
+		v.setBackgroundDrawable(new BitmapDrawable(bitmap));
 	}
 	
 	

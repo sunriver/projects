@@ -9,6 +9,7 @@ import com.funnyplayer.cache.Consts;
 import com.funnyplayer.service.MusicService;
 import com.funnyplayer.ui.adapter.PlaylistAdapter;
 import com.funnyplayer.util.MusicUtil;
+import com.funnyplayer.util.ViewUtil;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -75,6 +76,7 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>,
         actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE,
                 ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE
                         | ActionBar.DISPLAY_SHOW_HOME);
+        ViewUtil.setActionBarBackgroundRepeat(this, actionBar);
     }
 
 	@Override

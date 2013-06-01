@@ -7,6 +7,7 @@ import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
@@ -49,15 +50,17 @@ public class ScrollTabView extends HorizontalScrollView implements
 	public void setAdapter(TabAdapter adapter) {
 		this.mAdapter = adapter;
 
-		if (mPager != null && mAdapter != null)
+		if (mPager != null && mAdapter != null) {
 			initTabs();
+		}
 	}
 
 	public void setViewPager(ViewPager pager) {
 		this.mPager = pager;
 
-		if (mPager != null && mAdapter != null)
+		if (mPager != null && mAdapter != null) {
 			initTabs();
+		}
 	}
 
 	private void initTabs() {
@@ -65,10 +68,13 @@ public class ScrollTabView extends HorizontalScrollView implements
 		mContainer.removeAllViews();
 		mTabs.clear();
 
-		if (mAdapter == null)
+		if (mAdapter == null) {
 			return;
+		}
+		
+		int len = mPager.getAdapter().getCount();
 
-		for (int i = 0; i < mPager.getAdapter().getCount(); i++) {
+		for (int i = 0 ; i < len ; i++) {
 
 			final int index = i;
 
@@ -124,11 +130,13 @@ public class ScrollTabView extends HorizontalScrollView implements
 			tab.setSelected(pos == position);
 		}
 
-		View selectedTab = mContainer.getChildAt(position);
+		Button selectedTab = (Button) mContainer.getChildAt(position);
 		if (null == selectedTab) {
 			return;
 		}
-
+//		float oldSize = selectedTab.getTextSize();
+//		selectedTab.setTextSize(oldSize + 1.0f);
+		
 		final int w = selectedTab.getMeasuredWidth();
 		final int l = selectedTab.getLeft();
 

@@ -35,6 +35,7 @@ public class HomeActivity extends Activity {
 		// add fragment
 		pagerAdapter.addFragment(new AlbumFragment());
 		pagerAdapter.addFragment(new AlbumFragment());
+		pagerAdapter.addFragment(new AlbumFragment());
 
 		mViewPager.setAdapter(pagerAdapter);
 		mViewPager.setOffscreenPageLimit(pagerAdapter.getCount());
@@ -56,7 +57,7 @@ public class HomeActivity extends Activity {
 		ViewUtil.setActionBarBackgroundRepeat(this, actionBar);
     	
     	actionBar.setDisplayUseLogoEnabled(true);
-    	actionBar.setDisplayShowTitleEnabled(false);
+//    	actionBar.setDisplayShowTitleEnabled(false);
     }
 
 	@Override

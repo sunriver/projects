@@ -121,7 +121,7 @@ public class ViewUtil {
 //			rid = R.drawable.custom_titlebar_bg;
 //		}
 		
-		BitmapDrawable bg = new BitmapDrawable(BitmapFactory.decodeResource(resource, R.drawable.bg));
+		BitmapDrawable bg = new BitmapDrawable(BitmapFactory.decodeResource(resource, R.drawable.action_bar_bg));
 		bg.setTileModeX(TileMode.REPEAT);
 		actionBar.setBackgroundDrawable(bg);
 	}
