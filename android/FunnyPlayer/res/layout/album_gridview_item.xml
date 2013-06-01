@@ -9,7 +9,11 @@
         android:layout_width="@dimen/gridview_image_width"
         android:layout_height="@dimen/gridview_image_height"
         android:layout_margin="@dimen/gridview_item_margin"
-        android:background="@drawable/no_art_small"
-        android:scaleType="centerInside" />
+        android:background="@drawable/no_art_small" />
+
+    <TextView
+        android:id="@+id/album_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

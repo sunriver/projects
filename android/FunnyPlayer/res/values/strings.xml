@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">FunnyPlayer</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">Listen World</string>
+    <string name="Listen_world">Listen world!</string>
     <string name="menu_settings">Settings</string>
+    <string name="search">Search</string>
 
     <!-- tab title -->
     <string name="tab_title_album">album</string>
     <string name="tab_title_favorite">favorite</string>
+    <string name="tab_title_list">play list</string>
 
 </resources>

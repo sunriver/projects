@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string-array name="tab_titles">
         <item>@string/tab_title_album</item>
         <item>@string/tab_title_favorite</item>
+        <item>@string/tab_title_list</item>
     </string-array>
+
 </resources>
