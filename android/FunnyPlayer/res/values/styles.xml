@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -33,6 +33,15 @@
         <item name="android:focusable">true</item>
         <item name="android:focusableInTouchMode">false</item>
         <item name="android:selectAllOnFocus">false</item>
+    </style>
+
+    <style name="item_wall">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
 </resources>

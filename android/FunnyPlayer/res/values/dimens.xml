@@ -2,9 +2,9 @@
 <resources>
 
     <!-- GridView items -->
-    <dimen name="gridview_image_width">120dp</dimen>
-    <dimen name="gridview_image_height">120dp</dimen>
-    <dimen name="gridview_item_margin">3dp</dimen>
+    <dimen name="gridview_image_width">130dp</dimen>
+    <dimen name="gridview_image_height">130dp</dimen>
+    <dimen name="gridview_item_margin">5dp</dimen>
     <dimen name="gridview_item_ccontainer_height">64dp</dimen>
     <dimen name="gridview_item_ccontainer_padding_left">12dp</dimen>
     <dimen name="gridview_item_ccontainer_padding_right">12dp</dimen>
