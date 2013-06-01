@@ -63,14 +63,11 @@ public class AlbumFragment extends Fragment implements OnItemClickListener, Load
 			long id) {
         String artistName = mCursor.getString(mArtistNameIndex);
         String albumName = mCursor.getString(mAlbumNameIndex);
-        String albumId = mCursor.getString(mAlbumIdIndex);
 
         Bundle bundle = new Bundle();
-//        bundle.putString(Consts.MIME_TYPE, Audio.Albums.CONTENT_TYPE);
-//        bundle.putString(Consts.ARTIST_KEY, artistName);
-//        bundle.putString(Consts.ALBUM_KEY, albumName);
-//        bundle.putString(Consts.ALBUM_ID_KEY, albumId);
         bundle.putLong(BaseColumns._ID, id);
+        bundle.putString(AlbumColumns.ALBUM, albumName);
+        bundle.putString(AlbumColumns.ARTIST, artistName);
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setClass(getActivity(), TrackActivity.class);
