@@ -12,6 +12,7 @@ import com.funnyplayer.cache.ImageProvider.LoadCallback;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -19,7 +20,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 public class AlbumAdapter extends SimpleCursorAdapter implements LoadCallback {
-
+	private static final String TAG = "AlbumAdapter";
 	private int mAlbumIdIndex;
 	private int mAlbumNameIndex;
 	private int mArtistNameIndex;
@@ -33,28 +34,24 @@ public class AlbumAdapter extends SimpleCursorAdapter implements LoadCallback {
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
-		View v = null;
-		if (convertView != null) {
-			holder = (ViewHolder) convertView.getTag();
-			v = convertView;
+		View v = super.getView(position, convertView, parent);;
+		if (v != null) {
+			holder = new ViewHolder();
+			holder.image = (ImageView) v.findViewById(R.id.album_gridview_image);
+			holder.album = (TextView) v.findViewById(R.id.album_name);
+			holder.artist = (TextView) v.findViewById(R.id.album_artist);
+			v.setTag(holder);
 		} else {
-			v = super.getView(position, convertView, parent);
-			if (v != null) {
-				holder = new ViewHolder();
-				holder.image = (ImageView) v.findViewById(R.id.album_gridview_image);
-				holder.album = (TextView) v.findViewById(R.id.album_name);
-				holder.artist = (TextView) v.findViewById(R.id.album_artist);
-				v.setTag(holder);
-			}
-		}
-		if (null == holder) {
-			return null;
-		}
+			holder = (ViewHolder) convertView.getTag();
+		}			
 
 		Cursor cursor = (Cursor) getItem(position);
 		String albumId = cursor.getString(mAlbumIdIndex);
 		String albumName = cursor.getString(mAlbumNameIndex);
 		String artistName = cursor.getString(mArtistNameIndex);
+		
+		Log.v(TAG, "position:" + position  + "  albumId:" + albumId
+				+ "  albumName:" + albumName + "  artistName:" + artistName);
 		
 		holder.album.setText(albumName);
 		holder.artist.setText(artistName);

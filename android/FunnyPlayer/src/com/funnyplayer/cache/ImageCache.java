@@ -1,5 +1,7 @@
 package com.funnyplayer.cache;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.LruCache;
 
@@ -8,18 +10,22 @@ public class ImageCache {
 	
 	private LruCache<String, Bitmap> mCache;
 	
-	public ImageCache() {
-		this(DEFAULT_MAX_SIZE);
+	public ImageCache(final Context context) {
+		init(context);
 	}
 	
-	public ImageCache(int maxSize) {
-		mCache = new LruCache<String, Bitmap>(maxSize) {
-			@Override
-			protected int sizeOf(String key, Bitmap value) {
-				return value.getByteCount();
-			}
-		};
-	}
+    private void init(final Context context) {
+        final ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        final int lruCacheSize = Math.round(0.25f * activityManager.getMemoryClass() * 1024 * 1024);
+        mCache = new LruCache<String, Bitmap>(lruCacheSize) {
+            @Override
+            protected int sizeOf(final String paramString, final Bitmap paramBitmap) {
+                return paramBitmap.getByteCount();
+            }
+
+        };
+    }
+	
 	
 	public void put(String key, Bitmap value) {
 		mCache.put(key, value);

@@ -2,21 +2,25 @@ package com.funnyplayer.cache;
 
 import java.io.File;
 
+import com.funnyplayer.R;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ImageView;
 
 public class ImageProvider {
+	private static final String TAG = "ImageProvider";
 	private static ImageProvider mInstance;
 	private Context mContext;
 	private ImageCache mCache;
 	
 	private ImageProvider(Context context) {
 		mContext = context.getApplicationContext();
-		mCache = new ImageCache();
+		mCache = new ImageCache(mContext);
 	}
 	
 	/**
@@ -38,11 +42,14 @@ public class ImageProvider {
 	 */
 	public void loadImage(ImageInfo imageInfo, ImageView v, LoadCallback callback) {
 		//Get bitmap from cache if exists.
-		Bitmap bm = mCache.get(ImageUtils.getIndentifier(imageInfo));
+		Log.v(TAG, "loadImage imageInfo.toString():" + imageInfo.toString());
+		Bitmap bm = mCache.get(imageInfo.toString());
 		if (bm != null) {
 			setImageDrawable(v, bm);
+			return;
 		}
 		//Create a thread to get bitmap from media store.
+		v.setBackgroundResource(R.drawable.no_art_small);
 		Task task = new Task(imageInfo, v, callback);
 		task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
@@ -82,7 +89,8 @@ public class ImageProvider {
 		@Override
 		protected void onPostExecute(Bitmap result) {
 			if (result != null) {
-				mCache.put(ImageUtils.getIndentifier(mImageInfo), result);
+				Log.v(TAG, "onPostExecute imageInfo.toString():" + mImageInfo.toString());
+				mCache.put(mImageInfo.toString(), result);
 				setImageDrawable(mImageView, result);
 				mCallback.onLoadFinished(mImageView, result);
 			}

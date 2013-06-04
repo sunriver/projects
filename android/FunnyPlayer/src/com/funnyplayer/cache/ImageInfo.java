@@ -24,4 +24,10 @@ public class ImageInfo {
 		//gallery -   needs file path to image
 		//first_available - needs both file & lastFM data		
 	public String[] data;
+
+	@Override
+	public String toString() {
+		return type + data[0];
+	}
+	
 }
