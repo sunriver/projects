@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.funnyplayer.net.DownLoadThread;
-import com.funnyplayer.net.HttpCallback;
+import com.funnyplayer.net.base.DownLoadThread;
+import com.funnyplayer.net.base.HttpCallback;
 import com.funnyplayer.tab.FolderTab;
 import com.funnyplayer.tab.PlaylistTab;
 

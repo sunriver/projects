@@ -6,6 +6,7 @@ import com.funnyplayer.TrackActivity;
 import com.funnyplayer.cache.Consts;
 import com.funnyplayer.cache.Consts.TYPE;
 import com.funnyplayer.ui.adapter.AlbumAdapter;
+import com.funnyplayer.ui.adapter.ArtistAdapter;
 
 import android.app.Fragment;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -18,6 +19,7 @@ import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.provider.MediaStore.Audio;
 import android.provider.MediaStore.Audio.AlbumColumns;
+import android.provider.MediaStore.Audio.ArtistColumns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,22 +27,22 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
-public class AlbumFragment extends Fragment implements OnItemClickListener, LoaderCallbacks<Cursor> {
+public class ArtistFragment extends Fragment implements OnItemClickListener, LoaderCallbacks<Cursor> {
     private GridView mGridView;
     
-    private AlbumAdapter mAlbumAdapter;
+    private ArtistAdapter mArtistAdapter;
     
     private Cursor mCursor;
     
-    private int mAlbumIdIndex;
-    private int mAlbumNameIndex;
+    private int mArtistIdIndex;
+    private int mArtistNumAlbumsIndex;
     private int mArtistNameIndex;
     
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // AlbumAdapter
-        mAlbumAdapter = new AlbumAdapter(getActivity().getApplicationContext(), R.layout.album_gridview_item);
+        mArtistAdapter = new ArtistAdapter(getActivity().getApplicationContext(), R.layout.album_gridview_item);
         mGridView.setOnCreateContextMenuListener(this);
         mGridView.setOnItemClickListener(this);
         mGridView.setTextFilterEnabled(true);
@@ -48,7 +50,7 @@ public class AlbumFragment extends Fragment implements OnItemClickListener, Load
         // Important!
         getLoaderManager().initLoader(0, null, this);
         
-        mGridView.setAdapter(mAlbumAdapter);
+        mGridView.setAdapter(mArtistAdapter);
     }
     
 	@Override
@@ -62,13 +64,13 @@ public class AlbumFragment extends Fragment implements OnItemClickListener, Load
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
         String artistName = mCursor.getString(mArtistNameIndex);
-        String albumName = mCursor.getString(mAlbumNameIndex);
-
+        String artistNumAlbums= mCursor.getString(mArtistNumAlbumsIndex);
+        
         Bundle bundle = new Bundle();
-        bundle.putString(Consts.MIME_TYPE, TYPE.ALBUM.toString());
+        bundle.putString(Consts.MIME_TYPE, TYPE.ARTIST.toString());
         bundle.putLong(BaseColumns._ID, id);
-        bundle.putString(AlbumColumns.ALBUM, albumName);
-        bundle.putString(AlbumColumns.ARTIST, artistName);
+        bundle.putString(ArtistColumns.ARTIST, artistName);
+        bundle.putString(ArtistColumns.NUMBER_OF_ALBUMS, artistNumAlbums);
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setClass(getActivity(), TrackActivity.class);
@@ -79,9 +81,11 @@ public class AlbumFragment extends Fragment implements OnItemClickListener, Load
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        String[] projection = { BaseColumns._ID, AlbumColumns.ALBUM, AlbumColumns.ARTIST, AlbumColumns.ALBUM_ART };
-        Uri uri = Audio.Albums.EXTERNAL_CONTENT_URI;
-        String sortOrder = Audio.Albums.DEFAULT_SORT_ORDER;
+        String[] projection = {
+                BaseColumns._ID, ArtistColumns.ARTIST, ArtistColumns.NUMBER_OF_ALBUMS
+        };
+        Uri uri = Audio.Artists.EXTERNAL_CONTENT_URI;
+        String sortOrder = Audio.Artists.DEFAULT_SORT_ORDER;
         return new CursorLoader(getActivity(), uri, projection, null, null, sortOrder);
 	}
 
@@ -92,22 +96,22 @@ public class AlbumFragment extends Fragment implements OnItemClickListener, Load
             return;
         }
 
-        mAlbumIdIndex = data.getColumnIndexOrThrow(BaseColumns._ID);
-        mAlbumNameIndex = data.getColumnIndexOrThrow(AlbumColumns.ALBUM);
-        mArtistNameIndex = data.getColumnIndexOrThrow(AlbumColumns.ARTIST);
+        mArtistIdIndex = data.getColumnIndexOrThrow(BaseColumns._ID);
+        mArtistNameIndex = data.getColumnIndexOrThrow(ArtistColumns.ARTIST);
+        mArtistNumAlbumsIndex = data.getColumnIndexOrThrow(ArtistColumns.NUMBER_OF_ALBUMS);
         
-        mAlbumAdapter.setAlbumIdIndex(mAlbumIdIndex);
-        mAlbumAdapter.setAlbumNameIndex(mAlbumNameIndex);
-        mAlbumAdapter.setArtistNameIndex(mArtistNameIndex);
-        mAlbumAdapter.changeCursor(data);
+        mArtistAdapter.setArtistIdIndex(mArtistIdIndex);
+        mArtistAdapter.setArtistNameIndex(mArtistNameIndex);
+        mArtistAdapter.setArtistNumAlbumsIndexIndex(mArtistNumAlbumsIndex);
+        mArtistAdapter.changeCursor(data);
         mCursor = data;
 		
 	}
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
-        if (mAlbumAdapter != null) {
-        	mAlbumAdapter.changeCursor(null);
+        if (mArtistAdapter != null) {
+        	mArtistAdapter.changeCursor(null);
         }
 	}
 	

@@ -1,4 +1,4 @@
-package com.funnyplayer.net;
+package com.funnyplayer.net.base;
 
 import java.lang.reflect.Method;
 

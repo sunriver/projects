@@ -45,6 +45,7 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>,
 	private final static String TAG = "FunnyPlayer";
 	private ListView mPlayListView;
 	private PlaylistAdapter mAdapter;
+	private Consts.TYPE mMiniType;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,11 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>,
 
 		Intent intent = getIntent();
 		Bundle args = (intent != null) ? intent.getExtras() : null;
+		if (args != null) {
+			mMiniType = Consts.TYPE.valueOf(args.getString(Consts.MIME_TYPE));
+		} else {
+			mMiniType = Consts.TYPE.ALBUM;
+		}
 
 		getLoaderManager().initLoader(0, args, this);
 	}
@@ -86,8 +92,7 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>,
 			// String albumName = args.getString(Consts.ALBUM_KEY);
 			where.append(" AND " + AudioColumns.ALBUM_ID + "=" + albumId);
 		}
-		String[] projection = new String[] { BaseColumns._ID,
-				MediaColumns.TITLE, AudioColumns.ALBUM, AudioColumns.ARTIST };
+		String[] projection = new String[] { BaseColumns._ID, MediaColumns.TITLE, AudioColumns.ALBUM, AudioColumns.ARTIST };
 		Uri uri = Audio.Media.EXTERNAL_CONTENT_URI;
 		String sortOrder = Audio.Media.DEFAULT_SORT_ORDER;
 		sortOrder = Audio.Media.TRACK + ", " + sortOrder;

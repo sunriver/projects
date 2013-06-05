@@ -19,14 +19,14 @@ import android.widget.ImageView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-public class AlbumAdapter extends SimpleCursorAdapter implements LoadCallback {
-	private static final String TAG = "AlbumAdapter";
-	private int mAlbumIdIndex;
-	private int mAlbumNameIndex;
+public class ArtistAdapter extends SimpleCursorAdapter implements LoadCallback {
+	private static final String TAG = "ArtistAdapter";
+	private int mArtistIdIndex;
+	private int mArtistNumAlbumsIndex;
 	private int mArtistNameIndex;
 	private ImageProvider mImageProvider;
 
-	public AlbumAdapter(Context context, int layout) {
+	public ArtistAdapter(Context context, int layout) {
 		super(context, layout, null, new String[] {}, new int[] {}, 0);
 		mImageProvider = ImageProvider.getInstance(context);
 	}
@@ -38,7 +38,7 @@ public class AlbumAdapter extends SimpleCursorAdapter implements LoadCallback {
 		if (v != null) {
 			holder = new ViewHolder();
 			holder.image = (ImageView) v.findViewById(R.id.album_gridview_image);
-			holder.album = (TextView) v.findViewById(R.id.album_name);
+			holder.num = (TextView) v.findViewById(R.id.album_name);
 			holder.artist = (TextView) v.findViewById(R.id.album_artist);
 			v.setTag(holder);
 		} else {
@@ -46,33 +46,33 @@ public class AlbumAdapter extends SimpleCursorAdapter implements LoadCallback {
 		}			
 
 		Cursor cursor = (Cursor) getItem(position);
-		String albumId = cursor.getString(mAlbumIdIndex);
-		String albumName = cursor.getString(mAlbumNameIndex);
+		String artistId = cursor.getString(mArtistIdIndex);
+		String artistNumAlbums = cursor.getString(mArtistNumAlbumsIndex);
 		String artistName = cursor.getString(mArtistNameIndex);
 		
-		Log.v(TAG, "position:" + position  + "  albumId:" + albumId
-				+ "  albumName:" + albumName + "  artistName:" + artistName);
+		Log.v(TAG, "position:" + position  + "  albumId:" + artistId
+				+ "  albumName:" + artistName + "  artistName:" + artistName);
 		
-		holder.album.setText(albumName);
+		holder.num.setText(artistNumAlbums);
 		holder.artist.setText(artistName);
 
 		ImageInfo imageInfo = new ImageInfo();
-		imageInfo.type = TYPE.ALBUM.toString();
+		imageInfo.type = TYPE.ARTIST.toString();
 		imageInfo.size = SIZE_THUMB;
 		imageInfo.source = SRC_FIRST_AVAILABLE;
-		imageInfo.data = new String[] { albumId, artistName, albumName };
+		imageInfo.data = new String[] {artistName};
 
 		mImageProvider.loadImage(imageInfo, holder.image, this);
 
 		return v;
 	}
 
-	public void setAlbumIdIndex(int index) {
-		this.mAlbumIdIndex = index;
+	public void setArtistIdIndex(int index) {
+		this.mArtistIdIndex = index;
 	}
 
-	public void setAlbumNameIndex(int index) {
-		this.mAlbumNameIndex = index;
+	public void setArtistNumAlbumsIndexIndex(int index) {
+		this.mArtistNumAlbumsIndex = index;
 	}
 
 	public void setArtistNameIndex(int index) {
@@ -81,7 +81,7 @@ public class AlbumAdapter extends SimpleCursorAdapter implements LoadCallback {
 
 	private static class ViewHolder {
 		ImageView image;
-		TextView album;
+		TextView num;
 		TextView artist;
 	}
 

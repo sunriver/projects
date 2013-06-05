@@ -1,4 +1,4 @@
-package com.funnyplayer.net;
+package com.funnyplayer.net.base;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -12,6 +12,8 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+
+import com.funnyplayer.net.api.LastFmAPI;
 
 
 import android.content.Context;
@@ -78,7 +80,6 @@ public class DownLoadThread extends Thread {
 			    		progress += len;
 			        }
 			        task.callback.callback(task.fileName, mediaLength, progress);
-
 				}
 			} catch (Exception e) {
 				Log.e(TAG, "DownLoadThread::run() error:" + e.getMessage());
