@@ -79,11 +79,14 @@ public class ImageProvider {
 
 		@Override
 		protected Bitmap doInBackground(Void... params) {
-//			File f = ImageUtils.getImageFromMediaStore(mContext, mImageInfo);
-//			if (f != null) {
-//				return BitmapFactory.decodeFile(f.getAbsolutePath());
-//			}
-			File f = ImageUtils.getImageFromWeb(mContext, mImageInfo);
+			File f = ImageUtils.getImageFromMediaStore(mContext, mImageInfo);
+			if (null == f) {
+				f = ImageUtils.getImageFromWeb(mContext, mImageInfo);
+			}
+			
+			if (f != null) {
+				return BitmapFactory.decodeFile(f.getAbsolutePath());
+			}
 			return null;
 		}
 
