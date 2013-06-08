@@ -8,6 +8,7 @@
 
     <!-- tab title -->
     <string name="tab_title_album">album</string>
+    <string name="tab_title_artist">artist</string>
     <string name="tab_title_favorite">favorite</string>
     <string name="tab_title_list">play list</string>
 
