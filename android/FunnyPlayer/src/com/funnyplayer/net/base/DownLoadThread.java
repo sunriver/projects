@@ -47,7 +47,7 @@ public class DownLoadThread extends Thread {
 		mTaskQueue = new LinkedList<Task>();
 		mCacheDir = context.getDir("Download", Context.MODE_PRIVATE);
 		Environment.getDataDirectory();
-		mHttpClient = AppHttpClient.getSingleInstance(context);
+//		mHttpClient = AppHttpClient.getSingleInstance(context);
 	}
 
 	@Override

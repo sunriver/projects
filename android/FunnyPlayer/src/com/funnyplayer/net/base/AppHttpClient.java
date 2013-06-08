@@ -37,18 +37,9 @@ public class AppHttpClient extends DefaultHttpClient {
 	// Wait this many milliseconds max for the server to send us data once the connection has been established
 	private static final int SO_TIMEOUT = 5 * 60 * 1000;
 	
-	private static AppHttpClient mInstance;
-	
 	private Context mContext;
 	
-	public static synchronized AppHttpClient getSingleInstance(Context context) {
-		if (null == mInstance) {
-			mInstance = new AppHttpClient(context);
-		}
-		return mInstance;
-	}
-	
-	private AppHttpClient(Context context) {
+	public AppHttpClient(Context context) {
 		mContext = context;
 	}
 	

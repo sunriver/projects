@@ -1,29 +1,13 @@
 package com.funnyplayer.cache;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.util.Iterator;
-import java.util.List;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpRequestBase;
-import org.w3c.dom.NodeList;
+import org.apache.http.client.methods.HttpGet;
 
-import com.funnyplayer.net.api.LastFmAPI;
-import com.funnyplayer.net.api.Result;
-import com.funnyplayer.net.api.XmlParser;
-import com.funnyplayer.net.base.AppHttpClient;
-import com.funnyplayer.net.base.HttpUtils;
-import com.funnyplayer.net.base.HttpUtils.InitRequestCallback;
-import com.funnyplayer.net.base.HttpUtils.RequestInfo;
+import com.funnyplayer.net.api.*;
+import com.funnyplayer.net.base.HttpAgent;
+import com.funnyplayer.net.base.PersistUtils;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -34,16 +18,26 @@ import android.provider.MediaStore.Audio;
 import android.util.Log;
 
 public class ImageUtils {
-	private static final String TAG = "ImageProvider";
+	public static enum ImageSize {
+		SMALL, MEDIUM, LARGE
+	}
 
-	public static File getImageFromMediaStore(Context context, ImageInfo imageInfo) {
+	private static final String TAG = "ImageUtils";
+
+	public static File getImageFromMediaStore(Context context,
+			ImageInfo imageInfo) {
 		String mAlbum = imageInfo.data[0];
 		String[] projection = { BaseColumns._ID, Audio.Albums._ID,
 				Audio.Albums.ALBUM_ART, Audio.Albums.ALBUM };
 		Uri uri = Audio.Albums.EXTERNAL_CONTENT_URI;
 		Cursor cursor = null;
 		try {
-			cursor = context.getContentResolver().query(uri, projection, BaseColumns._ID + "=" + DatabaseUtils.sqlEscapeString(mAlbum), null, null);
+			cursor = context.getContentResolver()
+					.query(uri,
+							projection,
+							BaseColumns._ID + "="
+									+ DatabaseUtils.sqlEscapeString(mAlbum),
+							null, null);
 			int column_index = cursor.getColumnIndex(Audio.Albums.ALBUM_ART);
 			if (cursor.getCount() > 0) {
 				cursor.moveToFirst();
@@ -72,37 +66,25 @@ public class ImageUtils {
 	}
 
 	public static File getImageFromWeb(Context context, ImageInfo imageInfo) {
-		LastFmAPI api = LastFmAPI.Artist.GetInfo;
-		String url = api.toURL("artist", "Cher");
-		Log.v(TAG, "getImageFromWeb url:" + url);
+		HttpAgent httpAgent = HttpAgent.getInstance(context);
 		
-		RequestInfo info = new RequestInfo();
-		info.url = url;
+		LastFmAPI<String> api = new com.funnyplayer.net.api.artist.GetInfoAPI();
+		api.setParamter("artist", "Cher");
+		Log.v(TAG, "api url :" + api.toURL());
 		
-		try {
-			HttpRequestBase request = HttpUtils.initPost(info, new InitRequestCallback() {
+		httpAgent.execute(api);
+		
+		String imageUrl = api.getResult();
+		Log.v(TAG, "imageUrl :" + imageUrl);
 
-				@Override
-				public void initRequest(HttpRequestBase request, boolean needAuth) {
-					
-				}
-			});
-			request.setHeader("User-Agent", "listen");
-			
-			AppHttpClient httpclient = AppHttpClient.getSingleInstance(context);
-			HttpResponse res =  httpclient.execute(request);
-			int code = res.getStatusLine().getStatusCode();
-			Log.v(TAG, "code:" + code);
-			
-			if (code == HttpStatus.SC_OK) {
-				InputStream in = res.getEntity().getContent();
-				
-				Result result = XmlParser.createResultFromInputStream(in);
-				NodeList imageList = result.getResultDocument().getElementsByTagName("image");
-			}
-		} catch (Exception e) {
-			Log.e(TAG, e.getMessage());
-		}
-		return null;
+		HttpGet request = new HttpGet(imageUrl);
+		InputStream in = httpAgent.execute(request);
+		
+		String filePath = context.getExternalCacheDir() + imageInfo.toString() + ".png";
+		Log.v(TAG, "filePath :" + filePath);
+		
+		return PersistUtils.persistInputStream(in, filePath);
 	}
+	
+
 }
