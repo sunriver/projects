@@ -1,6 +1,10 @@
 package com.funnyplayer.cache;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import com.funnyplayer.R;
 
@@ -17,6 +21,11 @@ public class ImageProvider {
 	private static ImageProvider mInstance;
 	private Context mContext;
 	private ImageCache mCache;
+	
+	//Container of images failing to get
+    private Set<String> unavailable = new HashSet<String>();
+    
+    private Map<String, Set<ImageView>> pendingImagesMap = new HashMap<String, Set<ImageView>>();
 	
 	private ImageProvider(Context context) {
 		mContext = context.getApplicationContext();
@@ -43,13 +52,31 @@ public class ImageProvider {
 	public void loadImage(ImageInfo imageInfo, ImageView v, LoadCallback callback) {
 		//Get bitmap from cache if exists.
 		Log.v(TAG, "loadImage imageInfo.toString():" + imageInfo.toString());
-		Bitmap bm = mCache.get(imageInfo.toString());
+		final String tag = imageInfo.toString();
+		
+		Bitmap bm = mCache.get(tag);
 		if (bm != null) {
 			setImageDrawable(v, bm);
 			return;
 		}
-		//Create a thread to get bitmap from media store.
+		
 		v.setBackgroundResource(R.drawable.no_art_small);
+		
+		if (unavailable.contains(tag)) {
+			return;
+		}
+		
+		Set<ImageView> imageViewSet = pendingImagesMap.get(tag);
+		if (imageViewSet != null) {
+			imageViewSet.add(v);
+			return;
+		} 
+		
+		imageViewSet = new HashSet<ImageView>();
+		imageViewSet.add(v);
+		pendingImagesMap.put(tag, imageViewSet);
+		
+		//Create a thread to get bitmap from media store.
 		Task task = new Task(imageInfo, v, callback);
 		task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
@@ -92,12 +119,20 @@ public class ImageProvider {
 
 		@Override
 		protected void onPostExecute(Bitmap result) {
+			final String tag = mImageInfo.toString();
 			if (result != null) {
 				Log.v(TAG, "onPostExecute imageInfo.toString():" + mImageInfo.toString());
-				mCache.put(mImageInfo.toString(), result);
+				
+				mCache.put(tag, result);
 				setImageDrawable(mImageView, result);
 				mCallback.onLoadFinished(mImageView, result);
+			} else {
+				unavailable.add(tag);
 			}
+	        Set<ImageView> pendingImages = pendingImagesMap.get(tag);
+	        if (pendingImages != null) {
+	            pendingImagesMap.remove(tag);
+	        }
 		}
 		
 	}

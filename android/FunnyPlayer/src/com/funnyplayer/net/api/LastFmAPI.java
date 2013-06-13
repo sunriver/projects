@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,7 +20,9 @@ public  class LastFmAPI <T> {
 	
 	protected static final String TAG = "LastFmAPI";
 	
-	private static final String BASE_URL = "http://ws.audioscrobbler.com/2.0/?";
+	private static final String PARAM_API_KEY = "api_key";
+	
+	private static final String BASE_URL = "http://ws.audioscrobbler.com/2.0/";
 
 	private static final String API_KEY = "df7df24745b85942b9ca8d360f055615";
 	
@@ -29,12 +32,14 @@ public  class LastFmAPI <T> {
 	
 	protected T mResult;
 	
-	private Map<String, String> mParamMap;
+	protected Map<String, String> mParamMap;
 
 	public LastFmAPI(final String name, final HttpMethod method) {
 		this.name = name;
 		this.mMethod = method;
 		this.mParamMap = new HashMap<String, String>();
+		mParamMap.put(PARAM_API_KEY, API_KEY);
+		mParamMap.put("method", name);
 	}
 	
 	public void handleResponse(InputStream in) {
@@ -58,7 +63,7 @@ public  class LastFmAPI <T> {
 	 * @return
 	 */
 	protected HttpRequestBase onCreateHttpRequestInited() {
-		return new HttpGet(toURL());
+		return new HttpPost(toURL());
 	}
 	
 	public HttpRequestBase createHttpRequest() {
@@ -74,16 +79,8 @@ public  class LastFmAPI <T> {
 		}
 	}
 	
-	
 	public String toURL() {
-		StringBuilder builder = new StringBuilder();
-		builder.append(BASE_URL);
-		builder.append("api_key=" + API_KEY);
-		builder.append("&method=" + name);
-		for (Entry<String, String> entry : mParamMap.entrySet()) {
-			builder.append("&" + entry.getKey() + "=" + entry.getValue());
-		}
-		return builder.toString();
+		return BASE_URL;
 	}
 	
 	public  void setParamter(String key, String value) {

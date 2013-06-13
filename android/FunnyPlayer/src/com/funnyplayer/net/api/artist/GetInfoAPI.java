@@ -1,12 +1,22 @@
 package com.funnyplayer.net.api.artist;
 
 
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.message.BasicNameValuePair;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 
+
+import android.util.Log;
 
 import com.funnyplayer.cache.ImageUtils.ImageSize;
 import com.funnyplayer.net.api.LastFmAPI;
@@ -36,7 +46,17 @@ public class GetInfoAPI extends LastFmAPI <String> {
 
 	@Override
 	protected HttpRequestBase onCreateHttpRequestInited() {
-		return new HttpPost(toURL());
+		HttpPost request = new HttpPost(toURL());
+		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		for (Entry<String, String> entry : mParamMap.entrySet()) {
+			nvps.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+		}
+		try {
+			request.setEntity(new UrlEncodedFormEntity(nvps, "utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			Log.e(TAG, e.getMessage());
+		}
+		return request;
 	}
 
 }

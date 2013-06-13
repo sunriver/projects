@@ -27,7 +27,17 @@ public class ImageInfo {
 
 	@Override
 	public String toString() {
-		return type + data[0];
+		return escapeForFileSystem(type + data[0]);
 	}
+	
+    /**
+     * Replace the characters not allowed in file names with underscore
+     * @param name
+     * @return
+     */
+    private static String escapeForFileSystem(String name) {
+        return name.replaceAll("[\\\\/:*?\"<>|]+", "_");
+    }
+
 	
 }

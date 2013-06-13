@@ -4,6 +4,11 @@ public class Consts {
     //Image Loading Constants
 	public enum TYPE {
 		ALBUM, ARTIST;
+
+		@Override
+		public String toString() {
+			return super.toString().toLowerCase();
+		}
 	}
 	
     public final static String SRC_FIRST_AVAILABLE = "first_avail";

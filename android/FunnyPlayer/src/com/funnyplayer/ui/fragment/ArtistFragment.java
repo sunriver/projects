@@ -67,7 +67,7 @@ public class ArtistFragment extends Fragment implements OnItemClickListener, Loa
         String artistNumAlbums= mCursor.getString(mArtistNumAlbumsIndex);
         
         Bundle bundle = new Bundle();
-        bundle.putString(Consts.MIME_TYPE, TYPE.ARTIST.toString());
+        bundle.putString(Consts.MIME_TYPE, TYPE.ARTIST.name());
         bundle.putLong(BaseColumns._ID, id);
         bundle.putString(ArtistColumns.ARTIST, artistName);
         bundle.putString(ArtistColumns.NUMBER_OF_ALBUMS, artistNumAlbums);
