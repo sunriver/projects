@@ -107,6 +107,10 @@ public class ImageProvider {
 		@Override
 		protected Bitmap doInBackground(Void... params) {
 			File f = ImageUtils.getImageFromMediaStore(mContext, mImageInfo);
+			
+			if (null == f) {
+				f = ImageUtils.getImageFromDisk(mContext, mImageInfo);
+			}
 			if (null == f) {
 				f = ImageUtils.getImageFromWeb(mContext, mImageInfo);
 			}

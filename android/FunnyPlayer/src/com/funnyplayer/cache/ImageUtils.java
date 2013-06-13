@@ -13,6 +13,8 @@ import com.funnyplayer.net.base.PersistUtils;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.BaseColumns;
 import android.provider.MediaStore.Audio;
@@ -85,6 +87,11 @@ public class ImageUtils {
 		}
 		
 		return PersistUtils.persistInputStream(new BufferedInputStream(in), file);
+	}
+	
+	public static File getImageFromDisk( Context context, ImageInfo imageInfo ){
+		File file = new File(context.getExternalCacheDir(), imageInfo.toString() + ".png");
+		return file;
 	}
 	
 	
