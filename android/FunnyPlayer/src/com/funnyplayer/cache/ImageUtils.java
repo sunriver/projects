@@ -91,7 +91,7 @@ public class ImageUtils {
 	
 	public static File getImageFromDisk( Context context, ImageInfo imageInfo ){
 		File file = new File(context.getExternalCacheDir(), imageInfo.toString() + ".png");
-		return file;
+		return (file.exists() ? file : null);
 	}
 	
 	
@@ -107,6 +107,7 @@ public class ImageUtils {
 		
 		if (imageInfo.type.equals(Consts.TYPE.ALBUM.toString())) {
 			LastFmAPI<String> api = new com.funnyplayer.net.api.album.GetInfoAPI();
+			api.setParamter("album", imageInfo.data[2]);
 			return api;
 		}
 		return null;
