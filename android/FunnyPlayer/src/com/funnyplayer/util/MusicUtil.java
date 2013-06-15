@@ -72,6 +72,14 @@ public class MusicUtil {
 		return mService.isPlaying();
 	}
 	
+	public static int getCurrentPos() {
+		return mService.getCurrentPos();
+	}
+	
+	public static int getDuration() {
+		return mService.getDuration();
+	}
+	
 	public static void play(Context context) {
 		if (mService != null) {
 			mService.play();

@@ -68,7 +68,14 @@ public class MusicService extends Service {
 		return mMusicPlayer.isPlaying();
 	}
 	
+	public int getCurrentPos() {
+		return mMusicPlayer.getCurrentPos();
+	}
 	
+	public int getDuration() {
+		return mMusicPlayer.getDuration();
+	}
+
 	public void start(int pos) {
 		if (pos >= mMusicIdList.size() || pos < 0) {
 			return;
@@ -134,6 +141,14 @@ public class MusicService extends Service {
     	
     	public boolean isPlaying() {
     		return mPlayer.isPlaying();
+    	}
+    	
+    	public int getCurrentPos() {
+    		return mPlayer.getCurrentPosition();
+    	}
+    	
+    	public int getDuration() {
+    		return mPlayer.getDuration();
     	}
 
         public void setDataSource(String path) {
