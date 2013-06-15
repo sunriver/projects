@@ -65,7 +65,7 @@ public class AlbumFragment extends Fragment implements OnItemClickListener, Load
         String albumName = mCursor.getString(mAlbumNameIndex);
 
         Bundle bundle = new Bundle();
-        bundle.putString(Consts.MIME_TYPE, TYPE.ALBUM.toString());
+        bundle.putString(Consts.MIME_TYPE, TYPE.ALBUM.name());
         bundle.putLong(BaseColumns._ID, id);
         bundle.putString(AlbumColumns.ALBUM, albumName);
         bundle.putString(AlbumColumns.ARTIST, artistName);

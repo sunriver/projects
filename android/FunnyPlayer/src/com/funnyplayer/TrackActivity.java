@@ -42,7 +42,8 @@ import android.widget.TextView;
 
 public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>,
 		OnItemClickListener {
-	private final static String TAG = "FunnyPlayer";
+	
+ 	private final static String TAG = "FunnyPlayer";
 	private ListView mPlayListView;
 	private PlaylistAdapter mAdapter;
 	private Consts.TYPE mMiniType;
@@ -62,12 +63,7 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>,
 
 		Intent intent = getIntent();
 		Bundle args = (intent != null) ? intent.getExtras() : null;
-		if (args != null) {
-			mMiniType = Consts.TYPE.valueOf(args.getString(Consts.MIME_TYPE));
-		} else {
-			mMiniType = Consts.TYPE.ALBUM;
-		}
-
+		mMiniType = args != null ? Consts.TYPE.valueOf(args.getString(Consts.MIME_TYPE)) : Consts.TYPE.ALBUM;
 		getLoaderManager().initLoader(0, args, this);
 	}
 	
@@ -82,22 +78,51 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>,
         ViewUtil.setActionBarBackgroundRepeat(this, actionBar);
     }
 
-	@Override
-	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+	private CursorLoader createLoaderForAlbum(Bundle args) {
 		StringBuilder where = new StringBuilder();
-		where.append(AudioColumns.IS_MUSIC + "=1").append(
-				" AND " + MediaColumns.TITLE + " != ''");
+		where.append(AudioColumns.IS_MUSIC + "=1")
+		.append(" AND " + MediaColumns.TITLE + " != ''");
 		if (args != null) {
 			long albumId = args.getLong(BaseColumns._ID);
 			// String albumName = args.getString(Consts.ALBUM_KEY);
 			where.append(" AND " + AudioColumns.ALBUM_ID + "=" + albumId);
 		}
-		String[] projection = new String[] { BaseColumns._ID, MediaColumns.TITLE, AudioColumns.ALBUM, AudioColumns.ARTIST };
+		String[] projection = new String[] { BaseColumns._ID,
+				MediaColumns.TITLE, AudioColumns.ALBUM, AudioColumns.ARTIST };
 		Uri uri = Audio.Media.EXTERNAL_CONTENT_URI;
 		String sortOrder = Audio.Media.DEFAULT_SORT_ORDER;
 		sortOrder = Audio.Media.TRACK + ", " + sortOrder;
 		return new CursorLoader(this, uri, projection, where.toString(), null,
 				sortOrder);
+	}
+	
+	
+	private CursorLoader createLoaderForArtist(Bundle args) {
+		StringBuilder where = new StringBuilder();
+		where.append(AudioColumns.IS_MUSIC + "=1")
+		.append(" AND " + MediaColumns.TITLE + " != ''");
+		if (args != null) {
+			long artistId = args.getLong(BaseColumns._ID);
+			where.append(" AND " + AudioColumns.ARTIST_ID + "=" + artistId);
+		}
+		String[] projection = new String[] { BaseColumns._ID,
+				MediaColumns.TITLE, AudioColumns.ALBUM, AudioColumns.ARTIST };
+		Uri uri = Audio.Media.EXTERNAL_CONTENT_URI;
+		String sortOrder = Audio.Media.DEFAULT_SORT_ORDER;
+		sortOrder = Audio.Media.TRACK + ", " + sortOrder;
+		return new CursorLoader(this, uri, projection, where.toString(), null,
+				sortOrder);
+	}
+	
+	@Override
+	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+		switch (mMiniType) {
+		case ALBUM:
+			return createLoaderForAlbum(args);
+		case ARTIST:
+			return createLoaderForArtist(args);
+		}
+		return null;
 	}
 
 	@Override
@@ -124,6 +149,7 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>,
 		mAdapter.setPlaylistIdIndex(mMediaIdIndex);
 		mAdapter.setPlaylistNameIndex(mTitleIndex);
 		mAdapter.changeCursor(data);
+		mPlayListView.invalidateViews();
 
 	}
 
@@ -149,5 +175,5 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>,
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
+	
 }

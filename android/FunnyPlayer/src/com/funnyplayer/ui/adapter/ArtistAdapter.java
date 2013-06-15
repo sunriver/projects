@@ -53,7 +53,8 @@ public class ArtistAdapter extends SimpleCursorAdapter implements LoadCallback {
 		Log.v(TAG, "position:" + position  + "  albumId:" + artistId
 				+ "  albumName:" + artistName + "  artistName:" + artistName);
 		
-		holder.num.setText(artistNumAlbums);
+//		holder.num.setText(artistNumAlbums);
+		holder.num.setText(null);
 		holder.artist.setText(artistName);
 
 		ImageInfo imageInfo = new ImageInfo();
