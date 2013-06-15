@@ -5,6 +5,10 @@ import com.funnyplayer.service.MusicService;
 import com.funnyplayer.util.MusicUtil;
 
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +20,7 @@ public class ControlBarFragment extends Fragment implements View.OnClickListener
     private ImageView mPrevImg;
     private ImageView mPlayOrPauseImg;
     private ImageView mNextImg;
+    private BroadcastReceiver mReceiver;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,6 +39,23 @@ public class ControlBarFragment extends Fragment implements View.OnClickListener
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		mReceiver = new BroadcastReceiver(){
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				if (intent.getAction().equals(MusicUtil.FilterAction.PLAYER_STOPED)) {
+					mPlayOrPauseImg.setSelected(false);
+				} else if (intent.getAction().equals(MusicUtil.FilterAction.PLAYER_PLAYING))  {
+					mPlayOrPauseImg.setSelected(true);
+				}
+			}
+			
+		};
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction(MusicUtil.FilterAction.PLAYER_PLAYING);
+		intentFilter.addAction(MusicUtil.FilterAction.PLAYER_STOPED);
+		getActivity().registerReceiver(mReceiver, intentFilter);
+		
+		mPlayOrPauseImg.setSelected(MusicUtil.isPlaying());
 	}
 
 	@Override
@@ -56,5 +78,12 @@ public class ControlBarFragment extends Fragment implements View.OnClickListener
 			break;
 		}
 	}
+
+	@Override
+	public void onDestroy() {
+		getActivity().unregisterReceiver(mReceiver);
+		super.onDestroy();
+	}
+	
 
 }

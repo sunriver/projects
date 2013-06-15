@@ -1,8 +1,5 @@
 package com.funnyplayer;
 
-import java.io.IOException;
-
-import com.funnyplayer.cache.Consts;
 import com.funnyplayer.ui.adapter.PlaylistAdapter;
 
 import android.app.Activity;

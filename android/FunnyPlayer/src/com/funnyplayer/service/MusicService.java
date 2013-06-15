@@ -2,9 +2,9 @@ package com.funnyplayer.service;
 
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
+import com.funnyplayer.util.MusicUtil.FilterAction;
 import android.app.Service;
 import android.content.Intent;
 import android.database.Cursor;
@@ -18,6 +18,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 
 public class MusicService extends Service {
+	
 	private static final String TAG = "MusicService";
 	
 	private final static int IDCOLIDX = 0;
@@ -84,11 +85,13 @@ public class MusicService extends Service {
 		if (path != null) {
 			mMusicPlayer.setDataSource(path);
 			mMusicPlayer.start();
+			sendBroadcast(new Intent(FilterAction.PLAYER_PLAYING));
 		}
 	}
 	
 	public void pause() {
 		mMusicPlayer.pause();
+		sendBroadcast(new Intent(FilterAction.PLAYER_STOPED));
 	}
 
 	public void play() {

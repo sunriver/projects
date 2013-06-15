@@ -1,12 +1,10 @@
 package com.funnyplayer;
 
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.funnyplayer.cache.Consts;
-import com.funnyplayer.service.MusicService;
 import com.funnyplayer.ui.adapter.PlaylistAdapter;
 import com.funnyplayer.util.MusicUtil;
 import com.funnyplayer.util.ViewUtil;
@@ -17,21 +15,13 @@ import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
-import android.content.res.Resources;
 import android.database.Cursor;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnCompletionListener;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.PowerManager;
 import android.provider.BaseColumns;
-import android.provider.MediaStore;
 import android.provider.MediaStore.Audio;
 import android.provider.MediaStore.MediaColumns;
 import android.provider.MediaStore.Audio.AudioColumns;
-import android.provider.MediaStore.Audio.PlaylistsColumns;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -47,6 +37,10 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>,
 	private ListView mPlayListView;
 	private PlaylistAdapter mAdapter;
 	private Consts.TYPE mMiniType;
+	private int mMediaIdIndex;
+	private int mTitleIndex;
+	private int mArtistIndex;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -132,19 +126,9 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>,
 			return;
 		}
 
-		int mMediaIdIndex = data.getColumnIndexOrThrow(BaseColumns._ID);
-		int mTitleIndex = data.getColumnIndexOrThrow(MediaColumns.TITLE);
-		int mArtistIndex = data.getColumnIndexOrThrow(AudioColumns.ARTIST);
-
-		List<Long> idList = new ArrayList<Long>();
-		if (data.moveToFirst()) {
-			idList.add(data.getLong(mMediaIdIndex));
-			while (data.moveToNext()) {
-				idList.add(data.getLong(mMediaIdIndex));
-			}
-		}
-		MusicUtil.addPlaylist(getApplicationContext(), idList);
-		data.moveToFirst();
+		mMediaIdIndex = data.getColumnIndexOrThrow(BaseColumns._ID);
+		mTitleIndex = data.getColumnIndexOrThrow(MediaColumns.TITLE);
+		mArtistIndex = data.getColumnIndexOrThrow(AudioColumns.ARTIST);
 
 		mAdapter.setPlaylistIdIndex(mMediaIdIndex);
 		mAdapter.setPlaylistNameIndex(mTitleIndex);
@@ -163,6 +147,16 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>,
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
+		List<Long> idList = new ArrayList<Long>();
+		Cursor cursor = mAdapter.getCursor();
+		if (cursor != null && cursor.moveToFirst()) {
+			idList.add(cursor.getLong(mMediaIdIndex));
+			while (cursor.moveToNext()) {
+				idList.add(cursor.getLong(mMediaIdIndex));
+			}	
+		}
+		MusicUtil.addPlaylist(getApplicationContext(), idList);
+		
 		MusicUtil.start(getApplicationContext(), position);
 	}
 

@@ -11,6 +11,12 @@ import com.funnyplayer.service.MusicService;
 import com.funnyplayer.service.MusicService.MusicBinder;
 
 public class MusicUtil {
+	
+	public interface FilterAction {
+		public static final String PLAYER_STOPED = "com.funnyplayer.stoped";
+		public static final String PLAYER_PLAYING = "com.funnyplayer.playing";
+	}
+	
 	private static MusicService mService;
 	private static AbstractRequest mLastRequest;
 	
