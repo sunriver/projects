@@ -77,6 +77,16 @@ public class MusicService extends Service {
 	}
 
 	public void start(int pos) {
+//		if (mMusicIdList.size() <= 0) {
+//			return;
+//		}
+		
+		// resume latest track
+//		if (mMusicPlayer.getCurrentPos() > 0) {
+//			mMusicPlayer.start();
+//			 return;
+//		}
+		 
 		if (pos >= mMusicIdList.size() || pos < 0) {
 			return;
 		}
@@ -99,6 +109,10 @@ public class MusicService extends Service {
 	public void pause() {
 		mMusicPlayer.pause();
 		sendBroadcast(new Intent(FilterAction.PLAYER_STOPED));
+	}
+	
+	public void resume() {
+		mMusicPlayer.start();
 	}
 
 	public void play() {
@@ -173,7 +187,7 @@ public class MusicService extends Service {
 
 		@Override
 		public void onCompletion(MediaPlayer mp) {
-			mPlayer.release();
+//			mPlayer.release();
 			next();
 		}
     }

@@ -80,6 +80,10 @@ public class MusicUtil {
 		return mService.getDuration();
 	}
 	
+	public static void resume(Context context) {
+		mService.resume();
+	}
+	
 	public static void play(Context context) {
 		if (mService != null) {
 			mService.play();
@@ -107,7 +111,7 @@ public class MusicUtil {
 		}
 	}
 	
-	public static void Pause(Context context) {
+	public static void pause(Context context) {
 		if (mService != null) {
 			mService.pause();
 		} else {

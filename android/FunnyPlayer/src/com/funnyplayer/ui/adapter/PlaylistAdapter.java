@@ -1,14 +1,9 @@
 package com.funnyplayer.ui.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import com.funnyplayer.R;
-
 import android.content.Context;
 import android.database.Cursor;
-import android.provider.BaseColumns;
-import android.provider.MediaStore.Audio.PlaylistsColumns;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SimpleCursorAdapter;

@@ -45,7 +45,7 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>,
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.playlist);
+		setContentView(R.layout.track);
 		mPlayListView = (ListView) findViewById(R.id.playListView);
 
 		mAdapter = new PlaylistAdapter(this, R.layout.playlist_item);

@@ -97,7 +97,7 @@ public class ControlBarFragment extends Fragment implements View.OnClickListener
 			break;
 		case R.id.playOrPause:
 			if (MusicUtil.isPlaying()) {
-				MusicUtil.Pause(getActivity());
+				MusicUtil.pause(getActivity());
 				mPlayOrPauseImg.setSelected(false);
 			} else {
 				mPlayOrPauseImg.setSelected(true);

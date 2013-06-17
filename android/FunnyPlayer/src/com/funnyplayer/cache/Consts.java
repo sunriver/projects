@@ -3,7 +3,7 @@ package com.funnyplayer.cache;
 public class Consts {
     //Image Loading Constants
 	public enum TYPE {
-		ALBUM, ARTIST;
+		ALBUM, ARTIST, PLAYLIST;
 
 		@Override
 		public String toString() {

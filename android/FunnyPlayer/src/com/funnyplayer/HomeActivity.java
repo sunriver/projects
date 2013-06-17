@@ -4,6 +4,7 @@ import com.funnyplayer.ui.adapter.PagerAdapter;
 import com.funnyplayer.ui.adapter.ScrollTabAdapter;
 import com.funnyplayer.ui.fragment.AlbumFragment;
 import com.funnyplayer.ui.fragment.ArtistFragment;
+import com.funnyplayer.ui.fragment.PlaylistFragment;
 import com.funnyplayer.ui.widgets.ScrollTabView;
 import com.funnyplayer.util.ViewUtil;
 
@@ -36,7 +37,7 @@ public class HomeActivity extends Activity {
 		// add fragment
 		pagerAdapter.addFragment(new AlbumFragment());
 		pagerAdapter.addFragment(new ArtistFragment());
-		pagerAdapter.addFragment(new AlbumFragment());
+		pagerAdapter.addFragment(new PlaylistFragment());
 
 		mViewPager.setAdapter(pagerAdapter);
 		mViewPager.setOffscreenPageLimit(pagerAdapter.getCount());
