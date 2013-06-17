@@ -21,8 +21,6 @@ public class MusicService extends Service {
 	
 	private static final String TAG = "MusicService";
 	
-	private final static int IDCOLIDX = 0;
-	
     private final IBinder mBinder = new MusicBinder();
     
     public class MusicBinder extends Binder {
@@ -68,6 +66,10 @@ public class MusicService extends Service {
 		return mMusicPlayer.isPlaying();
 	}
 	
+	public boolean isPaused() {
+		return mMusicPlayer.isPaused();
+	}
+	
 	public int getCurrentPos() {
 		return mMusicPlayer.getCurrentPos();
 	}
@@ -76,55 +78,58 @@ public class MusicService extends Service {
 		return mMusicPlayer.getDuration();
 	}
 
-	public void start(int pos) {
-//		if (mMusicIdList.size() <= 0) {
-//			return;
-//		}
-		
-		// resume latest track
-//		if (mMusicPlayer.getCurrentPos() > 0) {
-//			mMusicPlayer.start();
-//			 return;
-//		}
+	public boolean start(int pos) {
+		if (mMusicPlayer.isPaused()) {
+			mMusicPlayer.start();
+			sendBroadcast(new Intent(FilterAction.PLAYER_PLAYING));
+			return true;
+		}
 		 
 		if (pos >= mMusicIdList.size() || pos < 0) {
-			return;
+			return false;
 		}
 		
 		mCurrentPos = pos;
 		long id = mMusicIdList.get(pos);
 		Cursor cursor = getCursorForId(id);
 		if (null == cursor) {
-			return;
+			return false;
 		}
-		String path = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI + "/" + cursor.getLong(IDCOLIDX);
+		String path = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI + "/" + cursor.getLong(0);
 		Log.v(TAG, "MusicService::start() path:" + path);
 		if (path != null) {
 			mMusicPlayer.setDataSource(path);
 			mMusicPlayer.start();
 			sendBroadcast(new Intent(FilterAction.PLAYER_PLAYING));
+			return true;
 		}
+		
+		return false;
 	}
 	
 	public void pause() {
 		mMusicPlayer.pause();
-		sendBroadcast(new Intent(FilterAction.PLAYER_STOPED));
+		sendBroadcast(new Intent(FilterAction.PLAYER_PAUSED));
 	}
 	
 	public void resume() {
 		mMusicPlayer.start();
 	}
-
-	public void play() {
-		start(mCurrentPos);
+	
+	public void seekTo(final int progress) {
+		mMusicPlayer.seekTo(progress);
 	}
 
-	public void next() {
-		start(mCurrentPos + 1);
+	public boolean play() {
+		return start(mCurrentPos);
 	}
 
-	public void previous() {
-		start(mCurrentPos - 1);
+	public boolean next() {
+		return start(mCurrentPos + 1);
+	}
+
+	public boolean previous() {
+		return start(mCurrentPos - 1);
 	}
 	
 	
@@ -140,8 +145,10 @@ public class MusicService extends Service {
     }
     
     
-    private  class MusicPlayer  implements MediaPlayer.OnCompletionListener {
+    private  class MusicPlayer implements MediaPlayer.OnCompletionListener {
     	private MediaPlayer mPlayer;
+    	
+    	private boolean mPaused = false;
     	
     	public MusicPlayer() {
     		mPlayer = new MediaPlayer();
@@ -151,6 +158,7 @@ public class MusicService extends Service {
     	
     	public void pause() {
     		mPlayer.pause();
+    		mPaused = true;
     	}
     	
     	public boolean isPlaying() {
@@ -163,6 +171,10 @@ public class MusicService extends Service {
     	
     	public int getDuration() {
     		return mPlayer.getDuration();
+    	}
+    	
+    	public void seekTo(int progress) {
+    		mPlayer.seekTo(progress);
     	}
 
         public void setDataSource(String path) {
@@ -183,11 +195,15 @@ public class MusicService extends Service {
         
         public void start() {
         	mPlayer.start();
+        	mPaused = false;
+        }
+        
+        public boolean isPaused() {
+        	return mPaused;
         }
 
 		@Override
 		public void onCompletion(MediaPlayer mp) {
-//			mPlayer.release();
 			next();
 		}
     }

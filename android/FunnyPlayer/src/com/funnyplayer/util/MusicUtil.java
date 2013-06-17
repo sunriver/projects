@@ -13,7 +13,7 @@ import com.funnyplayer.service.MusicService.MusicBinder;
 public class MusicUtil {
 	
 	public interface FilterAction {
-		public static final String PLAYER_STOPED = "com.funnyplayer.stoped";
+		public static final String PLAYER_PAUSED = "com.funnyplayer.paused";
 		public static final String PLAYER_PLAYING = "com.funnyplayer.playing";
 	}
 	
@@ -72,6 +72,13 @@ public class MusicUtil {
 		return mService.isPlaying();
 	}
 	
+	public static boolean isPaused() {
+		if (null == mService) {
+			return false;
+		}
+		return mService.isPaused();
+	}
+	
 	public static int getCurrentPos() {
 		return mService.getCurrentPos();
 	}
@@ -80,8 +87,9 @@ public class MusicUtil {
 		return mService.getDuration();
 	}
 	
-	public static void resume(Context context) {
-		mService.resume();
+	
+	public static void seekTo(int progress) {
+		mService.seekTo(progress);
 	}
 	
 	public static void play(Context context) {

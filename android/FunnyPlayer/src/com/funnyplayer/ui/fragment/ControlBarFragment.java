@@ -1,9 +1,7 @@
 package com.funnyplayer.ui.fragment;
 
 import com.funnyplayer.R;
-import com.funnyplayer.service.MusicService;
 import com.funnyplayer.util.MusicUtil;
-
 import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -15,17 +13,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 
-public class ControlBarFragment extends Fragment implements View.OnClickListener {
+public class ControlBarFragment extends Fragment implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
     private ImageView mPrevImg;
     private ImageView mPlayOrPauseImg;
     private ImageView mNextImg;
     private BroadcastReceiver mReceiver;
     private TextView mProgressText;
-    private ProgressBar mProgressBar;
+    private SeekBar mProgressBar;
     private Handler mHandler;
     private Runnable mRunnable;
 	
@@ -37,17 +35,18 @@ public class ControlBarFragment extends Fragment implements View.OnClickListener
 		mPlayOrPauseImg = (ImageView) v.findViewById(R.id.playOrPause);
 		mNextImg = (ImageView) v.findViewById(R.id.playNext);
 		mProgressText = (TextView) v.findViewById(R.id.playProgressText);
-		mProgressBar = (ProgressBar) v.findViewById(R.id.playProgressBar);
+		mProgressBar = (SeekBar) v.findViewById(R.id.playProgressBar);
 		mPrevImg.setOnClickListener(this);
 		mPlayOrPauseImg.setOnClickListener(this);
 		mNextImg.setOnClickListener(this);
+		mProgressBar.setOnSeekBarChangeListener(this);
 		return v;
 	}
 
     private String ShowTime(int time) {  
         time /= 1000;  
         int minute = time / 60;  
-        int hour = minute/60;  
+        int hour = minute / 60;  
         int second = time % 60;  
         minute %= 60;  
         return String.format("%02d:%02d", minute, second);  
@@ -71,7 +70,7 @@ public class ControlBarFragment extends Fragment implements View.OnClickListener
 		mReceiver = new BroadcastReceiver(){
 			@Override
 			public void onReceive(Context context, Intent intent) {
-				if (intent.getAction().equals(MusicUtil.FilterAction.PLAYER_STOPED)) {
+				if (intent.getAction().equals(MusicUtil.FilterAction.PLAYER_PAUSED)) {
 					mPlayOrPauseImg.setSelected(false);
 					mHandler.removeCallbacks(mRunnable);
 				} else if (intent.getAction().equals(MusicUtil.FilterAction.PLAYER_PLAYING))  {
@@ -83,7 +82,7 @@ public class ControlBarFragment extends Fragment implements View.OnClickListener
 		};
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(MusicUtil.FilterAction.PLAYER_PLAYING);
-		intentFilter.addAction(MusicUtil.FilterAction.PLAYER_STOPED);
+		intentFilter.addAction(MusicUtil.FilterAction.PLAYER_PAUSED);
 		getActivity().registerReceiver(mReceiver, intentFilter);
 		
 		mPlayOrPauseImg.setSelected(MusicUtil.isPlaying());
@@ -100,8 +99,10 @@ public class ControlBarFragment extends Fragment implements View.OnClickListener
 				MusicUtil.pause(getActivity());
 				mPlayOrPauseImg.setSelected(false);
 			} else {
-				mPlayOrPauseImg.setSelected(true);
 				MusicUtil.play(getActivity());
+				if (MusicUtil.isPlaying()) {
+					mPlayOrPauseImg.setSelected(true);
+				}
 			}
 			break;
 		case R.id.playNext:
@@ -114,6 +115,23 @@ public class ControlBarFragment extends Fragment implements View.OnClickListener
 	public void onDestroy() {
 		getActivity().unregisterReceiver(mReceiver);
 		super.onDestroy();
+	}
+
+	@Override
+	public void onProgressChanged(SeekBar seekBar, int progress,
+			boolean fromUser) {
+	}
+
+	@Override
+	public void onStartTrackingTouch(SeekBar seekBar) {
+		
+	}
+
+	@Override
+	public void onStopTrackingTouch(SeekBar seekBar) {
+		if (MusicUtil.isPlaying() || MusicUtil.isPaused()) {
+			MusicUtil.seekTo(seekBar.getProgress());
+		}
 	}
 	
 

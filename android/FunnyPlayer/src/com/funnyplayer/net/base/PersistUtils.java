@@ -1,6 +1,5 @@
 package com.funnyplayer.net.base;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -10,7 +9,6 @@ import android.util.Log;
 
 public class PersistUtils {
 	private static final String TAG = "PersistUtils";
-	private static final int BUFFER_SIZE = 1024;
 	
 	public static File persistInputStream(InputStream in,  File outFile) {
 		BufferedOutputStream out = null;
