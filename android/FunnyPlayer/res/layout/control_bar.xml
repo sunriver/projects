@@ -5,11 +5,28 @@
     android:layout_marginTop="5dp"
     android:background="@drawable/control_bar_bg" >
 
+    <TextView
+        android:id="@+id/playProgressText"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:gravity="center"
+        android:text="00:00" />
+
+    <ProgressBar
+        android:id="@+id/playProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
+        android:gravity="center" />
+
     <ImageView
         android:id="@+id/playPrevious"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/control_bar_height"
-        android:layout_weight="1"
         android:scaleType="centerInside"
         android:src="@drawable/prev" />
 
@@ -17,7 +34,6 @@
         android:id="@+id/playOrPause"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/control_bar_height"
-        android:layout_weight="1"
         android:scaleType="centerInside"
         android:src="@drawable/play_pause_selector" />
 
@@ -25,7 +41,6 @@
         android:id="@+id/playNext"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/control_bar_height"
-        android:layout_weight="1"
         android:scaleType="centerInside"
         android:src="@drawable/next" />
 
