@@ -124,13 +124,18 @@ public class ControlBarFragment extends Fragment implements View.OnClickListener
 
 	@Override
 	public void onStartTrackingTouch(SeekBar seekBar) {
-		
+		mHandler.removeCallbacks(mRunnable);
 	}
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
-		if (MusicUtil.isPlaying() || MusicUtil.isPaused()) {
-			MusicUtil.seekTo(seekBar.getProgress());
+		int progress = seekBar.getProgress();
+		if (MusicUtil.isPaused()) {
+			MusicUtil.seekTo(progress);
+            mProgressText.setText(ShowTime(progress));  
+		} else if (MusicUtil.isPlaying()) {
+			mHandler.postDelayed(mRunnable, 100);
+			MusicUtil.seekTo(progress);
 		}
 	}
 	
