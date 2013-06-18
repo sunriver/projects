@@ -10,14 +10,14 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-public class LyricAPI extends GeciAPI<String> {
+public class LrcAPI extends GeciAPI<String> {
 	
 	private String mArtist;
 	
 	private String mSong;
 
-	public LyricAPI(String name) {
-		super(name);
+	public LrcAPI() {
+		super("Lrc");
 	}
 
 	/**

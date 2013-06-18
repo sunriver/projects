@@ -5,6 +5,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpRequestBase;
 import com.funnyplayer.net.api.LastFmAPI;
+import com.funnyplayer.net.api.geci.GeciAPI;
+
 import android.content.Context;
 import android.util.Log;
 
@@ -27,6 +29,12 @@ public class HttpAgent {
 	}
 	
 	public void execute(LastFmAPI<?> api) {
+		HttpRequestBase request = api.createHttpRequest();
+		InputStream in = onExecuteStart(request);
+		api.handleResponse(in);
+	}
+	
+	public void execute(GeciAPI<?> api) {
 		HttpRequestBase request = api.createHttpRequest();
 		InputStream in = onExecuteStart(request);
 		api.handleResponse(in);

@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.funnyplayer.cache.Consts;
+import com.funnyplayer.cache.lrc.LrcInfo;
+import com.funnyplayer.cache.lrc.LrcUtils;
+import com.funnyplayer.net.api.geci.LrcAPI;
 import com.funnyplayer.ui.adapter.PlaylistAdapter;
 import com.funnyplayer.util.MusicUtil;
 import com.funnyplayer.util.ViewUtil;
@@ -149,6 +152,10 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>,
 			long id) {
 		List<Long> idList = new ArrayList<Long>();
 		Cursor cursor = mAdapter.getCursor();
+		String title = cursor.getString(mTitleIndex);
+		String artist = cursor.getString(mArtistIndex);
+		LrcUtils.getLrcFromWeb(view.getContext(), new LrcInfo(artist, title));
+		
 		if (cursor != null && cursor.moveToFirst()) {
 			idList.add(cursor.getLong(mMediaIdIndex));
 			while (cursor.moveToNext()) {

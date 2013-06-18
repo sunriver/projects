@@ -49,7 +49,7 @@ public class ImageProvider {
 	 * @param imageInfo
 	 * @param callback
 	 */
-	public void loadImage(ImageInfo imageInfo, ImageView v, LoadCallback callback) {
+	public void loadImage(ImageInfo imageInfo, ImageView v, ImageReadyListener callback) {
 		//Get bitmap from cache if exists.
 		Log.v(TAG, "loadImage imageInfo.toString():" + imageInfo.toString());
 		final String tag = imageInfo.toString();
@@ -86,18 +86,18 @@ public class ImageProvider {
 	}
 	
 	
-	public interface LoadCallback {
+	public interface ImageReadyListener {
 		public void onLoadFinished(ImageView v, Bitmap bitmap);
 	}
 	
 	
-	class Task extends AsyncTask<Void, Void, Bitmap> {
+	private class Task extends AsyncTask<Void, Void, Bitmap> {
 		private ImageInfo mImageInfo;
 		private ImageView mImageView;
-		private LoadCallback mCallback;
+		private ImageReadyListener mCallback;
 		private Context mContext;
 		
-		public Task(ImageInfo info, ImageView v, LoadCallback callback) {
+		public Task(ImageInfo info, ImageView v, ImageReadyListener callback) {
 			this.mImageInfo = info;
 			this.mImageView = v;
 			this.mCallback = callback;

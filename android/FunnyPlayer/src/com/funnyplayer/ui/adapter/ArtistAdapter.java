@@ -7,7 +7,7 @@ import com.funnyplayer.R;
 import com.funnyplayer.cache.Consts.TYPE;
 import com.funnyplayer.cache.ImageInfo;
 import com.funnyplayer.cache.ImageProvider;
-import com.funnyplayer.cache.ImageProvider.LoadCallback;
+import com.funnyplayer.cache.ImageProvider.ImageReadyListener;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-public class ArtistAdapter extends SimpleCursorAdapter implements LoadCallback {
+public class ArtistAdapter extends SimpleCursorAdapter implements ImageReadyListener {
 	private static final String TAG = "ArtistAdapter";
 	private int mArtistIdIndex;
 	private int mArtistNumAlbumsIndex;
