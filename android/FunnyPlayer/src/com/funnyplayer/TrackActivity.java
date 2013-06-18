@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.funnyplayer.cache.Consts;
 import com.funnyplayer.cache.lrc.LrcInfo;
+import com.funnyplayer.cache.lrc.LrcProvider;
+import com.funnyplayer.cache.lrc.LrcProvider.LrcReadyListener;
 import com.funnyplayer.cache.lrc.LrcUtils;
 import com.funnyplayer.net.api.geci.LrcAPI;
 import com.funnyplayer.ui.adapter.PlaylistAdapter;
@@ -25,6 +27,7 @@ import android.provider.BaseColumns;
 import android.provider.MediaStore.Audio;
 import android.provider.MediaStore.MediaColumns;
 import android.provider.MediaStore.Audio.AudioColumns;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,15 +37,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>,
-		OnItemClickListener {
+		OnItemClickListener, LrcReadyListener {
 	
- 	private final static String TAG = "FunnyPlayer";
+ 	private final static String TAG = "TrackActivity";
 	private ListView mPlayListView;
 	private PlaylistAdapter mAdapter;
 	private Consts.TYPE mMiniType;
 	private int mMediaIdIndex;
 	private int mTitleIndex;
 	private int mArtistIndex;
+	private LrcProvider mLrcProvider;
 	
 
 	@Override
@@ -52,9 +56,11 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>,
 		mPlayListView = (ListView) findViewById(R.id.playListView);
 
 		mAdapter = new PlaylistAdapter(this, R.layout.playlist_item);
+		mLrcProvider = LrcProvider.getInstance(getApplicationContext());
 
 		mPlayListView.setAdapter(mAdapter);
 		mPlayListView.setOnItemClickListener(this);
+		
 		
 		initActionBar();
 
@@ -154,7 +160,8 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>,
 		Cursor cursor = mAdapter.getCursor();
 		String title = cursor.getString(mTitleIndex);
 		String artist = cursor.getString(mArtistIndex);
-		LrcUtils.getLrcFromWeb(view.getContext(), new LrcInfo(artist, title));
+		
+		mLrcProvider.loadLrc(new LrcInfo(artist, title), TrackActivity.this);
 		
 		if (cursor != null && cursor.moveToFirst()) {
 			idList.add(cursor.getLong(mMediaIdIndex));
@@ -175,6 +182,11 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>,
 			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onReady(String lrc) {
+		Log.v(TAG, lrc);
 	}
 	
 }

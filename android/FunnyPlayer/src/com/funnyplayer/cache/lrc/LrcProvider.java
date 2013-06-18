@@ -62,9 +62,13 @@ public class LrcProvider {
 		@Override
 		protected String doInBackground(Void... params) {
 			File f = LrcUtils.getLrcFromWeb(mContext, mLrcInfo);
+			if (f != null) {
+				return LrcUtils.getLrcFromFile(f);
+			}
 
 			return null;
 		}
+		
 
 		@Override
 		protected void onPostExecute(String result) {
