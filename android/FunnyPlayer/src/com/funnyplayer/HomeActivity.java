@@ -10,6 +10,7 @@ import com.funnyplayer.util.ViewUtil;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
@@ -74,12 +75,19 @@ public class HomeActivity extends Activity {
 		inflater.inflate(R.menu.main, menu);
 		return true;
 	}
+	
+	private void showLrc() {
+		startActivity(new Intent(this, LrcActivity.class));
+	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_search:
 			onSearchRequested();
+			break;
+		case R.id.menu_lrc:
+			showLrc();
 			break;
 		default:
 			super.onOptionsItemSelected(item);

@@ -52,10 +52,10 @@ public class LrcProvider {
 	private class Task extends AsyncTask<Void, Void, String> {
 		private LrcInfo mLrcInfo;
 		private LrcReadyListener mListener;
-		private Context mContext;
 		
 		public Task(LrcInfo info, LrcReadyListener l) {
 			this.mLrcInfo = info;
+			this.mLrcInfo = new LrcInfo("海阔天空", "Beyond");
 			this.mListener = l;
 		}
 

@@ -31,6 +31,7 @@ public class LrcUtils {
 			reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 			for (String s = reader.readLine(); s != null; s = reader.readLine()) {
 				builder.append(s);
+				builder.append("\n");
 			}
 			return builder.toString();
 		} catch (Exception e) {
@@ -46,6 +47,15 @@ public class LrcUtils {
 		}
 		
 		return null;
+	}
+	
+	public static File getLrcDir(Context context) {
+		File dir = new File(context.getExternalCacheDir().getPath() + "/lrc");
+		if (dir.exists()) {
+			return dir;
+		}
+		return (dir.mkdir() ? dir : context.getExternalCacheDir());
+		
 	}
 	
 	public static File getLrcFromWeb(Context context, LrcInfo lrcInfo) {
@@ -68,9 +78,8 @@ public class LrcUtils {
 			return null;
 		}
 		
-		File dir = context.getExternalCacheDir();
 		
-		File file = new File(dir.getPath() + "/lrc", lrcInfo.toString() + ".lrc");
+		File file = new File(getLrcDir(context), lrcInfo.toString() + ".lrc");
 		if (file.exists()) {
 			return file;
 		}
