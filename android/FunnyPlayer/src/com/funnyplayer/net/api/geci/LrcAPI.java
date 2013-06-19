@@ -1,5 +1,8 @@
 package com.funnyplayer.net.api.geci;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.json.JSONArray;
@@ -46,23 +49,22 @@ public class LrcAPI extends GeciAPI<String> {
 
 	@Override
 	public String toURL() {
-//		try {
+		try {
 			String url = super.toURL();
 			if (mArtist != null) {
-				url += ("/" + mArtist);
+				url += ("/" + URLEncoder.encode(mArtist));
 			}
 			if (mSong != null) {
-				url += ("/" + mSong);
+				url += ("/" + URLEncoder.encode(mSong));
 			}
 			if (DEBUG) {
 				Log.v(TAG, url);
 			}
 			return url;
-//			return URLEncoder.encode(url, "utf-8");
-//		} catch (UnsupportedEncodingException e) {
-//			Log.e(TAG, e.getMessage());
-//		}
-//		return null;
+		} catch (Exception e) {
+			Log.e(TAG, e.getMessage());
+		}
+		return null;
 	}
 
 	@Override

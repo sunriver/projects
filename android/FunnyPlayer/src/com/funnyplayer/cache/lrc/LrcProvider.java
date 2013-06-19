@@ -55,7 +55,6 @@ public class LrcProvider {
 		
 		public Task(LrcInfo info, LrcReadyListener l) {
 			this.mLrcInfo = info;
-			this.mLrcInfo = new LrcInfo("海阔天空", "Beyond");
 			this.mListener = l;
 		}
 

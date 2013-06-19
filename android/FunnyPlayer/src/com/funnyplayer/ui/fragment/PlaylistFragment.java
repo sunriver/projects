@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.funnyplayer.R;
+import com.funnyplayer.TrackActivity;
+import com.funnyplayer.cache.lrc.LrcInfo;
+import com.funnyplayer.cache.lrc.LrcProvider;
+import com.funnyplayer.cache.lrc.LrcProvider.LrcReadyListener;
 import com.funnyplayer.ui.adapter.PlaylistAdapter;
 import com.funnyplayer.util.MusicUtil;
 
@@ -19,6 +23,7 @@ import android.provider.BaseColumns;
 import android.provider.MediaStore.Audio;
 import android.provider.MediaStore.MediaColumns;
 import android.provider.MediaStore.Audio.AudioColumns;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,13 +31,15 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class PlaylistFragment extends Fragment implements OnItemClickListener, LoaderCallbacks<Cursor> {
+public class PlaylistFragment extends Fragment implements OnItemClickListener, LoaderCallbacks<Cursor>, LrcReadyListener {
+ 	private final static String TAG = "PlaylistFragment";
     private ListView mPlayListView;
     private Cursor mCursor;
     private PlaylistAdapter mAdapter;
     private int mMediaIdIndex ;
     private int mTitleIndex;
-    private int mArtistIndex ;
+    private int mArtistIndex;
+	private LrcProvider mLrcProvider;
     
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -41,6 +48,7 @@ public class PlaylistFragment extends Fragment implements OnItemClickListener, L
 		mAdapter = new PlaylistAdapter(getActivity(), R.layout.playlist_item);
 		mPlayListView.setAdapter(mAdapter);
 		mPlayListView.setOnItemClickListener(this);
+		mLrcProvider = LrcProvider.getInstance(getActivity().getApplicationContext());
         
         // Important!
         getLoaderManager().initLoader(0, null, this);
@@ -59,6 +67,10 @@ public class PlaylistFragment extends Fragment implements OnItemClickListener, L
 			long id) {
 		List<Long> idList = new ArrayList<Long>();
 		Cursor cursor = mAdapter.getCursor();
+		String title = cursor.getString(mTitleIndex);
+		String artist = cursor.getString(mArtistIndex);
+		
+		mLrcProvider.loadLrc(new LrcInfo(artist, title), PlaylistFragment.this);
 		if (cursor != null && cursor.moveToFirst()) {
 			idList.add(cursor.getLong(mMediaIdIndex));
 			while (cursor.moveToNext()) {
@@ -106,6 +118,11 @@ public class PlaylistFragment extends Fragment implements OnItemClickListener, L
         if (mAdapter != null) {
         	mAdapter.changeCursor(null);
         }
+	}
+
+	@Override
+	public void onReady(String lrc) {
+		Log.v(TAG, lrc);
 	}
 	
 	
