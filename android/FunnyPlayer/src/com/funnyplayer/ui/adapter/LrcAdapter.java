@@ -44,6 +44,12 @@ public class LrcAdapter extends BaseAdapter {
 	public long getItemId(int position) {
 		return position;
 	}
+	
+	public File getLrcFile(int position) {
+		Item item = mItemList.get(position);
+		String path = mLrcPath + "/" + item.file;
+		return new File(path);
+	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -60,10 +66,12 @@ public class LrcAdapter extends BaseAdapter {
 	private static class Item {
 		final String artist;
 		final String song;
+		final String file;
 		
-		public Item(String artist, String song) {
+		public Item(String song, String artist, String file) {
 			this.artist = artist;
 			this.song = song;
+			this.file = file;
 		}
 	}
 	
@@ -81,18 +89,20 @@ public class LrcAdapter extends BaseAdapter {
 			}
 			for (String file : f.list()) {
 				Log.v(TAG, file);
-				String[] temp = file.split("_");
-				list.add(new Item(temp[0], temp[1]));
+				String[] temp = file.split(".lrc")[0].split("_");
+				String song = temp[0];
+				String artist = temp[1];
+				list.add(new Item(song, artist, file));
 			}
 			return list;
 		}
 
 		@Override
 		protected void onPostExecute(List<Item> result) {
-			if (result.size() > 0) {
-				System.arraycopy(result, 0, mItemList, 0, result.size());
-				notifyDataSetChanged();
+			for (Item item : result) {
+				mItemList.add(item);
 			}
+			notifyDataSetChanged();
 		}
 		
 	}
