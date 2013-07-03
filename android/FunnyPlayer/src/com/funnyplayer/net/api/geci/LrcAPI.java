@@ -1,8 +1,6 @@
 package com.funnyplayer.net.api.geci;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.json.JSONArray;

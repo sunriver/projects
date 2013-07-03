@@ -67,7 +67,7 @@ public class LrcUtils {
 		
 		final String lrcUrl = lrcApi.getResult();
 		
-		Log.v(TAG, "imageUrl :" + lrcUrl);
+		Log.v(TAG, "lrcUrl :" + lrcUrl);
 		if (null == lrcUrl) {
 			return null;
 		}
