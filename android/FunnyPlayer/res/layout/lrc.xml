@@ -4,15 +4,59 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lrc_song_name" />
+
+            <EditText
+                android:id="@+id/lrcSongName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/lrc_song_name_hint" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lrc_song_artist" />
+
+            <EditText
+                android:id="@+id/lrcSongArtist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/lrc_song_artist_hint" />
+        </TableRow>
+    </TableLayout>
+
+    <Button
+        android:id="@+id/lrcSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lrc_search" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lrc_search_result"
+        android:textAppearance="?android:attr/android:textAppearance"
+        android:textSize="20sp" />
+
     <ListView
         android:id="@+id/lrcListView"
         android:layout_width="match_parent"
         android:layout_height="50dp" />
-
-    <TextView
-        android:id="@+id/lrcText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
 
 </LinearLayout>

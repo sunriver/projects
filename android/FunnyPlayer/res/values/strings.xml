@@ -11,5 +11,13 @@
     <string name="tab_title_artist">artist</string>
     <string name="tab_title_favorite">favorite</string>
     <string name="tab_title_list">play list</string>
+    
+    <!-- lrc -->
+    <string name="lrc_song_name">Name</string>
+    <string name="lrc_song_artist">Artist</string>
+    <string name="lrc_song_name_hint">Please input name for search!</string>
+    <string name="lrc_song_artist_hint">Please input artist for search!</string>
+    <string name="lrc_search">Search</string>
+    <string name="lrc_search_result">Search result:</string>
 
 </resources>
