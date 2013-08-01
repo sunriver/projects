@@ -7,10 +7,14 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.http.client.methods.HttpGet;
 import android.content.Context;
 import android.util.Log;
 import com.funnyplayer.net.api.geci.LrcAPI;
+import com.funnyplayer.net.api.geci.bean.LrcBean;
 import com.funnyplayer.net.base.HttpAgent;
 import com.funnyplayer.net.base.PersistUtils;
 
@@ -58,33 +62,42 @@ public class LrcUtils {
 		
 	}
 	
-	public static File getLrcFromWeb(Context context, LrcInfo lrcInfo) {
+	public static LrcBean searchLrcFromWeb(Context context, LrcInfo lrcInfo) {
 		HttpAgent httpAgent = HttpAgent.getInstance(context);
 		LrcAPI lrcApi = new LrcAPI();
 		lrcApi.setArtistName(lrcInfo.getArtist());
 		lrcApi.setSongName(lrcInfo.getSong());
 		httpAgent.execute(lrcApi);
-		
-		final String lrcUrl = lrcApi.getResult();
-		
-		Log.v(TAG, "lrcUrl :" + lrcUrl);
-		if (null == lrcUrl) {
-			return null;
-		}
-
-		HttpGet request = new HttpGet(lrcUrl);
-		InputStream in = httpAgent.execute(request);
-		if (null == in) {
-			return null;
-		}
-		
-		
-		File file = new File(getLrcDir(context), lrcInfo.toString() + ".lrc");
-		if (file.exists()) {
-			return file;
-		}
-		
-		return PersistUtils.persistInputStream(new BufferedInputStream(in), file);
-		
+		return lrcApi.getResult();
 	}
+	
+//	public static File getLrcFromWeb(Context context, LrcInfo lrcInfo) {
+//		HttpAgent httpAgent = HttpAgent.getInstance(context);
+//		LrcAPI lrcApi = new LrcAPI();
+//		lrcApi.setArtistName(lrcInfo.getArtist());
+//		lrcApi.setSongName(lrcInfo.getSong());
+//		httpAgent.execute(lrcApi);
+//		
+//		final String lrcUrl = lrcApi.getResult();
+//		
+//		Log.v(TAG, "lrcUrl :" + lrcUrl);
+//		if (null == lrcUrl) {
+//			return null;
+//		}
+//
+//		HttpGet request = new HttpGet(lrcUrl);
+//		InputStream in = httpAgent.execute(request);
+//		if (null == in) {
+//			return null;
+//		}
+//		
+//		
+//		File file = new File(getLrcDir(context), lrcInfo.toString() + ".lrc");
+//		if (file.exists()) {
+//			return file;
+//		}
+//		
+//		return PersistUtils.persistInputStream(new BufferedInputStream(in), file);
+//		
+//	}
 }

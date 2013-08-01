@@ -1,17 +1,12 @@
 package com.funnyplayer.cache.lrc;
 
-import java.io.File;
-import java.util.HashSet;
-import java.util.Set;
+
+import com.funnyplayer.net.api.geci.bean.LrcBean;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 public class LrcProvider {
 	private static final String TAG = "LrcProvider";
-	
-    private Set<String> unavailable = new HashSet<String>();
-    private Set<String> pendingLrc = new HashSet<String>();
     private static LrcProvider mInstance;
     private Context mContext;
     
@@ -31,55 +26,43 @@ public class LrcProvider {
 		return mInstance;
 	}
 	
-	public void loadLrc(LrcInfo lrcInfo, LrcReadyListener l) {
-		final String tag = lrcInfo.toString();		
-		if (unavailable.contains(tag)) {
-			return;
-		}
-		if (pendingLrc.contains(tag)) {
-			return;
-		}
-		
+	private void loadLrc(LrcInfo lrcInfo, LrcSearchCompletedListener l) {
 		//Create a thread to get bitmap from media store.
-		Task task = new Task(lrcInfo, l);
+		SearchTask task = new SearchTask(lrcInfo, l);
 		task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
 	
-	public interface LrcReadyListener {
-		public void onReady(final String lrc);
+	public void loadLrc(final String song, final String artist, LrcSearchCompletedListener l) {
+		loadLrc(new LrcInfo(song, artist), l);
 	}
 	
-	private class Task extends AsyncTask<Void, Void, String> {
+	public interface LrcSearchCompletedListener {
+		public void onSearchFinished(String artist, String song);
+	}
+	
+	private class SearchTask extends AsyncTask<Void, Void, LrcBean> {
 		private LrcInfo mLrcInfo;
-		private LrcReadyListener mListener;
+		private LrcSearchCompletedListener mListener;
 		
-		public Task(LrcInfo info, LrcReadyListener l) {
+		public SearchTask(LrcInfo info, LrcSearchCompletedListener l) {
 			this.mLrcInfo = info;
 			this.mListener = l;
 		}
 
 		@Override
-		protected String doInBackground(Void... params) {
-			File f = LrcUtils.getLrcFromWeb(mContext, mLrcInfo);
-			if (f != null) {
-				return LrcUtils.getLrcFromFile(f);
-			}
-
-			return null;
+		protected LrcBean doInBackground(Void... params) {
+			LrcBean result = LrcUtils.searchLrcFromWeb(mContext, mLrcInfo);
+			return result;
 		}
 		
 
 		@Override
-		protected void onPostExecute(String result) {
-			final String tag = mLrcInfo.toString();
-			if (result != null) {
-				Log.v(TAG, "onPostExecute imageInfo.toString():" + mLrcInfo.toString());
-				mListener.onReady(result);
-			} else {
-				unavailable.add(tag);
+		protected void onPostExecute(LrcBean result) {
+			if (null == result) {
+				return;
 			}
-			if (pendingLrc.contains(tag)) {
-				pendingLrc.remove(tag);
+			for (LrcBean.LrcUrl lrcUrl : result.getResult()) {
+				mListener.onSearchFinished(lrcUrl.getArtist(), lrcUrl.getSong());
 			}
 		}
 		

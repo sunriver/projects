@@ -3,6 +3,7 @@ package com.funnyplayer.cache.lrc;
 public class LrcInfo {
 	private String mArtist;
 	private String mSong;
+	private String mUrl;
 	
 	public LrcInfo(String artist, String song) {
 		mArtist = artist;
@@ -23,6 +24,14 @@ public class LrcInfo {
 	
 	public void setArtist(String artist) {
 		this.mArtist = artist;
+	}
+	
+	public String getUrl() {
+		return mUrl;
+	}
+	
+	public void setUrl(final String url) {
+		this.mUrl = url;
 	}
 
 	@Override

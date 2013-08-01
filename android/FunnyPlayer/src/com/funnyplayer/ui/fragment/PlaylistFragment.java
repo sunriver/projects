@@ -5,10 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.funnyplayer.R;
-import com.funnyplayer.TrackActivity;
-import com.funnyplayer.cache.lrc.LrcInfo;
 import com.funnyplayer.cache.lrc.LrcProvider;
-import com.funnyplayer.cache.lrc.LrcProvider.LrcReadyListener;
 import com.funnyplayer.ui.adapter.PlaylistAdapter;
 import com.funnyplayer.util.MusicUtil;
 
@@ -23,7 +20,6 @@ import android.provider.BaseColumns;
 import android.provider.MediaStore.Audio;
 import android.provider.MediaStore.MediaColumns;
 import android.provider.MediaStore.Audio.AudioColumns;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +27,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class PlaylistFragment extends Fragment implements OnItemClickListener, LoaderCallbacks<Cursor>, LrcReadyListener {
+public class PlaylistFragment extends Fragment implements OnItemClickListener, LoaderCallbacks<Cursor> {
  	private final static String TAG = "PlaylistFragment";
     private ListView mPlayListView;
     private Cursor mCursor;
@@ -70,7 +66,6 @@ public class PlaylistFragment extends Fragment implements OnItemClickListener, L
 		String title = cursor.getString(mTitleIndex);
 		String artist = cursor.getString(mArtistIndex);
 		
-		mLrcProvider.loadLrc(new LrcInfo(artist, title), PlaylistFragment.this);
 		if (cursor != null && cursor.moveToFirst()) {
 			idList.add(cursor.getLong(mMediaIdIndex));
 			while (cursor.moveToNext()) {
@@ -119,11 +114,5 @@ public class PlaylistFragment extends Fragment implements OnItemClickListener, L
         	mAdapter.changeCursor(null);
         }
 	}
-
-	@Override
-	public void onReady(String lrc) {
-		Log.v(TAG, lrc);
-	}
-	
 	
 }

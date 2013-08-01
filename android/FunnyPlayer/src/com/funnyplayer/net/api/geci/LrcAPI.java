@@ -1,15 +1,21 @@
 package com.funnyplayer.net.api.geci;
 
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.funnyplayer.net.api.geci.bean.LrcBean;
+
+import android.text.TextUtils;
 import android.util.Log;
 
-public class LrcAPI extends GeciAPI<String> {
+public class LrcAPI extends GeciAPI<LrcBean> {
 	
 	private String mArtist;
 	
@@ -25,13 +31,35 @@ public class LrcAPI extends GeciAPI<String> {
 	@Override
 	protected void onHandleResponse(JSONObject jsonObject) {
 		try {
-			int count = jsonObject.getInt("count");
-			int code = jsonObject.getInt("code");
-			JSONArray jsonArray = jsonObject.getJSONArray("result");
-			if (count > 0) {
-				JSONObject lyricObject = (org.json.JSONObject) jsonArray.opt(0);
-				mResult = lyricObject.getString("lrc");
+			if (null == jsonObject) {
+				return;
 			}
+			mResult = new LrcBean();
+			int count = jsonObject.getInt("count");
+			mResult.setCount(count);
+			
+			int code = jsonObject.getInt("code");
+			mResult.setCode(code);
+			
+			List<LrcBean.LrcUrl> urls = new ArrayList<LrcBean.LrcUrl>();
+			JSONArray jsonArray = jsonObject.getJSONArray("result");
+			for (int i = 0 ;i < count; i++) {
+				JSONObject lrcObject = (org.json.JSONObject) jsonArray.opt(i);
+				LrcBean.LrcUrl lrcUrl = new LrcBean.LrcUrl();
+				String url = lrcObject.getString("lrc");
+				lrcUrl.setLrc(url);
+				String song = lrcObject.getString("song");
+				lrcUrl.setSong(song);
+				String artist = lrcObject.getString("artist");
+				lrcUrl.setArtist(artist);
+				int sid = lrcObject.getInt("sid");
+				lrcUrl.setSid(sid);
+				int aid = lrcObject.getInt("aid");
+				lrcUrl.setAid(aid);
+				urls.add(lrcUrl);
+			}
+			mResult.setResult(urls);
+
 		} catch (JSONException e) {
 			Log.e(TAG, e.getMessage());
 		}
@@ -49,10 +77,10 @@ public class LrcAPI extends GeciAPI<String> {
 	public String toURL() {
 		try {
 			String url = super.toURL();
-			if (mArtist != null) {
+			if (!TextUtils.isEmpty(mArtist)) {
 				url += ("/" + URLEncoder.encode(mArtist));
 			}
-			if (mSong != null) {
+			if (!TextUtils.isEmpty(mSong)) {
 				url += ("/" + URLEncoder.encode(mSong));
 			}
 			if (DEBUG) {

@@ -50,16 +50,34 @@ public class LrcAdapter extends BaseAdapter {
 		String path = mLrcPath + "/" + item.file;
 		return new File(path);
 	}
+	
+	
+	public void add(String artist, String song) {
+		mItemList.add(new Item(song, artist, null));
+	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		if (null == convertView) {
-			convertView = mInflater.inflate(R.layout.lrc_item, null);
+		View v = convertView;
+		ViewHolder holder = null;
+		if (null == v) {
+			v = mInflater.inflate(R.layout.lrc_item, null);
+			holder = new ViewHolder();
+			holder.artistTv = (TextView) v.findViewById(R.id.lrc_item_artist);
+			holder.songTv = (TextView) v.findViewById(R.id.lrc_item_song);
+			v.setTag(holder);
+		} else {
+			holder = (ViewHolder) v.getTag();
 		}
-		TextView tv = (TextView) convertView.findViewById(R.id.lrc_item_text);
 		Item item = mItemList.get(position);
-		tv.setText(item.song + " " + item.artist);
-		return convertView;
+		holder.artistTv.setText(item.artist);
+		holder.songTv.setText(item.song);
+		return v;
+	}
+	
+	private static class ViewHolder {
+		TextView artistTv;
+		TextView songTv;
 	}
 
 
@@ -69,8 +87,8 @@ public class LrcAdapter extends BaseAdapter {
 		final String file;
 		
 		public Item(String song, String artist, String file) {
-			this.artist = artist;
 			this.song = song;
+			this.artist = artist;
 			this.file = file;
 		}
 	}
