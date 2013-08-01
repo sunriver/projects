@@ -5,10 +5,17 @@
     android:background="@drawable/bg" >
 
     <TextView
-        android:id="@+id/lrc_item_text"
-        android:layout_width="match_parent"
+        android:id="@+id/lrc_item_artist"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/list_item_height"
-        android:background="@drawable/list_item_selector"
-        android:text="test" />
+        android:layout_weight="1"
+        android:background="@drawable/list_item_selector" />
+
+    <TextView
+        android:id="@+id/lrc_item_song"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/list_item_height"
+        android:layout_weight="1"
+        android:background="@drawable/list_item_selector" />
 
 </LinearLayout>

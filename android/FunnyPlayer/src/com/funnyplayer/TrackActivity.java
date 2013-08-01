@@ -5,15 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.funnyplayer.cache.Consts;
-import com.funnyplayer.cache.lrc.LrcInfo;
 import com.funnyplayer.cache.lrc.LrcProvider;
-import com.funnyplayer.cache.lrc.LrcProvider.LrcReadyListener;
-import com.funnyplayer.cache.lrc.LrcUtils;
-import com.funnyplayer.net.api.geci.LrcAPI;
 import com.funnyplayer.ui.adapter.PlaylistAdapter;
 import com.funnyplayer.util.MusicUtil;
 import com.funnyplayer.util.ViewUtil;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -27,17 +22,13 @@ import android.provider.BaseColumns;
 import android.provider.MediaStore.Audio;
 import android.provider.MediaStore.MediaColumns;
 import android.provider.MediaStore.Audio.AudioColumns;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
-public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>,
-		OnItemClickListener, LrcReadyListener {
+public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>, OnItemClickListener {
 	
  	private final static String TAG = "TrackActivity";
 	private ListView mPlayListView;
@@ -161,7 +152,6 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>,
 		String title = cursor.getString(mTitleIndex);
 		String artist = cursor.getString(mArtistIndex);
 		
-		mLrcProvider.loadLrc(new LrcInfo(artist, title), TrackActivity.this);
 		
 		if (cursor != null && cursor.moveToFirst()) {
 			idList.add(cursor.getLong(mMediaIdIndex));
@@ -184,9 +174,4 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>,
 		return super.onOptionsItemSelected(item);
 	}
 
-	@Override
-	public void onReady(String lrc) {
-		Log.v(TAG, lrc);
-	}
-	
 }

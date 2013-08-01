@@ -1,14 +1,16 @@
 package com.funnyplayer;
 
 import java.io.File;
-
+import com.funnyplayer.cache.lrc.LrcProvider;
+import com.funnyplayer.cache.lrc.LrcProvider.LrcSearchCompletedListener;
 import com.funnyplayer.cache.lrc.LrcUtils;
 import com.funnyplayer.ui.adapter.LrcAdapter;
+import com.funnyplayer.util.ViewUtil;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -17,17 +19,20 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class LrcActivity extends Activity implements OnItemClickListener, View.OnClickListener {
+public class LrcActivity extends Activity implements OnItemClickListener, View.OnClickListener, LrcSearchCompletedListener {
 	private ListView mLrcListView;
 	private LrcAdapter mLrcAdapter;
 	private TextView mLrcTextView;
 	private EditText mLrcSongNameEt;
 	private EditText mLrcSongArtistEt;
 	private Button mLrcSearchBtn;
+	private LrcProvider mLrcProvider;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setContentView(R.layout.lrc);
+		initActionBar();
 		init();
 		super.onCreate(savedInstanceState);
 	}
@@ -43,8 +48,18 @@ public class LrcActivity extends Activity implements OnItemClickListener, View.O
 		mLrcAdapter = new LrcAdapter(getApplicationContext(), LrcUtils.getLrcDir(this).getPath());
 		mLrcListView.setAdapter(mLrcAdapter);
 		mLrcListView.setOnItemClickListener(this);
+		
+		mLrcProvider = LrcProvider.getInstance(getApplicationContext());
 	}
 
+    private void initActionBar() {
+    	ActionBar actionBar = getActionBar();
+    	actionBar.setTitle(R.string.lrc_search);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE,
+                ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE
+                        | ActionBar.DISPLAY_SHOW_HOME);
+        ViewUtil.setActionBarBackgroundRepeat(this, actionBar);
+    }
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
@@ -54,21 +69,31 @@ public class LrcActivity extends Activity implements OnItemClickListener, View.O
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		File f = mLrcAdapter.getLrcFile(position);
-		String lrc = LrcUtils.getLrcFromFile(f);
-		mLrcTextView.setText(lrc);
+//		File f = mLrcAdapter.getLrcFile(position);
+//		String lrc = LrcUtils.getLrcFromFile(f);
+//		mLrcTextView.setText(lrc);
 	}
 
 	@Override
 	public void onClick(View v) {
-		String songName = mLrcSongNameEt.getText().toString();
-		if (TextUtils.isEmpty(songName)) {
-			
-		}
-			
-			String songArtist = mLrcSongNameEt.getText().toString();
+		String searchArtist = mLrcSongArtistEt.getText().toString();
+		String searchSong = mLrcSongNameEt.getText().toString();
+		mLrcProvider.loadLrc(searchSong, searchArtist, this);
+	}
+
+	@Override
+	public void onSearchFinished(String artist, String song) {
+		mLrcAdapter.add(artist, song);
+		mLrcAdapter.notifyDataSetChanged();
 	}
 	
-	
-	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			super.onBackPressed();
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 }
