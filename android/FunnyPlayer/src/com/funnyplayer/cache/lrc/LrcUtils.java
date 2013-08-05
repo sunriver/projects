@@ -53,6 +53,7 @@ public class LrcUtils {
 		return null;
 	}
 	
+	
 	public static File getLrcDir(Context context) {
 		File dir = new File(context.getExternalCacheDir().getPath() + "/lrc");
 		if (dir.exists()) {
@@ -70,6 +71,25 @@ public class LrcUtils {
 		httpAgent.execute(lrcApi);
 		return lrcApi.getResult();
 	}
+	
+	
+	public static File downloadLrcFromWeb(Context context, LrcInfo lrcInfo) {
+		File file = new File(getLrcDir(context), lrcInfo.toString() + ".lrc");
+		if (file.exists()) {
+			return file;
+		}
+		
+		HttpAgent httpAgent = HttpAgent.getInstance(context);
+		
+		HttpGet request = new HttpGet(lrcInfo.getUrl());
+		InputStream in = httpAgent.execute(request);
+		if (null == in) {
+			return null;
+		}
+		return PersistUtils.persistInputStream(new BufferedInputStream(in), file);
+
+	}
+	
 	
 //	public static File getLrcFromWeb(Context context, LrcInfo lrcInfo) {
 //		HttpAgent httpAgent = HttpAgent.getInstance(context);

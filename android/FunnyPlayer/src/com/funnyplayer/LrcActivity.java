@@ -1,6 +1,5 @@
 package com.funnyplayer;
 
-import java.io.File;
 import com.funnyplayer.cache.lrc.LrcProvider;
 import com.funnyplayer.cache.lrc.LrcProvider.LrcSearchCompletedListener;
 import com.funnyplayer.cache.lrc.LrcUtils;
@@ -78,12 +77,13 @@ public class LrcActivity extends Activity implements OnItemClickListener, View.O
 	public void onClick(View v) {
 		String searchArtist = mLrcSongArtistEt.getText().toString();
 		String searchSong = mLrcSongNameEt.getText().toString();
-		mLrcProvider.loadLrc(searchSong, searchArtist, this);
+		mLrcAdapter.removeAllItems();
+		mLrcProvider.searchLrc(searchSong, searchArtist, this);
 	}
 
 	@Override
-	public void onSearchFinished(String artist, String song) {
-		mLrcAdapter.add(artist, song);
+	public void onSearchFinished(String artist, String song, String url) {
+		mLrcAdapter.add(artist, song, url);
 		mLrcAdapter.notifyDataSetChanged();
 	}
 	
@@ -96,4 +96,5 @@ public class LrcActivity extends Activity implements OnItemClickListener, View.O
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
 }

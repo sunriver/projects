@@ -4,8 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.funnyplayer.R;
-
 import android.content.Context;
 import android.os.AsyncTask;
 import android.text.TextUtils;
@@ -14,7 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
+import com.funnyplayer.R;
+import com.funnyplayer.ui.widgets.LrcItemLayout;
 
 public class LrcAdapter extends BaseAdapter {
 	private static final String TAG = "LrcAdapter";
@@ -27,7 +26,6 @@ public class LrcAdapter extends BaseAdapter {
 		mItemList = new ArrayList<Item>();
 		mLrcPath = lrcPath;
 		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		new Task().execute();
 	}
 	
 	@Override
@@ -52,35 +50,32 @@ public class LrcAdapter extends BaseAdapter {
 	}
 	
 	
-	public void add(String artist, String song) {
-		mItemList.add(new Item(song, artist, null));
+	public void add(String artist, String song, String file) {
+		mItemList.add(new Item(song, artist, file));
+	}
+	
+	
+	public void removeAllItems() {
+		mItemList.clear();
+		notifyDataSetChanged();
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View v = convertView;
-		ViewHolder holder = null;
-		if (null == v) {
-			v = mInflater.inflate(R.layout.lrc_item, null);
-			holder = new ViewHolder();
-			holder.artistTv = (TextView) v.findViewById(R.id.lrc_item_artist);
-			holder.songTv = (TextView) v.findViewById(R.id.lrc_item_song);
-			v.setTag(holder);
-		} else {
-			holder = (ViewHolder) v.getTag();
-		}
+		LrcItemLayout itemLayout = (LrcItemLayout) convertView;
+		if (null == itemLayout) {
+			itemLayout = (LrcItemLayout) mInflater.inflate(R.layout.lrc_item, null);
+			itemLayout.init();
+		} 
 		Item item = mItemList.get(position);
-		holder.artistTv.setText(item.artist);
-		holder.songTv.setText(item.song);
-		return v;
+		itemLayout.setArtist(item.artist);
+		itemLayout.setSong(item.song);
+		itemLayout.setUrl(item.file);
+		return itemLayout;
 	}
 	
-	private static class ViewHolder {
-		TextView artistTv;
-		TextView songTv;
-	}
 
-
+	
 	private static class Item {
 		final String artist;
 		final String song;
@@ -124,4 +119,5 @@ public class LrcAdapter extends BaseAdapter {
 		}
 		
 	}
+
 }

@@ -6,8 +6,13 @@ public class LrcInfo {
 	private String mUrl;
 	
 	public LrcInfo(String artist, String song) {
+		this(artist, song, null);
+	}
+	
+	public LrcInfo(String artist, String song, String url) {
 		mArtist = artist;
 		mSong = song;
+		mUrl = url;
 	}
 	
 	public String getArtist() {

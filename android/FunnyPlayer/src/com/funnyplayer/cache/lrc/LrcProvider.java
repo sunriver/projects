@@ -1,6 +1,8 @@
 package com.funnyplayer.cache.lrc;
 
 
+import java.io.File;
+
 import com.funnyplayer.net.api.geci.bean.LrcBean;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -26,19 +28,55 @@ public class LrcProvider {
 		return mInstance;
 	}
 	
-	private void loadLrc(LrcInfo lrcInfo, LrcSearchCompletedListener l) {
-		//Create a thread to get bitmap from media store.
-		SearchTask task = new SearchTask(lrcInfo, l);
+	public void searchLrc(final String song, final String artist, LrcSearchCompletedListener l) {
+		SearchTask task = new SearchTask(new LrcInfo(song, artist), l);
 		task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
 	
-	public void loadLrc(final String song, final String artist, LrcSearchCompletedListener l) {
-		loadLrc(new LrcInfo(song, artist), l);
+	public String getLrcFromFile(String filePath) {
+		return LrcUtils.getLrcFromFile(new File(filePath));
 	}
 	
-	public interface LrcSearchCompletedListener {
-		public void onSearchFinished(String artist, String song);
+	public void downloadLrc(String artist, String song, String url, LrcDownloadCompletedListener l) {
+		DownloadTask task = new DownloadTask(new LrcInfo(song, artist, url), l);
+		task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
+	
+	
+	public interface LrcSearchCompletedListener {
+		public void onSearchFinished(String artist, String song, String url);
+	}
+	
+	
+	public interface LrcDownloadCompletedListener {
+		public void onDownloadFinished(String artist, String song, File file);
+	}
+	
+	private class DownloadTask extends AsyncTask<Void, Void, File> {
+		private LrcInfo mLrcInfo;
+		private LrcDownloadCompletedListener mListener;
+		
+		public DownloadTask(LrcInfo info, LrcDownloadCompletedListener l) {
+			this.mLrcInfo = info;
+			this.mListener = l;
+		}
+
+		@Override
+		protected File doInBackground(Void... params) {
+			File result = LrcUtils.downloadLrcFromWeb(mContext, mLrcInfo);
+			return result;
+		}
+		
+
+		@Override
+		protected void onPostExecute(File result) {
+			if (null == result) {
+				return;
+			}
+			mListener.onDownloadFinished(mLrcInfo.getArtist(), mLrcInfo.getSong(), result);
+		}
+	}
+	
 	
 	private class SearchTask extends AsyncTask<Void, Void, LrcBean> {
 		private LrcInfo mLrcInfo;
@@ -62,9 +100,8 @@ public class LrcProvider {
 				return;
 			}
 			for (LrcBean.LrcUrl lrcUrl : result.getResult()) {
-				mListener.onSearchFinished(lrcUrl.getArtist(), lrcUrl.getSong());
+				mListener.onSearchFinished(lrcUrl.getArtist(), lrcUrl.getSong(), lrcUrl.getLrc());
 			}
 		}
-		
 	}
 }
