@@ -1,6 +1,9 @@
 package com.funnyplayer.cache.lrc;
 
+import android.text.TextUtils;
+
 public class LrcInfo {
+	private static final String DEMIT = "-";
 	private String mArtist;
 	private String mSong;
 	private String mUrl;
@@ -41,10 +44,40 @@ public class LrcInfo {
 
 	@Override
 	public String toString() {
-		return escapeForFileSystem(mArtist + "_" + mSong);
+		return escapeForFileSystem(mSong + DEMIT + mArtist);
 	}
 	
-	   /**
+	public String toFileName() {
+		return toString() + ".lrc";
+	}
+	
+	public static String getSongByFileName(final String fileName) {
+		if (TextUtils.isEmpty(fileName)) {
+			return null;
+		}
+		int end = fileName.indexOf(".lrc");
+		String tempName = fileName.substring(0, end);
+		String[] values = tempName.split(DEMIT);
+		if (values != null && values.length > 0) {
+			return values[0];
+		}
+		return null;
+	}
+	
+	public static String getArtistByFileName(final String fileName) {
+		if (TextUtils.isEmpty(fileName)) {
+			return null;
+		}
+		int end = fileName.indexOf(".lrc");
+		String tempName = fileName.substring(0, end);
+		String[] values = tempName.split(DEMIT);
+		if (values != null && values.length > 1) {
+			return values[1];
+		}
+		return null;
+	}
+	
+	 /**
      * Replace the characters not allowed in file names with underscore
      * @param name
      * @return

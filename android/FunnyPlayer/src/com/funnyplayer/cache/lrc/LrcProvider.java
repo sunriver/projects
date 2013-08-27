@@ -89,6 +89,7 @@ public class LrcProvider {
 
 		@Override
 		protected LrcBean doInBackground(Void... params) {
+//			LrcBean result = LrcUtils.searchLrcFromDisk(mContext, mLrcInfo);
 			LrcBean result = LrcUtils.searchLrcFromWeb(mContext, mLrcInfo);
 			return result;
 		}

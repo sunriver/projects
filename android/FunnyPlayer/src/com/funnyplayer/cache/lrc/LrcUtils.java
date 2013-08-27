@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.apache.http.client.methods.HttpGet;
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 import com.funnyplayer.net.api.geci.LrcAPI;
 import com.funnyplayer.net.api.geci.bean.LrcBean;
@@ -53,13 +54,17 @@ public class LrcUtils {
 		return null;
 	}
 	
-	
+	/**
+	 * 
+	 * @param context
+	 * @return
+	 */
 	public static File getLrcDir(Context context) {
-		File dir = new File(context.getExternalCacheDir().getPath() + "/lrc");
+		File dir = new File(context.getFilesDir(), "/lrc");
 		if (dir.exists()) {
 			return dir;
 		}
-		return (dir.mkdir() ? dir : context.getExternalCacheDir());
+		return (dir.mkdir() ? dir : context.getFilesDir());
 		
 	}
 	
@@ -72,9 +77,29 @@ public class LrcUtils {
 		return lrcApi.getResult();
 	}
 	
+	public static LrcBean searchLrcFromDisk(Context context, LrcInfo lrcInfo) {
+		File dir = getLrcDir(context);
+		String path = dir.getAbsolutePath();
+		LrcBean lrcBean = new LrcBean();
+		List<LrcBean.LrcUrl> urls = new ArrayList<LrcBean.LrcUrl>();
+		for (String lrcFileName : dir.list()) {
+			String song = LrcInfo.getSongByFileName(lrcFileName);
+			String artist = LrcInfo.getArtistByFileName(lrcFileName);
+			if (!TextUtils.isEmpty(song) && song.startsWith(lrcInfo.getSong())) {
+				LrcBean.LrcUrl lrcUrl = new LrcBean.LrcUrl();
+				lrcUrl.setLrc(path + "/" + lrcFileName);
+				lrcUrl.setArtist(artist);
+				lrcUrl.setSong(song);
+				urls.add(lrcUrl);
+			}
+		}
+		lrcBean.setResult(urls);
+		return lrcBean;
+	}
+	
 	
 	public static File downloadLrcFromWeb(Context context, LrcInfo lrcInfo) {
-		File file = new File(getLrcDir(context), lrcInfo.toString() + ".lrc");
+		File file = new File(getLrcDir(context), lrcInfo.toFileName());
 		if (file.exists()) {
 			return file;
 		}
