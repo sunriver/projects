@@ -38,7 +38,6 @@ public class LrcActivity extends Activity implements OnItemClickListener, View.O
 	
 	private void init() {
 		mLrcSongNameEt = (EditText) findViewById(R.id.lrcSongName);
-		mLrcSongArtistEt = (EditText) findViewById(R.id.lrcSongArtist);
 		
 		mLrcSearchBtn = (Button) findViewById(R.id.lrcSearch);
 		mLrcSearchBtn.setOnClickListener(this);
@@ -53,7 +52,7 @@ public class LrcActivity extends Activity implements OnItemClickListener, View.O
 
     private void initActionBar() {
     	ActionBar actionBar = getActionBar();
-    	actionBar.setTitle(R.string.lrc_search);
+    	actionBar.setTitle(R.string.lrc_title);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE,
                 ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE
                         | ActionBar.DISPLAY_SHOW_HOME);
@@ -75,10 +74,9 @@ public class LrcActivity extends Activity implements OnItemClickListener, View.O
 
 	@Override
 	public void onClick(View v) {
-		String searchArtist = mLrcSongArtistEt.getText().toString();
 		String searchSong = mLrcSongNameEt.getText().toString();
 		mLrcAdapter.removeAllItems();
-		mLrcProvider.searchLrc(searchSong, searchArtist, this);
+		mLrcProvider.searchLrc(searchSong, null, this);
 	}
 
 	@Override

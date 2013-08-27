@@ -17,7 +17,8 @@
     <string name="lrc_song_artist">Artist</string>
     <string name="lrc_song_name_hint">Please input name for search!</string>
     <string name="lrc_song_artist_hint">Please input artist for search!</string>
-    <string name="lrc_search">Lrc Search</string>
+    <string name="lrc_search">Go</string>
+    <string name="lrc_title">LRC</string>
     <string name="lrc_download">Download</string>
     <string name="lrc_search_result">Search result:</string>
 
