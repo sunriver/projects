@@ -97,7 +97,7 @@ public class LrcUtils {
 			for (String lrcFileName : dir.list()) {
 				String song = LrcInfo.getSongByFileName(lrcFileName);
 				String artist = LrcInfo.getArtistByFileName(lrcFileName);
-				if (!TextUtils.isEmpty(song) && song.startsWith(lrcInfo.getSong())) {
+				if (!TextUtils.isEmpty(song) && song.toLowerCase().startsWith(lrcInfo.getSong().toLowerCase())) {
 					LrcBean.LrcUrl lrcUrl = new LrcBean.LrcUrl();
 					lrcUrl.setLrc(path + "/" + lrcFileName);
 					lrcUrl.setArtist(artist);

@@ -77,7 +77,7 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 
 	@Override
 	protected void onStart() {
-		searchLrc(null);
+		searchLrc();
 		super.onStart();
 	}
 
@@ -91,18 +91,18 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 
 	@Override
 	public void onClick(View v) {
-		String searchText = mLrcSongNameEt.getText().toString();
 		mLrcAdapter.removeAllItems();
-		searchLrc(searchText);
+		searchLrc();
 	}
 	
-	private void searchLrc(final String searchText) {
+	private void searchLrc() {
+		String searchText = mLrcSongNameEt.getText().toString();
 		switch (mSearchType) {
 		case LOCAL:
-			mLrcProvider.searchLrcFromDisk(searchText, null, this);
+			mLrcProvider.searchLrcFromDisk(null, searchText, this);
 			break;
 		case INTERNET:
-			mLrcProvider.searchLrcFromWeb(searchText, null, this);
+			mLrcProvider.searchLrcFromWeb(null, searchText, this);
 			break;
 		}
 	}

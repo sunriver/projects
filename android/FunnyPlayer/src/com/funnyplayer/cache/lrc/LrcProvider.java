@@ -28,12 +28,12 @@ public class LrcProvider {
 		return mInstance;
 	}
 	
-	public void searchLrcFromWeb(final String song, final String artist, LrcSearchCompletedListener l) {
-		SearchTask task = new SearchTaskFromWeb(new LrcInfo(song, artist), l);
+	public void searchLrcFromWeb(final String artist, final String song, LrcSearchCompletedListener l) {
+		SearchTask task = new SearchTaskFromWeb(new LrcInfo(artist, song), l);
 		task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
-	public void searchLrcFromDisk(final String song, final String artist, LrcSearchCompletedListener l) {
-		SearchTask task = new SearchTask(new LrcInfo(song, artist), l);
+	public void searchLrcFromDisk(final String artist, final String song, LrcSearchCompletedListener l) {
+		SearchTask task = new SearchTask(new LrcInfo(artist, song), l);
 		task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
 	

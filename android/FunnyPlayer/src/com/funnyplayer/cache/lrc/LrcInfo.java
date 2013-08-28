@@ -59,7 +59,7 @@ public class LrcInfo {
 		String tempName = fileName.substring(0, end);
 		String[] values = tempName.split(DEMIT);
 		if (values != null && values.length > 0) {
-			return values[0];
+			return values[1];
 		}
 		return null;
 	}
@@ -72,7 +72,7 @@ public class LrcInfo {
 		String tempName = fileName.substring(0, end);
 		String[] values = tempName.split(DEMIT);
 		if (values != null && values.length > 1) {
-			return values[1];
+			return values[0];
 		}
 		return null;
 	}
