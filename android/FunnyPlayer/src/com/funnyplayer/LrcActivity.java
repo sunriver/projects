@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.funnyplayer.cache.lrc.LrcProvider;
@@ -25,13 +26,14 @@ import com.funnyplayer.util.ViewUtil;
 public class LrcActivity extends Activity implements OnItemClickListener,
 		View.OnClickListener, LrcSearchCompletedListener {
 	private final static String TAG = LrcActivity.class.getSimpleName();
+	
 	private final static String LRC_SETTING = "lrc_setting";
 	private final static String LRC_SEARCH_TYPE = "lrc_search_type";
 
 	private ListView mLrcListView;
 	private LrcAdapter mLrcAdapter;
 	private EditText mLrcSongNameEt;
-	private Button mLrcSearchBtn;
+	private ImageButton mLrcSearchBtn;
 	private LrcProvider mLrcProvider;
 	private SharedPreferences mPreferences;
 	private MenuItem mLocalItem;
@@ -52,7 +54,7 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 	private void init() {
 		mLrcSongNameEt = (EditText) findViewById(R.id.lrcSongName);
 
-		mLrcSearchBtn = (Button) findViewById(R.id.lrcSearch);
+		mLrcSearchBtn = (ImageButton) findViewById(R.id.lrcSearch);
 		mLrcSearchBtn.setOnClickListener(this);
 
 		mLrcListView = (ListView) findViewById(R.id.lrcListView);

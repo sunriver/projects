@@ -77,7 +77,6 @@ public class LrcUtils {
 		return lrcApi.getResult();
 	}
 	
-	//
 	public static LrcBean searchLrcFromDisk(Context context, LrcInfo lrcInfo) {
 		File dir = getLrcDir(context);
 		String path = dir.getAbsolutePath();
