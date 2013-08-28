@@ -1,14 +1,13 @@
 package com.funnyplayer;
 
-import com.funnyplayer.cache.lrc.LrcProvider;
-import com.funnyplayer.cache.lrc.LrcProvider.LrcSearchCompletedListener;
-import com.funnyplayer.cache.lrc.LrcUtils;
-import com.funnyplayer.ui.adapter.LrcAdapter;
-import com.funnyplayer.util.ViewUtil;
-
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,46 +17,60 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class LrcActivity extends Activity implements OnItemClickListener, View.OnClickListener, LrcSearchCompletedListener {
+import com.funnyplayer.cache.lrc.LrcProvider;
+import com.funnyplayer.cache.lrc.LrcProvider.LrcSearchCompletedListener;
+import com.funnyplayer.cache.lrc.LrcUtils;
+import com.funnyplayer.ui.adapter.LrcAdapter;
+import com.funnyplayer.util.ViewUtil;
+
+public class LrcActivity extends Activity implements OnItemClickListener,
+		View.OnClickListener, LrcSearchCompletedListener {
+	private final static String TAG = LrcActivity.class.getSimpleName();
+	private final static String LRC_SETTING = "lrc_setting";
+	private final static String LRC_SEARCH_TYPE = "lrc_search_type";
+
 	private ListView mLrcListView;
 	private LrcAdapter mLrcAdapter;
-	private TextView mLrcTextView;
 	private EditText mLrcSongNameEt;
-	private EditText mLrcSongArtistEt;
 	private Button mLrcSearchBtn;
 	private LrcProvider mLrcProvider;
-	
-	
+	private SharedPreferences mPreferences;
+	private MenuItem mLocalItem;
+	private MenuItem mInternetItem;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setContentView(R.layout.lrc);
+		mPreferences = getSharedPreferences(LRC_SETTING, Context.MODE_PRIVATE);
 		initActionBar();
 		init();
 		super.onCreate(savedInstanceState);
 	}
-	
+
 	private void init() {
 		mLrcSongNameEt = (EditText) findViewById(R.id.lrcSongName);
-		
+
 		mLrcSearchBtn = (Button) findViewById(R.id.lrcSearch);
 		mLrcSearchBtn.setOnClickListener(this);
-		
+
 		mLrcListView = (ListView) findViewById(R.id.lrcListView);
-		mLrcAdapter = new LrcAdapter(getApplicationContext(), LrcUtils.getLrcDir(this).getPath());
+		mLrcAdapter = new LrcAdapter(getApplicationContext(), LrcUtils
+				.getLrcDir(this).getPath());
 		mLrcListView.setAdapter(mLrcAdapter);
 		mLrcListView.setOnItemClickListener(this);
-		
+
 		mLrcProvider = LrcProvider.getInstance(getApplicationContext());
 	}
 
-    private void initActionBar() {
-    	ActionBar actionBar = getActionBar();
-    	actionBar.setTitle(R.string.lrc_title);
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE,
-                ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE
-                        | ActionBar.DISPLAY_SHOW_HOME);
-        ViewUtil.setActionBarBackgroundRepeat(this, actionBar);
-    }
+	private void initActionBar() {
+		ActionBar actionBar = getActionBar();
+		actionBar.setTitle(R.string.lrc_title);
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP
+				| ActionBar.DISPLAY_SHOW_TITLE, ActionBar.DISPLAY_HOME_AS_UP
+				| ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_HOME);
+		ViewUtil.setActionBarBackgroundRepeat(this, actionBar);
+	}
+
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
@@ -67,9 +80,9 @@ public class LrcActivity extends Activity implements OnItemClickListener, View.O
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-//		File f = mLrcAdapter.getLrcFile(position);
-//		String lrc = LrcUtils.getLrcFromFile(f);
-//		mLrcTextView.setText(lrc);
+		// File f = mLrcAdapter.getLrcFile(position);
+		// String lrc = LrcUtils.getLrcFromFile(f);
+		// mLrcTextView.setText(lrc);
 	}
 
 	@Override
@@ -84,15 +97,55 @@ public class LrcActivity extends Activity implements OnItemClickListener, View.O
 		mLrcAdapter.add(artist, song, url);
 		mLrcAdapter.notifyDataSetChanged();
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			super.onBackPressed();
 			break;
+		case R.id.menu_local_search:
+			mPreferences.edit()
+					.putString(LRC_SEARCH_TYPE, SearchType.LOCAL.name())
+					.commit();
+			updateSearchType(SearchType.LOCAL);
+			break;
+		case R.id.menu_internet_search:
+			mPreferences.edit()
+					.putString(LRC_SEARCH_TYPE, SearchType.INTERNET.name())
+					.commit();
+			updateSearchType(SearchType.INTERNET);
+			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.lrc, menu);
+		mLocalItem= menu.findItem(R.id.menu_local_search);
+		mInternetItem = menu.findItem(R.id.menu_internet_search);
+		String type = mPreferences.getString(LRC_SEARCH_TYPE, SearchType.LOCAL.name());
+		updateSearchType(SearchType.valueOf(type));
+		return true;
+	}
+	
+	private void updateSearchType(SearchType type) {
+		switch (type) {
+		case LOCAL:
+			mLocalItem.setChecked(true);
+			mInternetItem.setChecked(false);
+			break;
+		case INTERNET:
+			mLocalItem.setChecked(false);
+			mInternetItem.setChecked(true);
+			break;
+		}
+	}
+
+	private static enum SearchType {
+		LOCAL, INTERNET
 	}
 
 }

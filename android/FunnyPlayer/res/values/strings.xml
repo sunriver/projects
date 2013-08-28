@@ -21,5 +21,8 @@
     <string name="lrc_title">LRC</string>
     <string name="lrc_download">Download</string>
     <string name="lrc_search_result">Search result:</string>
-
+    
+    <!-- lrc menu -->
+	<string name="men_local_search">Local</string>
+	<string name="men_internet_search">Internet</string>
 </resources>
