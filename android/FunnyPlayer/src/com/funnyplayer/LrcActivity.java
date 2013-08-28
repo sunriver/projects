@@ -38,6 +38,7 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 	private SharedPreferences mPreferences;
 	private MenuItem mLocalItem;
 	private MenuItem mInternetItem;
+	private MenuItem mSearchTypeItem;
 	private SearchType mSearchType;
 
 	@Override
@@ -135,6 +136,7 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 		inflater.inflate(R.menu.lrc, menu);
 		mLocalItem= menu.findItem(R.id.menu_local_search);
 		mInternetItem = menu.findItem(R.id.menu_internet_search);
+		mSearchTypeItem = menu.findItem(R.id.menu_search_type);
 		updateSearchType(mSearchType);
 		return true;
 	}
@@ -146,14 +148,17 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 		.commit();
 		switch (type) {
 		case LOCAL:
+			mSearchTypeItem.setTitle(mLocalItem.getTitle());
 			mLocalItem.setChecked(true);
 			mInternetItem.setChecked(false);
 			break;
 		case INTERNET:
+			mSearchTypeItem.setTitle(mInternetItem.getTitle());
 			mLocalItem.setChecked(false);
 			mInternetItem.setChecked(true);
 			break;
 		}
+		searchLrc();
 	}
 
 	private static enum SearchType {
