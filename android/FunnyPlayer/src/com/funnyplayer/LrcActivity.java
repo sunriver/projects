@@ -75,7 +75,7 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
+		searchLrc(null);
 		super.onStart();
 	}
 
@@ -91,6 +91,10 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 	public void onClick(View v) {
 		String searchText = mLrcSongNameEt.getText().toString();
 		mLrcAdapter.removeAllItems();
+		searchLrc(searchText);
+	}
+	
+	private void searchLrc(final String searchText) {
 		switch (mSearchType) {
 		case LOCAL:
 			mLrcProvider.searchLrcFromDisk(searchText, null, this);
