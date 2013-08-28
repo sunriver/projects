@@ -77,20 +77,34 @@ public class LrcUtils {
 		return lrcApi.getResult();
 	}
 	
+	//
 	public static LrcBean searchLrcFromDisk(Context context, LrcInfo lrcInfo) {
 		File dir = getLrcDir(context);
 		String path = dir.getAbsolutePath();
 		LrcBean lrcBean = new LrcBean();
 		List<LrcBean.LrcUrl> urls = new ArrayList<LrcBean.LrcUrl>();
-		for (String lrcFileName : dir.list()) {
-			String song = LrcInfo.getSongByFileName(lrcFileName);
-			String artist = LrcInfo.getArtistByFileName(lrcFileName);
-			if (!TextUtils.isEmpty(song) && song.startsWith(lrcInfo.getSong())) {
+		//List all lrc if dont' type any search text.
+		if (TextUtils.isEmpty(lrcInfo.getSong())) {
+			for (String lrcFileName : dir.list()) {
+				String song = LrcInfo.getSongByFileName(lrcFileName);
+				String artist = LrcInfo.getArtistByFileName(lrcFileName);
 				LrcBean.LrcUrl lrcUrl = new LrcBean.LrcUrl();
 				lrcUrl.setLrc(path + "/" + lrcFileName);
 				lrcUrl.setArtist(artist);
 				lrcUrl.setSong(song);
 				urls.add(lrcUrl);
+			}
+		} else {
+			for (String lrcFileName : dir.list()) {
+				String song = LrcInfo.getSongByFileName(lrcFileName);
+				String artist = LrcInfo.getArtistByFileName(lrcFileName);
+				if (!TextUtils.isEmpty(song) && song.startsWith(lrcInfo.getSong())) {
+					LrcBean.LrcUrl lrcUrl = new LrcBean.LrcUrl();
+					lrcUrl.setLrc(path + "/" + lrcFileName);
+					lrcUrl.setArtist(artist);
+					lrcUrl.setSong(song);
+					urls.add(lrcUrl);
+				}
 			}
 		}
 		lrcBean.setResult(urls);

@@ -15,7 +15,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.funnyplayer.cache.lrc.LrcProvider;
 import com.funnyplayer.cache.lrc.LrcProvider.LrcSearchCompletedListener;
@@ -37,11 +36,14 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 	private SharedPreferences mPreferences;
 	private MenuItem mLocalItem;
 	private MenuItem mInternetItem;
+	private SearchType mSearchType;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setContentView(R.layout.lrc);
 		mPreferences = getSharedPreferences(LRC_SETTING, Context.MODE_PRIVATE);
+		String type = mPreferences.getString(LRC_SEARCH_TYPE, SearchType.LOCAL.name());
+		mSearchType = SearchType.valueOf(type);
 		initActionBar();
 		init();
 		super.onCreate(savedInstanceState);
@@ -87,9 +89,16 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 
 	@Override
 	public void onClick(View v) {
-		String searchSong = mLrcSongNameEt.getText().toString();
+		String searchText = mLrcSongNameEt.getText().toString();
 		mLrcAdapter.removeAllItems();
-		mLrcProvider.searchLrc(searchSong, null, this);
+		switch (mSearchType) {
+		case LOCAL:
+			mLrcProvider.searchLrcFromDisk(searchText, null, this);
+			break;
+		case INTERNET:
+			mLrcProvider.searchLrcFromWeb(searchText, null, this);
+			break;
+		}
 	}
 
 	@Override
@@ -105,15 +114,9 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 			super.onBackPressed();
 			break;
 		case R.id.menu_local_search:
-			mPreferences.edit()
-					.putString(LRC_SEARCH_TYPE, SearchType.LOCAL.name())
-					.commit();
 			updateSearchType(SearchType.LOCAL);
 			break;
 		case R.id.menu_internet_search:
-			mPreferences.edit()
-					.putString(LRC_SEARCH_TYPE, SearchType.INTERNET.name())
-					.commit();
 			updateSearchType(SearchType.INTERNET);
 			break;
 		}
@@ -126,12 +129,15 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 		inflater.inflate(R.menu.lrc, menu);
 		mLocalItem= menu.findItem(R.id.menu_local_search);
 		mInternetItem = menu.findItem(R.id.menu_internet_search);
-		String type = mPreferences.getString(LRC_SEARCH_TYPE, SearchType.LOCAL.name());
-		updateSearchType(SearchType.valueOf(type));
+		updateSearchType(mSearchType);
 		return true;
 	}
 	
 	private void updateSearchType(SearchType type) {
+		mSearchType = type;
+		mPreferences.edit()
+		.putString(LRC_SEARCH_TYPE, type.name())
+		.commit();
 		switch (type) {
 		case LOCAL:
 			mLocalItem.setChecked(true);

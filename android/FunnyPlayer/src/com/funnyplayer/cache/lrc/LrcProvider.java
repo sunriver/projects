@@ -28,7 +28,11 @@ public class LrcProvider {
 		return mInstance;
 	}
 	
-	public void searchLrc(final String song, final String artist, LrcSearchCompletedListener l) {
+	public void searchLrcFromWeb(final String song, final String artist, LrcSearchCompletedListener l) {
+		SearchTask task = new SearchTaskFromWeb(new LrcInfo(song, artist), l);
+		task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+	}
+	public void searchLrcFromDisk(final String song, final String artist, LrcSearchCompletedListener l) {
 		SearchTask task = new SearchTask(new LrcInfo(song, artist), l);
 		task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
@@ -78,9 +82,13 @@ public class LrcProvider {
 	}
 	
 	
+	
+   /*
+    * Search lrc from disk at default.
+    */
 	private class SearchTask extends AsyncTask<Void, Void, LrcBean> {
-		private LrcInfo mLrcInfo;
-		private LrcSearchCompletedListener mListener;
+		protected LrcInfo mLrcInfo;
+		protected LrcSearchCompletedListener mListener;
 		
 		public SearchTask(LrcInfo info, LrcSearchCompletedListener l) {
 			this.mLrcInfo = info;
@@ -89,8 +97,7 @@ public class LrcProvider {
 
 		@Override
 		protected LrcBean doInBackground(Void... params) {
-//			LrcBean result = LrcUtils.searchLrcFromDisk(mContext, mLrcInfo);
-			LrcBean result = LrcUtils.searchLrcFromWeb(mContext, mLrcInfo);
+			LrcBean result = LrcUtils.searchLrcFromDisk(mContext, mLrcInfo);
 			return result;
 		}
 		
@@ -104,5 +111,23 @@ public class LrcProvider {
 				mListener.onSearchFinished(lrcUrl.getArtist(), lrcUrl.getSong(), lrcUrl.getLrc());
 			}
 		}
+		
+	}
+	
+	   /*
+	    * Search lrc from web 
+	    */
+	private class SearchTaskFromWeb extends SearchTask {
+
+		private SearchTaskFromWeb(LrcInfo info, LrcSearchCompletedListener l) {
+			super(info, l);
+		}
+		
+		@Override
+		protected LrcBean doInBackground(Void... params) {
+			LrcBean result = LrcUtils.searchLrcFromWeb(mContext, mLrcInfo);
+			return result;
+		}
+		
 	}
 }
