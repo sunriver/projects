@@ -12,13 +12,12 @@ import android.util.Log;
 public class PhoneStatReceiver extends BroadcastReceiver {
 
 	private static final String TAG = PhoneStatReceiver.class.getSimpleName();
-	private MusicState mLastState = MusicState.PAUSED;
-
+	private boolean mCallOnPlaying = false;
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		if (intent.getAction().equals(Intent.ACTION_NEW_OUTGOING_CALL)) {
 			if (MusicUtil.isPlaying()) {
-				mLastState = MusicState.PLAYING;
+				mCallOnPlaying = true;
 				MusicUtil.pause(context);
 			}
 		} else {
@@ -26,14 +25,19 @@ public class PhoneStatReceiver extends BroadcastReceiver {
 			switch (tm.getCallState()) {
 			case TelephonyManager.CALL_STATE_RINGING:
 				if (MusicUtil.isPlaying()) {
-					mLastState = MusicState.PLAYING;
+					mCallOnPlaying = true;
 					MusicUtil.pause(context);
 				}
 				break;
 			case TelephonyManager.CALL_STATE_OFFHOOK:
+				if (MusicUtil.isPlaying()) {
+					mCallOnPlaying = true;
+					MusicUtil.pause(context);
+				}
 				break;
 			case TelephonyManager.CALL_STATE_IDLE:
-				if (mLastState == MusicState.PLAYING) {
+				if (mCallOnPlaying) {
+					mCallOnPlaying = false;
 					MusicUtil.play(context);
 				}
 				break;
