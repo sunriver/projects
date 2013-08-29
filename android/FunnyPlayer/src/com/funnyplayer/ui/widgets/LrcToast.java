@@ -30,6 +30,21 @@ public class LrcToast {
 			return;
 		}
 		mToastView.setText(msg);
-		mWin.showAtLocation(mParent, Gravity.LEFT | Gravity.RIGHT, 0, 0);
+		mWin.showAtLocation(mParent, Gravity.LEFT | Gravity.TOP, 0, 0);
 	}
+	
+	public void hide() {
+		if (mWin.isShowing()) {
+			mWin.dismiss();
+		}
+	}
+	
+	public static View makeToastView(Context context, final String msg) {
+		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);  
+		View v = inflater.inflate(R.layout.lrc_toast, null);
+		TextView tv = (TextView) v.findViewById(R.id.lrc_toast);
+		tv.setText(msg);
+		return v;
+	}
+	
 }

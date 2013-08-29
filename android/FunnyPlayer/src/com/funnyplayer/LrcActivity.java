@@ -24,6 +24,8 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 		View.OnClickListener, LrcSearchCompletedListener {
 	private final static String TAG = LrcActivity.class.getSimpleName();
 	
+
+
 	private final static String LRC_SETTING = "lrc_setting";
 	private final static String LRC_SEARCH_TYPE = "lrc_search_type";
 
@@ -162,6 +164,12 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 
 	private static enum SearchType {
 		LOCAL, INTERNET
+	}
+	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
 	}
 
 }
