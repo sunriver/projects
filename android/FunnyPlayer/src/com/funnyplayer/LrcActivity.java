@@ -17,7 +17,6 @@ import android.widget.ListView;
 
 import com.funnyplayer.cache.lrc.LrcProvider;
 import com.funnyplayer.cache.lrc.LrcProvider.LrcSearchCompletedListener;
-import com.funnyplayer.cache.lrc.LrcUtils;
 import com.funnyplayer.ui.adapter.LrcAdapter;
 import com.funnyplayer.util.ViewUtil;
 
@@ -58,8 +57,7 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 		mLrcSearchBtn.setOnClickListener(this);
 
 		mLrcListView = (ListView) findViewById(R.id.lrcListView);
-		mLrcAdapter = new LrcAdapter(getApplicationContext(), LrcUtils
-				.getLrcDir(this).getPath());
+		mLrcAdapter = new LrcAdapter(getApplicationContext());
 		mLrcListView.setAdapter(mLrcAdapter);
 		mLrcListView.setOnItemClickListener(this);
 

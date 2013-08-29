@@ -19,12 +19,10 @@ public class LrcAdapter extends BaseAdapter {
 	private static final String TAG = "LrcAdapter";
 	
 	private List<Item> mItemList;
-	private final String mLrcPath;
 	private LayoutInflater mInflater;
 	
-	public LrcAdapter(Context context, final String lrcPath) {
+	public LrcAdapter(Context context) {
 		mItemList = new ArrayList<Item>();
-		mLrcPath = lrcPath;
 		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 	
@@ -45,8 +43,7 @@ public class LrcAdapter extends BaseAdapter {
 	
 	public File getLrcFile(int position) {
 		Item item = mItemList.get(position);
-		String path = mLrcPath + "/" + item.file;
-		return new File(path);
+		return new File(item.file);
 	}
 	
 	
@@ -88,36 +85,5 @@ public class LrcAdapter extends BaseAdapter {
 		}
 	}
 	
-	private class Task extends AsyncTask<Void, Void, List<Item>> {
-
-		@Override
-		protected List<Item> doInBackground(Void... params) {
-			List<Item> list = new ArrayList<Item>();
-			if (TextUtils.isEmpty(mLrcPath)) {
-				return list;
-			}
-			File f = new File(mLrcPath);
-			if (!f.exists() || !f.isDirectory()) {
-				return list;
-			}
-			for (String file : f.list()) {
-				Log.v(TAG, file);
-				String[] temp = file.split(".lrc")[0].split("_");
-				String song = temp[0];
-				String artist = temp[1];
-				list.add(new Item(song, artist, file));
-			}
-			return list;
-		}
-
-		@Override
-		protected void onPostExecute(List<Item> result) {
-			for (Item item : result) {
-				mItemList.add(item);
-			}
-			notifyDataSetChanged();
-		}
-		
-	}
 
 }
