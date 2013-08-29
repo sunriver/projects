@@ -8,6 +8,7 @@ import com.funnyplayer.cache.lrc.LrcProvider.LrcDownloadCompletedListener;
 
 import android.content.Context;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ImageView;
@@ -18,7 +19,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 public class LrcItemLayout extends LinearLayout implements OnClickListener, LrcDownloadCompletedListener {
-	private static final String TAG = "LrcItemLayout";
+	private static final String TAG = LrcItemLayout.class.getSimpleName();
 	
 	private String mSong;
 	private String mArtist;
@@ -71,12 +72,15 @@ public class LrcItemLayout extends LinearLayout implements OnClickListener, LrcD
 	@Override
 	public void onClick(View v) {
 		Log.v(TAG, TAG + ".onClick()+");
-		if (mUrl.startsWith("http")) {
+		if (!TextUtils.isEmpty(mUrl) && mUrl.startsWith("http")) {
 			mDownloadImg.setImageResource(R.drawable.downloading);
 			mLrcProvider.downloadLrc(mArtist, mSong, mUrl, this);
 		} else {
 			String msg = mLrcProvider.getLrcFromFile(mUrl);
-			Toast.makeText(this.getContext(), msg, Toast.LENGTH_LONG).show();
+//			Toast t = Toast.makeText(getContext(), msg, 6000);
+//			t.show();
+			LrcToast lt = new LrcToast(getContext(), (View) v.getParent());
+			lt.show(msg);
 		}
 	}
 
@@ -86,7 +90,7 @@ public class LrcItemLayout extends LinearLayout implements OnClickListener, LrcD
 		mDownloadImg.setImageResource(R.drawable.downloaded);
 		mUrl = file.getAbsolutePath();
 		String msg = mLrcProvider.getLrcFromFile(mUrl);
-		Toast.makeText(this.getContext(), msg, 2000).show();
+		Toast.makeText(getContext(), msg, 2000).show();
 	}
 
 
