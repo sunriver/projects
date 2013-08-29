@@ -47,6 +47,7 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 		mSearchType = SearchType.valueOf(type);
 		initActionBar();
 		init();
+		
 		super.onCreate(savedInstanceState);
 	}
 
@@ -67,6 +68,7 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 
 	private void initActionBar() {
 		ActionBar actionBar = getActionBar();
+//		actionBar.setCustomView(resId);
 		actionBar.setTitle(R.string.lrc_title);
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP
 				| ActionBar.DISPLAY_SHOW_TITLE, ActionBar.DISPLAY_HOME_AS_UP
@@ -132,9 +134,10 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.lrc, menu);
-		mLocalItem= menu.findItem(R.id.menu_local_search);
-		mInternetItem = menu.findItem(R.id.menu_internet_search);
 		mSearchTypeItem = menu.findItem(R.id.menu_search_type);
+		Menu sub = mSearchTypeItem.getSubMenu();
+		mLocalItem= sub.findItem(R.id.menu_local_search);
+		mInternetItem = sub.findItem(R.id.menu_internet_search);
 		updateSearchType(mSearchType);
 		return true;
 	}
