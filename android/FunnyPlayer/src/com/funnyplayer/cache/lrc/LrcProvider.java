@@ -2,6 +2,10 @@ package com.funnyplayer.cache.lrc;
 
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import com.funnyplayer.net.api.geci.bean.LrcBean;
 import android.content.Context;
@@ -11,9 +15,11 @@ public class LrcProvider {
 	private static final String TAG = "LrcProvider";
     private static LrcProvider mInstance;
     private Context mContext;
+    private Map<String, AsyncTask> mRunningTasks;
     
 	private LrcProvider(Context context) {
 		this.mContext = context;
+		mRunningTasks = new HashMap<String, AsyncTask>();
 	}
 	
 	/**
@@ -89,10 +95,12 @@ public class LrcProvider {
 	private class SearchTask extends AsyncTask<Void, Void, LrcBean> {
 		protected LrcInfo mLrcInfo;
 		protected LrcSearchCompletedListener mListener;
+		protected Set<String> mLrcSet;
 		
 		public SearchTask(LrcInfo info, LrcSearchCompletedListener l) {
 			this.mLrcInfo = info;
 			this.mListener = l;
+			this.mLrcSet = new HashSet<String>();
 		}
 
 		@Override
@@ -108,7 +116,11 @@ public class LrcProvider {
 				return;
 			}
 			for (LrcBean.LrcUrl lrcUrl : result.getResult()) {
-				mListener.onSearchFinished(lrcUrl.getArtist(), lrcUrl.getSong(), lrcUrl.getLrc());
+				String key = lrcUrl.toString(); 
+				if (!mLrcSet.contains(key)) {
+					mLrcSet.add(key);
+					mListener.onSearchFinished(lrcUrl.getArtist(), lrcUrl.getSong(), lrcUrl.getLrc());
+				}
 			}
 		}
 		

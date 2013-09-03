@@ -2,6 +2,8 @@ package com.funnyplayer.net.api.geci.bean;
 
 import java.util.List;
 
+import android.text.TextUtils;
+
 public class LrcBean {
 	int count;
 	int code;
@@ -76,6 +78,13 @@ public class LrcBean {
 
 		public void setSid(int sid) {
 			this.sid = sid;
+		}
+		
+		public String toString() {
+			if (!TextUtils.isEmpty(artist) && ! TextUtils.isEmpty(song)) {
+				return artist.toLowerCase() + "_" + song.toLowerCase();
+			} 
+			return song.toLowerCase();
 		}
 	}
 
