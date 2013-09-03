@@ -10,6 +10,16 @@
     <string name="tab_title_album">专辑</string>
     <string name="tab_title_artist">歌手</string>
     <string name="tab_title_favorite">最爱</string>
-    <string name="tab_title_list">曲目</string>
-
+    <string name="tab_title_list">列表</string>
+    
+    <!-- lrc -->
+    <string name="lrc_song_name">歌曲</string>
+    <string name="lrc_song_artist">歌手</string>
+    <string name="lrc_song_name_hint">输入歌曲名字</string>
+    <string name="lrc_search">Go</string>
+    <string name="lrc_title">歌词</string>
+    
+    <!-- lrc menu -->
+	<string name="men_local_search">本地搜索</string>
+	<string name="men_internet_search">网络搜索</string>
 </resources>
