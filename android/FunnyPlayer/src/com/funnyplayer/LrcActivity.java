@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,9 +24,6 @@ import com.funnyplayer.util.ViewUtil;
 public class LrcActivity extends Activity implements OnItemClickListener,
 		View.OnClickListener, LrcSearchCompletedListener {
 	private final static String TAG = LrcActivity.class.getSimpleName();
-	
-
-
 	private final static String LRC_SETTING = "lrc_setting";
 	private final static String LRC_SEARCH_TYPE = "lrc_search_type";
 
@@ -61,7 +59,6 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 		mLrcListView = (ListView) findViewById(R.id.lrcListView);
 		mLrcAdapter = new LrcAdapter(getApplicationContext());
 		mLrcListView.setAdapter(mLrcAdapter);
-		mLrcListView.setOnItemClickListener(this);
 
 		mLrcProvider = LrcProvider.getInstance(getApplicationContext());
 	}
@@ -92,18 +89,20 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 
 	@Override
 	public void onClick(View v) {
-		mLrcAdapter.removeAllItems();
 		searchLrc();
 	}
 	
 	private void searchLrc() {
+		mLrcAdapter.removeAllItems();
 		String searchText = mLrcSongNameEt.getText().toString();
 		switch (mSearchType) {
 		case LOCAL:
 			mLrcProvider.searchLrcFromDisk(null, searchText, this);
 			break;
 		case INTERNET:
-			mLrcProvider.searchLrcFromWeb(null, searchText, this);
+			if (!TextUtils.isEmpty(searchText)) {
+				mLrcProvider.searchLrcFromWeb(null, searchText, this);
+			}
 			break;
 		}
 	}

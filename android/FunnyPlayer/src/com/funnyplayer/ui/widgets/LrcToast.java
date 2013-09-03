@@ -3,7 +3,6 @@ package com.funnyplayer.ui.widgets;
 import com.funnyplayer.R;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,35 +15,47 @@ public class LrcToast {
 	private Context mContext;
 	private TextView mToastView;
 	private View mParent;
-	public LrcToast(Context context, View parent) {
+	private View mContent;
+	private LrcToast(Context context, View parent) {
 		mContext = context;
 		mParent = parent;
 		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);  
-		View v = inflater.inflate(R.layout.lrc_toast, null);
-		mToastView = (TextView) v.findViewById(R.id.lrc_toast);
-		mWin = new PopupWindow(v, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+		mContent = inflater.inflate(R.layout.lrc_toast, null);
+		mToastView = (TextView) mContent.findViewById(R.id.lrc_toast);
+		mWin = new PopupWindow(mContent, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, true);
 	}
 	
-	public void show(final String msg) {
-		if (TextUtils.isEmpty(msg)) {
-			return;
-		}
-		mToastView.setText(msg);
+	public LrcToast(Context context) {
+		this(context, null);
+	}
+	
+	public void show() {
 		mWin.showAtLocation(mParent, Gravity.LEFT | Gravity.TOP, 0, 0);
 	}
 	
+
+	public View getView() {
+		return mContent;
+	}
+
 	public void hide() {
 		if (mWin.isShowing()) {
 			mWin.dismiss();
 		}
 	}
 	
-	public static View makeToastView(Context context, final String msg) {
-		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);  
-		View v = inflater.inflate(R.layout.lrc_toast, null);
-		TextView tv = (TextView) v.findViewById(R.id.lrc_toast);
-		tv.setText(msg);
-		return v;
+	public static LrcToast makeToast(Context context) {
+		return makeToast(context, null, null);
 	}
 	
+	public static LrcToast makeToast(Context context, final String msg) {
+		return makeToast(context, null, msg);
+	}
+	
+	public static LrcToast makeToast(Context context, View parent, final String msg) {
+		LrcToast lt = new LrcToast(context, parent);
+		lt.mToastView.setText(msg);
+		return lt;
+	}
+
 }

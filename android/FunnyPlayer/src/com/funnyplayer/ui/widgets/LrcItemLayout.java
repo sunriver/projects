@@ -77,8 +77,8 @@ public class LrcItemLayout extends LinearLayout implements OnClickListener, LrcD
 			mLrcProvider.downloadLrc(mArtist, mSong, mUrl, this);
 		} else {
 			String msg = mLrcProvider.getLrcFromFile(mUrl);
-			LrcToast lt = new LrcToast(getContext(), (View) v.getParent());
-			lt.show(msg);
+			LrcToast lt = LrcToast.makeToast(getContext(), v.getRootView(), msg);
+			lt.show();
 		}
 	}
 
@@ -88,8 +88,8 @@ public class LrcItemLayout extends LinearLayout implements OnClickListener, LrcD
 		mDownloadImg.setImageResource(R.drawable.downloaded);
 		mUrl = file.getAbsolutePath();
 		String msg = mLrcProvider.getLrcFromFile(mUrl);
-		View v = LrcToast.makeToastView(getContext(), msg);
-		Toast t = Toast.makeText(getContext(), msg, 2000);
+		View v = LrcToast.makeToast(getContext(), msg).getView();
+		Toast t = Toast.makeText(getContext(), null, Toast.LENGTH_LONG);
 		t.setView(v);
 		t.show();
 	}
