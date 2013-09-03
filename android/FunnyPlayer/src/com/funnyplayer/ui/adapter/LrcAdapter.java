@@ -16,7 +16,7 @@ import com.funnyplayer.R;
 import com.funnyplayer.ui.widgets.LrcItemLayout;
 
 public class LrcAdapter extends BaseAdapter {
-	private static final String TAG = "LrcAdapter";
+	private static final String TAG = LrcAdapter.class.getSimpleName();
 	
 	private List<Item> mItemList;
 	private LayoutInflater mInflater;

@@ -3,6 +3,7 @@ package com.funnyplayer.ui.widgets;
 import com.funnyplayer.R;
 
 import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-public class LrcToast {
+public class LrcToast  {
 	private PopupWindow mWin;
 	private Context mContext;
 	private TextView mToastView;
@@ -23,6 +24,7 @@ public class LrcToast {
 		mContent = inflater.inflate(R.layout.lrc_toast, null);
 		mToastView = (TextView) mContent.findViewById(R.id.lrc_toast);
 		mWin = new PopupWindow(mContent, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, true);
+		mWin.setBackgroundDrawable(new BitmapDrawable());
 	}
 	
 	public LrcToast(Context context) {

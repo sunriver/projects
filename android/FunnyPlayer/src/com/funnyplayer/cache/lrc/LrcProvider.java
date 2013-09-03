@@ -122,6 +122,7 @@ public class LrcProvider {
 					mListener.onSearchFinished(lrcUrl.getArtist(), lrcUrl.getSong(), lrcUrl.getLrc());
 				}
 			}
+			mLrcSet.clear();
 		}
 		
 	}
