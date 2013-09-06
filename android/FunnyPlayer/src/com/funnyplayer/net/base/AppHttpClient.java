@@ -5,6 +5,8 @@ import java.lang.reflect.Method;
 
 import org.apache.http.HttpVersion;
 import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.params.ConnManagerParams;
+import org.apache.http.conn.params.ConnPerRouteBean;
 import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
@@ -32,11 +34,15 @@ public class AppHttpClient extends DefaultHttpClient {
 	private final static String TAG = "Network";
 	
 	// Wait this many milliseconds max for the TCP connection to be established
-	private static final int CONNECTION_TIMEOUT = 60 * 1000;
+	private static final int CONNECTION_TIMEOUT = 10 * 1000;
 	 
 	// Wait this many milliseconds max for the server to send us data once the connection has been established
-	private static final int SO_TIMEOUT = 5 * 60 * 1000;
+	private static final int SO_TIMEOUT = 30 * 1000;
+
+	private static final int CONN_MANAGER_TIMEOUT = 15 * 1000;
 	
+	private static final int MAX_ROUTE_CONNECTIONS = 20;
+
 	private Context mContext;
 	
 	public AppHttpClient(Context context) {
@@ -49,10 +55,15 @@ public class AppHttpClient extends DefaultHttpClient {
 		registry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
 		registry.register(new Scheme("https", getHttpsSocketFactory(), 443));
 		HttpParams params = getParams();
+		
+        ConnPerRouteBean connPerRoute = new ConnPerRouteBean(MAX_ROUTE_CONNECTIONS);  
+        ConnManagerParams.setMaxConnectionsPerRoute(params, connPerRoute); 
+        
 		HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
 		HttpProtocolParams.setContentCharset(params, HTTP.UTF_8);
 		HttpConnectionParams.setConnectionTimeout(params, CONNECTION_TIMEOUT);
 		HttpConnectionParams.setSoTimeout(params, SO_TIMEOUT);
+		ConnManagerParams.setTimeout(params, CONN_MANAGER_TIMEOUT);
 		return new ThreadSafeClientConnManager(params, registry);
 	}
 
