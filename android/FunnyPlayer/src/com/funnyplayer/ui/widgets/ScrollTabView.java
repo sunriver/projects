@@ -7,6 +7,7 @@ import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.View.MeasureSpec;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
@@ -60,6 +61,19 @@ public class ScrollTabView extends HorizontalScrollView implements
 
 		if (mPager != null && mAdapter != null) {
 			initTabs();
+		}
+	}
+
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		mContainer.measure(widthMeasureSpec, heightMeasureSpec);
+		for (int count = mContainer.getChildCount(), i = 0,childWidthSize = mContainer.getWidth() / count; i < count; i++) {
+			 View child = mContainer.getChildAt(i);
+			int childWidthMeasureSpec = child.getMeasuredWidth();
+			int childHidthMeasureSpec = child.getMeasuredHeight();
+	        childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(childWidthSize, MeasureSpec.EXACTLY);
+			child.measure(childWidthMeasureSpec, childHidthMeasureSpec);
 		}
 	}
 
