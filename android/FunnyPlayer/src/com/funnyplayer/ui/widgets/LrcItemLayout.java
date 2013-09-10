@@ -28,6 +28,7 @@ public class LrcItemLayout extends LinearLayout implements OnClickListener, LrcD
 	private TextView mArtistTv;
 	private TextView mSongTv;
 	private LrcProvider mLrcProvider;
+	private Toast mLoadingToast;
 
 	public LrcItemLayout(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -75,6 +76,11 @@ public class LrcItemLayout extends LinearLayout implements OnClickListener, LrcD
 		if (!TextUtils.isEmpty(mUrl) && mUrl.startsWith("http")) {
 			mDownloadImg.setImageResource(R.drawable.downloading);
 			mLrcProvider.downloadLrc(mArtist, mSong, mUrl, this);
+			if (mLoadingToast != null) {
+				mLoadingToast.cancel();
+			}
+			mLoadingToast = Toast.makeText(getContext(), R.string.lrc_toast_loading, 100);
+			mLoadingToast.show();
 		} else {
 			String msg = mLrcProvider.getLrcFromFile(mUrl);
 			LrcToast lt = LrcToast.makeToast(getContext(), v.getRootView(), msg);
@@ -88,10 +94,13 @@ public class LrcItemLayout extends LinearLayout implements OnClickListener, LrcD
 		mDownloadImg.setImageResource(R.drawable.downloaded);
 		mUrl = file.getAbsolutePath();
 		String msg = mLrcProvider.getLrcFromFile(mUrl);
-		View v = LrcToast.makeToast(getContext(), msg).getView();
-		Toast t = Toast.makeText(getContext(), null, Toast.LENGTH_LONG);
-		t.setView(v);
-		t.show();
+		if (mLoadingToast != null) {
+			mLoadingToast.cancel();
+		}
+//		View v = LrcToast.makeToast(getContext(), msg).getView();
+//		Toast t = Toast.makeText(getContext(), null, Toast.LENGTH_SHORT);
+//		t.setView(v);
+//		t.show();
 	}
 
  

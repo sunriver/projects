@@ -82,9 +82,6 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		// File f = mLrcAdapter.getLrcFile(position);
-		// String lrc = LrcUtils.getLrcFromFile(f);
-		// mLrcTextView.setText(lrc);
 	}
 
 	@Override

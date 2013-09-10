@@ -18,6 +18,7 @@
     <string name="lrc_song_name_hint">输入歌曲名字</string>
     <string name="lrc_search">Go</string>
     <string name="lrc_title">歌词</string>
+    <string name="lrc_toast_loading">下载歌词</string>
     
     <!-- lrc menu -->
 	<string name="men_local_search">本地搜索</string>
