@@ -15,11 +15,10 @@ public class LrcProvider {
 	private static final String TAG = "LrcProvider";
     private static LrcProvider mInstance;
     private Context mContext;
-    private Map<String, AsyncTask> mRunningTasks;
+    private AsyncTask mCurrentSearchTask;
     
 	private LrcProvider(Context context) {
 		this.mContext = context;
-		mRunningTasks = new HashMap<String, AsyncTask>();
 	}
 	
 	/**
@@ -34,12 +33,21 @@ public class LrcProvider {
 		return mInstance;
 	}
 	
+
 	public void searchLrcFromWeb(final String artist, final String song, LrcSearchCompletedListener l) {
 		SearchTask task = new SearchTaskFromWeb(new LrcInfo(artist, song), l);
+		if (mCurrentSearchTask != null) {
+			mCurrentSearchTask.cancel(true);
+		}
+		mCurrentSearchTask = task;
 		task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
 	public void searchLrcFromDisk(final String artist, final String song, LrcSearchCompletedListener l) {
 		SearchTask task = new SearchTask(new LrcInfo(artist, song), l);
+		if (mCurrentSearchTask != null) {
+			mCurrentSearchTask.cancel(true);
+		}
+		mCurrentSearchTask = task;
 		task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
 	
@@ -112,6 +120,7 @@ public class LrcProvider {
 
 		@Override
 		protected void onPostExecute(LrcBean result) {
+			mCurrentSearchTask = null;
 			if (null == result) {
 				return;
 			}
