@@ -41,6 +41,7 @@ public class LrcItemLayout extends LinearLayout implements OnClickListener, LrcD
 		mSongTv = (TextView) findViewById(R.id.lrc_item_song);
 		mDownloadImg = (ImageView) findViewById(R.id.lrc_item_download);
 		mDownloadImg.setOnClickListener(LrcItemLayout.this);
+		this.setOnClickListener(this);
 	}
 
 	
@@ -93,14 +94,9 @@ public class LrcItemLayout extends LinearLayout implements OnClickListener, LrcD
 		Log.v(TAG, TAG + ".onDownloadFinished()+ file = " + file.getAbsolutePath());
 		mDownloadImg.setImageResource(R.drawable.downloaded);
 		mUrl = file.getAbsolutePath();
-		String msg = mLrcProvider.getLrcFromFile(mUrl);
 		if (mLoadingToast != null) {
 			mLoadingToast.cancel();
 		}
-//		View v = LrcToast.makeToast(getContext(), msg).getView();
-//		Toast t = Toast.makeText(getContext(), null, Toast.LENGTH_SHORT);
-//		t.setView(v);
-//		t.show();
 	}
 
  

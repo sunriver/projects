@@ -48,6 +48,12 @@ public class LrcAdapter extends BaseAdapter {
 	
 	
 	public void add(String artist, String song, String file) {
+		if (!TextUtils.isEmpty(artist)) {
+			artist = artist.trim();
+		}
+		if (!TextUtils.isEmpty(song)) {
+			song = song.trim();
+		}
 		mItemList.add(new Item(song, artist, file));
 	}
 	

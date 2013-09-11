@@ -162,10 +162,4 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 		LOCAL, INTERNET
 	}
 	
-	@Override
-	public void onBackPressed() {
-		// TODO Auto-generated method stub
-		super.onBackPressed();
-	}
-
 }
