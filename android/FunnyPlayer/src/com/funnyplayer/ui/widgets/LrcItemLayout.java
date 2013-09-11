@@ -8,6 +8,7 @@ import com.funnyplayer.cache.lrc.LrcProvider.LrcDownloadCompletedListener;
 
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.RotateDrawable;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -112,8 +113,9 @@ public class LrcItemLayout extends LinearLayout implements OnClickListener, LrcD
 	@Override
 	public void onDownloadFinished(String artist, String song, File file) {
 		Log.v(TAG, TAG + ".onDownloadFinished()+ file = " + file.getAbsolutePath());
-		mDownloadImg.clearAnimation();
 		mUrl = file.getAbsolutePath();
+		mDownloadImg.clearAnimation();
+		mDownloadImg.setImageResource(R.drawable.downloadedd);
 		if (mLoadingToast != null) {
 			mLoadingToast.cancel();
 		}

@@ -2,7 +2,7 @@
 <rotate xmlns:android="http://schemas.android.com/apk/res/android"
     android:drawable="@drawable/download"
     android:visible="true"
-    android:fromDegrees="0"
+    android:fromDegrees="180"
     android:pivotX="50%"
     android:pivotY="50%"
     android:toDegrees="180" />
