@@ -7,6 +7,7 @@ import com.funnyplayer.cache.lrc.LrcProvider;
 import com.funnyplayer.cache.lrc.LrcProvider.LrcDownloadCompletedListener;
 
 import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 public class LrcItemLayout extends LinearLayout implements OnClickListener, LrcDownloadCompletedListener {
 	private static final String TAG = LrcItemLayout.class.getSimpleName();
@@ -29,10 +32,14 @@ public class LrcItemLayout extends LinearLayout implements OnClickListener, LrcD
 	private TextView mSongTv;
 	private LrcProvider mLrcProvider;
 	private Toast mLoadingToast;
+	private Animation mRefreshAnim;
+	private Handler mHandler;
 
 	public LrcItemLayout(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		mLrcProvider = LrcProvider.getInstance(context.getApplicationContext());
+		mRefreshAnim = AnimationUtils.loadAnimation(context, R.anim.refresh); 
+		mHandler = new Handler();
 	}
 	
 	
@@ -82,13 +89,19 @@ public class LrcItemLayout extends LinearLayout implements OnClickListener, LrcD
 	public void onClick(View v) {
 		Log.v(TAG, TAG + ".onClick()+");
 		if (isHttpUrl(mUrl)) {
-			mDownloadImg.setImageResource(R.drawable.downloading);
-			mLrcProvider.downloadLrc(mArtist, mSong, mUrl, this);
+//			mDownloadImg.setImageResource(R.drawable.downloading);
+			mDownloadImg.startAnimation(mRefreshAnim);
 			if (mLoadingToast != null) {
 				mLoadingToast.cancel();
 			}
 			mLoadingToast = Toast.makeText(getContext(), R.string.lrc_toast_loading, 100);
 			mLoadingToast.show();
+			mHandler.postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					mLrcProvider.downloadLrc(mArtist, mSong, mUrl, LrcItemLayout.this);
+				}
+			}, 1000);
 		} else {
 			String msg = mLrcProvider.getLrcFromFile(mUrl);
 			LrcToast lt = LrcToast.makeToast(getContext(), v.getRootView(), msg);
@@ -99,7 +112,7 @@ public class LrcItemLayout extends LinearLayout implements OnClickListener, LrcD
 	@Override
 	public void onDownloadFinished(String artist, String song, File file) {
 		Log.v(TAG, TAG + ".onDownloadFinished()+ file = " + file.getAbsolutePath());
-		mDownloadImg.setImageResource(R.drawable.downloaded);
+		mDownloadImg.clearAnimation();
 		mUrl = file.getAbsolutePath();
 		if (mLoadingToast != null) {
 			mLoadingToast.cancel();
