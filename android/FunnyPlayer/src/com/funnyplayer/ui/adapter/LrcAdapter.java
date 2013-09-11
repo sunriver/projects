@@ -78,6 +78,7 @@ public class LrcAdapter extends BaseAdapter {
 	}
 	
 
+
 	
 	private static class Item {
 		final String artist;

@@ -69,12 +69,19 @@ public class LrcItemLayout extends LinearLayout implements OnClickListener, LrcD
 
 	public void setUrl(String url) {
 		this.mUrl = url;
+		if (!isHttpUrl(url)) {
+			mDownloadImg.setImageDrawable(null);
+		}
 	}
 
+	private boolean isHttpUrl(String url) {
+		return (!TextUtils.isEmpty(url) && url.startsWith("http"));
+	}
+	
 	@Override
 	public void onClick(View v) {
 		Log.v(TAG, TAG + ".onClick()+");
-		if (!TextUtils.isEmpty(mUrl) && mUrl.startsWith("http")) {
+		if (isHttpUrl(mUrl)) {
 			mDownloadImg.setImageResource(R.drawable.downloading);
 			mLrcProvider.downloadLrc(mArtist, mSong, mUrl, this);
 			if (mLoadingToast != null) {
