@@ -21,6 +21,9 @@
     <string name="lrc_toast_loading">下载歌词</string>
     
     <!-- lrc menu -->
-	<string name="men_local_search">本地搜索</string>
-	<string name="men_internet_search">网络搜索</string>
+	<string name="menu_local_search">本地搜索</string>
+	<string name="menu_internet_search">网络搜索</string>
+	
+	<!-- network -->
+    <string name="netowrk_unavaible">网络不可用</string>
 </resources>

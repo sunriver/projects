@@ -5,6 +5,7 @@ import java.io.File;
 import com.funnyplayer.R;
 import com.funnyplayer.cache.lrc.LrcProvider;
 import com.funnyplayer.cache.lrc.LrcProvider.LrcDownloadCompletedListener;
+import com.funnyplayer.util.NetUtils;
 
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
@@ -86,23 +87,30 @@ public class LrcItemLayout extends LinearLayout implements OnClickListener, LrcD
 		return (!TextUtils.isEmpty(url) && url.startsWith("http"));
 	}
 	
+	private void downloadLrc() {
+		if (!NetUtils.isNetworkAvaiable(getContext())) {
+			Toast.makeText(getContext(), R.string.netowrk_unavaible, Toast.LENGTH_SHORT).show();
+			return;
+		}
+		mDownloadImg.startAnimation(mRefreshAnim);
+		if (mLoadingToast != null) {
+			mLoadingToast.cancel();
+		}
+		mLoadingToast = Toast.makeText(getContext(), R.string.lrc_toast_loading, 100);
+		mLoadingToast.show();
+		mHandler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				mLrcProvider.downloadLrc(mArtist, mSong, mUrl, LrcItemLayout.this);
+			}
+		}, 1000);
+	}
+	
 	@Override
 	public void onClick(View v) {
 		Log.v(TAG, TAG + ".onClick()+");
 		if (isHttpUrl(mUrl)) {
-//			mDownloadImg.setImageResource(R.drawable.downloading);
-			mDownloadImg.startAnimation(mRefreshAnim);
-			if (mLoadingToast != null) {
-				mLoadingToast.cancel();
-			}
-			mLoadingToast = Toast.makeText(getContext(), R.string.lrc_toast_loading, 100);
-			mLoadingToast.show();
-			mHandler.postDelayed(new Runnable() {
-				@Override
-				public void run() {
-					mLrcProvider.downloadLrc(mArtist, mSong, mUrl, LrcItemLayout.this);
-				}
-			}, 1000);
+			downloadLrc();
 		} else {
 			String msg = mLrcProvider.getLrcFromFile(mUrl);
 			LrcToast lt = LrcToast.makeToast(getContext(), v.getRootView(), msg);

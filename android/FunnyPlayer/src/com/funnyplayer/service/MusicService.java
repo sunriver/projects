@@ -189,7 +189,7 @@ public class MusicService extends Service {
                 mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                 mPlayer.prepare();
 			} catch (Exception e) {
-				e.printStackTrace();
+				Log.e(TAG, "fail to set data source", e);
 			}
         }
         

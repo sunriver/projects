@@ -3,17 +3,17 @@
     <item
         android:id="@+id/menu_search_type"
         android:showAsAction="always|withText"
-        android:title="@string/men_local_search">
+        android:title="@string/menu_local_search">
         <menu>
             <item
                 android:id="@+id/menu_local_search"
                 android:checkable="true"
                 android:checked="true"
-                android:title="@string/men_local_search"/>
+                android:title="@string/menu_local_search"/>
             <item
                 android:id="@+id/menu_internet_search"
                 android:checkable="true"
-                android:title="@string/men_internet_search"/>
+                android:title="@string/menu_internet_search"/>
         </menu>
     </item>
 
