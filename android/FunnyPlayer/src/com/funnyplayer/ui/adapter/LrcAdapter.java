@@ -67,7 +67,7 @@ public class LrcAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		LrcItemLayout itemLayout = (LrcItemLayout) convertView;
 		if (null == itemLayout) {
-			itemLayout = (LrcItemLayout) mInflater.inflate(R.layout.lrc_item, null);
+			itemLayout = (LrcItemLayout) mInflater.inflate(R.layout.lrc_item, parent, false);
 			itemLayout.init();
 		} 
 		Item item = mItemList.get(position);

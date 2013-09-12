@@ -8,8 +8,6 @@ import com.funnyplayer.cache.lrc.LrcProvider.LrcDownloadCompletedListener;
 import com.funnyplayer.util.NetUtils;
 
 import android.content.Context;
-import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.RotateDrawable;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -63,6 +61,7 @@ public class LrcItemLayout extends LinearLayout implements OnClickListener, LrcD
 		mSongTv.setText(mSong);
 	}
 
+
 	public String getArtist() {
 		return mArtist;
 	}
@@ -108,7 +107,7 @@ public class LrcItemLayout extends LinearLayout implements OnClickListener, LrcD
 	
 	@Override
 	public void onClick(View v) {
-		Log.v(TAG, TAG + ".onClick()+");
+		Log.v(TAG, "onClick()+");
 		if (isHttpUrl(mUrl)) {
 			downloadLrc();
 		} else {

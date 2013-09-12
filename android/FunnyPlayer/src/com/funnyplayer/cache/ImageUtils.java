@@ -13,8 +13,6 @@ import com.funnyplayer.net.base.PersistUtils;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.BaseColumns;
 import android.provider.MediaStore.Audio;
