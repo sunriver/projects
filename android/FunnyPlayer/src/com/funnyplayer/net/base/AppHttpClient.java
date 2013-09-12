@@ -31,7 +31,7 @@ import android.util.Log;
 
 public class AppHttpClient extends DefaultHttpClient {
 	
-	private final static String TAG = "Network";
+	private final static String TAG = AppHttpClient.class.getSimpleName();
 	
 	// Wait this many milliseconds max for the TCP connection to be established
 	private static final int CONNECTION_TIMEOUT = 10 * 1000;

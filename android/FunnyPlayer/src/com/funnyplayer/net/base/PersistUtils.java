@@ -8,7 +8,7 @@ import java.io.InputStream;
 import android.util.Log;
 
 public class PersistUtils {
-	private static final String TAG = "PersistUtils";
+	private static final String TAG = PersistUtils.class.getSimpleName();
 	
 	public static File persistInputStream(InputStream in,  File outFile) {
 		BufferedOutputStream out = null;

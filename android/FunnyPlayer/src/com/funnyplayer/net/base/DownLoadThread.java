@@ -24,9 +24,7 @@ import android.util.Log;
 
 
 public class DownLoadThread extends Thread {
-    private static final boolean mDebug = false;
-    
-    private static final String TAG = "DownLoadThread";
+    private static final String TAG = DownLoadThread.class.getSimpleName();
     
     
     private final int BUFFER_SIZE = 1024;
