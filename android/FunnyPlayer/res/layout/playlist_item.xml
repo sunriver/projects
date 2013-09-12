@@ -2,13 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg" >
+    android:background="@drawable/list_item_selector" >
 
     <TextView
         android:id="@+id/playlist_item_name"
         android:layout_width="match_parent"
         android:layout_height="@dimen/list_item_height"
-        android:background="@drawable/list_item_selector"
-        android:text="test" />
+        android:gravity="center_vertical" />
 
 </LinearLayout>
