@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.funnyplayer.R;
+import com.funnyplayer.util.NetUtils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -111,7 +112,7 @@ public class ImageProvider {
 			if (null == f) {
 				f = ImageUtils.getImageFromDisk(mContext, mImageInfo);
 			}
-			if (null == f) {
+			if (null == f && NetUtils.isNetworkAvaiable(mContext)) {
 				f = ImageUtils.getImageFromWeb(mContext, mImageInfo);
 			}
 			
