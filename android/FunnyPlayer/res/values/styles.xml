@@ -44,4 +44,9 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="list_item_lrc">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/list_item_height</item>
+    </style>
+
 </resources>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.funnyplayer.ui.widgets.LrcItemLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/list_item_height"
+    style="@style/list_item_lrc"
     android:background="@drawable/bg" >
 
     <TextView
@@ -9,14 +8,16 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@drawable/list_item_selector" />
+        android:background="@drawable/list_item_selector"
+        android:gravity="center_vertical"/>
 
     <TextView
         android:id="@+id/lrc_item_song"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@drawable/list_item_selector" />
+        android:background="@drawable/list_item_selector"
+        android:gravity="center_vertical" />
 
     <ImageView
         android:id="@+id/lrc_item_download"
