@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class LrcToast implements AdListener {
@@ -25,16 +26,17 @@ public class LrcToast implements AdListener {
 	private Context mContext;
 	private TextView mToastView;
 	private View mParent;
-	private ViewGroup mContent;
+	private RelativeLayout mContent;
 	private AdwoAdView mAdView;
 	
 	private LrcToast(Context context, ViewGroup parent) {
 		mContext = context;
 		mParent = parent;
 		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);  
-		mContent = (ViewGroup) inflater.inflate(R.layout.lrc_toast, parent, false);
+		mContent = (RelativeLayout) inflater.inflate(R.layout.lrc_toast, parent, false);
 		mToastView = (TextView) mContent.findViewById(R.id.lrc_toast);
 		mAdView = createAdView(mContent);
+		mAdView.setListener(this);
 		mWin = new PopupWindow(mContent, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, true);
 		mWin.setBackgroundDrawable(new BitmapDrawable());
 	}
@@ -44,11 +46,14 @@ public class LrcToast implements AdListener {
 		this(context, null);
 	}
 	
-	private AdwoAdView createAdView(ViewGroup parent) {
-		ViewGroup.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+	private AdwoAdView createAdView(RelativeLayout parent) {
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		
+		params.addRule(RelativeLayout.CENTER_HORIZONTAL);
 		AdwoAdView.setBannerMatchScreenWidth(true);
+		
 		AdwoAdView adView = new AdwoAdView(mContext, ADWO_PID, false, 40);
-		parent.addView(adView, 0, params);
+		parent.addView(adView, params);
 		return adView;
 	}
 	
@@ -84,7 +89,7 @@ public class LrcToast implements AdListener {
 
 	@Override
 	public void onFailedToReceiveAd(AdwoAdView arg0, ErrorCode arg1) {
-		Log.v(TAG, "onFailedToReceiveAd() errorCode:" + arg1.getErrorCode());
+		Log.e(TAG, "onFailedToReceiveAd() errorCode:" + arg1.getErrorCode());
 	}
 
 
