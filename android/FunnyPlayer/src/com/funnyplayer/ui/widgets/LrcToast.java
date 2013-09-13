@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -21,6 +20,8 @@ import android.widget.TextView;
 public class LrcToast implements AdListener {
 	private static final String TAG = LrcToast.class.getSimpleName();
 	private static final String ADWO_PID = "8101ed73466a407a83c5a9953315a47b";
+	
+	private static final boolean AD_TEST_MODE = false;
 	
 	private PopupWindow mWin;
 	private Context mContext;
@@ -52,7 +53,7 @@ public class LrcToast implements AdListener {
 		params.addRule(RelativeLayout.CENTER_HORIZONTAL);
 		AdwoAdView.setBannerMatchScreenWidth(true);
 		
-		AdwoAdView adView = new AdwoAdView(mContext, ADWO_PID, false, 40);
+		AdwoAdView adView = new AdwoAdView(mContext, ADWO_PID, AD_TEST_MODE, 40);
 		parent.addView(adView, params);
 		return adView;
 	}
