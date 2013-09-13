@@ -49,7 +49,7 @@ public class LrcToast implements AdListener {
 	private AdwoAdView createAdView(RelativeLayout parent) {
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		
-		params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+		params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 		AdwoAdView.setBannerMatchScreenWidth(true);
 		
 		AdwoAdView adView = new AdwoAdView(mContext, ADWO_PID, false, 40);
