@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
@@ -112,7 +113,7 @@ public class LrcItemLayout extends LinearLayout implements OnClickListener, LrcD
 			downloadLrc();
 		} else {
 			String msg = mLrcProvider.getLrcFromFile(mUrl);
-			LrcToast lt = LrcToast.makeToast(getContext(), v.getRootView(), msg);
+			LrcToast lt = LrcToast.makeToast(getContext(), (ViewGroup) v.getRootView(), msg);
 			lt.show();
 		}
 	}
