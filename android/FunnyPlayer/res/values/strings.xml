@@ -29,4 +29,6 @@
 	
 	<!-- network -->
     <string name="netowrk_unavaible">Network is unavaiable</string>
+    
+    <string name="adwo_pid">"8101ed73466a407a83c5a9953315a47b"</string>
 </resources>

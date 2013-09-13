@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res/com.funnyplayer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
@@ -20,6 +21,7 @@
             android:singleLine="true" />
 
         <ImageButton
+            android:focusable="true"
             android:id="@+id/lrcSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,5 +35,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1" />
+
+    <com.adwo.adsdk.AdwoAdView
+        android:id="@+id/lrc_adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        custom:isTesting="true"
+        custom:refreshInterval="40" >
+    </com.adwo.adsdk.AdwoAdView>
 
 </LinearLayout>

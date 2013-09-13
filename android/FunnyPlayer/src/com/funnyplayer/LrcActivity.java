@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,13 +17,16 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.adwo.adsdk.AdListener;
+import com.adwo.adsdk.AdwoAdView;
+import com.adwo.adsdk.ErrorCode;
 import com.funnyplayer.cache.lrc.LrcProvider;
 import com.funnyplayer.cache.lrc.LrcProvider.LrcSearchCompletedListener;
 import com.funnyplayer.ui.adapter.LrcAdapter;
 import com.funnyplayer.util.ViewUtil;
 
 public class LrcActivity extends Activity implements OnItemClickListener,
-		View.OnClickListener, LrcSearchCompletedListener {
+		View.OnClickListener, LrcSearchCompletedListener, AdListener {
 	private final static String TAG = LrcActivity.class.getSimpleName();
 	private final static String LRC_SETTING = "lrc_setting";
 	private final static String LRC_SEARCH_TYPE = "lrc_search_type";
@@ -37,6 +41,7 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 	private MenuItem mInternetItem;
 	private MenuItem mSearchTypeItem;
 	private SearchType mSearchType;
+	private AdwoAdView mAdView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +66,15 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 		mLrcListView.setAdapter(mLrcAdapter);
 
 		mLrcProvider = LrcProvider.getInstance(getApplicationContext());
+		
+		initAdView();
 	}
-
+	
+	private void initAdView() {
+		mAdView = (AdwoAdView) findViewById(R.id.lrc_adView);
+		mAdView.setListener(this);
+	}
+ 
 	private void initActionBar() {
 		ActionBar actionBar = getActionBar();
 //		actionBar.setCustomView(resId);
@@ -160,6 +172,17 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 
 	private static enum SearchType {
 		LOCAL, INTERNET
+	}
+
+	@Override
+	public void onFailedToReceiveAd(AdwoAdView arg0, ErrorCode arg1) {
+		Log.e(TAG, "onFailedToReceiveAd() errorCode:" + arg1.getErrorCode());
+	}
+
+
+	@Override
+	public void onReceiveAd(AdwoAdView arg0) {
+		Log.v(TAG, "onReceiveAd()+");
 	}
 	
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="com.adwo.adsdk.AdwoAdView">
+        <attr name="isTesting" format="boolean" />
+        <attr name="refreshInterval" format="integer" />
+    </declare-styleable>
+
+</resources>

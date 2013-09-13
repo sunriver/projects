@@ -19,9 +19,8 @@ import android.widget.TextView;
 
 public class LrcToast implements AdListener {
 	private static final String TAG = LrcToast.class.getSimpleName();
-	private static final String ADWO_PID = "8101ed73466a407a83c5a9953315a47b";
 	
-	private static final boolean AD_TEST_MODE = false;
+	private static final boolean AD_TEST_MODE = true;
 	
 	private PopupWindow mWin;
 	private Context mContext;
@@ -52,8 +51,8 @@ public class LrcToast implements AdListener {
 		
 		params.addRule(RelativeLayout.CENTER_HORIZONTAL);
 		AdwoAdView.setBannerMatchScreenWidth(true);
-		
-		AdwoAdView adView = new AdwoAdView(mContext, ADWO_PID, AD_TEST_MODE, 40);
+		String pid = mContext.getString(R.string.adwo_pid);
+		AdwoAdView adView = new AdwoAdView(mContext, pid, AD_TEST_MODE, 40);
 		parent.addView(adView, params);
 		return adView;
 	}
