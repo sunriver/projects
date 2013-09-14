@@ -72,6 +72,7 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 	
 	private void initAdView() {
 		mAdView = (AdwoAdView) findViewById(R.id.lrc_adView);
+		mAdView.setBannerMatchScreenWidth(true);
 		mAdView.setListener(this);
 	}
  

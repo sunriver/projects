@@ -6,33 +6,23 @@ import java.lang.reflect.Method;
 import com.funnyplayer.R;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.Rect;
 import android.graphics.Shader.TileMode;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.MarginLayoutParams;
-import android.view.Window;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
-import android.widget.TextView.BufferType;
 
 public class ViewUtil {
 	
@@ -180,12 +170,12 @@ public class ViewUtil {
 		case Build.VERSION_CODES.HONEYCOMB_MR2:
 			padding = getAndroidDimen("preference_breadcrumb_paddingLeft");
 			break;
-		case Build.VERSION_CODES.ICE_CREAM_SANDWICH:
+		// case Build.VERSION_CODES.ICE_CREAM_SANDWICH:
 //		case Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1:
 		// 4.1.1 and 4.1.2 have different fragment padding, 4.1.1 =  preference_fragment_padding_side, 4.1.2 = 0dp
 		//case Build.VERSION_CODES.JELLY_BEAN: 
-			padding = getAndroidDimen("preference_fragment_padding_side");
-			break;
+			// padding = getAndroidDimen("preference_fragment_padding_side");
+			// break;
 		default:
 			break;
 		}

@@ -38,7 +38,7 @@
 
     <com.adwo.adsdk.AdwoAdView
         android:id="@+id/lrc_adView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         custom:isTesting="true"
         custom:refreshInterval="40" >
