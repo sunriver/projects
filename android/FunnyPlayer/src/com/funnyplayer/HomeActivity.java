@@ -83,9 +83,9 @@ public class HomeActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.menu_search:
-			onSearchRequested();
-			break;
+//		case R.id.menu_search:
+//			onSearchRequested();
+//			break;
 		case R.id.menu_lrc:
 			showLrc();
 			break;

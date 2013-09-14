@@ -1,11 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/menu_search"
-        android:icon="@drawable/search"
-        android:showAsAction="always"/>
-    <item
         android:id="@+id/menu_lrc"
         android:showAsAction="ifRoom"
-        android:title="lrc"/>
+        android:title="@string/lrc_title"/>
+
 </menu>
