@@ -30,6 +30,7 @@
             android:name="com.funnyplayer.HomeActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
+            android:icon="@drawable/listen"
             android:theme="@android:style/Theme.Holo.Light" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
