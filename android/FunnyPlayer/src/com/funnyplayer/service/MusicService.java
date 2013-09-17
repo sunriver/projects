@@ -83,6 +83,12 @@ public class MusicService extends Service {
 			mMusicPlayer.start();
 			sendBroadcast(new Intent(FilterAction.PLAYER_PLAYING));
 			return true;
+		} else {
+			// pause the curent playing song
+			if (pos == mCurrentPos) {
+				mMusicPlayer.pause();
+				return true;
+			}
 		}
 		 
 		if (pos >= mMusicIdList.size() || pos < 0) {
