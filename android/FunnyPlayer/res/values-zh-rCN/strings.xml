@@ -12,6 +12,9 @@
     <string name="tab_title_favorite">最爱</string>
     <string name="tab_title_list">列表</string>
     
+        <!-- action bar -->
+    <string name="custom_title">正在播放</string>
+    
     <!-- lrc -->
     <string name="lrc_song_name">歌曲</string>
     <string name="lrc_song_artist">歌手</string>

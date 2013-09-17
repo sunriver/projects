@@ -38,14 +38,26 @@ public class HomeActivity extends Activity {
 		init();
 	}
 	
+	private void updateCustomeTitle(Bundle bundle) {
+		if (null == bundle) {
+			return;
+		}
+		String artist = bundle.getString("music_artist");
+		String name = bundle.getString("music_name");
+		String playItemPath = bundle.getString("music_item_path");
+		String text = getString(R.string.custom_title);
+		mCustomTitleView.setText(artist + " " + name);
+		mCustomTitleView.setTag(playItemPath);
+	}
+	
 	private void registerReceiver() {
 		mReceiver = new BroadcastReceiver(){
 			@Override
 			public void onReceive(Context context, Intent intent) {
 				if (intent.getAction().equals(MusicUtil.FilterAction.PLAYER_PAUSED)) {
 				} else if (intent.getAction().equals(MusicUtil.FilterAction.PLAYER_PLAYING))  {
-					String playItemPath = MusicUtil.getPlayItemPath();
-					int currentPos = MusicUtil.getCurrentPos();
+					Bundle bundle = intent.getExtras();
+					updateCustomeTitle(bundle);
 				}
 			}
 		};

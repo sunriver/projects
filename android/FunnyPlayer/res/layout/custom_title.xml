@@ -4,5 +4,5 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:gravity="center"
-    android:singleLine="true"
-    android:text="artist:song" />
+    android:ellipsize="marquee"
+    android:singleLine="true"/>
