@@ -1,26 +1,32 @@
 package com.funnyplayer;
 
+import android.app.ActionBar;
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.TextView;
+
 import com.funnyplayer.ui.adapter.PagerAdapter;
 import com.funnyplayer.ui.adapter.ScrollTabAdapter;
 import com.funnyplayer.ui.fragment.AlbumFragment;
 import com.funnyplayer.ui.fragment.ArtistFragment;
 import com.funnyplayer.ui.fragment.PlaylistFragment;
 import com.funnyplayer.ui.widgets.ScrollTabView;
+import com.funnyplayer.util.MusicUtil;
 import com.funnyplayer.util.ViewUtil;
-
-import android.app.ActionBar;
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
 
 public class HomeActivity extends Activity {
 	private ViewPager mViewPager;
 	private ScrollTabView mTabView;
+	private TextView mCustomTitleView;
+	private BroadcastReceiver mReceiver;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +34,36 @@ public class HomeActivity extends Activity {
 		setContentView(R.layout.home);
 		mViewPager = (ViewPager) findViewById(R.id.viewPager);
 		mTabView = (ScrollTabView) findViewById(R.id.scrollTabs);
+		registerReceiver();
 		init();
 	}
+	
+	private void registerReceiver() {
+		mReceiver = new BroadcastReceiver(){
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				if (intent.getAction().equals(MusicUtil.FilterAction.PLAYER_PAUSED)) {
+				} else if (intent.getAction().equals(MusicUtil.FilterAction.PLAYER_PLAYING))  {
+					String playItemPath = MusicUtil.getPlayItemPath();
+					int currentPos = MusicUtil.getCurrentPos();
+				}
+			}
+		};
+		
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction(MusicUtil.FilterAction.PLAYER_PLAYING);
+		intentFilter.addAction(MusicUtil.FilterAction.PLAYER_PAUSED);
+		registerReceiver(mReceiver, intentFilter);
+	}
+	
+	private void unregisterReceiver() {
+		if (mReceiver != null) {
+			unregisterReceiver(mReceiver);
+			mReceiver = null;
+		}
+	}
 
+	
 	private void init() {
 		// Initiate PagerAdapter
 		PagerAdapter pagerAdapter = new PagerAdapter(getFragmentManager());
@@ -58,9 +91,9 @@ public class HomeActivity extends Activity {
     	ActionBar actionBar = getActionBar();
     	
 		ViewUtil.setActionBarBackgroundRepeat(this, actionBar);
-    	
-    	actionBar.setDisplayUseLogoEnabled(true);
-//    	actionBar.setDisplayShowTitleEnabled(false);
+		actionBar.setCustomView(R.layout.custom_title);
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_TITLE);
+		mCustomTitleView = (TextView) actionBar.getCustomView();
     }
 
 	@Override
@@ -78,6 +111,12 @@ public class HomeActivity extends Activity {
 	
 	private void showLrc() {
 		startActivity(new Intent(this, LrcActivity.class));
+	}
+
+	@Override
+	protected void onDestroy() {
+		unregisterReceiver();
+		super.onDestroy();
 	}
 
 	@Override

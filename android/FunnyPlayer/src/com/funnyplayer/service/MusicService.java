@@ -2,6 +2,7 @@ package com.funnyplayer.service;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.funnyplayer.util.MusicUtil.FilterAction;
@@ -12,6 +13,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Binder;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.provider.MediaStore;
@@ -42,7 +44,7 @@ public class MusicService extends Service {
             MediaStore.Audio.Media.BOOKMARK
     };
     
-    private List<Long> mMusicIdList = new ArrayList<Long>();
+    private List<MusicInfo> mMusicList = new ArrayList<MusicInfo>();
     
 	@Override
 	public void onCreate() {
@@ -54,11 +56,8 @@ public class MusicService extends Service {
 		return mBinder;
 	}
 
-	public void addPlayList(List<Long> idList) {
-		mMusicIdList.clear();
-		for (int i = 0 , len = idList.size(); i < len; i++) {
-			mMusicIdList.add(idList.get(i));
-		}
+	public void addPlayList(List<MusicInfo> musicList) {
+		mMusicList = musicList;
 	}
 	
 	
@@ -77,6 +76,7 @@ public class MusicService extends Service {
 	public int getDuration() {
 		return mMusicPlayer.getDuration();
 	}
+	
 
 	public boolean start(int pos) {
 		if (mMusicPlayer.isPaused()) {
@@ -91,12 +91,13 @@ public class MusicService extends Service {
 			}
 		}
 		 
-		if (pos >= mMusicIdList.size() || pos < 0) {
+		if (pos >= mMusicList.size() || pos < 0) {
 			return false;
 		}
 		
 		mCurrentPos = pos;
-		long id = mMusicIdList.get(pos);
+		MusicInfo musicInfo = mMusicList.get(pos);
+		long id = musicInfo.getId();
 		Cursor cursor = getCursorForId(id);
 		if (null == cursor) {
 			return false;
@@ -106,12 +107,19 @@ public class MusicService extends Service {
 		if (path != null) {
 			mMusicPlayer.setDataSource(path);
 			mMusicPlayer.start();
-			sendBroadcast(new Intent(FilterAction.PLAYER_PLAYING));
+			Bundle bundle = new Bundle();
+			bundle.putString("music_artist", musicInfo.getArtist());
+			bundle.putString("music_name", musicInfo.getName());
+			bundle.putString("music_item_path", musicInfo.getPlayItemPath());
+			Intent intent = new Intent(FilterAction.PLAYER_PLAYING);
+			intent.putExtras(bundle);
+			sendBroadcast(intent);
 			return true;
 		}
 		
 		return false;
 	}
+	
 	
 	public void pause() {
 		mMusicPlayer.pause();

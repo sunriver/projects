@@ -5,6 +5,8 @@
     <string name="Listen_world">Listen</string>
     <string name="menu_settings">Settings</string>
     <string name="search">Search</string>
+    
+    <!-- control bar -->
 
     <!-- tab title -->
     <string name="tab_title_album">album</string>

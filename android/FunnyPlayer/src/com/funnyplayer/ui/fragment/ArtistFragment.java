@@ -3,10 +3,11 @@ package com.funnyplayer.ui.fragment;
 
 import com.funnyplayer.R;
 import com.funnyplayer.TrackActivity;
-import com.funnyplayer.cache.Consts;
-import com.funnyplayer.cache.Consts.TYPE;
 import com.funnyplayer.ui.adapter.AlbumAdapter;
 import com.funnyplayer.ui.adapter.ArtistAdapter;
+
+import common.Consts;
+import common.Consts.TYPE;
 
 import android.app.Fragment;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -37,6 +38,7 @@ public class ArtistFragment extends Fragment implements OnItemClickListener, Loa
     private int mArtistIdIndex;
     private int mArtistNumAlbumsIndex;
     private int mArtistNameIndex;
+ 
     
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -68,6 +70,7 @@ public class ArtistFragment extends Fragment implements OnItemClickListener, Loa
         
         Bundle bundle = new Bundle();
         bundle.putString(Consts.MIME_TYPE, TYPE.ARTIST.name());
+        bundle.putInt(Consts.PLAY_GRID_INDEX, position);
         bundle.putLong(BaseColumns._ID, id);
         bundle.putString(ArtistColumns.ARTIST, artistName);
         bundle.putString(ArtistColumns.NUMBER_OF_ALBUMS, artistNumAlbums);

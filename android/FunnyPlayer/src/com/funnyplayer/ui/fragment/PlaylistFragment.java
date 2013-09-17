@@ -6,8 +6,10 @@ import java.util.List;
 
 import com.funnyplayer.R;
 import com.funnyplayer.cache.lrc.LrcProvider;
+import com.funnyplayer.service.MusicInfo;
 import com.funnyplayer.ui.adapter.PlaylistAdapter;
 import com.funnyplayer.util.MusicUtil;
+import common.Consts;
 
 import android.app.Fragment;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -36,6 +38,7 @@ public class PlaylistFragment extends Fragment implements OnItemClickListener, L
     private int mTitleIndex;
     private int mArtistIndex;
 	private LrcProvider mLrcProvider;
+	private int mPlayGridIndex = 0;
     
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -57,23 +60,27 @@ public class PlaylistFragment extends Fragment implements OnItemClickListener, L
 		mPlayListView = (ListView) root.findViewById(R.id.playListView);
 		return root;
 	}
+	
+	private void addPlaylist() {
+		Cursor cursor = mAdapter.getCursor();
+		if (null == cursor) {
+			return;
+		}
+		List<MusicInfo> infoList = new ArrayList<MusicInfo>();
+		String playItemPath = Consts.TYPE.PLAYLIST.getIndex() +":" + mPlayGridIndex;
+		for (boolean hasNext = cursor.moveToFirst(); hasNext; hasNext = cursor.moveToNext()) {
+			String title = cursor.getString(mTitleIndex);
+			String artist = cursor.getString(mArtistIndex);
+			long mediaId = cursor.getLong(mMediaIdIndex);
+			infoList.add(new MusicInfo(artist, title, mediaId, playItemPath));
+		}
+		MusicUtil.addPlaylist(getActivity(), infoList);
+	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		List<Long> idList = new ArrayList<Long>();
-		Cursor cursor = mAdapter.getCursor();
-		String title = cursor.getString(mTitleIndex);
-		String artist = cursor.getString(mArtistIndex);
-		
-		if (cursor != null && cursor.moveToFirst()) {
-			idList.add(cursor.getLong(mMediaIdIndex));
-			while (cursor.moveToNext()) {
-				idList.add(cursor.getLong(mMediaIdIndex));
-			}	
-		}
-		MusicUtil.addPlaylist(getActivity(), idList);
-		
+		addPlaylist();
 		MusicUtil.start(getActivity(), position);
 		
 	}

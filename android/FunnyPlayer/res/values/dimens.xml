@@ -26,5 +26,6 @@
 
     <!-- control bar -->
     <dimen name="control_bar_height">50dp</dimen>
+    <dimen name="control_bar_info_width">50dp</dimen>
 
 </resources>

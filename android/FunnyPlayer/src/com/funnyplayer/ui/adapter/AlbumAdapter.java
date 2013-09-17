@@ -1,13 +1,13 @@
 package com.funnyplayer.ui.adapter;
 
-import static com.funnyplayer.cache.Consts.SIZE_THUMB;
-import static com.funnyplayer.cache.Consts.SRC_FIRST_AVAILABLE;
 
 import com.funnyplayer.R;
-import com.funnyplayer.cache.Consts.TYPE;
 import com.funnyplayer.cache.ImageInfo;
 import com.funnyplayer.cache.ImageProvider;
 import com.funnyplayer.cache.ImageProvider.ImageReadyListener;
+
+import common.Consts;
+import common.Consts.TYPE;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -58,8 +58,8 @@ public class AlbumAdapter extends SimpleCursorAdapter implements ImageReadyListe
 
 		ImageInfo imageInfo = new ImageInfo();
 		imageInfo.type = TYPE.ALBUM.toString();
-		imageInfo.size = SIZE_THUMB;
-		imageInfo.source = SRC_FIRST_AVAILABLE;
+		imageInfo.size = Consts.SIZE_THUMB;
+		imageInfo.source = Consts.SRC_FIRST_AVAILABLE;
 		imageInfo.data = new String[] { albumId, artistName, albumName };
 
 		mImageProvider.loadImage(imageInfo, holder.image, this);

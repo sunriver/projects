@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 
+import com.funnyplayer.service.MusicInfo;
 import com.funnyplayer.service.MusicService;
 import com.funnyplayer.service.MusicService.MusicBinder;
 
@@ -19,6 +20,14 @@ public class MusicUtil {
 	
 	private static MusicService mService;
 	private static AbstractRequest mLastRequest;
+	private static ServiceConnection mConnection;
+	
+    
+    /**
+     * Form as: <Fragment Index>:<GridView|ListView Index>
+     * Value of Fragment Index: Album Fragment = 0, Artist Fragment = 1, Playlist Fragment = 2;
+     */
+    private static String mPlayItemPath;
 	
 	private static class ServiceConnection implements android.content.ServiceConnection {
 
@@ -37,21 +46,49 @@ public class MusicUtil {
 		@Override
 		public void onServiceDisconnected(ComponentName name) {
 			mService = null;
+			mConnection = null;
 		}
 		
 	}
 	
-	private static boolean bindService(Context context) {
+	public static synchronized boolean bindService(Context context) {
+		if (mService != null) {
+			return true;
+		}
 		Intent intent = new Intent();
 		intent.setClass(context, MusicService.class);
-		return context.bindService(intent, new ServiceConnection(), Context.BIND_AUTO_CREATE);
+		mConnection = new ServiceConnection();
+		return context.bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
 	}
 	
-	public static void addPlaylist(Context context, List<Long> idList) {
+	public static synchronized void unBindService(Context context) {
+		if (mConnection != null) {
+			context.unbindService(mConnection);
+		}
+	}
+	
+	public static String getPlayItemPath() {
+		return mPlayItemPath;
+	}
+	
+	public static void setPlayItemPath(String path) {
+		mPlayItemPath = path;
+	}
+
+//	public static void addPlaylist(Context context, List<Long> idList) {
+//		if (mService != null) {
+//			mService.addPlayList(idList);
+//		} else {
+//			mLastRequest = new AddPlaylist(idList);
+//			bindService(context);
+//		}
+//	}
+	
+	public static void addPlaylist(Context context, List<MusicInfo> musicList) {
 		if (mService != null) {
-			mService.addPlayList(idList);
+			mService.addPlayList(musicList);
 		} else {
-			mLastRequest = new AddPlaylist(idList);
+			mLastRequest = new AddPlaylist(musicList);
 			bindService(context);
 		}
 	}
@@ -162,14 +199,14 @@ public class MusicUtil {
 	}
 	
 	private static class AddPlaylist extends AbstractRequest {
-		private List<Long> mIdList;
+		private List<MusicInfo> mMusicList;
 		
-		public AddPlaylist(List<Long> idList) {
-			mIdList = idList;
+		public AddPlaylist(List<MusicInfo> musicList) {
+			mMusicList = musicList;
 		}
 		@Override
 		public void run() {
-			mService.addPlayList(mIdList);
+			mService.addPlayList(mMusicList);
 		}
 	}
 	

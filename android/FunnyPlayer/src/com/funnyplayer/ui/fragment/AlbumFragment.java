@@ -3,9 +3,9 @@ package com.funnyplayer.ui.fragment;
 
 import com.funnyplayer.R;
 import com.funnyplayer.TrackActivity;
-import com.funnyplayer.cache.Consts;
-import com.funnyplayer.cache.Consts.TYPE;
 import com.funnyplayer.ui.adapter.AlbumAdapter;
+import common.Consts;
+import common.Consts.TYPE;
 
 import android.app.Fragment;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -66,6 +66,7 @@ public class AlbumFragment extends Fragment implements OnItemClickListener, Load
 
         Bundle bundle = new Bundle();
         bundle.putString(Consts.MIME_TYPE, TYPE.ALBUM.name());
+        bundle.putInt(Consts.PLAY_GRID_INDEX, position);
         bundle.putLong(BaseColumns._ID, id);
         bundle.putString(AlbumColumns.ALBUM, albumName);
         bundle.putString(AlbumColumns.ARTIST, artistName);

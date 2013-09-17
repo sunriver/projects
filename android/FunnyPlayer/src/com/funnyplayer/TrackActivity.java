@@ -4,11 +4,13 @@ package com.funnyplayer;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.funnyplayer.cache.Consts;
 import com.funnyplayer.cache.lrc.LrcProvider;
+import com.funnyplayer.service.MusicInfo;
 import com.funnyplayer.ui.adapter.PlaylistAdapter;
 import com.funnyplayer.util.MusicUtil;
 import com.funnyplayer.util.ViewUtil;
+import common.Consts;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -38,6 +40,7 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>, 
 	private int mTitleIndex;
 	private int mArtistIndex;
 	private LrcProvider mLrcProvider;
+	private int mPlayGridIndex;
 	
 
 	@Override
@@ -58,6 +61,7 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>, 
 		Intent intent = getIntent();
 		Bundle args = (intent != null) ? intent.getExtras() : null;
 		mMiniType = args != null ? Consts.TYPE.valueOf(args.getString(Consts.MIME_TYPE)) : Consts.TYPE.ALBUM;
+		mPlayGridIndex = args != null ? args.getInt(Consts.PLAY_GRID_INDEX) : 0;
 		getLoaderManager().initLoader(0, args, this);
 	}
 	
@@ -132,6 +136,7 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>, 
 
 		mAdapter.setPlaylistIdIndex(mMediaIdIndex);
 		mAdapter.setPlaylistNameIndex(mTitleIndex);
+		mAdapter.setPlaylistArtistIndex(mArtistIndex);
 		mAdapter.changeCursor(data);
 		mPlayListView.invalidateViews();
 
@@ -143,24 +148,28 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>, 
 			mAdapter.changeCursor(null);
 		}
 	}
-
+	
+	private void addPlaylist() {
+		Cursor cursor = mAdapter.getCursor();
+		if (null == cursor) {
+			return;
+		}
+		List<MusicInfo> infoList = new ArrayList<MusicInfo>();
+		String playItemPath = mMiniType.getIndex() +":" + mPlayGridIndex;
+		for (boolean hasNext = cursor.moveToFirst(); hasNext; hasNext = cursor.moveToNext()) {
+			String title = cursor.getString(mTitleIndex);
+			String artist = cursor.getString(mArtistIndex);
+			long mediaId = cursor.getLong(mMediaIdIndex);
+			infoList.add(new MusicInfo(artist, title, mediaId, playItemPath));
+		}
+		MusicUtil.addPlaylist(getApplicationContext(), infoList);
+	}
+	
+	
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		List<Long> idList = new ArrayList<Long>();
-		Cursor cursor = mAdapter.getCursor();
-		String title = cursor.getString(mTitleIndex);
-		String artist = cursor.getString(mArtistIndex);
-		
-		
-		if (cursor != null && cursor.moveToFirst()) {
-			idList.add(cursor.getLong(mMediaIdIndex));
-			while (cursor.moveToNext()) {
-				idList.add(cursor.getLong(mMediaIdIndex));
-			}	
-		}
-		MusicUtil.addPlaylist(getApplicationContext(), idList);
-		
+		addPlaylist();		
 		MusicUtil.start(getApplicationContext(), position);
 	}
 

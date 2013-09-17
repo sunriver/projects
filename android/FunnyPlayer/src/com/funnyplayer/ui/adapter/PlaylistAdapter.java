@@ -14,6 +14,7 @@ public class PlaylistAdapter extends SimpleCursorAdapter {
     
     private int mPlaylistIdIndex;
     private int mPlaylistNameIndex;
+    private int mPlaylistArtistIndex;
     
     public void setPlaylistIdIndex(int index) {
     	this.mPlaylistIdIndex = index;
@@ -21,6 +22,10 @@ public class PlaylistAdapter extends SimpleCursorAdapter {
 
     public void setPlaylistNameIndex(int index) {
     	this.mPlaylistNameIndex = index;
+    }
+    
+    public void setPlaylistArtistIndex(int index) {
+    	this.mPlaylistArtistIndex = index;
     }
     
 	static class ViewHolder {
