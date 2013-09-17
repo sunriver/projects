@@ -45,8 +45,7 @@ public class HomeActivity extends Activity {
 		String artist = bundle.getString("music_artist");
 		String name = bundle.getString("music_name");
 		String playItemPath = bundle.getString("music_item_path");
-		String text = getString(R.string.custom_title);
-		mCustomTitleView.setText(artist + " " + name);
+		mCustomTitleView.setText(artist + "  " + name);
 		mCustomTitleView.setTag(playItemPath);
 	}
 	
