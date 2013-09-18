@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.renderscript.Type;
 import android.support.v4.view.ViewPager;
@@ -124,6 +125,12 @@ public class HomeActivity extends Activity implements OnClickListener {
 	
 	private void showLrc() {
 		startActivity(new Intent(this, LrcActivity.class));
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		// TODO Auto-generated method stub
+		super.onConfigurationChanged(newConfig);
 	}
 
 	@Override

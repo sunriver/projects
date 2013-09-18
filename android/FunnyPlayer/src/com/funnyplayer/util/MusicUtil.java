@@ -116,16 +116,24 @@ public class MusicUtil {
 	}
 	
 	public static int getCurrentPos() {
-		return mService.getCurrentPos();
+		if (mService != null) {
+			return mService.getCurrentPos();
+		}
+		return 0;
 	}
 	
 	public static int getDuration() {
-		return mService.getDuration();
+		if (mService != null) {
+			return mService.getDuration();
+		}
+		return 0;
 	}
 	
 	
 	public static void seekTo(int progress) {
-		mService.seekTo(progress);
+		if (mService != null) {
+			mService.seekTo(progress);
+		}
 	}
 	
 	public static void play(Context context) {

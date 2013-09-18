@@ -52,6 +52,14 @@ public class ControlBarFragment extends Fragment implements View.OnClickListener
         return String.format("%02d:%02d", minute, second);  
     }  
     
+    private void updateProgress() {
+        int currentPosition = MusicUtil.getCurrentPos();
+        int mMax = MusicUtil.getDuration();  
+        mProgressText.setText(ShowTime(currentPosition));  
+        mProgressBar.setMax(mMax);  
+        mProgressBar.setProgress(currentPosition);
+    }
+    
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -59,12 +67,10 @@ public class ControlBarFragment extends Fragment implements View.OnClickListener
 		mRunnable = new Runnable() {
 			@Override
 			public void run() {
-	            int currentPosition = MusicUtil.getCurrentPos();
-	            int mMax = MusicUtil.getDuration();  
-	            mProgressText.setText(ShowTime(currentPosition));  
-	            mProgressBar.setMax(mMax);  
-	            mProgressBar.setProgress(currentPosition);  
-	            mHandler.postDelayed(this, 100); 
+				updateProgress();
+		        if (MusicUtil.isPlaying()) {
+		            mHandler.postDelayed(this, 100); 
+		        }
 			}
 		};
 		mReceiver = new BroadcastReceiver(){
@@ -86,6 +92,7 @@ public class ControlBarFragment extends Fragment implements View.OnClickListener
 		getActivity().registerReceiver(mReceiver, intentFilter);
 		
 		mPlayOrPauseImg.setSelected(MusicUtil.isPlaying());
+		mRunnable.run();
 	}
 	
 	@Override
