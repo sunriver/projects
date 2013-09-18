@@ -122,7 +122,9 @@ public class ArtistFragment extends Fragment implements IFragment, OnItemClickLi
 
 	@Override
 	public void selectItem(int gridIndex, int itemIndex) {
-		mGridView.smoothScrollToPosition(gridIndex);
-		View child = mGridView.getChildAt(itemIndex);
+		if (mGridView != null) {
+			mGridView.smoothScrollToPosition(gridIndex);
+			View child = mGridView.getChildAt(itemIndex);
+		}
 	}
 }

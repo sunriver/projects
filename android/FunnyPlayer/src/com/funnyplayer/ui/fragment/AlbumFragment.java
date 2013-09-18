@@ -116,8 +116,10 @@ public class AlbumFragment extends Fragment implements IFragment, OnItemClickLis
 
 	@Override
 	public void selectItem(int gridIndex, int itemIndex) {
-		mGridView.smoothScrollToPosition(gridIndex);
-		View child = mGridView.getChildAt(gridIndex);
+		if (mGridView != null) {
+			mGridView.smoothScrollToPosition(gridIndex);
+			View child = mGridView.getChildAt(gridIndex);
+		}
 	}
 	
 	
