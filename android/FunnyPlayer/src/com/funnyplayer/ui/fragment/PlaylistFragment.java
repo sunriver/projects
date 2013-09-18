@@ -86,7 +86,8 @@ public class PlaylistFragment extends Fragment implements IFragment, OnItemClick
 		} else {
 			MusicUtil.start(getActivity(), position);
 		}
-		view.setSelected(true);
+		mAdapter.setSelectItem(position);
+		view.setPressed(true);
 	}
 
 	@Override
@@ -130,6 +131,8 @@ public class PlaylistFragment extends Fragment implements IFragment, OnItemClick
 	public void selectItem(int gridIndex, int itemIndex) {
 		if (mPlayListView != null) {
 			mPlayListView.smoothScrollToPosition(itemIndex);
+			mAdapter.setSelectItem(itemIndex);
+			mAdapter.notifyDataSetChanged();
 		}
 	}
 	

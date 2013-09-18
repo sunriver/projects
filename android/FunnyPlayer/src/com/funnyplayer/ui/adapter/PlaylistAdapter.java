@@ -4,13 +4,14 @@ package com.funnyplayer.ui.adapter;
 import com.funnyplayer.R;
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 public class PlaylistAdapter extends SimpleCursorAdapter {
-
+	private int mSelectItemPos;
     
     private int mPlaylistIdIndex;
     private int mPlaylistNameIndex;
@@ -28,15 +29,20 @@ public class PlaylistAdapter extends SimpleCursorAdapter {
     	this.mPlaylistArtistIndex = index;
     }
     
+    public void setSelectItem(int pos) {
+    	this.mSelectItemPos = pos;
+    }
+    
 	static class ViewHolder {
 		TextView mTitleView;
 	}
 
 	public PlaylistAdapter(Context context, int layout) {
 		super(context.getApplicationContext(), layout,  null, new String[] {}, new int[] {}, 0);
+		mSelectItemPos = -1;
 	}
 	
-	
+	private Handler mHandler = new Handler();
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View v = null;
@@ -51,6 +57,13 @@ public class PlaylistAdapter extends SimpleCursorAdapter {
 				holder.mTitleView = (TextView) v.findViewById(R.id.playlist_item_name);
 				v.setTag(holder);
 			}
+		}
+		final View tempView = v;
+		if (position == mSelectItemPos) {
+			mHandler.post(new Runnable() {
+				public void run() {
+					tempView.setPressed(true);
+				}});
 		}
 		
 		Cursor cursor = (Cursor) getItem(position);
