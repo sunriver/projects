@@ -10,6 +10,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.renderscript.Type;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -149,6 +150,9 @@ public class HomeActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		String itemPath = (String) v.getTag();
+		if (TextUtils.isEmpty(itemPath)) {
+			return;
+		}
 		String[] subs = itemPath.split(":");
 		int fragmentIndex = Integer.valueOf(subs[0]);
 		mViewPager.setCurrentItem(fragmentIndex, true);
