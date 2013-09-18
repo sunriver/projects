@@ -40,7 +40,7 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>, 
 	private int mTitleIndex;
 	private int mArtistIndex;
 	private LrcProvider mLrcProvider;
-	private int mPlayGridIndex;
+	private String mPlayItemPath;
 	
 
 	@Override
@@ -61,7 +61,8 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>, 
 		Intent intent = getIntent();
 		Bundle args = (intent != null) ? intent.getExtras() : null;
 		mMiniType = args != null ? Consts.TYPE.valueOf(args.getString(Consts.MIME_TYPE)) : Consts.TYPE.ALBUM;
-		mPlayGridIndex = args != null ? args.getInt(Consts.PLAY_GRID_INDEX) : 0;
+		int gridIndex = args != null ? args.getInt(Consts.PLAY_GRID_INDEX) : 0;
+		mPlayItemPath = mMiniType.getIndex() +":" + gridIndex;
 		getLoaderManager().initLoader(0, args, this);
 	}
 	
@@ -155,12 +156,11 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>, 
 			return;
 		}
 		List<MusicInfo> infoList = new ArrayList<MusicInfo>();
-		String playItemPath = mMiniType.getIndex() +":" + mPlayGridIndex;
 		for (boolean hasNext = cursor.moveToFirst(); hasNext; hasNext = cursor.moveToNext()) {
 			String title = cursor.getString(mTitleIndex);
 			String artist = cursor.getString(mArtistIndex);
 			long mediaId = cursor.getLong(mMediaIdIndex);
-			infoList.add(new MusicInfo(artist, title, mediaId, playItemPath));
+			infoList.add(new MusicInfo(artist, title, mediaId, mPlayItemPath));
 		}
 		MusicUtil.addPlaylist(getApplicationContext(), infoList);
 	}
@@ -169,8 +169,13 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>, 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		addPlaylist();		
-		MusicUtil.start(getApplicationContext(), position);
+		if (!mPlayItemPath.equals(MusicUtil.getPlayItemPath())) {
+			MusicUtil.setPlayItemPath(mPlayItemPath);
+			addPlaylist();		
+			MusicUtil.start(getApplicationContext(), position, true);
+		} else {
+			MusicUtil.start(getApplicationContext(), position);
+		}
 	}
 
 	@Override

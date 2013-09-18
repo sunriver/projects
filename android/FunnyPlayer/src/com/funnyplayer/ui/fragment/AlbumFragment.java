@@ -25,7 +25,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
-public class AlbumFragment extends Fragment implements OnItemClickListener, LoaderCallbacks<Cursor> {
+public class AlbumFragment extends Fragment implements IFragment, OnItemClickListener, LoaderCallbacks<Cursor> {
     private GridView mGridView;
     
     private AlbumAdapter mAlbumAdapter;
@@ -110,6 +110,14 @@ public class AlbumFragment extends Fragment implements OnItemClickListener, Load
         if (mAlbumAdapter != null) {
         	mAlbumAdapter.changeCursor(null);
         }
+	}
+
+	
+	@Override
+	public void selectChild(int pos) {
+		// TODO Auto-generated method stub
+		View child = mGridView.getChildAt(pos);
+		child.setBackgroundColor(R.color.blue);
 	}
 	
 	

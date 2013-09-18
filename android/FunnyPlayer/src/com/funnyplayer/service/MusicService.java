@@ -77,17 +77,30 @@ public class MusicService extends Service {
 		return mMusicPlayer.getDuration();
 	}
 	
-
 	public boolean start(int pos) {
-		if (mMusicPlayer.isPaused()) {
-			mMusicPlayer.start();
-			sendBroadcast(new Intent(FilterAction.PLAYER_PLAYING));
-			return true;
-		} else {
-			// pause the curent playing song
-			if (pos == mCurrentPos) {
-				mMusicPlayer.pause();
+		return start(pos, false);
+	}
+	
+	
+	/**
+	 * 
+	 * @param pos
+	 * @param force  play new song, default value is false.
+	 * @return
+	 */
+	public boolean start(int pos, boolean force) {
+		if (!force) {
+			if (mMusicPlayer.isPaused()) {
+				mMusicPlayer.start();
+				sendBroadcast(new Intent(FilterAction.PLAYER_PLAYING));
 				return true;
+			} else {
+				// pause the curent playing song
+				if (pos == mCurrentPos) {
+					mMusicPlayer.pause();
+					sendBroadcast(new Intent(FilterAction.PLAYER_PAUSED));
+					return true;
+				}
 			}
 		}
 		 

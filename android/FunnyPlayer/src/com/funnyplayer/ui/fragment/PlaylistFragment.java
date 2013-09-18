@@ -38,7 +38,7 @@ public class PlaylistFragment extends Fragment implements OnItemClickListener, L
     private int mTitleIndex;
     private int mArtistIndex;
 	private LrcProvider mLrcProvider;
-	private int mPlayGridIndex = 0;
+	private String mPlayItemPath;
     
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -48,7 +48,7 @@ public class PlaylistFragment extends Fragment implements OnItemClickListener, L
 		mPlayListView.setAdapter(mAdapter);
 		mPlayListView.setOnItemClickListener(this);
 		mLrcProvider = LrcProvider.getInstance(getActivity().getApplicationContext());
-        
+		mPlayItemPath = Consts.TYPE.PLAYLIST.getIndex() +":" + 0;
         // Important!
         getLoaderManager().initLoader(0, null, this);
         
@@ -67,12 +67,11 @@ public class PlaylistFragment extends Fragment implements OnItemClickListener, L
 			return;
 		}
 		List<MusicInfo> infoList = new ArrayList<MusicInfo>();
-		String playItemPath = Consts.TYPE.PLAYLIST.getIndex() +":" + mPlayGridIndex;
 		for (boolean hasNext = cursor.moveToFirst(); hasNext; hasNext = cursor.moveToNext()) {
 			String title = cursor.getString(mTitleIndex);
 			String artist = cursor.getString(mArtistIndex);
 			long mediaId = cursor.getLong(mMediaIdIndex);
-			infoList.add(new MusicInfo(artist, title, mediaId, playItemPath));
+			infoList.add(new MusicInfo(artist, title, mediaId, mPlayItemPath));
 		}
 		MusicUtil.addPlaylist(getActivity(), infoList);
 	}
@@ -80,9 +79,13 @@ public class PlaylistFragment extends Fragment implements OnItemClickListener, L
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		addPlaylist();
-		MusicUtil.start(getActivity(), position);
-		
+		if (!mPlayItemPath.equals(MusicUtil.getPlayItemPath())) {
+			MusicUtil.setPlayItemPath(mPlayItemPath);
+			addPlaylist();		
+			MusicUtil.start(getActivity(), position, true);
+		} else {
+			MusicUtil.start(getActivity(), position);
+		}
 	}
 
 	@Override

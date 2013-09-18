@@ -136,7 +136,7 @@ public class ScrollTabView extends HorizontalScrollView implements
 			selectTab(mPager.getCurrentItem());
 	}
 
-	private void selectTab(int position) {
+	public void selectTab(int position) {
 
 		for (int i = 0, pos = 0; i < mContainer.getChildCount(); i++, pos++) {
 			View tab = mContainer.getChildAt(i);

@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.text.TextUtils;
 
 import com.funnyplayer.service.MusicInfo;
 import com.funnyplayer.service.MusicService;
@@ -94,10 +95,14 @@ public class MusicUtil {
 	}
 	
 	public static void start(Context context, int pos) {
+		start(context, pos, false);
+	}
+	
+	public static void start(Context context, int pos, boolean force) {
 		if (mService != null) {
-			mService.start(pos);
+			mService.start(pos, force);
 		} else {
-			mLastRequest = new StartRequest(pos);
+			mLastRequest = new StartRequest(pos, force);
 			bindService(context);
 		}
 	}
@@ -212,13 +217,15 @@ public class MusicUtil {
 	
 	private static class StartRequest extends AbstractRequest {
 		private int mPos;
+		private boolean mForce;
 		
-		public StartRequest(int pos) {
+		public StartRequest(int pos, boolean force) {
 			mPos = pos;
+			mForce = force;
 		}
 		@Override
 		public void run() {
-			mService.start(mPos);
+			mService.start(mPos, mForce);
 		}
 	}
 	

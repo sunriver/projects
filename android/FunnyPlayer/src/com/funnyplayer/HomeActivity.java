@@ -2,27 +2,33 @@ package com.funnyplayer;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.renderscript.Type;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.funnyplayer.ui.adapter.PagerAdapter;
 import com.funnyplayer.ui.adapter.ScrollTabAdapter;
 import com.funnyplayer.ui.fragment.AlbumFragment;
 import com.funnyplayer.ui.fragment.ArtistFragment;
+import com.funnyplayer.ui.fragment.IFragment;
 import com.funnyplayer.ui.fragment.PlaylistFragment;
 import com.funnyplayer.ui.widgets.ScrollTabView;
 import com.funnyplayer.util.MusicUtil;
 import com.funnyplayer.util.ViewUtil;
+import common.Consts;
 
-public class HomeActivity extends Activity {
+public class HomeActivity extends Activity implements OnClickListener {
 	private ViewPager mViewPager;
 	private ScrollTabView mTabView;
 	private TextView mCustomTitleView;
@@ -105,13 +111,8 @@ public class HomeActivity extends Activity {
 		actionBar.setCustomView(R.layout.custom_title);
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_TITLE);
 		mCustomTitleView = (TextView) actionBar.getCustomView();
+		mCustomTitleView.setOnClickListener(this);
     }
-
-	@Override
-	protected void onStart() {
-		// TODO Auto-generated method stub
-		super.onStart();
-	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -143,6 +144,18 @@ public class HomeActivity extends Activity {
 			super.onOptionsItemSelected(item);
 		}
 		return true;
+	}
+
+	@Override
+	public void onClick(View v) {
+		String itemPath = (String) v.getTag();
+		String[] subs = itemPath.split(":");
+		int fragmentIndex = Integer.valueOf(subs[0]);
+		mViewPager.setCurrentItem(fragmentIndex, true);
+		PagerAdapter pageAdapter = (PagerAdapter) mViewPager.getAdapter();
+//		IFragment fragment = (IFragment) pageAdapter.getItem(fragmentIndex);
+//		int gridIndex = Integer.valueOf(subs[1]);
+//		fragment.selectChild(gridIndex);
 	}
 
 }
