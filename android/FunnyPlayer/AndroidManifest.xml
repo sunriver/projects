@@ -30,7 +30,6 @@
             android:name="com.funnyplayer.HomeActivity"
             android:configChanges="keyboardHidden|orientation"
             android:icon="@drawable/listen"
-            android:label="@string/app_name"
             android:launchMode="singleTask"
             android:theme="@android:style/Theme.Holo.Light" >
             <intent-filter>
@@ -42,7 +41,7 @@
         <activity
             android:name="com.funnyplayer.TrackActivity"
             android:configChanges="keyboardHidden|orientation"
-            android:label="@string/app_name"
+            android:icon="@drawable/listen"
             android:theme="@android:style/Theme.Holo.Light" >
             <intent-filter>
                 <action android:name="android.intent.action.View" />
