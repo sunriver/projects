@@ -29,7 +29,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class PlaylistFragment extends Fragment implements OnItemClickListener, LoaderCallbacks<Cursor> {
+public class PlaylistFragment extends Fragment implements IFragment, OnItemClickListener, LoaderCallbacks<Cursor> {
  	private final static String TAG = "PlaylistFragment";
     private ListView mPlayListView;
     private Cursor mCursor;
@@ -86,6 +86,7 @@ public class PlaylistFragment extends Fragment implements OnItemClickListener, L
 		} else {
 			MusicUtil.start(getActivity(), position);
 		}
+		view.setSelected(true);
 	}
 
 	@Override
@@ -124,5 +125,13 @@ public class PlaylistFragment extends Fragment implements OnItemClickListener, L
         	mAdapter.changeCursor(null);
         }
 	}
+
+	@Override
+	public void selectItem(int gridIndex, int itemIndex) {
+		if (mPlayListView != null) {
+			mPlayListView.smoothScrollToPosition(itemIndex);
+		}
+	}
+	
 	
 }

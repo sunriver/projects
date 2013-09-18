@@ -122,6 +122,13 @@ public class MusicUtil {
 		return 0;
 	}
 	
+	public static int getItemPos() {
+		if (mService != null) {
+			return mService.getItemPos();
+		}
+		return 0;
+	}
+	
 	public static int getDuration() {
 		if (mService != null) {
 			return mService.getDuration();

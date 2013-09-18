@@ -28,7 +28,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
-public class ArtistFragment extends Fragment implements OnItemClickListener, LoaderCallbacks<Cursor> {
+public class ArtistFragment extends Fragment implements IFragment, OnItemClickListener, LoaderCallbacks<Cursor> {
     private GridView mGridView;
     
     private ArtistAdapter mArtistAdapter;
@@ -118,5 +118,11 @@ public class ArtistFragment extends Fragment implements OnItemClickListener, Loa
         }
 	}
 	
-	
+
+
+	@Override
+	public void selectItem(int gridIndex, int itemIndex) {
+		mGridView.smoothScrollToPosition(gridIndex);
+		View child = mGridView.getChildAt(itemIndex);
+	}
 }

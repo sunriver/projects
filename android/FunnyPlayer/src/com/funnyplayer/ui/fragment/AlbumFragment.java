@@ -113,11 +113,11 @@ public class AlbumFragment extends Fragment implements IFragment, OnItemClickLis
 	}
 
 	
+
 	@Override
-	public void selectChild(int pos) {
-		// TODO Auto-generated method stub
-		View child = mGridView.getChildAt(pos);
-		child.setBackgroundColor(R.color.blue);
+	public void selectItem(int gridIndex, int itemIndex) {
+		mGridView.smoothScrollToPosition(gridIndex);
+		View child = mGridView.getChildAt(gridIndex);
 	}
 	
 	

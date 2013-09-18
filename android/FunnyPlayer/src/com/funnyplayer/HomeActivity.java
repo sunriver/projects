@@ -57,6 +57,14 @@ public class HomeActivity extends Activity implements OnClickListener {
 		mCustomTitleView.setTag(playItemPath);
 	}
 	
+	private void updatePlayItemState(Bundle bundle) {
+		if (null == bundle) {
+			return;
+		}
+		String playItemPath = bundle.getString("music_item_path");
+		scrollToItem(playItemPath);
+	}
+	
 	private void registerReceiver() {
 		mReceiver = new BroadcastReceiver(){
 			@Override
@@ -65,6 +73,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 				} else if (intent.getAction().equals(MusicUtil.FilterAction.PLAYER_PLAYING))  {
 					Bundle bundle = intent.getExtras();
 					updateCustomeTitle(bundle);
+					updatePlayItemState(bundle);
 				}
 			}
 		};
@@ -127,11 +136,6 @@ public class HomeActivity extends Activity implements OnClickListener {
 		startActivity(new Intent(this, LrcActivity.class));
 	}
 
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		// TODO Auto-generated method stub
-		super.onConfigurationChanged(newConfig);
-	}
 
 	@Override
 	protected void onDestroy() {
@@ -157,16 +161,25 @@ public class HomeActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		String itemPath = (String) v.getTag();
-		if (TextUtils.isEmpty(itemPath)) {
+		scrollToItem(itemPath);
+	}
+	
+	private void scrollToItem(String playItemPath) {
+		if (TextUtils.isEmpty(playItemPath)) {
 			return;
 		}
-		String[] subs = itemPath.split(":");
+		String[] subs = playItemPath.split(":");
 		int fragmentIndex = Integer.valueOf(subs[0]);
+		int gridIndex = Integer.valueOf(subs[1]);
+		int itemIndex = MusicUtil.getItemPos();
+		scrollToItem(fragmentIndex, gridIndex, itemIndex);
+	}
+	
+	private void scrollToItem(int fragmentIndex, int gridIndex, int itemIndex) {
 		mViewPager.setCurrentItem(fragmentIndex, true);
 		PagerAdapter pageAdapter = (PagerAdapter) mViewPager.getAdapter();
-//		IFragment fragment = (IFragment) pageAdapter.getItem(fragmentIndex);
-//		int gridIndex = Integer.valueOf(subs[1]);
-//		fragment.selectChild(gridIndex);
+		IFragment fragment = (IFragment) pageAdapter.getItem(fragmentIndex);
+		fragment.selectItem(gridIndex, itemIndex);
 	}
 
 }

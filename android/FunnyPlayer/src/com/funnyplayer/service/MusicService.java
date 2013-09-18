@@ -34,7 +34,7 @@ public class MusicService extends Service {
     
     private MusicPlayer mMusicPlayer;
     
-    private int mCurrentPos;
+    private int mItemPos;
     
     private final String[] mCursorCols = new String[] {
             "audio._id AS _id", MediaStore.Audio.Media.ARTIST, MediaStore.Audio.Media.ALBUM,
@@ -69,6 +69,10 @@ public class MusicService extends Service {
 		return mMusicPlayer.isPaused();
 	}
 	
+	public int getItemPos() {
+		return mItemPos;
+	}
+	
 	public int getCurrentPos() {
 		return mMusicPlayer.getCurrentPos();
 	}
@@ -96,7 +100,7 @@ public class MusicService extends Service {
 				return true;
 			} else {
 				// pause the curent playing song
-				if (pos == mCurrentPos) {
+				if (pos == mItemPos) {
 					mMusicPlayer.pause();
 					sendBroadcast(new Intent(FilterAction.PLAYER_PAUSED));
 					return true;
@@ -108,7 +112,7 @@ public class MusicService extends Service {
 			return false;
 		}
 		
-		mCurrentPos = pos;
+		mItemPos = pos;
 		MusicInfo musicInfo = mMusicList.get(pos);
 		long id = musicInfo.getId();
 		Cursor cursor = getCursorForId(id);
@@ -148,15 +152,15 @@ public class MusicService extends Service {
 	}
 
 	public boolean play() {
-		return start(mCurrentPos);
+		return start(mItemPos);
 	}
 
 	public boolean next() {
-		return start(mCurrentPos + 1);
+		return start(mItemPos + 1);
 	}
 
 	public boolean previous() {
-		return start(mCurrentPos - 1);
+		return start(mItemPos - 1);
 	}
 	
 	
