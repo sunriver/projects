@@ -1,13 +1,13 @@
 package com.funnyplayer.util;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-import android.text.TextUtils;
-
 import com.funnyplayer.service.MusicInfo;
 import com.funnyplayer.service.MusicService;
 import com.funnyplayer.service.MusicService.MusicBinder;
@@ -20,8 +20,9 @@ public class MusicUtil {
 	}
 	
 	private static MusicService mService;
-	private static AbstractRequest mLastRequest;
+	private static Queue<AbstractRequest> mLastRequestLQueue = new LinkedList<AbstractRequest>();
 	private static ServiceConnection mConnection;
+	
 	
     
     /**
@@ -37,9 +38,9 @@ public class MusicUtil {
 			if (service != null) {
 				MusicBinder binder = (MusicBinder) service;
 				mService = binder.getService();
-				if (mLastRequest != null) {
-					mLastRequest.run();
-					mLastRequest = null;
+				while (!mLastRequestLQueue.isEmpty()) {
+					AbstractRequest req = mLastRequestLQueue.remove();
+					req.run();
 				}
 			}
 		}
@@ -76,20 +77,12 @@ public class MusicUtil {
 		mPlayItemPath = path;
 	}
 
-//	public static void addPlaylist(Context context, List<Long> idList) {
-//		if (mService != null) {
-//			mService.addPlayList(idList);
-//		} else {
-//			mLastRequest = new AddPlaylist(idList);
-//			bindService(context);
-//		}
-//	}
-	
 	public static void addPlaylist(Context context, List<MusicInfo> musicList) {
 		if (mService != null) {
 			mService.addPlayList(musicList);
 		} else {
-			mLastRequest = new AddPlaylist(musicList);
+			AbstractRequest req = new AddPlaylist(musicList);
+			mLastRequestLQueue.offer(req);
 			bindService(context);
 		}
 	}
@@ -102,7 +95,8 @@ public class MusicUtil {
 		if (mService != null) {
 			mService.start(pos, force);
 		} else {
-			mLastRequest = new StartRequest(pos, force);
+			AbstractRequest req = new StartRequest(pos, force);
+			mLastRequestLQueue.offer(req);
 			bindService(context);
 		}
 	}
@@ -138,7 +132,8 @@ public class MusicUtil {
 		if (mService != null) {
 			mService.play();
 		} else {
-			mLastRequest = new PlayRequest();
+			AbstractRequest req = new PlayRequest();
+			mLastRequestLQueue.offer(req);
 			bindService(context);
 		}
 	}
@@ -147,7 +142,8 @@ public class MusicUtil {
 		if (mService != null) {
 			mService.previous();
 		} else {
-			mLastRequest = new PrevRequest();
+			AbstractRequest req = new PrevRequest();
+			mLastRequestLQueue.offer(req);
 			bindService(context);
 		}
 	}
@@ -156,7 +152,8 @@ public class MusicUtil {
 		if (mService != null) {
 			mService.next();
 		} else {
-			mLastRequest = new NextRequest();
+			AbstractRequest req = new NextRequest();
+			mLastRequestLQueue.offer(req);
 			bindService(context);
 		}
 	}
@@ -165,7 +162,8 @@ public class MusicUtil {
 		if (mService != null) {
 			mService.pause();
 		} else {
-			mLastRequest = new PauseRequest();
+			AbstractRequest req = new PauseRequest();
+			mLastRequestLQueue.offer(req);
 			bindService(context);
 		}
 	}
