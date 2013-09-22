@@ -58,7 +58,7 @@ public class AlbumAdapter extends SimpleCursorAdapter implements ImageReadyListe
 
 		ImageInfo imageInfo = new ImageInfo();
 		imageInfo.type = TYPE.ALBUM.toString();
-		imageInfo.size = Consts.SIZE_THUMB;
+		imageInfo.size = Consts.SIZE_NORMAL;
 		imageInfo.source = Consts.SRC_FIRST_AVAILABLE;
 		imageInfo.data = new String[] { albumId, artistName, albumName };
 

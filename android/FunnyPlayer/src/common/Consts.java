@@ -26,6 +26,7 @@ public class Consts {
 	
     public final static String SRC_FIRST_AVAILABLE = "first_avail";
     public final static String SIZE_THUMB = "thumb";
+    public final static String SIZE_NORMAL = "normal";
     
     // Bundle & Intent type
     public final static String MIME_TYPE = "mimetype";
