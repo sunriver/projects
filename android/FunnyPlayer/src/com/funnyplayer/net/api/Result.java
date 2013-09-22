@@ -27,15 +27,10 @@ package com.funnyplayer.net.api;
 
 import org.w3c.dom.Document;
 
-/**
- * The <code>Result</code> class contains the response sent by the server, i.e. the status (either ok or failed),
- * an error code and message if failed and the xml response sent by the server.
- *
- * @author Janni Kovacs
- */
+
 public class Result {
 
-	public enum Status {
+	public static enum Status {
 		OK,
 		FAILED
 	}
