@@ -36,12 +36,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="1" />
 
-    <com.adwo.adsdk.AdwoAdView
-        android:id="@+id/lrc_adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        custom:isTesting="true"
-        custom:refreshInterval="40" >
-    </com.adwo.adsdk.AdwoAdView>
+    <LinearLayout
+        android:id="@+id/lrc_adview_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

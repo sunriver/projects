@@ -11,11 +11,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.adwo.adsdk.AdListener;
 import com.adwo.adsdk.AdwoAdView;
@@ -30,6 +34,7 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 	private final static String TAG = LrcActivity.class.getSimpleName();
 	private final static String LRC_SETTING = "lrc_setting";
 	private final static String LRC_SEARCH_TYPE = "lrc_search_type";
+	private static final boolean AD_TEST_MODE = true;
 
 	private ListView mLrcListView;
 	private LrcAdapter mLrcAdapter;
@@ -42,6 +47,7 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 	private MenuItem mSearchTypeItem;
 	private SearchType mSearchType;
 	private AdwoAdView mAdView;
+	private LinearLayout mAdViewContainer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +73,20 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 
 		mLrcProvider = LrcProvider.getInstance(getApplicationContext());
 		
-		initAdView();
+		mAdViewContainer = (LinearLayout) this.findViewById(R.id.lrc_adview_container);
+		mAdView = createAdView(mAdViewContainer);
+		mAdView.setListener(this);
 	}
 	
-	private void initAdView() {
-		mAdView = (AdwoAdView) findViewById(R.id.lrc_adView);
-		mAdView.setBannerMatchScreenWidth(true);
-		mAdView.setListener(this);
+	private AdwoAdView createAdView(LinearLayout parent) {
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		
+//		params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+		AdwoAdView.setBannerMatchScreenWidth(true);
+		String pid = getString(R.string.adwo_pid);
+		AdwoAdView adView = new AdwoAdView(getApplicationContext(), pid, AD_TEST_MODE, 40);
+		parent.addView(adView, params);
+		return adView;
 	}
  
 	private void initActionBar() {
