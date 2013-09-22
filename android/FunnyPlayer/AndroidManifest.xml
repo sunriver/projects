@@ -22,11 +22,11 @@
         android:icon="@drawable/listen"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo.Light" >
-
         <activity
             android:name="com.funnyplayer.HomeActivity"
             android:configChanges="keyboardHidden|orientation"
             android:icon="@drawable/listen"
+            android:label="@null"
             android:launchMode="singleTask"
             android:theme="@android:style/Theme.Holo.Light" >
             <intent-filter>
@@ -49,6 +49,7 @@
         <activity
             android:name="com.funnyplayer.LrcActivity"
             android:configChanges="keyboardHidden|orientation"
+            android:icon="@drawable/listen"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Holo.Light" >
             <intent-filter>

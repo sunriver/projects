@@ -20,6 +20,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.BaseColumns;
 import android.provider.MediaStore.Audio;
 import android.provider.MediaStore.MediaColumns;
@@ -41,6 +42,7 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>, 
 	private int mArtistIndex;
 	private LrcProvider mLrcProvider;
 	private String mPlayItemPath;
+	private Handler mHandler;
 	
 
 	@Override
@@ -54,6 +56,8 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>, 
 
 		mPlayListView.setAdapter(mAdapter);
 		mPlayListView.setOnItemClickListener(this);
+		
+		mHandler = new Handler();
 		
 		
 		initActionBar();
@@ -78,6 +82,7 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>, 
     }
 
 	private CursorLoader createLoaderForAlbum(Bundle args) {
+		this.setTitle(R.string.tab_title_album);
 		StringBuilder where = new StringBuilder();
 		where.append(AudioColumns.IS_MUSIC + "=1")
 		.append(" AND " + MediaColumns.TITLE + " != ''");
@@ -97,6 +102,7 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>, 
 	
 	
 	private CursorLoader createLoaderForArtist(Bundle args) {
+		this.setTitle(R.string.tab_title_artist);
 		StringBuilder where = new StringBuilder();
 		where.append(AudioColumns.IS_MUSIC + "=1")
 		.append(" AND " + MediaColumns.TITLE + " != ''");

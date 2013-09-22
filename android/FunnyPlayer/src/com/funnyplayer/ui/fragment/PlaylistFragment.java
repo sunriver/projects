@@ -87,7 +87,6 @@ public class PlaylistFragment extends Fragment implements IFragment, OnItemClick
 			MusicUtil.start(getActivity(), position);
 		}
 		mAdapter.setSelectItem(position);
-		view.setPressed(true);
 	}
 
 	@Override

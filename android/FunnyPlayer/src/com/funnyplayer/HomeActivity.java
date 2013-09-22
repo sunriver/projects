@@ -93,6 +93,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 	
 	private void init() {
+		this.setTitle("");
 		// Initiate PagerAdapter
 		PagerAdapter pagerAdapter = new PagerAdapter(getFragmentManager());
 
@@ -132,6 +133,12 @@ public class HomeActivity extends Activity implements OnClickListener {
 		return true;
 	}
 	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		// TODO Auto-generated method stub
+		super.onConfigurationChanged(newConfig);
+	}
+
 	private void showLrc() {
 		startActivity(new Intent(this, LrcActivity.class));
 	}
