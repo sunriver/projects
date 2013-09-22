@@ -96,7 +96,7 @@ public class LrcUtils {
 		List<LrcBean.LrcUrl> urls = new ArrayList<LrcBean.LrcUrl>();
 		try {
 			AssetManager am = context.getAssets();
-			String[] lrcPaths = am.list("lrc/");
+			String[] lrcPaths = am.list("lrc");
 			for (String path : lrcPaths) {
 				String song = LrcInfo.getSongByFileName(path);
 				String artist = LrcInfo.getArtistByFileName(path);
