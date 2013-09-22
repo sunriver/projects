@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import org.apache.http.client.methods.HttpGet;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.text.TextUtils;
 import android.util.Log;
 import com.funnyplayer.net.api.geci.LrcAPI;
@@ -30,10 +32,23 @@ public class LrcUtils {
 		if (null == file || !file.exists()) {
 			return null;
 		}
+		try {
+			return getLrcFromInpuStream(new FileInputStream(file));
+		} catch (FileNotFoundException e) {
+			Log.e(TAG, e.getMessage());;
+		}
+		return null;
+	}
+	
+	
+	public static String getLrcFromInpuStream(final InputStream in) {
+		if (null == in) {
+			return null;
+		}
 		BufferedReader reader = null;
 		try {
 			StringBuilder builder = new StringBuilder();
-			reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+			reader = new BufferedReader(new InputStreamReader(in));
 			for (String s = reader.readLine(); s != null; s = reader.readLine()) {
 				builder.append(s);
 				builder.append("\n");
@@ -50,7 +65,6 @@ public class LrcUtils {
 				}
 			}
 		}
-		
 		return null;
 	}
 	
@@ -78,10 +92,25 @@ public class LrcUtils {
 	}
 	
 	public static LrcBean searchLrcFromDisk(Context context, LrcInfo lrcInfo) {
-		File dir = getLrcDir(context);
-		String path = dir.getAbsolutePath();
 		LrcBean lrcBean = new LrcBean();
 		List<LrcBean.LrcUrl> urls = new ArrayList<LrcBean.LrcUrl>();
+		try {
+			AssetManager am = context.getAssets();
+			String[] lrcPaths = am.list("lrc/");
+			for (String path : lrcPaths) {
+				String song = LrcInfo.getSongByFileName(path);
+				String artist = LrcInfo.getArtistByFileName(path);
+				LrcBean.LrcUrl lrcUrl = new LrcBean.LrcUrl();
+				lrcUrl.setLrc("asset://lrc/" + path);
+				lrcUrl.setArtist(artist);
+				lrcUrl.setSong(song);
+				urls.add(lrcUrl);
+			}
+		} catch (IOException e) {
+			Log.e(TAG, e.getMessage());
+		}
+		File dir = getLrcDir(context);
+		String path = dir.getAbsolutePath();
 		//List all lrc if dont' type any search text.
 		if (TextUtils.isEmpty(lrcInfo.getSong())) {
 			for (String lrcFileName : dir.list()) {
@@ -109,6 +138,7 @@ public class LrcUtils {
 		lrcBean.setResult(urls);
 		return lrcBean;
 	}
+	
 	
 	
 	public static File downloadLrcFromWeb(Context context, LrcInfo lrcInfo) {

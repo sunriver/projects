@@ -1,6 +1,8 @@
 package com.funnyplayer.ui.widgets;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 import com.funnyplayer.R;
 import com.funnyplayer.cache.lrc.LrcProvider;
@@ -84,7 +86,11 @@ public class LrcItemLayout extends LinearLayout implements OnClickListener, LrcD
 	}
 
 	private boolean isHttpUrl(String url) {
-		return (!TextUtils.isEmpty(url) && url.startsWith("http"));
+		return (!TextUtils.isEmpty(url) && url.startsWith("http://"));
+	}
+	
+	private boolean isAssetUrl(String url) {
+		return (!TextUtils.isEmpty(url) && url.startsWith("asset://"));
 	}
 	
 	private void downloadLrc() {
@@ -106,11 +112,24 @@ public class LrcItemLayout extends LinearLayout implements OnClickListener, LrcD
 		}, 1000);
 	}
 	
+    
 	@Override
 	public void onClick(View v) {
 		Log.v(TAG, "onClick()+");
 		if (isHttpUrl(mUrl)) {
 			downloadLrc();
+		} else if (isAssetUrl(mUrl)){
+			String[] subs = mUrl.split("asset://");
+			String filePath = subs[1];
+			InputStream in;
+			try {
+				in = getContext().getAssets().open(filePath);
+				String msg = mLrcProvider.getLrcFromInputStream(in);
+				LrcToast lt = LrcToast.makeToast(getContext(), (ViewGroup) v.getRootView(), msg);
+				lt.show();
+			} catch (IOException e) {
+				Log.e(TAG, e.getMessage());
+			}
 		} else {
 			String msg = mLrcProvider.getLrcFromFile(mUrl);
 			LrcToast lt = LrcToast.makeToast(getContext(), (ViewGroup) v.getRootView(), msg);

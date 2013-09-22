@@ -2,12 +2,14 @@ package com.funnyplayer.cache.lrc;
 
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 import com.funnyplayer.net.api.geci.bean.LrcBean;
+
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -54,6 +56,12 @@ public class LrcProvider {
 	public String getLrcFromFile(String filePath) {
 		return LrcUtils.getLrcFromFile(new File(filePath));
 	}
+	
+	
+	public String getLrcFromInputStream(InputStream in) {
+		return LrcUtils.getLrcFromInpuStream(in);
+	}
+	
 	
 	public void downloadLrc(String artist, String song, String url, LrcDownloadCompletedListener l) {
 		DownloadTask task = new DownloadTask(new LrcInfo(song, artist, url), l);
