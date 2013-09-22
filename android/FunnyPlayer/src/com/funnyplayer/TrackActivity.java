@@ -24,6 +24,8 @@ import android.os.Handler;
 import android.provider.BaseColumns;
 import android.provider.MediaStore.Audio;
 import android.provider.MediaStore.MediaColumns;
+import android.provider.MediaStore.Audio.AlbumColumns;
+import android.provider.MediaStore.Audio.ArtistColumns;
 import android.provider.MediaStore.Audio.AudioColumns;
 import android.view.MenuItem;
 import android.view.View;
@@ -82,7 +84,8 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>, 
     }
 
 	private CursorLoader createLoaderForAlbum(Bundle args) {
-		this.setTitle(R.string.tab_title_album);
+		String album = (args != null) ? args.getString(AlbumColumns.ALBUM) : "";
+		this.setTitle(album);
 		StringBuilder where = new StringBuilder();
 		where.append(AudioColumns.IS_MUSIC + "=1")
 		.append(" AND " + MediaColumns.TITLE + " != ''");
@@ -102,7 +105,8 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>, 
 	
 	
 	private CursorLoader createLoaderForArtist(Bundle args) {
-		this.setTitle(R.string.tab_title_artist);
+		String artist = (args != null) ? args.getString(ArtistColumns.ARTIST) : "";
+		this.setTitle(artist);
 		StringBuilder where = new StringBuilder();
 		where.append(AudioColumns.IS_MUSIC + "=1")
 		.append(" AND " + MediaColumns.TITLE + " != ''");
