@@ -22,6 +22,7 @@ public class Consts {
 	}
 	
 	public final static String PLAY_GRID_INDEX = "play_grid_index";
+	public final static String PLAY_ITEM_INDEX = "play_item_index";
 	
 	
     public final static String SRC_FIRST_AVAILABLE = "first_avail";

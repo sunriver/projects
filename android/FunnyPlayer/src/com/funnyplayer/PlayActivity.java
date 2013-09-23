@@ -109,6 +109,7 @@ public class PlayActivity extends Activity implements LoaderCallbacks<Cursor>, O
         int mArtistIndex = data.getColumnIndexOrThrow(AudioColumns.ARTIST);
         mAdapter.setPlaylistIdIndex(mMediaIdIndex);
         mAdapter.setPlaylistNameIndex(mTitleIndex);
+        mAdapter.setPlaylistArtistIndex(mArtistIndex);
         mAdapter.changeCursor(data);
         mCursor = data;
         

@@ -68,6 +68,7 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>, 
 		Bundle args = (intent != null) ? intent.getExtras() : null;
 		mMiniType = args != null ? Consts.TYPE.valueOf(args.getString(Consts.MIME_TYPE)) : Consts.TYPE.ALBUM;
 		int gridIndex = args != null ? args.getInt(Consts.PLAY_GRID_INDEX) : 0;
+		int itemIndex = args != null ? args.getInt(Consts.PLAY_ITEM_INDEX) : -1;
 		mPlayItemPath = mMiniType.getIndex() +":" + gridIndex;
 		getLoaderManager().initLoader(0, args, this);
 	}

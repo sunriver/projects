@@ -35,6 +35,9 @@ public class HomeActivity extends Activity implements OnClickListener {
 	private ScrollTabView mTabView;
 	private TextView mCustomTitleView;
 	private BroadcastReceiver mReceiver;
+	private AlbumFragment mAlbumFrament;
+	private ArtistFragment mArtistFrament;
+	private PlaylistFragment mPlaylistFrament;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -96,11 +99,13 @@ public class HomeActivity extends Activity implements OnClickListener {
 		this.setTitle("");
 		// Initiate PagerAdapter
 		PagerAdapter pagerAdapter = new PagerAdapter(getFragmentManager());
-
+		mAlbumFrament = new AlbumFragment();
+		mArtistFrament = new ArtistFragment();
+		mPlaylistFrament = new PlaylistFragment();
 		// add fragment
-		pagerAdapter.addFragment(new AlbumFragment());
-		pagerAdapter.addFragment(new ArtistFragment());
-		pagerAdapter.addFragment(new PlaylistFragment());
+		pagerAdapter.addFragment(mAlbumFrament);
+		pagerAdapter.addFragment(mArtistFrament);
+		pagerAdapter.addFragment(mPlaylistFrament);
 
 		mViewPager.setAdapter(pagerAdapter);
 		mViewPager.setOffscreenPageLimit(pagerAdapter.getCount());
@@ -182,7 +187,14 @@ public class HomeActivity extends Activity implements OnClickListener {
 		scrollToItem(fragmentIndex, gridIndex, itemIndex);
 	}
 	
+	private void removeSelection() {
+		mAlbumFrament.selectItem(0, -1);
+		mArtistFrament.selectItem(0, -1);
+		mPlaylistFrament.selectItem(0, -1);
+	}
+	
 	private void scrollToItem(int fragmentIndex, int gridIndex, int itemIndex) {
+		removeSelection();
 		mViewPager.setCurrentItem(fragmentIndex, true);
 		PagerAdapter pageAdapter = (PagerAdapter) mViewPager.getAdapter();
 		IFragment fragment = (IFragment) pageAdapter.getItem(fragmentIndex);

@@ -43,6 +43,7 @@ public class ArtistFragment extends Fragment implements IFragment, OnItemClickLi
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        mGridView = (GridView) getView().findViewById(R.id.albumGridView);
         // AlbumAdapter
         mArtistAdapter = new ArtistAdapter(getActivity().getApplicationContext(), R.layout.album_gridview_item);
         mGridView.setOnCreateContextMenuListener(this);
@@ -58,7 +59,6 @@ public class ArtistFragment extends Fragment implements IFragment, OnItemClickLi
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View root = inflater.inflate(R.layout.fragment_album, container, false);
-		mGridView = (GridView) root.findViewById(R.id.albumGridView);
 		return root;
 	}
 

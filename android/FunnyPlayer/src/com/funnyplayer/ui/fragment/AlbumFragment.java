@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
@@ -35,10 +36,15 @@ public class AlbumFragment extends Fragment implements IFragment, OnItemClickLis
     private int mAlbumIdIndex;
     private int mAlbumNameIndex;
     private int mArtistNameIndex;
+    private int mItemPos = -1;
     
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+        	mItemPos = savedInstanceState.getInt("item_pos", -1);
+        }
+        mGridView = (GridView) getView().findViewById(R.id.albumGridView);
         // AlbumAdapter
         mAlbumAdapter = new AlbumAdapter(getActivity().getApplicationContext(), R.layout.album_gridview_item);
         mGridView.setOnCreateContextMenuListener(this);
@@ -54,7 +60,6 @@ public class AlbumFragment extends Fragment implements IFragment, OnItemClickLis
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View root = inflater.inflate(R.layout.fragment_album, container, false);
-		mGridView = (GridView) root.findViewById(R.id.albumGridView);
 		return root;
 	}
 
@@ -67,6 +72,7 @@ public class AlbumFragment extends Fragment implements IFragment, OnItemClickLis
         Bundle bundle = new Bundle();
         bundle.putString(Consts.MIME_TYPE, TYPE.ALBUM.name());
         bundle.putInt(Consts.PLAY_GRID_INDEX, position);
+        bundle.putInt(Consts.PLAY_ITEM_INDEX, mItemPos);
         bundle.putLong(BaseColumns._ID, id);
         bundle.putString(AlbumColumns.ALBUM, albumName);
         bundle.putString(AlbumColumns.ARTIST, artistName);
@@ -76,6 +82,12 @@ public class AlbumFragment extends Fragment implements IFragment, OnItemClickLis
         intent.putExtras(bundle);
         getActivity().startActivity(intent);
 		
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		outState.putInt("item_pos", mItemPos);
+		super.onSaveInstanceState(outState);
 	}
 
 	@Override
@@ -120,6 +132,7 @@ public class AlbumFragment extends Fragment implements IFragment, OnItemClickLis
 			mGridView.smoothScrollToPosition(gridIndex);
 			mGridView.setSelection(itemIndex);
 		}
+		mItemPos = itemIndex;
 	}
 	
 	
