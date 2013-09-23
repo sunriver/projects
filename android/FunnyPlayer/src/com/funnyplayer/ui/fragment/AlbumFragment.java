@@ -36,14 +36,10 @@ public class AlbumFragment extends Fragment implements IFragment, OnItemClickLis
     private int mAlbumIdIndex;
     private int mAlbumNameIndex;
     private int mArtistNameIndex;
-    private int mItemPos = -1;
     
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (savedInstanceState != null) {
-        	mItemPos = savedInstanceState.getInt("item_pos", -1);
-        }
         mGridView = (GridView) getView().findViewById(R.id.albumGridView);
         // AlbumAdapter
         mAlbumAdapter = new AlbumAdapter(getActivity().getApplicationContext(), R.layout.album_gridview_item);
@@ -72,7 +68,6 @@ public class AlbumFragment extends Fragment implements IFragment, OnItemClickLis
         Bundle bundle = new Bundle();
         bundle.putString(Consts.MIME_TYPE, TYPE.ALBUM.name());
         bundle.putInt(Consts.PLAY_GRID_INDEX, position);
-        bundle.putInt(Consts.PLAY_ITEM_INDEX, mItemPos);
         bundle.putLong(BaseColumns._ID, id);
         bundle.putString(AlbumColumns.ALBUM, albumName);
         bundle.putString(AlbumColumns.ARTIST, artistName);
@@ -84,11 +79,6 @@ public class AlbumFragment extends Fragment implements IFragment, OnItemClickLis
 		
 	}
 
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		outState.putInt("item_pos", mItemPos);
-		super.onSaveInstanceState(outState);
-	}
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -124,15 +114,36 @@ public class AlbumFragment extends Fragment implements IFragment, OnItemClickLis
         }
 	}
 
-	
+	private void startTrack(int gridIndex, int itemIndex) {
+		Cursor cursor = (Cursor)  mGridView.getItemAtPosition(gridIndex);
+		if (null == cursor) {
+			return;
+		}
+		long id = mGridView.getItemIdAtPosition(gridIndex);
+        String artistName = mCursor.getString(mArtistNameIndex);
+        String albumName = mCursor.getString(mAlbumNameIndex);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(Consts.MIME_TYPE, TYPE.ALBUM.name());
+        bundle.putInt(Consts.PLAY_GRID_INDEX, gridIndex);
+        bundle.putInt(Consts.PLAY_ITEM_INDEX, itemIndex);
+        bundle.putLong(BaseColumns._ID, id);
+        bundle.putString(AlbumColumns.ALBUM, albumName);
+        bundle.putString(AlbumColumns.ARTIST, artistName);
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setClass(getActivity(), TrackActivity.class);
+        intent.putExtras(bundle);
+        getActivity().startActivity(intent);
+	}
 
 	@Override
 	public void selectItem(int gridIndex, int itemIndex) {
-		if (mGridView != null) {
-			mGridView.smoothScrollToPosition(gridIndex);
-			mGridView.setSelection(itemIndex);
+		if (null == mGridView) {
+			return;
 		}
-		mItemPos = itemIndex;
+		mGridView.smoothScrollToPosition(gridIndex);
+		startTrack(gridIndex, itemIndex);
 	}
 	
 	

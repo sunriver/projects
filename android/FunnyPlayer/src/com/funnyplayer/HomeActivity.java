@@ -2,14 +2,12 @@ package com.funnyplayer;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.renderscript.Type;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -28,7 +26,6 @@ import com.funnyplayer.ui.fragment.PlaylistFragment;
 import com.funnyplayer.ui.widgets.ScrollTabView;
 import com.funnyplayer.util.MusicUtil;
 import com.funnyplayer.util.ViewUtil;
-import common.Consts;
 
 public class HomeActivity extends Activity implements OnClickListener {
 	private ViewPager mViewPager;
@@ -194,7 +191,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 	}
 	
 	private void scrollToItem(int fragmentIndex, int gridIndex, int itemIndex) {
-		removeSelection();
+//		removeSelection();
 		mViewPager.setCurrentItem(fragmentIndex, true);
 		PagerAdapter pageAdapter = (PagerAdapter) mViewPager.getAdapter();
 		IFragment fragment = (IFragment) pageAdapter.getItem(fragmentIndex);

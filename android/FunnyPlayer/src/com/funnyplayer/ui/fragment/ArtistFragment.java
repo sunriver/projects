@@ -119,12 +119,35 @@ public class ArtistFragment extends Fragment implements IFragment, OnItemClickLi
 	}
 	
 
+	private void startTrack(int gridIndex, int itemIndex) {
+		Cursor cursor = (Cursor)  mGridView.getItemAtPosition(gridIndex);
+		if (null == cursor) {
+			return;
+		}
+		long id = mGridView.getItemIdAtPosition(gridIndex);
+        String artistName = mCursor.getString(mArtistNameIndex);
+        String artistNumAlbums= mCursor.getString(mArtistNumAlbumsIndex);
+        
+        Bundle bundle = new Bundle();
+        bundle.putString(Consts.MIME_TYPE, TYPE.ARTIST.name());
+        bundle.putInt(Consts.PLAY_GRID_INDEX, gridIndex);
+        bundle.putInt(Consts.PLAY_ITEM_INDEX, itemIndex);
+        bundle.putLong(BaseColumns._ID, id);
+        bundle.putString(ArtistColumns.ARTIST, artistName);
+        bundle.putString(ArtistColumns.NUMBER_OF_ALBUMS, artistNumAlbums);
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setClass(getActivity(), TrackActivity.class);
+        intent.putExtras(bundle);
+        getActivity().startActivity(intent);
+	}
 
 	@Override
 	public void selectItem(int gridIndex, int itemIndex) {
-		if (mGridView != null) {
-			mGridView.smoothScrollToPosition(gridIndex);
-			View child = mGridView.getChildAt(itemIndex);
+		if (null == mGridView) {
+			return;
 		}
+		mGridView.smoothScrollToPosition(gridIndex);
+		startTrack(gridIndex, itemIndex);
 	}
 }
