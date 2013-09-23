@@ -47,8 +47,7 @@ public class PlaylistFragment extends Fragment implements IFragment,
 		mAdapter = new PlaylistAdapter(getActivity(), R.layout.playlist_item);
 		mPlayListView.setAdapter(mAdapter);
 		mPlayListView.setOnItemClickListener(this);
-		mLrcProvider = LrcProvider.getInstance(getActivity()
-				.getApplicationContext());
+		mLrcProvider = LrcProvider.getInstance(getActivity().getApplicationContext());
 		mPlayItemPath = Consts.TYPE.PLAYLIST.getIndex() + ":" + 0;
 		// Important!
 		getLoaderManager().initLoader(0, null, this);
@@ -117,6 +116,7 @@ public class PlaylistFragment extends Fragment implements IFragment,
 		mArtistIndex = data.getColumnIndexOrThrow(AudioColumns.ARTIST);
 		mAdapter.setPlaylistIdIndex(mMediaIdIndex);
 		mAdapter.setPlaylistNameIndex(mTitleIndex);
+		mAdapter.setPlaylistArtistIndex(mArtistIndex);
 		mAdapter.changeCursor(data);
 		mCursor = data;
 
