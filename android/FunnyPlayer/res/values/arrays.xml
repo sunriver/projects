@@ -4,7 +4,7 @@
     <string-array name="tab_titles">
         <item>@string/tab_title_album</item>
         <item>@string/tab_title_artist</item>
-        <item>@string/tab_title_list</item>
+        <item>@string/tab_title_all</item>
     </string-array>
 
 </resources>

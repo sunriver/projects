@@ -13,6 +13,7 @@
     <string name="tab_title_artist">歌手</string>
     <string name="tab_title_favorite">最爱</string>
     <string name="tab_title_list">列表</string>
+    <string name="tab_title_all">所有</string>
     
         <!-- action bar -->
     <string name="custom_title">正在播放</string>

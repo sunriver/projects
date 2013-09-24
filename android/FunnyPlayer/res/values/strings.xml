@@ -13,6 +13,7 @@
     <string name="tab_title_artist">artist</string>
     <string name="tab_title_favorite">favorite</string>
     <string name="tab_title_list">list</string>
+    <string name="tab_title_all">all</string>
     
     <!-- action bar -->
     <string name="custom_title">playing</string>
