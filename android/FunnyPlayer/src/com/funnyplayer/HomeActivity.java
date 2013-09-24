@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
@@ -39,7 +40,10 @@ public class HomeActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.home);
+        // Scan for music
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);     
+        setContentView(R.layout.home);
+        
 		mViewPager = (ViewPager) findViewById(R.id.viewPager);
 		mTabView = (ScrollTabView) findViewById(R.id.scrollTabs);
 		registerReceiver();
