@@ -128,7 +128,7 @@ public class LrcItemLayout extends LinearLayout implements OnClickListener, LrcD
 				LrcToast lt = LrcToast.makeToast(getContext(), (ViewGroup) v.getRootView(), msg);
 				lt.show();
 			} catch (IOException e) {
-				Log.e(TAG, e.getMessage());
+				Log.e(TAG, "fail to show lrc toast", e);
 			}
 		} else {
 			String msg = mLrcProvider.getLrcFromFile(mUrl);

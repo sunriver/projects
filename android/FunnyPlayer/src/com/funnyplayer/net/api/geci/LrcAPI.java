@@ -61,7 +61,7 @@ public class LrcAPI extends GeciAPI<LrcBean> {
 			mResult.setResult(urls);
 
 		} catch (JSONException e) {
-			Log.e(TAG, e.getMessage());
+			Log.e(TAG, "fail to parse json string", e);
 		}
 	}
 	
@@ -88,7 +88,7 @@ public class LrcAPI extends GeciAPI<LrcBean> {
 			}
 			return url;
 		} catch (Exception e) {
-			Log.e(TAG, e.getMessage());
+			Log.e(TAG, "fail to form url", e);
 		}
 		return null;
 	}

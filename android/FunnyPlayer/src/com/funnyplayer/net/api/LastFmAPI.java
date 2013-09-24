@@ -50,7 +50,7 @@ public  class LastFmAPI <T> {
 			Result result= XmlParser.createResultFromInputStream(in);
 			onHandleResponse(result);
 		} catch (Exception e) {
-			Log.e(TAG, e.getMessage());
+			Log.e(TAG, "fail to hanle response", e);
 		}
 	}
 	

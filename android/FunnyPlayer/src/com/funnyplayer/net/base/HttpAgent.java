@@ -50,7 +50,7 @@ public class HttpAgent {
 				return in;
 			}
 		} catch (Exception e) {
-			Log.e(TAG, e.getMessage());
+			Log.e(TAG, "fail to start http request", e);
 		}
 		return null;
 	}

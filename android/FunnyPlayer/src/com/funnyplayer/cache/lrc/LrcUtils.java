@@ -35,7 +35,7 @@ public class LrcUtils {
 		try {
 			return getLrcFromInpuStream(new FileInputStream(file));
 		} catch (FileNotFoundException e) {
-			Log.e(TAG, e.getMessage());;
+			Log.e(TAG, "fail to gete lrc", e);;
 		}
 		return null;
 	}
@@ -55,13 +55,13 @@ public class LrcUtils {
 			}
 			return builder.toString();
 		} catch (Exception e) {
-			Log.e(TAG, e.getMessage());
+			Log.e(TAG, "fail to read lrc", e);
 		} finally {
 			if (reader != null) {
 				try {
 					reader.close();
 				} catch (IOException e) {
-					Log.e(TAG, e.getMessage());;
+					Log.e(TAG, "fail to close inpustream", e);
 				}
 			}
 		}

@@ -54,7 +54,7 @@ public class GetInfoAPI extends LastFmAPI <String> {
 		try {
 			request.setEntity(new UrlEncodedFormEntity(nvps, "utf-8"));
 		} catch (UnsupportedEncodingException e) {
-			Log.e(TAG, e.getMessage());
+			Log.e(TAG, "fail to create http request", e);
 		}
 		return request;
 	}

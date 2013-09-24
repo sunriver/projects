@@ -48,7 +48,7 @@ public class ImageUtils {
 				}
 			}
 		} catch (Exception e) {
-			Log.e(TAG, e.getMessage());
+			Log.e(TAG, "fail to get image from media store", e);
 		} finally {
 			if (cursor != null) {
 				cursor.close();

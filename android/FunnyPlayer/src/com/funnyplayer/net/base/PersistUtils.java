@@ -19,7 +19,7 @@ public class PersistUtils {
                 out.write(b);
             }
 		} catch (Exception e) {
-			Log.e(TAG, e.getMessage());
+			Log.e(TAG, "fail to persist input stream", e);
 		} finally {
 			try {
 				if (out != null) {
@@ -30,7 +30,7 @@ public class PersistUtils {
 				}
 
 			} catch (Exception e) {
-				Log.e(TAG, e.getMessage());
+				Log.e(TAG, "fail to close input stream", e);
 			}
 		}
 		return outFile;
