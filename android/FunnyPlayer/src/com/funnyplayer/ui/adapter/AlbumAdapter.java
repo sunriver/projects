@@ -25,10 +25,13 @@ public class AlbumAdapter extends SimpleCursorAdapter implements ImageReadyListe
 	private int mAlbumNameIndex;
 	private int mArtistNameIndex;
 	private ImageProvider mImageProvider;
+	private int mSelectGridIndex = -1;
+	private Context mContext;
 
 	public AlbumAdapter(Context context, int layout) {
 		super(context, layout, null, new String[] {}, new int[] {}, 0);
 		mImageProvider = ImageProvider.getInstance(context);
+		mContext = context;
 	}
 
 	@Override
@@ -54,7 +57,12 @@ public class AlbumAdapter extends SimpleCursorAdapter implements ImageReadyListe
 				+ "  albumName:" + albumName + "  artistName:" + artistName);
 		
 		holder.album.setText(albumName);
-		holder.artist.setText(artistName);
+		if (mSelectGridIndex == position) {
+			String artistEx = mContext.getString(R.string.current_playing);
+			holder.artist.setText(artistEx + " : " + artistName);
+		} else {
+			holder.artist.setText(artistName);
+		}
 
 		ImageInfo imageInfo = new ImageInfo();
 		imageInfo.type = TYPE.ALBUM.toString();
@@ -65,6 +73,10 @@ public class AlbumAdapter extends SimpleCursorAdapter implements ImageReadyListe
 		mImageProvider.loadImage(imageInfo, holder.image, this);
 
 		return v;
+	}
+	
+	public void setSelectIndex(int index) {
+		this.mSelectGridIndex = index;
 	}
 
 	public void setAlbumIdIndex(int index) {

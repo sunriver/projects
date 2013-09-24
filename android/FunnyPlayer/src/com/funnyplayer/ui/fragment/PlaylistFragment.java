@@ -51,7 +51,6 @@ public class PlaylistFragment extends Fragment implements IFragment,
 		mPlayItemPath = Consts.TYPE.PLAYLIST.getIndex() + ":" + 0;
 		// Important!
 		getLoaderManager().initLoader(0, null, this);
-
 	}
 
 	@Override
@@ -133,7 +132,8 @@ public class PlaylistFragment extends Fragment implements IFragment,
 	public void selectItem(int gridIndex, int itemIndex) {
 		if (null != mPlayListView) {
 			mPlayListView.smoothScrollToPosition(itemIndex);
-			mAdapter.setSelectItem(itemIndex);
+//			mPlayListView.setSelection(itemIndex);
+//			mAdapter.setSelectItem(itemIndex);
 			mAdapter.notifyDataSetChanged();
 		}
 	}

@@ -6,7 +6,7 @@
     <string name="menu_settings">Settings</string>
     <string name="search">Search</string>
     
-    <!-- control bar -->
+    <string name="current_playing">Playing currently </string>
 
     <!-- tab title -->
     <string name="tab_title_album">album</string>

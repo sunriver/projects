@@ -73,11 +73,10 @@ public class HomeActivity extends Activity implements OnClickListener {
 				} else if (intent.getAction().equals(MusicUtil.FilterAction.PLAYER_PLAYING))  {
 					Bundle bundle = intent.getExtras();
 					updateCustomeTitle(bundle);
-					updatePlayItemState(bundle);
+//					updatePlayItemState(bundle);
 				}
 			}
 		};
-		
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(MusicUtil.FilterAction.PLAYER_PLAYING);
 		intentFilter.addAction(MusicUtil.FilterAction.PLAYER_PAUSED);
@@ -134,17 +133,6 @@ public class HomeActivity extends Activity implements OnClickListener {
 		inflater.inflate(R.menu.main, menu);
 		return true;
 	}
-	
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		// TODO Auto-generated method stub
-		super.onConfigurationChanged(newConfig);
-	}
-
-	private void showLrc() {
-		startActivity(new Intent(this, LrcActivity.class));
-	}
-
 
 	@Override
 	protected void onDestroy() {
@@ -159,7 +147,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 //			onSearchRequested();
 //			break;
 		case R.id.menu_lrc:
-			showLrc();
+			startActivity(new Intent(this, LrcActivity.class));
 			break;
 		default:
 			super.onOptionsItemSelected(item);
@@ -184,14 +172,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 		scrollToItem(fragmentIndex, gridIndex, itemIndex);
 	}
 	
-	private void removeSelection() {
-		mAlbumFrament.selectItem(0, -1);
-		mArtistFrament.selectItem(0, -1);
-		mPlaylistFrament.selectItem(0, -1);
-	}
-	
 	private void scrollToItem(int fragmentIndex, int gridIndex, int itemIndex) {
-//		removeSelection();
 		mViewPager.setCurrentItem(fragmentIndex, true);
 		PagerAdapter pageAdapter = (PagerAdapter) mViewPager.getAdapter();
 		IFragment fragment = (IFragment) pageAdapter.getItem(fragmentIndex);

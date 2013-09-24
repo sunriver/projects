@@ -142,7 +142,12 @@ public class AlbumFragment extends Fragment implements IFragment, OnItemClickLis
 		if (null == mGridView) {
 			return;
 		}
+//		mAlbumAdapter.setSelectIndex(gridIndex);
 		mGridView.smoothScrollToPosition(gridIndex);
+//		View v = mGridView.getSelectedView();
+//		if (v != null) {
+//			v.requestFocus();
+//		}
 		startTrack(gridIndex, itemIndex);
 	}
 	

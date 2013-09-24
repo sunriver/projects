@@ -2,6 +2,8 @@ package com.funnyplayer.ui.adapter;
 
 
 import com.funnyplayer.R;
+import com.funnyplayer.util.MusicUtil;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Handler;
@@ -69,11 +71,11 @@ public class PlaylistAdapter extends SimpleCursorAdapter {
 		String artist =  cursor.getString(mPlaylistArtistIndex);
 		holder.mTitleView.setText(title);
 		holder.mArtistView.setText(artist);
-		if (position == mSelectItemPos) {
-			holder.mVolumnImg.setVisibility(View.VISIBLE);
-		} else {
-			holder.mVolumnImg.setVisibility(View.INVISIBLE);
-		}
+//		if (position == MusicUtil.getItemPos()) {
+//			holder.mVolumnImg.setVisibility(View.VISIBLE);
+//		} else {
+//			holder.mVolumnImg.setVisibility(View.INVISIBLE);
+//		}
 		return v;
 	}
 

@@ -37,6 +37,7 @@
         </activity>
         <activity
             android:name="com.funnyplayer.TrackActivity"
+            android:launchMode="singleTop"
             android:configChanges="keyboardHidden|orientation"
             android:icon="@drawable/listen"
             android:theme="@android:style/Theme.Holo.Light" >
