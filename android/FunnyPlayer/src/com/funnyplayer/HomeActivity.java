@@ -44,6 +44,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 		mTabView = (ScrollTabView) findViewById(R.id.scrollTabs);
 		registerReceiver();
 		init();
+		mViewPager.setCurrentItem(1, true);
 	}
 	
 	private void updateCustomeTitle(Bundle bundle) {
