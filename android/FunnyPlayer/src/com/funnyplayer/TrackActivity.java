@@ -68,6 +68,7 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>, 
 			mAdapter.setSelectItem(itemIndex);
 		}
 		mPlayItemPath = mMiniType.getIndex() +":" + gridIndex;
+		mAdapter.setPlayItemPath(mPlayItemPath);
 		getLoaderManager().initLoader(0, args, this);
 		
 		registerReceiver();

@@ -34,7 +34,7 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 	private final static String TAG = LrcActivity.class.getSimpleName();
 	private final static String LRC_SETTING = "lrc_setting";
 	private final static String LRC_SEARCH_TYPE = "lrc_search_type";
-	private static final boolean AD_TEST_MODE = true;
+	private static final boolean AD_TEST_MODE = false;
 
 	private ListView mLrcListView;
 	private LrcAdapter mLrcAdapter;

@@ -49,6 +49,7 @@ public class PlaylistFragment extends Fragment implements IFragment,
 		mPlayListView.setOnItemClickListener(this);
 		mLrcProvider = LrcProvider.getInstance(getActivity().getApplicationContext());
 		mPlayItemPath = Consts.TYPE.PLAYLIST.getIndex() + ":" + 0;
+		mAdapter.setPlayItemPath(mPlayItemPath);
 		// Important!
 		getLoaderManager().initLoader(0, null, this);
 	}

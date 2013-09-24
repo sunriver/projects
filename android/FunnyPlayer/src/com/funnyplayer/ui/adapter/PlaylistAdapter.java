@@ -7,6 +7,7 @@ import com.funnyplayer.util.MusicUtil;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -19,6 +20,7 @@ public class PlaylistAdapter extends SimpleCursorAdapter {
     private int mPlaylistIdIndex;
     private int mPlaylistNameIndex;
     private int mPlaylistArtistIndex;
+    private String mPlayItemPath;
     
     public void setPlaylistIdIndex(int index) {
     	this.mPlaylistIdIndex = index;
@@ -32,6 +34,11 @@ public class PlaylistAdapter extends SimpleCursorAdapter {
     	this.mPlaylistArtistIndex = index;
     }
     
+    
+    public void setPlayItemPath(String path) {
+    	this.mPlayItemPath = path;
+    }
+    
     public void setSelectItem(int pos) {
     	this.mSelectItemPos = pos;
     }
@@ -43,10 +50,15 @@ public class PlaylistAdapter extends SimpleCursorAdapter {
 	}
 
 	public PlaylistAdapter(Context context, int layout) {
-		super(context.getApplicationContext(), layout,  null, new String[] {}, new int[] {}, 0);
-		mSelectItemPos = -1;
+		this(context, layout, null);
 	}
 	
+	public PlaylistAdapter(Context context, int layout, String playItemPath) {
+		super(context.getApplicationContext(), layout,  null, new String[] {}, new int[] {}, 0);
+		mPlayItemPath = playItemPath;
+	}
+	
+
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View v = null;
@@ -71,7 +83,8 @@ public class PlaylistAdapter extends SimpleCursorAdapter {
 		String artist =  cursor.getString(mPlaylistArtistIndex);
 		holder.mTitleView.setText(title);
 		holder.mArtistView.setText(artist);
-//		if (position == MusicUtil.getItemPos()) {
+//		String currPlayItemPath = MusicUtil.getPlayItemPath();
+//		if (!TextUtils.isEmpty(currPlayItemPath) && currPlayItemPath.equals(mPlayItemPath) && MusicUtil.getItemPos() == position) {
 //			holder.mVolumnImg.setVisibility(View.VISIBLE);
 //		} else {
 //			holder.mVolumnImg.setVisibility(View.INVISIBLE);
