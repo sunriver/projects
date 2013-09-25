@@ -5,9 +5,9 @@ import com.funnyplayer.R;
 import com.funnyplayer.cache.ImageInfo;
 import com.funnyplayer.cache.ImageProvider;
 import com.funnyplayer.cache.ImageProvider.ImageReadyListener;
+import com.funnyplayer.util.Consts;
+import com.funnyplayer.util.Consts.TYPE;
 
-import common.Consts;
-import common.Consts.TYPE;
 
 import android.content.Context;
 import android.database.Cursor;

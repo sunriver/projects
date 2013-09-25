@@ -5,9 +5,9 @@ import com.funnyplayer.R;
 import com.funnyplayer.TrackActivity;
 import com.funnyplayer.ui.adapter.AlbumAdapter;
 import com.funnyplayer.ui.adapter.ArtistAdapter;
+import com.funnyplayer.util.Consts;
+import com.funnyplayer.util.Consts.TYPE;
 
-import common.Consts;
-import common.Consts.TYPE;
 
 import android.app.Fragment;
 import android.app.LoaderManager.LoaderCallbacks;

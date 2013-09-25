@@ -9,7 +9,7 @@ import org.apache.http.client.methods.HttpGet;
 import com.funnyplayer.net.api.*;
 import com.funnyplayer.net.base.HttpAgent;
 import com.funnyplayer.net.base.PersistUtils;
-import common.Consts;
+import com.funnyplayer.util.Consts;
 
 import android.content.Context;
 import android.database.Cursor;

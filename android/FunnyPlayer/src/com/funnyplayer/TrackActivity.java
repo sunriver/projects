@@ -6,9 +6,9 @@ import java.util.List;
 
 import com.funnyplayer.service.MusicInfo;
 import com.funnyplayer.ui.adapter.PlaylistAdapter;
+import com.funnyplayer.util.Consts;
 import com.funnyplayer.util.MusicUtil;
 import com.funnyplayer.util.ViewUtil;
-import common.Consts;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;

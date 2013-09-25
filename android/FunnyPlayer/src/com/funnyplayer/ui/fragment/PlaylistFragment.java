@@ -7,8 +7,8 @@ import com.funnyplayer.R;
 import com.funnyplayer.cache.lrc.LrcProvider;
 import com.funnyplayer.service.MusicInfo;
 import com.funnyplayer.ui.adapter.PlaylistAdapter;
+import com.funnyplayer.util.Consts;
 import com.funnyplayer.util.MusicUtil;
-import common.Consts;
 
 import android.app.Fragment;
 import android.app.LoaderManager.LoaderCallbacks;

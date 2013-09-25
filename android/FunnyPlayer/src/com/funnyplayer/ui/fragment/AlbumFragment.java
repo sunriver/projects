@@ -4,8 +4,8 @@ package com.funnyplayer.ui.fragment;
 import com.funnyplayer.R;
 import com.funnyplayer.TrackActivity;
 import com.funnyplayer.ui.adapter.AlbumAdapter;
-import common.Consts;
-import common.Consts.TYPE;
+import com.funnyplayer.util.Consts;
+import com.funnyplayer.util.Consts.TYPE;
 
 import android.app.Fragment;
 import android.app.LoaderManager.LoaderCallbacks;
