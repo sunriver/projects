@@ -46,11 +46,10 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 	private MenuItem mInternetItem;
 	private MenuItem mSearchTypeItem;
 	private SearchType mSearchType;
-	private AdwoAdView mAdView;
-	private RelativeLayout mAdViewContainer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.lrc);
 		mPreferences = getSharedPreferences(LRC_SETTING, Context.MODE_PRIVATE);
 		String type = mPreferences.getString(LRC_SEARCH_TYPE, SearchType.LOCAL.name());
@@ -58,7 +57,6 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 		initActionBar();
 		init();
 		
-		super.onCreate(savedInstanceState);
 	}
 
 	private void init() {
@@ -73,30 +71,9 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 
 		mLrcProvider = LrcProvider.getInstance(getApplicationContext());
 		
-		mAdViewContainer = (RelativeLayout) this.findViewById(R.id.lrc_adview_container);
-		mAdView = createAdView(mAdViewContainer);
-//		mAdView.setListener(this);
 	}
 	
-	private AdwoAdView createAdView(RelativeLayout parent) {
-//		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-//		
-////		params.addRule(RelativeLayout.CENTER_HORIZONTAL);
-//		AdwoAdView.setBannerMatchScreenWidth(true);
-//		String pid = "8101ed73466a407a83c5a9953315a47b";
-//		AdwoAdView adView = new AdwoAdView(LrcActivity.this, pid, AD_TEST_MODE, 40);
-//		parent.addView(adView, params);
-//		return adView;
-		
-		String Adwo_PID = "8101ed73466a407a83c5a9953315a47b";
-		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		params.addRule(RelativeLayout.CENTER_HORIZONTAL);
-		AdwoAdView.setBannerMatchScreenWidth(true);
-		mAdView = new AdwoAdView(LrcActivity.this, Adwo_PID, AD_TEST_MODE, 30);
-		mAdView.setListener(LrcActivity.this);
-		parent.addView(mAdView, params);
-		return mAdView;
-	}
+
  
 	private void initActionBar() {
 		ActionBar actionBar = getActionBar();
