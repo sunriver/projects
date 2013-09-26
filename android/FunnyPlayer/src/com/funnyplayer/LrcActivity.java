@@ -89,8 +89,7 @@ public class LrcActivity extends Activity implements OnItemClickListener,
 //		return adView;
 		
 		String Adwo_PID = "8101ed73466a407a83c5a9953315a47b";
-		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT);
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		params.addRule(RelativeLayout.CENTER_HORIZONTAL);
 		AdwoAdView.setBannerMatchScreenWidth(true);
 		mAdView = new AdwoAdView(LrcActivity.this, Adwo_PID, AD_TEST_MODE, 30);
