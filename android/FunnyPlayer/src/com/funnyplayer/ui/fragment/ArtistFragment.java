@@ -3,23 +3,19 @@ package com.funnyplayer.ui.fragment;
 
 import com.funnyplayer.R;
 import com.funnyplayer.TrackActivity;
-import com.funnyplayer.ui.adapter.AlbumAdapter;
 import com.funnyplayer.ui.adapter.ArtistAdapter;
 import com.funnyplayer.util.Consts;
 import com.funnyplayer.util.Consts.TYPE;
-
-
-import android.app.Fragment;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.CursorLoader;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.content.Intent;
-import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.provider.MediaStore.Audio;
-import android.provider.MediaStore.Audio.AlbumColumns;
 import android.provider.MediaStore.Audio.ArtistColumns;
 import android.view.LayoutInflater;
 import android.view.View;

@@ -9,11 +9,10 @@ import com.funnyplayer.service.MusicInfo;
 import com.funnyplayer.ui.adapter.PlaylistAdapter;
 import com.funnyplayer.util.Consts;
 import com.funnyplayer.util.MusicUtil;
-
-import android.app.Fragment;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.CursorLoader;
-import android.content.Loader;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;

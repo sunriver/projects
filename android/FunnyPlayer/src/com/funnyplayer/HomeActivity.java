@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -28,7 +29,7 @@ import com.funnyplayer.ui.widgets.ScrollTabView;
 import com.funnyplayer.util.MusicUtil;
 import com.funnyplayer.util.ViewUtil;
 
-public class HomeActivity extends Activity implements OnClickListener {
+public class HomeActivity extends FragmentActivity implements OnClickListener {
 	private ViewPager mViewPager;
 	private ScrollTabView mTabView;
 	private TextView mCustomTitleView;
@@ -99,7 +100,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 	private void init() {
 		this.setTitle("");
 		// Initiate PagerAdapter
-		PagerAdapter pagerAdapter = new PagerAdapter(getFragmentManager());
+		PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
 		mAlbumFrament = new AlbumFragment();
 		mArtistFrament = new ArtistFragment();
 		mPlaylistFrament = new PlaylistFragment();

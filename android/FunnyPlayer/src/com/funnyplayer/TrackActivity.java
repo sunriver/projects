@@ -10,14 +10,14 @@ import com.funnyplayer.util.Consts;
 import com.funnyplayer.util.MusicUtil;
 import com.funnyplayer.util.ViewUtil;
 import android.app.ActionBar;
-import android.app.Activity;
-import android.app.LoaderManager.LoaderCallbacks;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.CursorLoader;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.support.v4.app.FragmentActivity;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,7 +33,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>, OnItemClickListener {
+public class TrackActivity extends FragmentActivity implements LoaderCallbacks<Cursor>, OnItemClickListener {
  	private final static String TAG = TrackActivity.class.getSimpleName();
 	private ListView mPlayListView;
 	private PlaylistAdapter mAdapter;
@@ -69,7 +69,7 @@ public class TrackActivity extends Activity implements LoaderCallbacks<Cursor>, 
 		}
 		mPlayItemPath = mMiniType.getIndex() +":" + gridIndex;
 		mAdapter.setPlayItemPath(mPlayItemPath);
-		getLoaderManager().initLoader(0, args, this);
+		getSupportLoaderManager().initLoader(0, args, this);
 		
 		registerReceiver();
 	}

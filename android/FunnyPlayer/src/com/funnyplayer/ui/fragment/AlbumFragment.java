@@ -7,22 +7,21 @@ import com.funnyplayer.ui.adapter.AlbumAdapter;
 import com.funnyplayer.util.Consts;
 import com.funnyplayer.util.Consts.TYPE;
 
-import android.app.Fragment;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.provider.MediaStore.Audio;
 import android.provider.MediaStore.Audio.AlbumColumns;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
@@ -46,7 +45,6 @@ public class AlbumFragment extends Fragment implements IFragment, OnItemClickLis
         mGridView.setOnCreateContextMenuListener(this);
         mGridView.setOnItemClickListener(this);
         mGridView.setTextFilterEnabled(true);
-        
         // Important!
         getLoaderManager().initLoader(0, null, this);
         
@@ -77,41 +75,6 @@ public class AlbumFragment extends Fragment implements IFragment, OnItemClickLis
         intent.putExtras(bundle);
         getActivity().startActivity(intent);
 		
-	}
-
-
-	@Override
-	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        String[] projection = { BaseColumns._ID, AlbumColumns.ALBUM, AlbumColumns.ARTIST, AlbumColumns.ALBUM_ART };
-        Uri uri = Audio.Albums.EXTERNAL_CONTENT_URI;
-        String sortOrder = Audio.Albums.DEFAULT_SORT_ORDER;
-        return new CursorLoader(getActivity(), uri, projection, null, null, sortOrder);
-	}
-
-	@Override
-	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        // Check for database errors
-        if (data == null) {
-            return;
-        }
-
-        mAlbumIdIndex = data.getColumnIndexOrThrow(BaseColumns._ID);
-        mAlbumNameIndex = data.getColumnIndexOrThrow(AlbumColumns.ALBUM);
-        mArtistNameIndex = data.getColumnIndexOrThrow(AlbumColumns.ARTIST);
-        
-        mAlbumAdapter.setAlbumIdIndex(mAlbumIdIndex);
-        mAlbumAdapter.setAlbumNameIndex(mAlbumNameIndex);
-        mAlbumAdapter.setArtistNameIndex(mArtistNameIndex);
-        mAlbumAdapter.changeCursor(data);
-        mCursor = data;
-		
-	}
-
-	@Override
-	public void onLoaderReset(Loader<Cursor> loader) {
-        if (mAlbumAdapter != null) {
-        	mAlbumAdapter.changeCursor(null);
-        }
 	}
 
 	private void startTrack(int gridIndex, int itemIndex) {
@@ -151,5 +114,43 @@ public class AlbumFragment extends Fragment implements IFragment, OnItemClickLis
 		startTrack(gridIndex, itemIndex);
 	}
 	
+	
+	@Override
+	public Loader<Cursor> onCreateLoader(int id,
+			Bundle args) {
+      String[] projection = { BaseColumns._ID, AlbumColumns.ALBUM, AlbumColumns.ARTIST, AlbumColumns.ALBUM_ART };
+      Uri uri = Audio.Albums.EXTERNAL_CONTENT_URI;
+      String sortOrder = Audio.Albums.DEFAULT_SORT_ORDER;
+      return new CursorLoader(getActivity(), uri, projection, null, null, sortOrder);
+	}
+	
+
+	@Override
+	public void onLoadFinished(Loader<Cursor> loader,
+			Cursor data) {
+        // Check for database errors
+        if (data == null) {
+            return;
+        }
+
+        mAlbumIdIndex = data.getColumnIndexOrThrow(BaseColumns._ID);
+        mAlbumNameIndex = data.getColumnIndexOrThrow(AlbumColumns.ALBUM);
+        mArtistNameIndex = data.getColumnIndexOrThrow(AlbumColumns.ARTIST);
+        
+        mAlbumAdapter.setAlbumIdIndex(mAlbumIdIndex);
+        mAlbumAdapter.setAlbumNameIndex(mAlbumNameIndex);
+        mAlbumAdapter.setArtistNameIndex(mArtistNameIndex);
+        mAlbumAdapter.changeCursor(data);
+        mCursor = data;
+		
+	}
+
+	@Override
+	public void onLoaderReset(Loader<Cursor> loader) {
+        if (mAlbumAdapter != null) {
+        	mAlbumAdapter.changeCursor(null);
+        }
+	}
+
 	
 }

@@ -4,7 +4,7 @@ package com.funnyplayer.adfrag;
 import com.adchina.android.ads.AdManager;
 import com.adchina.android.ads.views.AdView;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 
 public class AdChinaFragment extends Fragment  {
 	private static final String TAG = AdChinaFragment.class.getSimpleName();
+	
+	private static final String AD_ID = "2134693";
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -27,8 +29,8 @@ public class AdChinaFragment extends Fragment  {
 		LinearLayout parent = new LinearLayout(getActivity());
 		Context ctx = getActivity().getApplicationContext();
 
-		AdView view = new AdView(ctx, "69327", true, true);
-		view.setAdReferenceSize(480, 72);
+		AdView view = new AdView(ctx, AD_ID, true, true);
+//		view.setAdReferenceSize(480, 72);
 		parent.addView(view);
 
 		AdManager.setRefershinterval(20);

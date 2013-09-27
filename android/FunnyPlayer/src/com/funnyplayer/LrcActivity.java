@@ -1,25 +1,21 @@
 package com.funnyplayer;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import com.adwo.adsdk.AdListener;
 import com.adwo.adsdk.AdwoAdView;
@@ -29,7 +25,7 @@ import com.funnyplayer.cache.lrc.LrcProvider.LrcSearchCompletedListener;
 import com.funnyplayer.ui.adapter.LrcAdapter;
 import com.funnyplayer.util.ViewUtil;
 
-public class LrcActivity extends Activity implements OnItemClickListener,
+public class LrcActivity extends FragmentActivity implements OnItemClickListener,
 		View.OnClickListener, LrcSearchCompletedListener, AdListener {
 	private final static String TAG = LrcActivity.class.getSimpleName();
 	private final static String LRC_SETTING = "lrc_setting";

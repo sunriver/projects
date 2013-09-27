@@ -3,7 +3,7 @@ package com.funnyplayer.adfrag;
 import com.adwo.adsdk.AdListener;
 import com.adwo.adsdk.AdwoAdView;
 import com.adwo.adsdk.ErrorCode;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
