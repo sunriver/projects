@@ -16,6 +16,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
 
     <application
         android:hardwareAccelerated="true"
@@ -72,6 +74,14 @@
                 <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
             </intent-filter>
         </receiver>
+
+        <!-- adchina -->
+        <activity
+            android:name="com.adchina.android.ads.views.AdBrowserView"
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent" >
+        </activity>
     </application>
 
 </manifest>
