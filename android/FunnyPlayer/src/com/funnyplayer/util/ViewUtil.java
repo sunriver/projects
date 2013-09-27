@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 
 import com.funnyplayer.R;
 
+import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.res.Resources;
@@ -68,15 +69,16 @@ public class ViewUtil {
 		return isPad;
 	}
 	
+	@TargetApi(13)
 	public static int getSmallestScreenWidthDp(Context context) {
 		int value = 0;
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-			value = context.getResources().getConfiguration().smallestScreenWidthDp;
-		} else {
-			//Display disp = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-			DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-			value = getDPByPix(metrics, Math.min(metrics.heightPixels, metrics.widthPixels));
-		}
+//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+//			value = context.getResources().getConfiguration().smallestScreenWidthDp;
+//		} else {
+//			//Display disp = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+//			DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+//			value = getDPByPix(metrics, Math.min(metrics.heightPixels, metrics.widthPixels));
+//		}
 		return value;
 	}
 	
@@ -151,37 +153,6 @@ public class ViewUtil {
 	    return resourceId;
 	}
     
-
-    
-    private static void resetFragmentPadding(View v) {
-		// Padding alignment hacking: Please refer to "/res/layout/preference_list_content.xml" or
-		// /res/layout-xlarge/breadcrumbs_in_fragment.xml.
-		// SDK 4.0~4.1(14_16) Left/Right padding = @dimen/preference_fragment_padding_side
-		// SDK 3.2 Left/Right padding = @dimen/preference_breadcrumb_paddingLeft/Right
-		// SDK 3.1 Left/Right padding = 32dip
-		// SDK 3.0 Left/Right padding = 32dip
-		int padding = 0;
-		switch (Build.VERSION.SDK_INT) {
-		case Build.VERSION_CODES.HONEYCOMB:
-		case Build.VERSION_CODES.HONEYCOMB_MR1:
-			//32 dip to pixel
-			padding = getPixByDP(v.getContext(), 32);
-			break;
-		case Build.VERSION_CODES.HONEYCOMB_MR2:
-			padding = getAndroidDimen("preference_breadcrumb_paddingLeft");
-			break;
-		// case Build.VERSION_CODES.ICE_CREAM_SANDWICH:
-//		case Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1:
-		// 4.1.1 and 4.1.2 have different fragment padding, 4.1.1 =  preference_fragment_padding_side, 4.1.2 = 0dp
-		//case Build.VERSION_CODES.JELLY_BEAN: 
-			// padding = getAndroidDimen("preference_fragment_padding_side");
-			// break;
-		default:
-			break;
-		}
-
-    }
-	
 
 	
 	public static void setTabWidgetFont(TabHost	mTabHost, float fontSize) {
