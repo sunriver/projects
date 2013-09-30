@@ -233,7 +233,7 @@ public class TrackActivity extends ActionBarActivity implements LoaderCallbacks<
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case android.support.v7.appcompat.R.id.home:
+		case android.R.id.home:
 			super.onBackPressed();
 			break;
 		}

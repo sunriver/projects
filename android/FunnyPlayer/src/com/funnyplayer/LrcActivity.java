@@ -121,7 +121,7 @@ public class LrcActivity extends ActionBarActivity implements OnItemClickListene
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case android.support.v7.appcompat.R.id.home:
+		case android.R.id.home:
 			super.onBackPressed();
 			break;
 		case R.id.menu_local_search:
