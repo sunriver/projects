@@ -9,13 +9,14 @@ import com.funnyplayer.ui.adapter.PlaylistAdapter;
 import com.funnyplayer.util.Consts;
 import com.funnyplayer.util.MusicUtil;
 import com.funnyplayer.util.ViewUtil;
-import android.app.ActionBar;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
@@ -33,7 +34,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class TrackActivity extends FragmentActivity implements LoaderCallbacks<Cursor>, OnItemClickListener {
+public class TrackActivity extends ActionBarActivity implements LoaderCallbacks<Cursor>, OnItemClickListener {
  	private final static String TAG = TrackActivity.class.getSimpleName();
 	private ListView mPlayListView;
 	private PlaylistAdapter mAdapter;
@@ -117,7 +118,7 @@ public class TrackActivity extends FragmentActivity implements LoaderCallbacks<C
      * Set the ActionBar title
      */
     private void initActionBar() {
-    	ActionBar actionBar = getActionBar();
+    	ActionBar actionBar = this.getSupportActionBar();
         actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE,
                 ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE
                         | ActionBar.DISPLAY_SHOW_HOME);
@@ -232,7 +233,7 @@ public class TrackActivity extends FragmentActivity implements LoaderCallbacks<C
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case android.R.id.home:
+		case android.support.v7.appcompat.R.id.home:
 			super.onBackPressed();
 			break;
 		}

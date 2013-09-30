@@ -9,9 +9,11 @@ import java.util.Map;
 import java.util.Set;
 
 import com.funnyplayer.net.api.geci.bean.LrcBean;
+import com.funnyplayer.util.ApiUtil;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 
 public class LrcProvider {
 	private static final String TAG = "LrcProvider";
@@ -42,7 +44,11 @@ public class LrcProvider {
 			mCurrentSearchTask.cancel(true);
 		}
 		mCurrentSearchTask = task;
-		task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		if (ApiUtil.hasHoneycomb()) {
+			task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		} else {
+			task.execute();
+		}
 	}
 	public void searchLrcFromDisk(final String artist, final String song, LrcSearchCompletedListener l) {
 		SearchTask task = new SearchTask(new LrcInfo(artist, song), l);
@@ -50,7 +56,11 @@ public class LrcProvider {
 			mCurrentSearchTask.cancel(true);
 		}
 		mCurrentSearchTask = task;
-		task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		if (ApiUtil.hasHoneycomb()) {
+			task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		} else {
+			task.execute();
+		}
 	}
 	
 	public String getLrcFromFile(String filePath) {
@@ -65,7 +75,11 @@ public class LrcProvider {
 	
 	public void downloadLrc(String artist, String song, String url, LrcDownloadCompletedListener l) {
 		DownloadTask task = new DownloadTask(new LrcInfo(song, artist, url), l);
-		task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		if (ApiUtil.hasHoneycomb()) {
+			task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		} else {
+			task.execute();
+		}
 	}
 	
 	

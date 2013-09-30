@@ -2,16 +2,12 @@ package com.funnyplayer.ui.adapter;
 
 
 import com.funnyplayer.R;
-import com.funnyplayer.util.MusicUtil;
-
 import android.content.Context;
 import android.database.Cursor;
-import android.os.Handler;
-import android.text.TextUtils;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 public class PlaylistAdapter extends SimpleCursorAdapter {

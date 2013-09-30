@@ -18,11 +18,11 @@ package com.funnyplayer;
 
 import com.funnyplayer.util.ViewUtil;
 
-import android.app.ActionBar;
-import android.app.ListActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 
-public class SearchActivity extends ListActivity {
+public class SearchActivity extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +35,7 @@ public class SearchActivity extends ListActivity {
      * Set the ActionBar title
      */
     private void initActionBar() {
-    	ActionBar actionBar = getActionBar();
-    	
+    	ActionBar actionBar = this.getSupportActionBar();
 		ViewUtil.setActionBarBackgroundRepeat(this, actionBar);
     	
     	actionBar.setDisplayUseLogoEnabled(true);

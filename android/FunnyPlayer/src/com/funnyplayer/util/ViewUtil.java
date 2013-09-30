@@ -6,7 +6,6 @@ import java.lang.reflect.Method;
 import com.funnyplayer.R;
 
 import android.annotation.TargetApi;
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
@@ -14,6 +13,7 @@ import android.graphics.Point;
 import android.graphics.Shader.TileMode;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
+import android.support.v7.app.ActionBar;
 import android.text.Spannable;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
@@ -72,13 +72,13 @@ public class ViewUtil {
 	@TargetApi(13)
 	public static int getSmallestScreenWidthDp(Context context) {
 		int value = 0;
-//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-//			value = context.getResources().getConfiguration().smallestScreenWidthDp;
-//		} else {
-//			//Display disp = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-//			DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-//			value = getDPByPix(metrics, Math.min(metrics.heightPixels, metrics.widthPixels));
-//		}
+		if (ApiUtil.hasHoneycombMR2()) {
+			value = context.getResources().getConfiguration().smallestScreenWidthDp;
+		} else {
+			//Display disp = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+			DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+			value = getDPByPix(metrics, Math.min(metrics.heightPixels, metrics.widthPixels));
+		}
 		return value;
 	}
 	

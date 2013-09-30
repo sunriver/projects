@@ -1,6 +1,5 @@
 package com.funnyplayer;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,7 +8,10 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,7 +31,7 @@ import com.funnyplayer.ui.widgets.ScrollTabView;
 import com.funnyplayer.util.MusicUtil;
 import com.funnyplayer.util.ViewUtil;
 
-public class HomeActivity extends FragmentActivity implements OnClickListener {
+public class HomeActivity extends ActionBarActivity implements OnClickListener {
 	private ViewPager mViewPager;
 	private ScrollTabView mTabView;
 	private TextView mCustomTitleView;
@@ -124,7 +126,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
      * Set the ActionBar title
      */
     private void initActionBar() {
-    	ActionBar actionBar = getActionBar();
+    	ActionBar actionBar = getSupportActionBar();
     	
 		ViewUtil.setActionBarBackgroundRepeat(this, actionBar);
 		actionBar.setCustomView(R.layout.custom_title);
@@ -146,12 +148,19 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 		super.onDestroy();
 	}
 
+
+	@Override
+	public void onClick(View v) {
+		String itemPath = (String) v.getTag();
+		scrollToItem(itemPath);
+	}
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-//		case R.id.menu_search:
-//			onSearchRequested();
-//			break;
+		// case R.id.menu_search:
+		// onSearchRequested();
+		// break;
 		case R.id.menu_lrc:
 			startActivity(new Intent(this, LrcActivity.class));
 			break;
@@ -161,12 +170,6 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 		return true;
 	}
 
-	@Override
-	public void onClick(View v) {
-		String itemPath = (String) v.getTag();
-		scrollToItem(itemPath);
-	}
-	
 	private void scrollToItem(String playItemPath) {
 		if (TextUtils.isEmpty(playItemPath)) {
 			return;

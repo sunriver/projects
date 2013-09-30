@@ -21,6 +21,11 @@ public class Consts {
 		}
 	}
 	
+	public static class SdkVersion {
+		//3.0
+		public static int API_11 = 11;
+	}
+	
 	public final static String PLAY_GRID_INDEX = "play_grid_index";
 	public final static String PLAY_ITEM_INDEX = "play_item_index";
 	

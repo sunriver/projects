@@ -1,9 +1,11 @@
 package com.funnyplayer.cache;
 
+import com.funnyplayer.util.ApiUtil;
+
 import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.LruCache;
+import android.support.v4.util.LruCache;
 
 public class ImageCache {
 	private final static int DEFAULT_MAX_SIZE = 1024 * 4;
@@ -20,7 +22,11 @@ public class ImageCache {
         mCache = new LruCache<String, Bitmap>(lruCacheSize) {
             @Override
             protected int sizeOf(final String paramString, final Bitmap paramBitmap) {
-                return paramBitmap.getByteCount();
+            	if (ApiUtil.hasHoneycombMR1()) {
+            		return paramBitmap.getByteCount();
+            	} else {
+            		return paramBitmap.getRowBytes() * paramBitmap.getHeight();
+            	}
             }
 
         };

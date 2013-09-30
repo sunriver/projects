@@ -6,14 +6,20 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import com.funnyplayer.BuildConfig;
 import com.funnyplayer.R;
+import com.funnyplayer.util.ApiUtil;
+import com.funnyplayer.util.Consts;
 import com.funnyplayer.util.NetUtils;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -50,6 +56,7 @@ public class ImageProvider {
 	 * @param imageInfo
 	 * @param callback
 	 */
+	@TargetApi(11)
 	public void loadImage(ImageInfo imageInfo, ImageView v, ImageReadyListener callback) {
 		//Get bitmap from cache if exists.
 		Log.v(TAG, "loadImage imageInfo.toString():" + imageInfo.toString());
@@ -79,7 +86,11 @@ public class ImageProvider {
 		
 		//Create a thread to get bitmap from media store.
 		Task task = new Task(imageInfo, v, callback);
-		task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		if (ApiUtil.hasHoneycomb() ) {
+			task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		} else {
+			task.execute();
+		}
 	}
 	
 	private void setImageDrawable(ImageView v, Bitmap bitmap) {

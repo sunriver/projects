@@ -1,10 +1,10 @@
 package com.funnyplayer;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -25,7 +25,7 @@ import com.funnyplayer.cache.lrc.LrcProvider.LrcSearchCompletedListener;
 import com.funnyplayer.ui.adapter.LrcAdapter;
 import com.funnyplayer.util.ViewUtil;
 
-public class LrcActivity extends FragmentActivity implements OnItemClickListener,
+public class LrcActivity extends ActionBarActivity implements OnItemClickListener,
 		View.OnClickListener, LrcSearchCompletedListener, AdListener {
 	private final static String TAG = LrcActivity.class.getSimpleName();
 	private final static String LRC_SETTING = "lrc_setting";
@@ -72,7 +72,7 @@ public class LrcActivity extends FragmentActivity implements OnItemClickListener
 
  
 	private void initActionBar() {
-		ActionBar actionBar = getActionBar();
+		ActionBar actionBar = this.getSupportActionBar();
 //		actionBar.setCustomView(resId);
 		actionBar.setTitle(R.string.lrc_title);
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP
@@ -121,7 +121,7 @@ public class LrcActivity extends FragmentActivity implements OnItemClickListener
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case android.R.id.home:
+		case android.support.v7.appcompat.R.id.home:
 			super.onBackPressed();
 			break;
 		case R.id.menu_local_search:
