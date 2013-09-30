@@ -1,8 +1,9 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:listen="http://schemas.android.com/apk/res-auto" >
 
     <item
         android:id="@+id/menu_lrc"
-        android:showAsAction="ifRoom"
+        listen:showAsAction="ifRoom"
         android:title="@string/lrc_title"/>
 
 </menu>

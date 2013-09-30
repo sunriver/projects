@@ -1,8 +1,9 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:listen="http://schemas.android.com/apk/res-auto" >
 
     <item
         android:id="@+id/menu_search_type"
-        android:showAsAction="always|withText"
+        listen:showAsAction="always|withText"
         android:title="@string/menu_local_search">
         <menu>
             <item
