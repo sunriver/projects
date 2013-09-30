@@ -145,6 +145,7 @@ public class HomeActivity extends ActionBarActivity implements OnClickListener {
 	@Override
 	protected void onDestroy() {
 		unregisterReceiver();
+		MusicUtil.unBindService(getApplicationContext());
 		super.onDestroy();
 	}
 
