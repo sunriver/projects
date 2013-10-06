@@ -44,7 +44,6 @@ public class HomeActivity extends ActionBarActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         // Scan for music
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);     
         setContentView(R.layout.home);
         
 		mViewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -145,7 +144,7 @@ public class HomeActivity extends ActionBarActivity implements OnClickListener {
 	@Override
 	protected void onDestroy() {
 		unregisterReceiver();
-		MusicUtil.unBindService(getApplicationContext());
+//		MusicUtil.unBindService(getApplicationContext());
 		super.onDestroy();
 	}
 
