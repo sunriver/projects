@@ -12,7 +12,7 @@ import android.util.Log;
 public class PhoneStatReceiver extends BroadcastReceiver {
 
 	private static final String TAG = PhoneStatReceiver.class.getSimpleName();
-	private boolean mCallOnPlaying = false;
+	private static boolean mCallOnPlaying = false;
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		if (intent.getAction().equals(Intent.ACTION_NEW_OUTGOING_CALL)) {
