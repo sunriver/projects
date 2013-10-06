@@ -2,9 +2,7 @@ package com.funnyplayer.service;
 
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-
 import com.funnyplayer.util.MusicUtil.FilterAction;
 import android.app.Service;
 import android.content.Intent;
@@ -174,7 +172,6 @@ public class MusicService extends Service {
         }
         return c;
     }
-    
     
     private  class MusicPlayer implements MediaPlayer.OnCompletionListener {
     	private MediaPlayer mPlayer;

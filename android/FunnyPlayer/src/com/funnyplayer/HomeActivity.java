@@ -1,6 +1,9 @@
 package com.funnyplayer;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +11,7 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -32,6 +36,7 @@ import com.funnyplayer.util.MusicUtil;
 import com.funnyplayer.util.ViewUtil;
 
 public class HomeActivity extends ActionBarActivity implements OnClickListener {
+	private final static  int NOTIFICATION_ID = 19172439;
 	private ViewPager mViewPager;
 	private ScrollTabView mTabView;
 	private TextView mCustomTitleView;
@@ -39,13 +44,14 @@ public class HomeActivity extends ActionBarActivity implements OnClickListener {
 	private AlbumFragment mAlbumFrament;
 	private ArtistFragment mArtistFrament;
 	private PlaylistFragment mPlaylistFrament;
-
+	NotificationManager nm;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         // Scan for music
         setContentView(R.layout.home);
-        
+        nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		mViewPager = (ViewPager) findViewById(R.id.viewPager);
 		mTabView = (ScrollTabView) findViewById(R.id.scrollTabs);
 		registerReceiver();
@@ -72,6 +78,25 @@ public class HomeActivity extends ActionBarActivity implements OnClickListener {
 		scrollToItem(playItemPath);
 	}
 	
+	private void updateNotification(Bundle bundle) {
+		 NotificationCompat.Builder builder = new NotificationCompat.Builder(this); 
+         builder.setSmallIcon(R.drawable.listen);
+         if (bundle != null) {
+     		String artist = bundle.getString("music_artist");
+    		String name = bundle.getString("music_name");
+            if (!TextUtils.isEmpty(artist)) {
+            	builder.setContentTitle(name);
+            	builder.setContentText(artist);
+             }
+         }
+		builder.setDefaults(Notification.DEFAULT_ALL);
+    	Intent intent = new Intent(this, HomeActivity.class);
+    	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+    	PendingIntent pt = PendingIntent.getActivity(this, 0, intent, 0);
+    	builder.setContentIntent(pt);
+    	nm.notify(NOTIFICATION_ID, builder.build());
+	}
+	
 	private void registerReceiver() {
 		mReceiver = new BroadcastReceiver(){
 			@Override
@@ -80,6 +105,7 @@ public class HomeActivity extends ActionBarActivity implements OnClickListener {
 				} else if (intent.getAction().equals(MusicUtil.FilterAction.PLAYER_PLAYING))  {
 					Bundle bundle = intent.getExtras();
 					updateCustomeTitle(bundle);
+					updateNotification(bundle);
 //					updatePlayItemState(bundle);
 				}
 			}
