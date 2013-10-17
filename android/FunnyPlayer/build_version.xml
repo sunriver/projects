@@ -1,0 +1,11 @@
+<project name="Version" basedir="." xmlns:ac="antlib:net.sf.antcontrib">
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+	<property name="manifest.file" value="./AndroidManifest.xml" />
+
+	<target name="read_versionName">
+		<echo message="read version name" />
+		<loadfile property="version.content" srcFile="${manifest.file}" failonerror="true" />
+		<ac:propertyregex property="versionName_" input="${version.content}" regexp="android:versionName=[ /t]*&quot;([^>]+)&quot;" select="\1" casesensitive="false" />
+		<echo message="versionName=${versionName_}" />
+	</target>
+</project>
