@@ -1,0 +1,24 @@
+<project name="custom" basedir="." xmlns:ac="antlib:net.sf.antcontrib">
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+
+	<property name="manifest.file" value="./AndroidManifest.xml" />
+	<loadfile property="version.content" srcFile="${manifest.file}" failonerror="true" />
+	<target name="read_versionName">
+		<echo message="read version name" />
+		<ac:propertyregex property="versionName_" input="${version.content}" regexp="android:versionName=[ /t]*&quot;([^>]+)&quot;" select="\1" casesensitive="false" />
+		<echo message="versionName=${versionName_}" />
+		<property name="verion.name" value="${versionName_}" />
+	</target>
+
+	<target name="read_packageName">
+		<echo message="read package name" />
+		<ac:propertyregex property="packageName_" input="${version.content}" regexp="package=[ /t]*&quot;([^>]+)&quot;" select="\1" casesensitive="false" />
+		<echo message="packageName=${packageName_}" />
+		<property name="package.name" value="${packageName_}" />
+	</target>
+
+	<target name="custom_release" depends="read_versionName">
+		<property name="out.release.file" value="${out.absolute.dir}/${ant.project.name}_${verion.name}.apk" />
+		<antcall target="release" />
+	</target>
+</project>

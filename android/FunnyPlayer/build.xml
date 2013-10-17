@@ -116,7 +116,7 @@
 
 	<import file="${sdk.dir}/tools/ant/build.xml" />
 
-	<import file="build_version.xml" />
+	<import file="custom_build.xml" />
 
 	<target name="deploy">
 
