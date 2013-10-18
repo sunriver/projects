@@ -8,8 +8,8 @@
 	<property name="key.alias.password" value="Yu87D1$j" />
 	<property name="manifest.file" value="./AndroidManifest.xml" />
 	<property name="release.dir" value="${build.dir}/${ant.project.name}/release" />
-
 	<loadfile property="version.content" srcFile="${manifest.file}" failonerror="true" />
+	
 	<target name="read_versionName">
 		<echo message="read version name" />
 		<propertyregex property="versionName_" input="${version.content}" regexp="android:versionName=[ /t]*&quot;([^>]+)&quot;" select="\1" casesensitive="false" />
