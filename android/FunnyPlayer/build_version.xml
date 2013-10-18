@@ -1,12 +1,24 @@
 <project name="Version" basedir="." xmlns:ac="antlib:net.sf.antcontrib">
-	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+
 	<property name="manifest.file" value="./AndroidManifest.xml" />
+
+	<target name="replace_adfragment">
+		<echo message="replace advertisment fragment." />
+		<property name="layout.lrc.file" value="AndroidManifest.xml" />
+		<!-- <replaceregexp  byline="true">
+			<regexp pattern="android:versionCode=" />
+			<substitution expression="android:versionCode=&quot;com.funnyplayer.adfrag.AdwoFragment&quot;" />
+			<fileset dir="." includes="${layout.lrc.file}" />
+		</replaceregexp> -->
+
+		<replaceregexp file="${layout.lrc.file}" match="android:versionName=[ /t]*&quot;([^>]+)&quot;" replace="sssss" byline="true" />
+	</target>
 
 	<target name="read_versionName">
 		<echo message="read version name" />
 		<loadfile property="version.content" srcFile="${manifest.file}" failonerror="true" />
 		<ac:propertyregex property="versionName_" input="${version.content}" regexp="android:versionName=[ /t]*&quot;([^>]+)&quot;" select="\1" casesensitive="false" />
 		<echo message="versionName=${versionName_}" />
-		<property name="verion.name" value="${versionName_}"/>
+		<property name="verion.name" value="${versionName_}" />
 	</target>
 </project>

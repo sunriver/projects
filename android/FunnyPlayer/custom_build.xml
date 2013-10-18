@@ -6,10 +6,14 @@
 	<property name="key.store.password" value="Yu87D1$j" />
 	<property name="key.alias" value="listen key" />
 	<property name="key.alias.password" value="Yu87D1$j" />
-	<property name="manifest.file" value="./AndroidManifest.xml" />
 	<property name="release.dir" value="${build.dir}/${ant.project.name}/release" />
+
+	<property name="manifest.file" value="./AndroidManifest.xml" />
 	<loadfile property="version.content" srcFile="${manifest.file}" failonerror="true" />
-	
+
+	<property name="layout.lrc.file" value="./res/layout/lrc.xml" />
+	<loadfile property="lrc.content" srcFile="${manifest.file}" failonerror="true" />
+
 	<target name="read_versionName">
 		<echo message="read version name" />
 		<propertyregex property="versionName_" input="${version.content}" regexp="android:versionName=[ /t]*&quot;([^>]+)&quot;" select="\1" casesensitive="false" />
@@ -17,14 +21,44 @@
 		<property name="verion.name" value="${versionName_}" />
 	</target>
 
-	<target name="custom_release" depends="read_versionName">
+	<target name="replace_adchina">
+		<echo message="replace adchina." />
+		<property name="layout.lrc.file" value="res/layout/lrc.xml" />
+		<replace file="${layout.lrc.file}" token="AdwoFragment" value="AdChinaFragment" />
+	</target>
+
+	<target name="replace_adwo">
+		<echo message="replace adwo." />
+		<property name="layout.lrc.file" value="res/layout/lrc.xml" />
+		<replace file="${layout.lrc.file}" token="AdChinaFragment" value="AdwoFragment" />
+	</target>
+
+	<target name="adwo" depends="read_versionName, replace_adwo">
+		<echo message="start to release adwo--------" />
 		<echo message="step1: clean all old files" />
+		<property name="ad.vendor" value="adwo" />
 		<property name="release.filename" value="${ant.project.name}_${verion.name}.apk" />
-		<property name="out.final.file" value="${out.absolute.dir}/${release.filename}" />
+		<property name="out.final.file" value="${out.absolute.dir}/{${release.filename}" />
+		<property name="release.final.file" value="${release.dir}/${ad.vendor}/${release.filename}" />
+		<echo message="release.final.file = ${release.final.file}" />
 		<echo message="step2: start to release" />
 		<antcall target="release" />
-		<echo message="step3: Copy apk to release directory '${release.dir}/${release.filename}'" />
-		<copy tofile="${release.dir}/${release.filename}">
+		<copy tofile="${release.final.file}">
+			<fileset dir="${out.absolute.dir}/" includes="${release.filename}" />
+		</copy>
+	</target>
+
+	<target name="adchina" depends="read_versionName, replace_adchina">
+		<echo message="start to release adwo--------" />
+		<echo message="step1: clean all old files" />
+		<property name="ad.vendor" value="adchina" />
+		<property name="release.filename" value="${ant.project.name}_${verion.name}.apk" />
+		<property name="out.final.file" value="${out.absolute.dir}/{${release.filename}" />
+		<property name="release.final.file" value="${release.dir}/${ad.vendor}/${release.filename}" />
+		<echo message="release.final.file = ${release.final.file}" />
+		<echo message="step2: start to release" />
+		<antcall target="release" />
+		<copy tofile="${release.final.file}">
 			<fileset dir="${out.absolute.dir}/" includes="${release.filename}" />
 		</copy>
 	</target>
