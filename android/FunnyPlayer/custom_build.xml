@@ -1,6 +1,16 @@
 <project name="custom" basedir=".">
 	<taskdef name="propertyregex" classname="net.sf.antcontrib.property.RegexTask" />
 
+	<tstamp>
+		<format property="TODAY_UK" pattern="d-MMMM-yyyy" locale="en" />
+	</tstamp>
+	<tstamp>
+		<format property="TODAY_CN" pattern="d-MMMM-yyyy" locale="zh" />
+	</tstamp>
+	<tstamp>
+		<format property="touch.time" pattern="MM/dd/yyyy hh:mm aa" offset="-5" unit="hour" />
+	</tstamp>
+		
 	<property name="build.dir" value="../../build" />
 	<property name="key.store" value="${build.dir}/keystore2" />
 	<property name="key.store.password" value="Yu87D1$j" />
@@ -34,32 +44,30 @@
 	</target>
 
 	<target name="adwo" depends="read_versionName, replace_adwo">
+		<antcall target="clean" />
 		<echo message="start to release adwo--------" />
 		<echo message="step1: clean all old files" />
 		<property name="ad.vendor" value="adwo" />
-		<property name="release.filename" value="${ant.project.name}_${verion.name}.apk" />
+		<property name="release.filename" value="${ant.project.name}_${verion.name}_${DSTAMP}${TSTAMP}.apk" />
 		<property name="out.final.file" value="${out.absolute.dir}/{${release.filename}" />
 		<property name="release.final.file" value="${release.dir}/${ad.vendor}/${release.filename}" />
 		<echo message="release.final.file = ${release.final.file}" />
 		<echo message="step2: start to release" />
 		<antcall target="release" />
-		<copy tofile="${release.final.file}">
-			<fileset dir="${out.absolute.dir}/" includes="${release.filename}" />
-		</copy>
+		<copy file="${out.final.file}" tofile="${release.final.file}" />
 	</target>
 
 	<target name="adchina" depends="read_versionName, replace_adchina">
-		<echo message="start to release adwo--------" />
+		<antcall target="clean" />
+		<echo message="start to release adchina--------" />
 		<echo message="step1: clean all old files" />
 		<property name="ad.vendor" value="adchina" />
-		<property name="release.filename" value="${ant.project.name}_${verion.name}.apk" />
+		<property name="release.filename" value="${ant.project.name}_${verion.name}_${DSTAMP}${TSTAMP}.apk" />
 		<property name="out.final.file" value="${out.absolute.dir}/{${release.filename}" />
 		<property name="release.final.file" value="${release.dir}/${ad.vendor}/${release.filename}" />
 		<echo message="release.final.file = ${release.final.file}" />
 		<echo message="step2: start to release" />
 		<antcall target="release" />
-		<copy tofile="${release.final.file}">
-			<fileset dir="${out.absolute.dir}/" includes="${release.filename}" />
-		</copy>
+		<copy file="${out.final.file}" tofile="${release.final.file}" />
 	</target>
 </project>
