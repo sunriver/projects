@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 
 public class AdwoFragment extends Fragment implements AdListener {
 	private static final String TAG = AdwoFragment.class.getSimpleName();
-	private static final boolean AD_TEST_MODE = true;
+	private static final boolean AD_TEST_MODE = false;
 	private static final String Adwo_PID = "70e074f4698745ab9f349becac751441";
 	
 	@Override

@@ -1,6 +1,5 @@
 package com.funnyplayer;
 
-import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -8,11 +7,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -21,10 +17,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
-
 import com.funnyplayer.ui.adapter.PagerAdapter;
 import com.funnyplayer.ui.adapter.ScrollTabAdapter;
 import com.funnyplayer.ui.fragment.AlbumFragment;
@@ -33,6 +27,7 @@ import com.funnyplayer.ui.fragment.IFragment;
 import com.funnyplayer.ui.fragment.PlaylistFragment;
 import com.funnyplayer.ui.widgets.ScrollTabView;
 import com.funnyplayer.util.MusicUtil;
+import com.funnyplayer.util.UncatchExceptionHandler;
 import com.funnyplayer.util.ViewUtil;
 
 public class HomeActivity extends ActionBarActivity implements OnClickListener {
@@ -57,6 +52,7 @@ public class HomeActivity extends ActionBarActivity implements OnClickListener {
 		registerReceiver();
 		init();
 		mViewPager.setCurrentItem(1, true);
+		Thread.setDefaultUncaughtExceptionHandler(new UncatchExceptionHandler(getApplicationContext(), Thread.getDefaultUncaughtExceptionHandler()));
 	}
 	
 	private void updateCustomeTitle(Bundle bundle) {
