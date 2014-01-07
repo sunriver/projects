@@ -52,7 +52,6 @@ public class HomeActivity extends ActionBarActivity implements OnClickListener {
 		registerReceiver();
 		init();
 		mViewPager.setCurrentItem(1, true);
-		Thread.setDefaultUncaughtExceptionHandler(new UncatchExceptionHandler(getApplicationContext(), Thread.getDefaultUncaughtExceptionHandler()));
 	}
 	
 	private void updateCustomeTitle(Bundle bundle) {
