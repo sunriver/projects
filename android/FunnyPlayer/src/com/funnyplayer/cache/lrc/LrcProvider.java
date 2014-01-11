@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -144,6 +145,10 @@ public class LrcProvider {
 		protected void onPostExecute(LrcBean result) {
 			mCurrentSearchTask = null;
 			if (null == result) {
+				return;
+			}
+			List<LrcBean.LrcUrl> lrcUrls = result.getResult();
+			if (null == lrcUrls) {
 				return;
 			}
 			for (LrcBean.LrcUrl lrcUrl : result.getResult()) {
