@@ -46,16 +46,26 @@ public class LrcAPI extends GeciAPI<LrcBean> {
 			for (int i = 0 ;i < count; i++) {
 				JSONObject lrcObject = (org.json.JSONObject) jsonArray.opt(i);
 				LrcBean.LrcUrl lrcUrl = new LrcBean.LrcUrl();
-				String url = lrcObject.getString("lrc");
-				lrcUrl.setLrc(url);
-				String song = lrcObject.getString("song");
-				lrcUrl.setSong(song);
-				String artist = lrcObject.getString("artist");
-				lrcUrl.setArtist(artist);
-				int sid = lrcObject.getInt("sid");
-				lrcUrl.setSid(sid);
-				int aid = lrcObject.getInt("aid");
-				lrcUrl.setAid(aid);
+				if (lrcObject.has("lrc")) {
+					String url = lrcObject.getString("lrc");
+					lrcUrl.setLrc(url);
+				}
+				if (lrcObject.has("song")) {
+					String song = lrcObject.getString("song");
+					lrcUrl.setSong(song);
+				}
+				if (lrcObject.has("artist")) {
+					String artist = lrcObject.getString("artist");
+					lrcUrl.setArtist(artist);
+				}
+				if (lrcObject.has("sid")) {
+					int sid = lrcObject.getInt("sid");
+					lrcUrl.setSid(sid);
+				}
+				if (lrcObject.has("aid")) {
+					int aid = lrcObject.getInt("aid");
+					lrcUrl.setAid(aid);
+				}
 				urls.add(lrcUrl);
 			}
 			mResult.setResult(urls);
