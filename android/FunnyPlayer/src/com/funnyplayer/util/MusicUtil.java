@@ -8,6 +8,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+
 import com.funnyplayer.service.MusicInfo;
 import com.funnyplayer.service.MusicService;
 import com.funnyplayer.service.MusicService.MusicBinder;
@@ -59,7 +60,10 @@ public class MusicUtil {
 		}
 		Intent intent = new Intent();
 		intent.setClass(context, MusicService.class);
-		mConnection = new ServiceConnection();
+		context.startService(intent);
+		if (null == mConnection) {
+			mConnection = new ServiceConnection();
+		}
 		return context.bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
 	}
 	

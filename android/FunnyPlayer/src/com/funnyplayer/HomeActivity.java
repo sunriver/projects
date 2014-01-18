@@ -100,7 +100,7 @@ public class HomeActivity extends ActionBarActivity implements OnClickListener {
 				} else if (intent.getAction().equals(MusicUtil.FilterAction.PLAYER_PLAYING))  {
 					Bundle bundle = intent.getExtras();
 					updateCustomeTitle(bundle);
-					updateNotification(bundle);
+//					updateNotification(bundle);
 //					updatePlayItemState(bundle);
 				}
 			}

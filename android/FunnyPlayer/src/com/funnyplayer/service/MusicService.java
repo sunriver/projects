@@ -3,7 +3,13 @@ package com.funnyplayer.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.funnyplayer.HomeActivity;
+import com.funnyplayer.R;
 import com.funnyplayer.util.MusicUtil.FilterAction;
+
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.database.Cursor;
@@ -15,6 +21,8 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.provider.MediaStore;
+import android.support.v4.app.NotificationCompat;
+import android.text.TextUtils;
 import android.util.Log;
 
 public class MusicService extends Service {
@@ -129,12 +137,35 @@ public class MusicService extends Service {
 			Intent intent = new Intent(FilterAction.PLAYER_PLAYING);
 			intent.putExtras(bundle);
 			sendBroadcast(intent);
+			updateNotification(bundle);
 			return true;
 		}
 		
 		return false;
 	}
 	
+	
+	private void updateNotification(Bundle bundle) {
+		 NotificationCompat.Builder builder = new NotificationCompat.Builder(this); 
+        builder.setSmallIcon(R.drawable.listen);
+        if (bundle != null) {
+    		String artist = bundle.getString("music_artist");
+   		String name = bundle.getString("music_name");
+           if (!TextUtils.isEmpty(artist)) {
+           	builder.setContentTitle(name);
+           	builder.setContentText(artist);
+            }
+        }
+		builder.setDefaults(Notification.DEFAULT_ALL);
+   	Intent intent = new Intent(this, HomeActivity.class);
+   	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+   	PendingIntent pt = PendingIntent.getActivity(this, 0, intent, 0);
+   	builder.setContentIntent(pt);
+   	Notification nf = builder.build();
+   	nf.flags = Notification.FLAG_ONGOING_EVENT;
+   	int NOTIFICATION_ID = 999;
+   	this.startForeground(NOTIFICATION_ID, nf);
+	}
 	
 	public void pause() {
 		mMusicPlayer.pause();
