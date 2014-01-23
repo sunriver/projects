@@ -2,7 +2,7 @@ package com.funnyplayer.adfrag;
 
 
 import com.adchina.android.ads.AdManager;
-import com.adchina.android.ads.views.AdView;
+import com.adchina.android.ads.api.AdView;
 
 import android.support.v4.app.Fragment;
 import android.content.Context;
@@ -33,8 +33,7 @@ public class AdChinaFragment extends Fragment  {
 //		view.setAdReferenceSize(480, 72);
 		parent.addView(view);
 
-		AdManager.setRefershinterval(20);
-		AdManager.setmVideoPlayer(true);
+		view.setAdRefreshTime(20);
 		AdManager.setRelateScreenRotate(ctx, true);
 		return parent;
 	}
