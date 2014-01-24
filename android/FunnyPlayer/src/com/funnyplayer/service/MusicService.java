@@ -26,7 +26,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 public class MusicService extends Service {
-	
+   	private static final int NOTIFICATION_ID = 999;
 	private static final String TAG = "MusicService";
 	
     private final IBinder mBinder = new MusicBinder();
@@ -157,14 +157,13 @@ public class MusicService extends Service {
             }
         }
 		builder.setDefaults(Notification.DEFAULT_ALL);
-   	Intent intent = new Intent(this, HomeActivity.class);
-   	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-   	PendingIntent pt = PendingIntent.getActivity(this, 0, intent, 0);
-   	builder.setContentIntent(pt);
-   	Notification nf = builder.build();
-   	nf.flags = Notification.FLAG_ONGOING_EVENT;
-   	int NOTIFICATION_ID = 999;
-   	this.startForeground(NOTIFICATION_ID, nf);
+	   	Intent intent = new Intent(this, HomeActivity.class);
+	   	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+	   	PendingIntent pt = PendingIntent.getActivity(this, 0, intent, 0);
+	   	builder.setContentIntent(pt);
+	   	Notification nf = builder.build();
+	   	nf.flags = Notification.FLAG_ONGOING_EVENT;
+	   	startForeground(NOTIFICATION_ID, nf);
 	}
 	
 	public void pause() {
