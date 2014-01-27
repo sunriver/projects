@@ -2,7 +2,9 @@
 <resources>
 
     <string name="app_name">CocoReader</string>
+
+    <!-- menu action -->
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="action_list">list</string>
 
 </resources>
