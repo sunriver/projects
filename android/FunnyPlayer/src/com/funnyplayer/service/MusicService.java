@@ -196,11 +196,11 @@ public class MusicService extends Service {
 //	}
 
 	
-	private RemoteViews createRemoteViews(Context context) {
-		final String pkgName = context.getPackageName();
-		RemoteViews rv = new RemoteViews(pkgName, R.layout.cutom_notification);
-		return rv;
-	}
+//	private RemoteViews createRemoteViews(Context context) {
+//		final String pkgName = context.getPackageName();
+//		RemoteViews rv = new RemoteViews(pkgName, R.layout.cutom_notification);
+//		return rv;
+//	}
 
 	public void pause() {
 		mMusicPlayer.pause();
