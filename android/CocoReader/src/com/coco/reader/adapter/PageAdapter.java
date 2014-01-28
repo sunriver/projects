@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.coco.reader.R;
+import com.coco.reader.view.PageScrollChangeListener;
 import com.coco.reader.view.PageView;
 import com.codo.reader.data.Document;
 import com.codo.reader.data.Page;
@@ -17,7 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-public class PageAdapter extends BaseAdapter {
+public class PageAdapter extends BaseAdapter implements PageScrollChangeListener {
 	private static final String TAG = PageAdapter.class.getSimpleName();
 	private Document mDocument;
 	private List<Page> mPageList;
@@ -79,9 +80,11 @@ public class PageAdapter extends BaseAdapter {
 		PageView pv = (PageView) convertView;
 		if (null == pv) {
 			 pv = (PageView) mInflater.inflate(R.layout.page, parent, false);
+			 pv.setOnPageScrollChangeListener(this);
 		}
 		if (mPageList != null && mPageList.size() > 0) {
 			Page page = mPageList.get(position);
+			pv.reset();
 			pv.setText(page.getContent());
 		}
 		return pv;
@@ -110,4 +113,19 @@ public class PageAdapter extends BaseAdapter {
 		
 		
 	}
+
+
+	@Override
+	public void onPageScrollToTop() {
+		Page page = mDocument.prevPage();
+		mPageList.add(page);
+	}
+
+	@Override
+	public void onPageScrollToBottom() {
+		Page page = mDocument.nextPage();
+		mPageList.add(page);
+	}
+
+
 }
