@@ -30,11 +30,12 @@ public class PageView extends EditText {
 				mScrollByTouchEnabled = false;
 				sendBroadcastForScrollEvent(ACTION_PAGE_TOP);
 //				mPageScrollChangeListener.onPageScrollToTop();
-			} else if (scrollY >= scrollY) {
+			} else if (scrollY >= mScrollY) {
 				mScrollByTouchEnabled = false;
 //				mPageScrollChangeListener.onPageScrollToBottom();
 				sendBroadcastForScrollEvent(ACTION_PAGE_BOTTOM);
 			}
+			mScrollY = scrollY;
 			return super.onScroll(e1, e2, distanceX, distanceY);
 		}
 	};
