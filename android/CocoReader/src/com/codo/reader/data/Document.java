@@ -1,5 +1,6 @@
 package com.codo.reader.data;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,44 +12,56 @@ import com.coco.reader.R;
 
 public class Document {
 	private final static String TAG = Document.class.getSimpleName();
-
 	private final static String ASSET_DOCS = "docs";
 	private String mDocName;
 	private InputStream mInputStream;
 	private StringBuffer mContent;
 	private int mAvaiableSize;
 	private Context mContext;
+	private int mPageIndex;
 
 	public Document(Context context) {
 		mContext = context;
-		openDocument(context);
+		mPageIndex = 0;
+		openDocument();
 	}
 
-	private void openDocument(Context ctx) {
+	private void openDocument() {
 		try {
-			mDocName = ctx.getString(R.string.app_name);
+			mDocName = mContext.getString(R.string.app_name);
 			mDocName = "test";
-			mInputStream = ctx.getAssets().open(
+			mInputStream = mContext.getAssets().open(
 					ASSET_DOCS + "/" + mDocName + ".txt",
 					AssetManager.ACCESS_RANDOM);
 			mAvaiableSize = mInputStream.available();
 		} catch (IOException e) {
-			Log.d(TAG, "Can't open document", e);
+			Log.e(TAG, "Can't open document", e);
+		}
+	}
+	
+	public void closeDocument() {
+		if (mInputStream != null) {
+			try {
+				mInputStream.close();
+			} catch (IOException e) {
+				Log.e(TAG, "Can't close document", e);
+			}
 		}
 	}
 
-	private String getPage(int start, int length) {
+	public Page getPage(int pageIndex) {
 		try {
-			mInputStream.skip(start);
-			StringBuffer sb = new StringBuffer();
+			int offset = pageIndex * Page.PAGE_SIZE;
+			mInputStream.skip(offset);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(mInputStream));
-			for (String line = reader.readLine(); line != null; line = reader.readLine()) {
-				sb.append(line + "\n");
-			}
-			sb.append("\n");
-			return sb.toString();
+			Page page = new Page(pageIndex);
+			int avaiableSize = reader.read(page.getBuffer(), 0, Page.PAGE_SIZE);
+			page.setAvaiableSize(avaiableSize);
+			Log.d(TAG, "getPage() pageIndex=" + pageIndex + " avaiableSize=" + avaiableSize);
+			mPageIndex = pageIndex;
+			return page;
 		} catch (IOException e) {
-			Log.d(TAG, "Can't read file", e);
+			Log.e(TAG, "Can't read file", e);
 		}
 		return null;
 
@@ -61,17 +74,20 @@ public class Document {
 		}
 		super.finalize();
 	}
+	
 
 	public final String getDocName() {
 		return mDocName;
 	}
 	
-	public String previousPage() {
-		return getPage(0, mAvaiableSize);
+	public Page prevPage() {
+		int pageIndex = (mPageIndex > 0) ? (mPageIndex - 1) : 0;
+		return getPage(pageIndex);
 	}
 	
-	public String nextPage() {
-		return getPage(0, mAvaiableSize);
+	public Page nextPage() {
+		int pageIndex = mPageIndex + 1;
+		return getPage(pageIndex);
 	}
 
 }
