@@ -3,16 +3,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    <com.coco.reader.view.ReadView
-        android:id="@+id/tv_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/background_light"
-        android:editable="false"
-        android:scrollbars="vertical"
-        android:shadowColor="#BB000000"
-        android:textAppearance="@android:style/TextAppearance.Large"
-        android:textColor="@android:color/black"
-        android:textStyle="normal" />
 </LinearLayout>
