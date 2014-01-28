@@ -4,14 +4,23 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+import android.view.GestureDetector;
+import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
+
 import com.aphidmobile.flip.FlipViewController;
 import com.coco.reader.R;
 import com.coco.reader.adapter.PageAdapter;
 
 public class MainActivity extends ActionBarActivity {
+	private static final String TAG = MainActivity.class.getSimpleName();
+	
 	protected FlipViewController mFlipView;
 
 	@Override
@@ -20,8 +29,8 @@ public class MainActivity extends ActionBarActivity {
 	    setTitle(R.string.app_name);
 		mFlipView = new FlipViewController(getApplicationContext());
 		mFlipView.setAdapter(new PageAdapter(getApplicationContext()));
+		mFlipView.setFlipByTouchEnabled(false);
 		setContentView(mFlipView);
-//		this.setContentView(R.layout.activity_main);
 
 		SlidingMenu menu = new SlidingMenu(this);
 		menu.setMode(SlidingMenu.LEFT);
@@ -33,7 +42,7 @@ public class MainActivity extends ActionBarActivity {
 		menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
 		menu.setMenu(R.layout.menu);
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
