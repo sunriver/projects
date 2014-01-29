@@ -39,23 +39,16 @@ public class PageAdapter extends BaseAdapter implements PageScrollChangeListener
 	
 	private void init() {
 		Handler handler = new Handler();
-		handler.post(new Runnable() {
-			@Override
-			public void run() {
-				GetPageTask task = new GetPageTask(0, 5);
-				if (ApiUtil.hasHoneycomb()) {
-					task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-				} else {
-					task.execute();
-				}
-				
-			}});
-		
+		handler.post(new GetPageTask(0, 5));
+		handler.postDelayed(new GetPageTask(5, Integer.MAX_VALUE), 5000);
 	}
 	
 	private void loadPages(int pageOffset, int pageCapacity) {
 		for (int pageIndex = pageOffset; pageIndex < pageCapacity; pageIndex ++) {
 			Page page = mDocument.getPage(pageIndex);
+			if (page.getAvaiableSize() < 0) {
+				break;
+			}
 			mPageList.add(page);
 		}
 	}
@@ -84,14 +77,13 @@ public class PageAdapter extends BaseAdapter implements PageScrollChangeListener
 		}
 		if (mPageList != null && mPageList.size() > 0) {
 			Page page = mPageList.get(position);
-			String content = page.getContent();
 			pv.setText(page.getContent());
 		}
 		return pv;
 	}
 
 	
-	private class GetPageTask extends AsyncTask<Void, Integer, Void> {
+	private class GetPageTask extends AsyncTask<Void, Integer, Void> implements Runnable {
 		private int offset;
 		private int capacity;
 		
@@ -110,7 +102,15 @@ public class PageAdapter extends BaseAdapter implements PageScrollChangeListener
 		protected void onPostExecute(Void result) {
 			notifyDataSetChanged();
 		}
-		
+
+		@Override
+		public void run() {
+			if (ApiUtil.hasHoneycomb()) {
+				this.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+			} else {
+				this.execute();
+			}
+		}
 		
 	}
 

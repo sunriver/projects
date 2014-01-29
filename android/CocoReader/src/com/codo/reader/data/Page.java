@@ -10,16 +10,16 @@ public class Page {
 	public final static int PAGE_SIZE = 1024;
 	private int mPageIndex;
 	private char[] mPageBuffer;
-	private int avaiableSize;
+	private int mAvaiableSize;
 	
 	public Page(int index) {
 		mPageIndex = index;
-		avaiableSize = 0;
+		mAvaiableSize = -1;
 		mPageBuffer = new char[PAGE_SIZE];
 	}
 	
 	public String getContent() {
-		if (avaiableSize > 0) {
+		if (mAvaiableSize > 0) {
 			return String.valueOf(mPageBuffer);
 		}
 		return "";
@@ -29,8 +29,8 @@ public class Page {
 		return mPageBuffer;
 	}
 	
-	public void setAvaiableSize(int size) {
-		this.avaiableSize = size;
+	public int getAvaiableSize() {
+		return mAvaiableSize;
 	}
 	
 	
@@ -38,7 +38,7 @@ public class Page {
 		int offset = mPageIndex * Page.PAGE_SIZE;
 //		reader.reset();
 //		reader.skip(offset);
-		avaiableSize = reader.read(mPageBuffer, 0, Page.PAGE_SIZE);
-		return avaiableSize;
+		mAvaiableSize = reader.read(mPageBuffer, 0, Page.PAGE_SIZE);
+		return mAvaiableSize;
 	}
 }
