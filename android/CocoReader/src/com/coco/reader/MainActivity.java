@@ -26,14 +26,16 @@ import com.coco.reader.view.PageView;
 public class MainActivity extends ActionBarActivity {
 	private static final String TAG = MainActivity.class.getSimpleName();
 	
-	protected FlipViewController mFlipView;
+	private FlipViewController mFlipView;
+	private PageAdapter mPageAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	    setTitle(R.string.app_name);
 		mFlipView = new FlipViewController(getApplicationContext());
-		mFlipView.setAdapter(new PageAdapter(getApplicationContext()));
+		mPageAdapter = new PageAdapter(getApplicationContext()); 
+		mFlipView.setAdapter(mPageAdapter);
 		mFlipView.setFlipByTouchEnabled(false);
 		setContentView(mFlipView);
 
@@ -77,6 +79,14 @@ public class MainActivity extends ActionBarActivity {
     	super.onDestroy();
     }
 	
+	
+	private void flipNextPage() {
+		
+	}
+	
+	private void flipPreviousPage() {
+		
+	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -85,8 +95,10 @@ public class MainActivity extends ActionBarActivity {
 		// onSearchRequested();
 		// break;
 		case R.id.action_list:
+			flipPreviousPage();
 			break;
 		case R.id.action_settings:
+			flipNextPage();
 			break;
 		default:
 			super.onOptionsItemSelected(item);
@@ -115,12 +127,12 @@ public class MainActivity extends ActionBarActivity {
 	
 	private void onPageScrollToBottom() {
 		Log.d(TAG, "onPageScrollToBottom()+");
-		mFlipView.setFlipByTouchEnabled(false);
+		mFlipView.setFlipByTouchEnabled(true);
 	}
 	
 	private void onPageScrollToTop() {
 		Log.d(TAG, "onPageScrollToTop()+");
-		mFlipView.setFlipByTouchEnabled(false);
+		mFlipView.setFlipByTouchEnabled(true);
 	}
 
 }
