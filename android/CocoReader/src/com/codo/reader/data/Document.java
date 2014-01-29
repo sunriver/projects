@@ -19,6 +19,7 @@ public class Document {
 	private int mAvaiableSize;
 	private Context mContext;
 	private int mPageIndex;
+	private BufferedReader mReader;
 
 	public Document(Context context) {
 		mContext = context;
@@ -34,6 +35,7 @@ public class Document {
 					ASSET_DOCS + "/" + mDocName + ".txt",
 					AssetManager.ACCESS_RANDOM);
 			mAvaiableSize = mInputStream.available();
+			mReader = new BufferedReader(new InputStreamReader(mInputStream));
 		} catch (IOException e) {
 			Log.e(TAG, "Can't open document", e);
 		}
@@ -51,12 +53,8 @@ public class Document {
 
 	public Page getPage(int pageIndex) {
 		try {
-			int offset = pageIndex * Page.PAGE_SIZE;
-			mInputStream.skip(offset);
-			BufferedReader reader = new BufferedReader(new InputStreamReader(mInputStream));
 			Page page = new Page(pageIndex);
-			int avaiableSize = reader.read(page.getBuffer(), 0, Page.PAGE_SIZE);
-			page.setAvaiableSize(avaiableSize);
+			int avaiableSize = page.read(mReader);
 			Log.d(TAG, "getPage() pageIndex=" + pageIndex + " avaiableSize=" + avaiableSize);
 			mPageIndex = pageIndex;
 			return page;

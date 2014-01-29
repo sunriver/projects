@@ -80,11 +80,11 @@ public class PageAdapter extends BaseAdapter implements PageScrollChangeListener
 		PageView pv = (PageView) convertView;
 		if (null == pv) {
 			 pv = (PageView) mInflater.inflate(R.layout.page, parent, false);
-			 pv.setOnPageScrollChangeListener(this);
+//			 pv.setOnPageScrollChangeListener(this);
 		}
 		if (mPageList != null && mPageList.size() > 0) {
 			Page page = mPageList.get(position);
-			pv.reset();
+			String content = page.getContent();
 			pv.setText(page.getContent());
 		}
 		return pv;
