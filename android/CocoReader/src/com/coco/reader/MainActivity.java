@@ -1,6 +1,7 @@
 package com.coco.reader;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.sunriver.common.utils.ViewUtil;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -8,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -18,6 +20,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aphidmobile.flip.FlipViewController;
@@ -59,6 +62,8 @@ public class MainActivity extends ActionBarActivity {
 		menu.setFadeDegree(0.35f);
 		menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
 		menu.setMenu(R.layout.menu);
+		
+		initActionBar();
 		
 		registerScrollReceiver(getApplicationContext());
 	}
@@ -132,6 +137,13 @@ public class MainActivity extends ActionBarActivity {
 		mFlipView.onTouchEvent(upEvent);
 	}
 
+    private void initActionBar() {
+    	ActionBar actionBar = getSupportActionBar();
+    	
+		ViewUtil.setActionBarBackgroundRepeat(this, actionBar, R.drawable.shadow);
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_TITLE);
+    }
+    
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {

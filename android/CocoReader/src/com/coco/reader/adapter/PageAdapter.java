@@ -23,19 +23,14 @@ public class PageAdapter extends BaseAdapter implements PageScrollChangeListener
 	private Document mDocument;
 	private List<Page> mPageList;
 	private LayoutInflater mInflater;
-	private final int mPageCapacity;
 	
-	public PageAdapter(Context ctx, int pageCapacity) {
+	public PageAdapter(Context ctx) {
 		mDocument = new Document(ctx);
-		mPageCapacity = pageCapacity;
 		mPageList = new ArrayList<Page>();
 		mInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		init();
 	}
 	
-	public PageAdapter(Context ctx) {
-		this(ctx, 5);
-	}
 	
 	private void init() {
 		Handler handler = new Handler();
@@ -55,7 +50,7 @@ public class PageAdapter extends BaseAdapter implements PageScrollChangeListener
 	
 	@Override
 	public int getCount() {
-		return mPageCapacity;
+		return mPageList.size();
 	}
 
 	@Override
