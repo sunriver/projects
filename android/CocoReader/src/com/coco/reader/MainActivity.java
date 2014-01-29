@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -17,6 +18,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.widget.Toast;
 
 import com.aphidmobile.flip.FlipViewController;
 import com.coco.reader.R;
@@ -37,6 +39,15 @@ public class MainActivity extends ActionBarActivity {
 		mPageAdapter = new PageAdapter(getApplicationContext()); 
 		mFlipView.setAdapter(mPageAdapter);
 		mFlipView.setFlipByTouchEnabled(false);
+		
+		mFlipView.setOnViewFlipListener(new FlipViewController.ViewFlipListener() {
+	        @Override
+	        public void onViewFlipped(View view, int position) {
+	          Toast.makeText(view.getContext(), "Flipped to page " + position, Toast.LENGTH_SHORT).show();
+	          mFlipView.setFlipByTouchEnabled(false);
+	        }
+	      });
+	    
 		setContentView(mFlipView);
 
 		SlidingMenu menu = new SlidingMenu(this);
@@ -81,11 +92,44 @@ public class MainActivity extends ActionBarActivity {
 	
 	
 	private void flipNextPage() {
-		
+		int selectionItemPos = mFlipView.getSelectedItemPosition();
+		int itemCount = mFlipView.getCount();
+		if (selectionItemPos < itemCount) {
+//			mFlipView.postFlippedToView(selectionItemPos + 1);
+		}
+//			mFlipView.setSelection(selectionItemPos + 1);
+		mFlipView.setFlipByTouchEnabled(true);
+		sendMotionEvent(200, 200, -1);
+//		mFlipView.refreshPage(selectionItemPos + 1);
 	}
 	
 	private void flipPreviousPage() {
-		
+		int selectionItemPos = mFlipView.getSelectedItemPosition();
+		if (selectionItemPos > 0) {
+//			mFlipView.postFlippedToView(selectionItemPos - 1);
+		}
+//			mFlipView.setSelection(selectionItemPos - 1);
+		mFlipView.setFlipByTouchEnabled(true);
+		sendMotionEvent(200, 200, 1);
+//		mFlipView.refreshPage(selectionItemPos - 1);
+	}
+	
+	private void sendMotionEvent(int x, int y, int dy) {
+		long time = SystemClock.uptimeMillis();
+		MotionEvent downEvent = MotionEvent.obtain(time, time, MotionEvent.ACTION_DOWN, x, y, 0);
+		mFlipView.onTouchEvent(downEvent);
+        
+        for (int i = 0; i < 60; i++) {
+        	y = y + dy;
+        	time = SystemClock.uptimeMillis();
+        	MotionEvent moveEvent = MotionEvent.obtain(time, time, MotionEvent.ACTION_MOVE, x, y, 0);
+        	mFlipView.onTouchEvent(moveEvent);
+        }
+        
+        
+        time = SystemClock.uptimeMillis();
+		MotionEvent upEvent = MotionEvent.obtain(time, time, MotionEvent.ACTION_UP, x, y, 0);
+		mFlipView.onTouchEvent(upEvent);
 	}
 
 	@Override
@@ -127,12 +171,12 @@ public class MainActivity extends ActionBarActivity {
 	
 	private void onPageScrollToBottom() {
 		Log.d(TAG, "onPageScrollToBottom()+");
-		mFlipView.setFlipByTouchEnabled(true);
+//		mFlipView.setFlipByTouchEnabled(true);
 	}
 	
 	private void onPageScrollToTop() {
 		Log.d(TAG, "onPageScrollToTop()+");
-		mFlipView.setFlipByTouchEnabled(true);
+//		mFlipView.setFlipByTouchEnabled(true);
 	}
 
 }
