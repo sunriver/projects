@@ -18,6 +18,10 @@ public class Page {
 		mPageBuffer = new char[PAGE_SIZE];
 	}
 	
+	public int getIndex() {
+		return mPageIndex;
+	}
+	
 	public String getContent() {
 		if (mAvaiableSize > 0) {
 			return String.valueOf(mPageBuffer);

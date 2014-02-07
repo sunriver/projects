@@ -31,29 +31,27 @@ import com.coco.reader.view.MenuListFragment;
 import com.coco.reader.view.MenuListFragment.OnSlideItemSelectListener;
 import com.coco.reader.view.PageView;
 import com.codo.reader.data.Document;
+import com.codo.reader.data.DocumentManager;
+import com.codo.reader.data.Page;
 
-public class MainActivity extends ActionBarActivity implements OnSlideItemSelectListener, PageChnageListener {
+public class MainActivity extends ActionBarActivity implements OnSlideItemSelectListener, PageChnageListener, FlipViewController.ViewFlipListener {
 	private static final String TAG = MainActivity.class.getSimpleName();
 	
 	private FlipViewController mFlipView;
 	private PageAdapter mPageAdapter;
+	private DocumentManager mDocManager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	    setTitle(R.string.app_name);
+	    mDocManager = DocumentManager.getInstance(getApplicationContext());
 		mFlipView = new FlipViewController(getApplicationContext());
 		mPageAdapter = new PageAdapter(getApplicationContext(), this); 
 		mFlipView.setAdapter(mPageAdapter);
 		mFlipView.setFlipByTouchEnabled(false);
 		
-		mFlipView.setOnViewFlipListener(new FlipViewController.ViewFlipListener() {
-	        @Override
-	        public void onViewFlipped(View view, int position) {
-	          Toast.makeText(view.getContext(), "Flipped to page " + position, Toast.LENGTH_SHORT).show();
-	          mFlipView.setFlipByTouchEnabled(false);
-	        }
-	      });
+		mFlipView.setOnViewFlipListener(this);
 	    
 		setContentView(mFlipView);
 
@@ -208,6 +206,14 @@ public class MainActivity extends ActionBarActivity implements OnSlideItemSelect
 	@Override
 	public void onNextPage() {
 		flipNextPage();
+	}
+
+
+	@Override
+	public void onViewFlipped(View view, int position) {
+		Toast.makeText(view.getContext(), "Flipped to page " + position, Toast.LENGTH_SHORT).show();
+        mFlipView.setFlipByTouchEnabled(false);	
+        mDocManager.persistDocument();
 	}
 
 }

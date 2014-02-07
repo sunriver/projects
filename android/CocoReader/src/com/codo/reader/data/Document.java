@@ -72,7 +72,14 @@ public class Document implements Parcelable {
 			Log.e(TAG, "Can't read file", e);
 		}
 		return null;
-
+	}
+	
+	public int getSelectPageIndex() {
+		return mPageIndex;
+	}
+	
+	public void setSelectPageIndex(int index) {
+		this.mPageIndex = index;
 	}
 
 	@Override

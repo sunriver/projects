@@ -6,9 +6,9 @@ import java.util.List;
 import com.coco.reader.R;
 import com.coco.reader.view.PageView;
 import com.codo.reader.data.Document;
+import com.codo.reader.data.DocumentManager;
 import com.codo.reader.data.Page;
 import com.sunriver.common.utils.ApiUtil;
-
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -26,19 +26,26 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 	private Handler mHandler;
 	private PageChnageListener mPageChangeListener;
 	
-	
-	
 	public PageAdapter(Context ctx, PageChnageListener l) {
 		this.mPageChangeListener = l;
 		mPageList = new ArrayList<Page>();
 		mInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mHandler = new Handler();
+		loadDefaultDocument(ctx);
 	}
 	
 	public void setDocument(Document doc) {
 		this.mDocument = doc;
 		mPageList.clear();
 		init();
+	}
+	
+	private void loadDefaultDocument(Context ctx) {
+		DocumentManager docManager = DocumentManager.getInstance(ctx);
+		Document doc = docManager.getDefaultDocument();
+		if (doc != null) {
+			setDocument(doc);
+		}
 	}
 	
 	
@@ -70,6 +77,10 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 	@Override
 	public long getItemId(int position) {
 		return position;
+	}
+	
+	public Page getPage(int position) {
+		return mPageList.get(position);
 	}
 	
 	private static class ViewHolder {
