@@ -1,12 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.coco.reader.view.PageView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tv_content"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/background_light"
-    android:editable="false"
-    android:scrollbars="vertical"
-    android:shadowColor="#BB000000"
-    android:textAppearance="@android:style/TextAppearance.Large"
-    android:textColor="@android:color/black"
-    android:textStyle="normal" />
+    android:layout_height="match_parent" >
+
+    <com.coco.reader.view.PageView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light"
+        android:editable="false"
+        android:scrollbars="vertical"
+        android:shadowColor="#BB000000"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textColor="@android:color/black"
+        android:textStyle="normal" />
+
+    <LinearLayout
+        android:id="@+id/pageControl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" >
+
+        <Button
+            android:id="@+id/btn_prev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="prev" />
+
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="next" />
+    </LinearLayout>
+
+</RelativeLayout>
