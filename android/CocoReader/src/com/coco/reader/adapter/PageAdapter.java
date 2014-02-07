@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.coco.reader.R;
-import com.coco.reader.view.PageScrollChangeListener;
 import com.coco.reader.view.PageView;
 import com.codo.reader.data.Document;
 import com.codo.reader.data.Page;
@@ -17,8 +16,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 
-public class PageAdapter extends BaseAdapter implements PageScrollChangeListener {
+public class PageAdapter extends BaseAdapter {
 	private static final String TAG = PageAdapter.class.getSimpleName();
 	private Document mDocument;
 	private List<Page> mPageList;
@@ -67,19 +67,32 @@ public class PageAdapter extends BaseAdapter implements PageScrollChangeListener
 	public long getItemId(int position) {
 		return position;
 	}
+	
+	private static class ViewHolder {
+		private Button prevBtn;
+		private Button nextBtn;
+		private PageView pageView;
+	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		PageView pv = (PageView) convertView;
-		if (null == pv) {
-			 pv = (PageView) mInflater.inflate(R.layout.page, parent, false);
-//			 pv.setOnPageScrollChangeListener(this);
+		ViewHolder vh = null;
+		if (null == convertView) {
+			vh = new ViewHolder();
+			convertView = mInflater.inflate(R.layout.page, parent, false);
+			vh.pageView = (PageView) convertView.findViewById(R.id.tv_content);
+			vh.prevBtn = (Button) convertView.findViewById(R.id.btn_prev);
+			vh.nextBtn = (Button) convertView.findViewById(R.id.btn_next);
+			convertView.setTag(vh);
+		} else {
+			vh = (ViewHolder) convertView.getTag();
 		}
+		
 		if (mPageList != null && mPageList.size() > 0) {
 			Page page = mPageList.get(position);
-			pv.setText(page.getContent());
+			vh.pageView.setText(page.getContent());
 		}
-		return pv;
+		return convertView;
 	}
 
 	
@@ -112,19 +125,6 @@ public class PageAdapter extends BaseAdapter implements PageScrollChangeListener
 			}
 		}
 		
-	}
-
-
-	@Override
-	public void onPageScrollToTop() {
-		Page page = mDocument.prevPage();
-		mPageList.add(page);
-	}
-
-	@Override
-	public void onPageScrollToBottom() {
-		Page page = mDocument.nextPage();
-		mPageList.add(page);
 	}
 
 

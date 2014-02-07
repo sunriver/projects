@@ -42,7 +42,6 @@ public class PageView extends EditText {
 		}
 	};
 	
-	private PageScrollChangeListener mPageScrollChangeListener;
 	
 	private boolean mScrollByTouchEnabled;
 
@@ -71,10 +70,6 @@ public class PageView extends EditText {
 
 	public PageView(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
-	}
-	
-	public void setOnPageScrollChangeListener(PageScrollChangeListener l) {
-		this.mPageScrollChangeListener = l;
 	}
 
 	
