@@ -40,7 +40,7 @@ public class PageAdapter extends BaseAdapter implements PageScrollChangeListener
 	
 	private void init() {
 		mHandler.post(new GetPageTask(0, 5));
-		mHandler.postDelayed(new GetPageTask(5, Integer.MAX_VALUE), 5000);
+		mHandler.postDelayed(new GetPageTask(5, Integer.MAX_VALUE), 3000);
 	}
 	
 	private void loadPages(int pageOffset, int pageCapacity) {
