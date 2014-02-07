@@ -7,10 +7,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 import com.coco.reader.R;
 
-public class Document {
+public class Document implements Parcelable {
 	private final static String TAG = Document.class.getSimpleName();
 	private String mDocName;
 	private InputStream mInputStream;
@@ -85,6 +87,17 @@ public class Document {
 	public Page nextPage() {
 		int pageIndex = mPageIndex + 1;
 		return getPage(pageIndex);
+	}
+
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		// TODO Auto-generated method stub
 	}
 
 }

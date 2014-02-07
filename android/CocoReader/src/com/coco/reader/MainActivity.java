@@ -26,9 +26,12 @@ import android.widget.Toast;
 import com.aphidmobile.flip.FlipViewController;
 import com.coco.reader.R;
 import com.coco.reader.adapter.PageAdapter;
+import com.coco.reader.view.MenuListFragment;
+import com.coco.reader.view.MenuListFragment.OnSlideItemSelectListener;
 import com.coco.reader.view.PageView;
+import com.codo.reader.data.Document;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements OnSlideItemSelectListener {
 	private static final String TAG = MainActivity.class.getSimpleName();
 	
 	private FlipViewController mFlipView;
@@ -176,10 +179,13 @@ public class MainActivity extends ActionBarActivity {
 				onPageScrollToBottom();
 			} else if (PageView.ACTION_PAGE_TOP.equals(action)) {
 				onPageScrollToTop();
-			}
-			
+			} 
 		}
 	};
+	
+	private void onMenuItemChange() {
+		
+	}
 	
 	private void onPageScrollToBottom() {
 		Log.d(TAG, "onPageScrollToBottom()+");
@@ -189,6 +195,13 @@ public class MainActivity extends ActionBarActivity {
 	private void onPageScrollToTop() {
 		Log.d(TAG, "onPageScrollToTop()+");
 //		mFlipView.setFlipByTouchEnabled(true);
+	}
+
+
+
+	@Override
+	public void onSlideItemSelect(Document doc) {
+		mPageAdapter.setDocument(doc);
 	}
 
 }
