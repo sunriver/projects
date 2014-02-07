@@ -29,10 +29,12 @@ public class DocumentManager {
 	}
 	
 	public Document getDocumentByName(String docName) {
-		Document doc = mDocMap.get(docName);
+		Document doc = new Document(mContext, ASSET_DOCS, docName);
 		if (null == doc) {
 			doc = new Document(mContext, ASSET_DOCS, docName);
 			mDocMap.put(docName, doc);
+		} else {
+			doc.reset();
 		}
 		return doc;
 	}

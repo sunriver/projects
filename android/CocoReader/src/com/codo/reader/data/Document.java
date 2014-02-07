@@ -15,6 +15,7 @@ import com.coco.reader.R;
 public class Document implements Parcelable {
 	private final static String TAG = Document.class.getSimpleName();
 	private String mDocName;
+	private String mDocFile;
 	private InputStream mInputStream;
 	private StringBuffer mContent;
 	private int mAvaiableSize;
@@ -26,15 +27,13 @@ public class Document implements Parcelable {
 		mContext = context;
 		mPageIndex = 0;
 		this.mDocName = name;
-		String fileName = path + "/" + mDocName + ".txt";
-		openDocument(fileName);
+		mDocFile = path + "/" + mDocName + ".txt";
+		openDocument();
 	}
 
-	private void openDocument(final String file) {
+	public void openDocument() {
 		try {
-//			mDocName = mContext.getString(R.string.app_name);
-//			mDocName = "test";
-			mInputStream = mContext.getAssets().open(file, AssetManager.ACCESS_RANDOM);
+			mInputStream = mContext.getAssets().open(mDocFile, AssetManager.ACCESS_RANDOM);
 			mAvaiableSize = mInputStream.available();
 			mReader = new BufferedReader(new InputStreamReader(mInputStream));
 		} catch (IOException e) {
@@ -48,6 +47,16 @@ public class Document implements Parcelable {
 				mInputStream.close();
 			} catch (IOException e) {
 				Log.e(TAG, "Can't close document", e);
+			}
+		}
+	}
+	
+	public void reset() {
+		if (mInputStream != null) {
+			try {
+				mInputStream.reset();
+			} catch (IOException e) {
+				Log.e(TAG, "Can't reset document", e);
 			}
 		}
 	}
