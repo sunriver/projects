@@ -26,12 +26,13 @@ import android.widget.Toast;
 import com.aphidmobile.flip.FlipViewController;
 import com.coco.reader.R;
 import com.coco.reader.adapter.PageAdapter;
+import com.coco.reader.adapter.PageAdapter.PageChnageListener;
 import com.coco.reader.view.MenuListFragment;
 import com.coco.reader.view.MenuListFragment.OnSlideItemSelectListener;
 import com.coco.reader.view.PageView;
 import com.codo.reader.data.Document;
 
-public class MainActivity extends ActionBarActivity implements OnSlideItemSelectListener {
+public class MainActivity extends ActionBarActivity implements OnSlideItemSelectListener, PageChnageListener {
 	private static final String TAG = MainActivity.class.getSimpleName();
 	
 	private FlipViewController mFlipView;
@@ -42,7 +43,7 @@ public class MainActivity extends ActionBarActivity implements OnSlideItemSelect
 		super.onCreate(savedInstanceState);
 	    setTitle(R.string.app_name);
 		mFlipView = new FlipViewController(getApplicationContext());
-		mPageAdapter = new PageAdapter(getApplicationContext()); 
+		mPageAdapter = new PageAdapter(getApplicationContext(), this); 
 		mFlipView.setAdapter(mPageAdapter);
 		mFlipView.setFlipByTouchEnabled(false);
 		
@@ -154,10 +155,8 @@ public class MainActivity extends ActionBarActivity implements OnSlideItemSelect
 		// onSearchRequested();
 		// break;
 		case R.id.action_list:
-			flipPreviousPage();
 			break;
 		case R.id.action_settings:
-			flipNextPage();
 			break;
 		default:
 			super.onOptionsItemSelected(item);
@@ -182,10 +181,7 @@ public class MainActivity extends ActionBarActivity implements OnSlideItemSelect
 			} 
 		}
 	};
-	
-	private void onMenuItemChange() {
-		
-	}
+
 	
 	private void onPageScrollToBottom() {
 		Log.d(TAG, "onPageScrollToBottom()+");
@@ -202,6 +198,16 @@ public class MainActivity extends ActionBarActivity implements OnSlideItemSelect
 	@Override
 	public void onSlideItemSelect(Document doc) {
 		mPageAdapter.setDocument(doc);
+	}
+
+	@Override
+	public void onPreviousPage() {
+		flipPreviousPage();
+	}
+
+	@Override
+	public void onNextPage() {
+		flipNextPage();
 	}
 
 }

@@ -18,14 +18,18 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 
-public class PageAdapter extends BaseAdapter {
+public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 	private static final String TAG = PageAdapter.class.getSimpleName();
 	private Document mDocument;
 	private List<Page> mPageList;
 	private LayoutInflater mInflater;
-	Handler mHandler;
+	private Handler mHandler;
+	private PageChnageListener mPageChangeListener;
 	
-	public PageAdapter(Context ctx) {
+	
+	
+	public PageAdapter(Context ctx, PageChnageListener l) {
+		this.mPageChangeListener = l;
 		mPageList = new ArrayList<Page>();
 		mInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mHandler = new Handler();
@@ -83,6 +87,8 @@ public class PageAdapter extends BaseAdapter {
 			vh.pageView = (PageView) convertView.findViewById(R.id.tv_content);
 			vh.prevBtn = (Button) convertView.findViewById(R.id.btn_prev);
 			vh.nextBtn = (Button) convertView.findViewById(R.id.btn_next);
+			vh.prevBtn.setOnClickListener(this);
+			vh.nextBtn.setOnClickListener(this);
 			convertView.setTag(vh);
 		} else {
 			vh = (ViewHolder) convertView.getTag();
@@ -126,6 +132,25 @@ public class PageAdapter extends BaseAdapter {
 		}
 		
 	}
+	
+	@Override
+	public void onClick(View v) {
+		if (null == mPageChangeListener) {
+			return;
+		}
+		switch (v.getId()) {
+		case R.id.btn_prev:
+			mPageChangeListener.onPreviousPage();
+			break;
+		case R.id.btn_next:
+			mPageChangeListener.onNextPage();
+			break;
+		}
+	}
 
 
+	public interface PageChnageListener {
+		public void onPreviousPage();
+		public void onNextPage();
+	}
 }
