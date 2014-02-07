@@ -1,6 +1,7 @@
 package com.coco.reader.view;
 
 import com.coco.reader.R;
+import com.codo.reader.data.DocumentManager;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MenuListFragment extends ListFragment {
+	private DocumentManager mDocManager;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.list, null);
@@ -20,25 +22,29 @@ public class MenuListFragment extends ListFragment {
 
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		SampleAdapter adapter = new SampleAdapter(getActivity());
-		for (int i = 0; i < 20; i++) {
-			adapter.add(new SampleItem("Sample List", android.R.drawable.ic_menu_search));
+		mDocManager = DocumentManager.getInstance(getActivity());
+		MenuAdapter adapter = new MenuAdapter(getActivity());
+		String[] docNames = mDocManager.getAllDocuments();
+		if (docNames != null) {
+			for (String docName : docNames) {
+				adapter.add(new ListItem(docName, android.R.drawable.ic_menu_search));
+			}
 		}
 		setListAdapter(adapter);
 	}
 
-	private class SampleItem {
+	private class ListItem {
 		public String tag;
 		public int iconRes;
-		public SampleItem(String tag, int iconRes) {
+		public ListItem(String tag, int iconRes) {
 			this.tag = tag; 
 			this.iconRes = iconRes;
 		}
 	}
 
-	public class SampleAdapter extends ArrayAdapter<SampleItem> {
+	public class MenuAdapter extends ArrayAdapter<ListItem> {
 
-		public SampleAdapter(Context context) {
+		public MenuAdapter(Context context) {
 			super(context, 0);
 		}
 

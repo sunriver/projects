@@ -12,7 +12,6 @@ import com.coco.reader.R;
 
 public class Document {
 	private final static String TAG = Document.class.getSimpleName();
-	private final static String ASSET_DOCS = "docs";
 	private String mDocName;
 	private InputStream mInputStream;
 	private StringBuffer mContent;
@@ -21,19 +20,19 @@ public class Document {
 	private int mPageIndex;
 	private BufferedReader mReader;
 
-	public Document(Context context) {
+	public Document(Context context, String path, String name) {
 		mContext = context;
 		mPageIndex = 0;
-		openDocument();
+		this.mDocName = name;
+		String fileName = path + "/" + mDocName + ".txt";
+		openDocument(fileName);
 	}
 
-	private void openDocument() {
+	private void openDocument(final String file) {
 		try {
-			mDocName = mContext.getString(R.string.app_name);
-			mDocName = "test";
-			mInputStream = mContext.getAssets().open(
-					ASSET_DOCS + "/" + mDocName + ".txt",
-					AssetManager.ACCESS_RANDOM);
+//			mDocName = mContext.getString(R.string.app_name);
+//			mDocName = "test";
+			mInputStream = mContext.getAssets().open(file, AssetManager.ACCESS_RANDOM);
 			mAvaiableSize = mInputStream.available();
 			mReader = new BufferedReader(new InputStreamReader(mInputStream));
 		} catch (IOException e) {
