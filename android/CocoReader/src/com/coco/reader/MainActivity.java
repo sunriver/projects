@@ -41,7 +41,7 @@ public class MainActivity extends ActionBarActivity implements OnSlideItemSelect
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-	    setTitle(R.string.app_name);
+	    initActionBar();
 	    mDocManager = DocumentManager.getInstance(getApplicationContext());
 		mFlipView = new FlipViewController(getApplicationContext());
 		mPageAdapter = new PageAdapter(getApplicationContext(), this); 
@@ -51,7 +51,6 @@ public class MainActivity extends ActionBarActivity implements OnSlideItemSelect
 		mFlipView.setOnViewFlipListener(this);
 	    
 		setContentView(mFlipView);
-
 		SlidingMenu menu = new SlidingMenu(this);
 		menu.setMode(SlidingMenu.LEFT);
 		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
@@ -62,8 +61,6 @@ public class MainActivity extends ActionBarActivity implements OnSlideItemSelect
 		menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
 		menu.setMenu(R.layout.menu);
 		mSlidingMenu = menu;
-		
-		initActionBar();
 		
 		registerScrollReceiver(getApplicationContext());
 		
