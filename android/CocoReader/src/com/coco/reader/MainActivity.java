@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.aphidmobile.flip.FlipViewController;
@@ -29,9 +30,11 @@ import com.coco.reader.view.PageView;
 import com.codo.reader.data.Document;
 import com.codo.reader.data.DocumentManager;
 
-public class MainActivity extends ActionBarActivity implements OnSlideItemSelectListener, PageChnageListener, FlipViewController.ViewFlipListener, View.OnClickListener {
+public class MainActivity extends ActionBarActivity implements
+		OnSlideItemSelectListener, PageChnageListener,
+		FlipViewController.ViewFlipListener, View.OnClickListener {
 	private static final String TAG = MainActivity.class.getSimpleName();
-	
+
 	private FlipViewController mFlipView;
 	private PageAdapter mPageAdapter;
 	private DocumentManager mDocManager;
@@ -41,15 +44,15 @@ public class MainActivity extends ActionBarActivity implements OnSlideItemSelect
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-	    initActionBar();
-	    mDocManager = DocumentManager.getInstance(getApplicationContext());
+		initActionBar();
+		mDocManager = DocumentManager.getInstance(getApplicationContext());
 		mFlipView = new FlipViewController(getApplicationContext());
-		mPageAdapter = new PageAdapter(getApplicationContext(), this); 
+		mPageAdapter = new PageAdapter(getApplicationContext(), this);
 		mFlipView.setAdapter(mPageAdapter);
 		mFlipView.setFlipByTouchEnabled(false);
-		
+
 		mFlipView.setOnViewFlipListener(this);
-	    
+
 		setContentView(mFlipView);
 		SlidingMenu menu = new SlidingMenu(this);
 		menu.setMode(SlidingMenu.LEFT);
@@ -62,12 +65,25 @@ public class MainActivity extends ActionBarActivity implements OnSlideItemSelect
 		menu.setMenu(R.layout.menu);
 		mSlidingMenu = menu;
 		
+		initNavTab();
+
 		registerScrollReceiver(getApplicationContext());
-		
+
 	}
-	
-	
-	
+
+	private void initNavTab() {
+		TabHost tabHost = (TabHost) findViewById(R.id.myTabHost);
+		tabHost.setup();
+		String navDirectory = this.getString(R.string.nav_directory);
+		String navBookmark = this.getString(R.string.nav_bookmark);
+		tabHost.addTab(tabHost.newTabSpec("tab1")
+				.setIndicator(navDirectory)
+				.setContent(R.id.nav_directory));
+		tabHost.addTab(tabHost.newTabSpec("tab2")
+				.setIndicator(navBookmark)
+				.setContent(R.id.nav_bookmark));
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -78,60 +94,61 @@ public class MainActivity extends ActionBarActivity implements OnSlideItemSelect
 	@Override
 	protected void onResume() {
 		super.onResume();
-//		mFlipView.onResume();
+		// mFlipView.onResume();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-//		mFlipView.onPause();
+		// mFlipView.onPause();
 	}
-	
+
 	@Override
-    protected void onDestroy() {
-//		this.unregisterReceiver(mPageScrollReceiver);
-    	super.onDestroy();
-    }
-	
-	
+	protected void onDestroy() {
+		// this.unregisterReceiver(mPageScrollReceiver);
+		super.onDestroy();
+	}
+
 	private void flipNextPage() {
 		int selectionItemPos = mFlipView.getSelectedItemPosition();
 		int itemCount = mFlipView.getCount();
 		if (selectionItemPos < itemCount) {
-//			mFlipView.postFlippedToView(selectionItemPos + 1);
+			// mFlipView.postFlippedToView(selectionItemPos + 1);
 		}
-//			mFlipView.setSelection(selectionItemPos + 1);
+		// mFlipView.setSelection(selectionItemPos + 1);
 		mFlipView.setFlipByTouchEnabled(true);
 		sendMotionEvent(200, 200, -1);
-//		mFlipView.refreshPage(selectionItemPos + 1);
+		// mFlipView.refreshPage(selectionItemPos + 1);
 	}
-	
+
 	private void flipPreviousPage() {
 		int selectionItemPos = mFlipView.getSelectedItemPosition();
 		if (selectionItemPos > 0) {
-//			mFlipView.postFlippedToView(selectionItemPos - 1);
+			// mFlipView.postFlippedToView(selectionItemPos - 1);
 		}
-//			mFlipView.setSelection(selectionItemPos - 1);
+		// mFlipView.setSelection(selectionItemPos - 1);
 		mFlipView.setFlipByTouchEnabled(true);
 		sendMotionEvent(200, 200, 1);
-//		mFlipView.refreshPage(selectionItemPos - 1);
+		// mFlipView.refreshPage(selectionItemPos - 1);
 	}
-	
+
 	private void sendMotionEvent(int x, int y, int dy) {
 		long time = SystemClock.uptimeMillis();
-		MotionEvent downEvent = MotionEvent.obtain(time, time, MotionEvent.ACTION_DOWN, x, y, 0);
+		MotionEvent downEvent = MotionEvent.obtain(time, time,
+				MotionEvent.ACTION_DOWN, x, y, 0);
 		mFlipView.onTouchEvent(downEvent);
-        
-        for (int i = 0; i < 60; i++) {
-        	y = y + dy;
-        	time = SystemClock.uptimeMillis();
-        	MotionEvent moveEvent = MotionEvent.obtain(time, time, MotionEvent.ACTION_MOVE, x, y, 0);
-        	mFlipView.onTouchEvent(moveEvent);
-        }
-        
-        
-        time = SystemClock.uptimeMillis();
-		MotionEvent upEvent = MotionEvent.obtain(time, time, MotionEvent.ACTION_UP, x, y, 0);
+
+		for (int i = 0; i < 60; i++) {
+			y = y + dy;
+			time = SystemClock.uptimeMillis();
+			MotionEvent moveEvent = MotionEvent.obtain(time, time,
+					MotionEvent.ACTION_MOVE, x, y, 0);
+			mFlipView.onTouchEvent(moveEvent);
+		}
+
+		time = SystemClock.uptimeMillis();
+		MotionEvent upEvent = MotionEvent.obtain(time, time,
+				MotionEvent.ACTION_UP, x, y, 0);
 		mFlipView.onTouchEvent(upEvent);
 	}
 
@@ -139,19 +156,24 @@ public class MainActivity extends ActionBarActivity implements OnSlideItemSelect
 		ImageView homeImage;
 		TextView titleTv;
 	}
-    private void initActionBar() {
-    	ActionBar actionBar = getSupportActionBar();
-    	Drawable d = getResources().getDrawable(R.drawable.actionbar_bg_selector);
-    	actionBar.setBackgroundDrawable(d);
-    	View customView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.title, null);
-    	actionBar.setCustomView(customView);
-    	mAbCustomView = new ActionBarCustomView();
-    	mAbCustomView.homeImage = (ImageView) customView.findViewById(R.id.iv_title_home);
-    	mAbCustomView.titleTv = (TextView) customView.findViewById(R.id.tv_title_content);
-    	mAbCustomView.homeImage.setOnClickListener(this);
+
+	private void initActionBar() {
+		ActionBar actionBar = getSupportActionBar();
+		Drawable d = getResources().getDrawable(
+				R.drawable.actionbar_bg_selector);
+		actionBar.setBackgroundDrawable(d);
+		View customView = LayoutInflater.from(getApplicationContext()).inflate(
+				R.layout.title, null);
+		actionBar.setCustomView(customView);
+		mAbCustomView = new ActionBarCustomView();
+		mAbCustomView.homeImage = (ImageView) customView
+				.findViewById(R.id.iv_title_home);
+		mAbCustomView.titleTv = (TextView) customView
+				.findViewById(R.id.tv_title_content);
+		mAbCustomView.homeImage.setOnClickListener(this);
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-    }
-    
+	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -167,14 +189,14 @@ public class MainActivity extends ActionBarActivity implements OnSlideItemSelect
 		}
 		return true;
 	}
-	
+
 	private void registerScrollReceiver(Context ctx) {
 		IntentFilter filter = new IntentFilter(PageView.ACTION_PAGE_BOTTOM);
 		filter.addAction(PageView.ACTION_PAGE_TOP);
 		ctx.registerReceiver(mPageScrollReceiver, filter);
 	}
-	
-	private  BroadcastReceiver mPageScrollReceiver = new BroadcastReceiver() {
+
+	private BroadcastReceiver mPageScrollReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			final String action = intent.getAction();
@@ -182,22 +204,19 @@ public class MainActivity extends ActionBarActivity implements OnSlideItemSelect
 				onPageScrollToBottom();
 			} else if (PageView.ACTION_PAGE_TOP.equals(action)) {
 				onPageScrollToTop();
-			} 
+			}
 		}
 	};
 
-	
 	private void onPageScrollToBottom() {
 		Log.d(TAG, "onPageScrollToBottom()+");
-//		mFlipView.setFlipByTouchEnabled(true);
+		// mFlipView.setFlipByTouchEnabled(true);
 	}
-	
+
 	private void onPageScrollToTop() {
 		Log.d(TAG, "onPageScrollToTop()+");
-//		mFlipView.setFlipByTouchEnabled(true);
+		// mFlipView.setFlipByTouchEnabled(true);
 	}
-
-
 
 	@Override
 	public void onSlideItemSelect(Document doc) {
@@ -214,15 +233,13 @@ public class MainActivity extends ActionBarActivity implements OnSlideItemSelect
 		flipNextPage();
 	}
 
-
 	@Override
 	public void onViewFlipped(View view, int position) {
-		Toast.makeText(view.getContext(), "Flipped to page " + position, Toast.LENGTH_SHORT).show();
-        mFlipView.setFlipByTouchEnabled(false);	
-        mDocManager.persistDocument();
+		Toast.makeText(view.getContext(), "Flipped to page " + position,
+				Toast.LENGTH_SHORT).show();
+		mFlipView.setFlipByTouchEnabled(false);
+		mDocManager.persistDocument();
 	}
-
-
 
 	@Override
 	public void onClick(View v) {
