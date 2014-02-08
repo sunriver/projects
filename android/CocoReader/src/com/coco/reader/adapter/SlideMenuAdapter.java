@@ -16,15 +16,17 @@ import com.coco.reader.data.DocumentManager;
 
 public class SlideMenuAdapter extends ArrayAdapter<SlideMenuItem> {
 	private DocumentManager mDocManager;
+	private int mSelectionPos ;
 	
 	public SlideMenuAdapter(Context context) {
 		super(context, 0);
 		mDocManager = DocumentManager.getInstance(context);
+		mSelectionPos = 0;
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.row, null);
+			convertView = LayoutInflater.from(getContext()).inflate(R.layout.row, parent, false);
 		}
 		SlideMenuItem item = getItem(position);
 		TextView title = (TextView) convertView;
@@ -33,9 +35,9 @@ public class SlideMenuAdapter extends ArrayAdapter<SlideMenuItem> {
 		
 		Document doc = mDocManager.getSelectDocument();
 		if (doc != null && doc.getDocName().equals(item.title)) {
-			convertView.setPressed(true);
+			convertView.setBackgroundResource(R.drawable.nav_list_bg_pressed);
 		} else {
-			convertView.setPressed(false);
+			convertView.setBackgroundResource(android.R.color.transparent);
 		}
 		return convertView;
 	}

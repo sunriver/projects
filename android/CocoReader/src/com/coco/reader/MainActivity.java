@@ -44,16 +44,23 @@ public class MainActivity extends ActionBarActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		initActionBar();
 		mDocManager = DocumentManager.getInstance(getApplicationContext());
+		initActionBar();
+		initFlipView();
+		initSlidingMenu();
+		registerScrollReceiver(getApplicationContext());
+	}
+	
+	private void initFlipView() {
 		mFlipView = new FlipViewController(getApplicationContext());
 		mPageAdapter = new PageAdapter(getApplicationContext(), this);
 		mFlipView.setAdapter(mPageAdapter);
 		mFlipView.setFlipByTouchEnabled(false);
-
 		mFlipView.setOnViewFlipListener(this);
-
 		setContentView(mFlipView);
+	}
+
+	private void initSlidingMenu() {
 		SlidingMenu menu = new SlidingMenu(this);
 		menu.setMode(SlidingMenu.LEFT);
 		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
@@ -64,11 +71,8 @@ public class MainActivity extends ActionBarActivity implements
 		menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
 		menu.setMenu(R.layout.menu);
 		mSlidingMenu = menu;
-		
+
 		initSlidingMenuTab();
-
-		registerScrollReceiver(getApplicationContext());
-
 	}
 
 	private void initSlidingMenuTab() {
@@ -76,11 +80,9 @@ public class MainActivity extends ActionBarActivity implements
 		tabHost.setup();
 		String navDirectory = this.getString(R.string.nav_directory);
 		String navBookmark = this.getString(R.string.nav_bookmark);
-		tabHost.addTab(tabHost.newTabSpec("tab1")
-				.setIndicator(navDirectory)
+		tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator(navDirectory)
 				.setContent(R.id.nav_directory));
-		tabHost.addTab(tabHost.newTabSpec("tab2")
-				.setIndicator(navBookmark)
+		tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator(navBookmark)
 				.setContent(R.id.nav_bookmark));
 	}
 
