@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.ActionBar;
@@ -14,12 +15,14 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,12 +37,14 @@ import com.codo.reader.data.Document;
 import com.codo.reader.data.DocumentManager;
 import com.codo.reader.data.Page;
 
-public class MainActivity extends ActionBarActivity implements OnSlideItemSelectListener, PageChnageListener, FlipViewController.ViewFlipListener {
+public class MainActivity extends ActionBarActivity implements OnSlideItemSelectListener, PageChnageListener, FlipViewController.ViewFlipListener, View.OnClickListener {
 	private static final String TAG = MainActivity.class.getSimpleName();
 	
 	private FlipViewController mFlipView;
 	private PageAdapter mPageAdapter;
 	private DocumentManager mDocManager;
+	private ActionBarCustomView mAbCustomView;
+	private SlidingMenu mSlidingMenu;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +69,12 @@ public class MainActivity extends ActionBarActivity implements OnSlideItemSelect
 		menu.setFadeDegree(0.35f);
 		menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
 		menu.setMenu(R.layout.menu);
+		mSlidingMenu = menu;
 		
 		initActionBar();
 		
 		registerScrollReceiver(getApplicationContext());
+		
 	}
 	
 	
@@ -139,11 +146,21 @@ public class MainActivity extends ActionBarActivity implements OnSlideItemSelect
 		mFlipView.onTouchEvent(upEvent);
 	}
 
+	private static class ActionBarCustomView {
+		ImageView homeImage;
+		TextView titleTv;
+	}
     private void initActionBar() {
     	ActionBar actionBar = getSupportActionBar();
-    	
-		ViewUtil.setActionBarBackgroundRepeat(this, actionBar, R.drawable.shadow);
-		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_TITLE);
+    	Drawable d = getResources().getDrawable(R.drawable.actionbar_bg_selector);
+    	actionBar.setBackgroundDrawable(d);
+    	View customView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.title, null);
+    	actionBar.setCustomView(customView);
+    	mAbCustomView = new ActionBarCustomView();
+    	mAbCustomView.homeImage = (ImageView) customView.findViewById(R.id.iv_title_home);
+    	mAbCustomView.titleTv = (TextView) customView.findViewById(R.id.tv_title_content);
+    	mAbCustomView.homeImage.setOnClickListener(this);
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
     }
     
 	@Override
@@ -214,6 +231,19 @@ public class MainActivity extends ActionBarActivity implements OnSlideItemSelect
 		Toast.makeText(view.getContext(), "Flipped to page " + position, Toast.LENGTH_SHORT).show();
         mFlipView.setFlipByTouchEnabled(false);	
         mDocManager.persistDocument();
+	}
+
+
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.iv_title_home:
+			mSlidingMenu.showMenu(true);
+			break;
+		default:
+			;
+		}
 	}
 
 }
