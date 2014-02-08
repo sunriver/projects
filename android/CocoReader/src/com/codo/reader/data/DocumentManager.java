@@ -17,7 +17,7 @@ public class DocumentManager {
 	private WeakHashMap<String, Document> mDocMap;
 	private static DocumentManager mInstance;
 	private SharedPreferences mPreference;
-	private Document mCurrDocument;
+	private Document mSelectDocument;
 	
 	private DocumentManager(Context context) {
 		mContext = context.getApplicationContext();
@@ -34,6 +34,17 @@ public class DocumentManager {
 		return null;
 	}
 	
+	public synchronized void setSelectDocument(Document document) {
+		this.mSelectDocument = document;
+	}
+	
+	public synchronized Document getSelectDocument() {
+		if (null == mSelectDocument) {
+			mSelectDocument = getDefaultDocument();
+		}
+		return mSelectDocument;
+	}
+	
 	public synchronized Document getDocumentByName(String docName) {
 		if (TextUtils.isEmpty(docName)) {
 			return null;
@@ -46,12 +57,11 @@ public class DocumentManager {
 			doc.reset();
 		}
 		persistDocument();
-		mCurrDocument = doc;
 		return doc;
 	}
 	
 	public void persistDocument() {
-		final Document doc = mCurrDocument;
+		final Document doc = mSelectDocument;
 		if (null == doc) {
 			return;
 		}
@@ -61,7 +71,7 @@ public class DocumentManager {
 			  .commit();
 	}
 	
-	public Document getDefaultDocument() {
+	private Document getDefaultDocument() {
 		String defaultDocName = mPreference.getString(Consts.PREF_PROPERTY_DOCUMENT_DEFALUT, null);
 		Document doc = getDocumentByName(defaultDocName);
 		if (doc != null) {

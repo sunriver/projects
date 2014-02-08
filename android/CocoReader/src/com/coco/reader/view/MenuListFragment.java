@@ -17,6 +17,7 @@ import android.widget.ListView;
 public class MenuListFragment extends ListFragment {
 	private DocumentManager mDocManager;
 	private OnSlideItemSelectListener mOnSlideItemSelectListener;
+	private SlideMenuAdapter mSlideMenuAdapter;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.list, null);
@@ -29,15 +30,15 @@ public class MenuListFragment extends ListFragment {
 		if (activity instanceof OnSlideItemSelectListener) {
 			this.mOnSlideItemSelectListener = (OnSlideItemSelectListener) activity;
 		}
-		SlideMenuAdapter adapter = new SlideMenuAdapter(activity);
+		mSlideMenuAdapter = new SlideMenuAdapter(activity);
 		String[] docNames = mDocManager.getAllDocuments();
 		if (docNames != null) {
 			for (String docName : docNames) {
 				final String tempDocName = docName.substring(0, docName.length() - 4);
-				adapter.add(new SlideMenuItem(tempDocName, android.R.drawable.ic_menu_search));
+				mSlideMenuAdapter.add(new SlideMenuItem(tempDocName, android.R.drawable.ic_menu_search));
 			}
 		}
-		setListAdapter(adapter);
+		setListAdapter(mSlideMenuAdapter);
 	}
 	
 	
@@ -47,6 +48,7 @@ public class MenuListFragment extends ListFragment {
 		SlideMenuItem item = (SlideMenuItem) v.getTag();
 		Document doc = mDocManager.getDocumentByName(item.title);
 		if (doc != null && mOnSlideItemSelectListener != null) {
+			mDocManager.setSelectDocument(doc);
 			mOnSlideItemSelectListener.onSlideItemSelect(doc);
 		}
 	}

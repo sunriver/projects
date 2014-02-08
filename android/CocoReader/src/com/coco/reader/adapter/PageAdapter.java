@@ -42,7 +42,7 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 	
 	private void loadDefaultDocument(Context ctx) {
 		DocumentManager docManager = DocumentManager.getInstance(ctx);
-		Document doc = docManager.getDefaultDocument();
+		Document doc = docManager.getSelectDocument();
 		if (doc != null) {
 			setDocument(doc);
 		}

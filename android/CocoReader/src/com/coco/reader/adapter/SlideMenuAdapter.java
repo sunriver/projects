@@ -10,11 +10,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.coco.reader.adapter.SlideMenuAdapter.SlideMenuItem;
+import com.codo.reader.data.Document;
+import com.codo.reader.data.DocumentManager;
 
 
 public class SlideMenuAdapter extends ArrayAdapter<SlideMenuItem> {
+	private DocumentManager mDocManager;
+	
 	public SlideMenuAdapter(Context context) {
 		super(context, 0);
+		mDocManager = DocumentManager.getInstance(context);
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -22,11 +27,16 @@ public class SlideMenuAdapter extends ArrayAdapter<SlideMenuItem> {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.row, null);
 		}
 		SlideMenuItem item = getItem(position);
-		ImageView icon = (ImageView) convertView.findViewById(R.id.row_icon);
-		icon.setImageResource(item.iconRes);
-		TextView title = (TextView) convertView.findViewById(R.id.row_title);
+		TextView title = (TextView) convertView;
 		title.setText(item.title);
 		convertView.setTag(item);
+		
+		Document doc = mDocManager.getSelectDocument();
+		if (doc != null && doc.getDocName().equals(item.title)) {
+			convertView.setPressed(true);
+		} else {
+			convertView.setPressed(false);
+		}
 		return convertView;
 	}
 

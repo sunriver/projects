@@ -220,6 +220,7 @@ public class MainActivity extends ActionBarActivity implements
 
 	@Override
 	public void onSlideItemSelect(Document doc) {
+		mAbCustomView.titleTv.setText(doc.getDocName());
 		mPageAdapter.setDocument(doc);
 	}
 
