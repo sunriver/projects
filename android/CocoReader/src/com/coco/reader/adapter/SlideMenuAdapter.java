@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import com.coco.reader.adapter.SlideMenuAdapter.SlideMenuItem;
 import com.coco.reader.data.Document;
@@ -16,12 +17,12 @@ import com.coco.reader.data.DocumentManager;
 
 public class SlideMenuAdapter extends ArrayAdapter<SlideMenuItem> {
 	private DocumentManager mDocManager;
-	private int mSelectionPos ;
+	private ListView mListView;
 	
-	public SlideMenuAdapter(Context context) {
+	public SlideMenuAdapter(Context context, ListView listView) {
 		super(context, 0);
 		mDocManager = DocumentManager.getInstance(context);
-		mSelectionPos = 0;
+		mListView = listView;
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -29,18 +30,25 @@ public class SlideMenuAdapter extends ArrayAdapter<SlideMenuItem> {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.row, parent, false);
 		}
 		SlideMenuItem item = getItem(position);
-		TextView title = (TextView) convertView;
-		title.setText(item.title);
+		TextView tv = (TextView) convertView;
+		tv.setText(item.title);
 		convertView.setTag(item);
-		
 		Document doc = mDocManager.getSelectDocument();
 		if (doc != null && doc.getDocName().equals(item.title)) {
-			convertView.setBackgroundResource(R.drawable.nav_list_bg_pressed);
+			tv.setActivated(true);
+			//Remember the select view.
+			mListView.setTag(tv); 
 		} else {
-			convertView.setBackgroundResource(android.R.color.transparent);
+			tv.setActivated(false);
 		}
 		return convertView;
 	}
+	
+	
+	public void selectDocument(Document doc) {
+//		mListView.getSelectedView().setActivated(false);
+	}
+	
 
 	public static class SlideMenuItem {
 		public String title;

@@ -18,6 +18,7 @@ public class MenuListFragment extends ListFragment {
 	private DocumentManager mDocManager;
 	private OnSlideItemSelectListener mOnSlideItemSelectListener;
 	private SlideMenuAdapter mSlideMenuAdapter;
+	private ListView mListView;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.list, null);
@@ -30,7 +31,8 @@ public class MenuListFragment extends ListFragment {
 		if (activity instanceof OnSlideItemSelectListener) {
 			this.mOnSlideItemSelectListener = (OnSlideItemSelectListener) activity;
 		}
-		mSlideMenuAdapter = new SlideMenuAdapter(activity);
+		mListView = this.getListView();
+		mSlideMenuAdapter = new SlideMenuAdapter(activity, mListView);
 		String[] docNames = mDocManager.getAllDocuments();
 		if (docNames != null) {
 			for (String docName : docNames) {
@@ -48,9 +50,17 @@ public class MenuListFragment extends ListFragment {
 		SlideMenuItem item = (SlideMenuItem) v.getTag();
 		Document doc = mDocManager.getDocumentByName(item.title);
 		if (doc != null && mOnSlideItemSelectListener != null) {
+			updateSelectedView(v);
 			mDocManager.setSelectDocument(doc);
 			mOnSlideItemSelectListener.onSlideItemSelect(doc);
 		}
+	}
+	
+	private void updateSelectedView(View v) {
+		View lastedSelectView = (View) mListView.getTag();
+		lastedSelectView.setActivated(false);
+		v.setActivated(true);
+		mListView.setTag(v);
 	}
 	
 	
