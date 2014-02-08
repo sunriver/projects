@@ -5,9 +5,9 @@ import java.util.List;
 
 import com.coco.reader.R;
 import com.coco.reader.view.PageView;
-import com.codo.reader.data.Document;
-import com.codo.reader.data.DocumentManager;
-import com.codo.reader.data.Page;
+import com.coco.reader.data.Document;
+import com.coco.reader.data.DocumentManager;
+import com.coco.reader.data.Page;
 import com.sunriver.common.utils.ApiUtil;
 import android.content.Context;
 import android.os.AsyncTask;

@@ -1,4 +1,4 @@
-package com.codo.reader.data;
+package com.coco.reader.data;
 
 import java.io.IOException;
 import java.io.Reader;

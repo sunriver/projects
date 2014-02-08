@@ -10,8 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.coco.reader.adapter.SlideMenuAdapter.SlideMenuItem;
-import com.codo.reader.data.Document;
-import com.codo.reader.data.DocumentManager;
+import com.coco.reader.data.Document;
+import com.coco.reader.data.DocumentManager;
 
 
 public class SlideMenuAdapter extends ArrayAdapter<SlideMenuItem> {

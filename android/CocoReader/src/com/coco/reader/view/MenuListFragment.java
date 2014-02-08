@@ -3,8 +3,8 @@ package com.coco.reader.view;
 import com.coco.reader.R;
 import com.coco.reader.adapter.SlideMenuAdapter;
 import com.coco.reader.adapter.SlideMenuAdapter.SlideMenuItem;
-import com.codo.reader.data.Document;
-import com.codo.reader.data.DocumentManager;
+import com.coco.reader.data.Document;
+import com.coco.reader.data.DocumentManager;
 
 import android.app.Activity;
 import android.os.Bundle;

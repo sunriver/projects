@@ -27,8 +27,8 @@ import com.coco.reader.adapter.PageAdapter;
 import com.coco.reader.adapter.PageAdapter.PageChnageListener;
 import com.coco.reader.view.MenuListFragment.OnSlideItemSelectListener;
 import com.coco.reader.view.PageView;
-import com.codo.reader.data.Document;
-import com.codo.reader.data.DocumentManager;
+import com.coco.reader.data.Document;
+import com.coco.reader.data.DocumentManager;
 
 public class MainActivity extends ActionBarActivity implements
 		OnSlideItemSelectListener, PageChnageListener,

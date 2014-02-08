@@ -1,4 +1,4 @@
-package com.codo.reader.data;
+package com.coco.reader.data;
 
 public class Consts {
 	public static final String  PREF_FILE = "document.pref";
