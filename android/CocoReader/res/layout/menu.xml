@@ -1,7 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    android:name="com.coco.reader.view.MenuListFragment"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
-</fragment>
+    <TabHost
+        android:id="@+id/myTabHost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <!-- TabWidget's id must be @android:id/tabs -->
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:orientation="horizontal" />
+
+            <!-- FrameLayout's id must be  @android:id/tabcontent -->
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0" >
+
+                <fragment
+                    android:id="@+id/nav_directory"
+                    android:name="com.coco.reader.view.MenuListFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <fragment
+                    android:id="@+id/nav_bookmark"
+                    android:name="com.coco.reader.view.MenuListFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+
+</LinearLayout>
