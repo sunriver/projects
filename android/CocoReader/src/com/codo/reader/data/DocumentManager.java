@@ -1,7 +1,7 @@
 package com.codo.reader.data;
 
 import java.io.IOException;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.WeakHashMap;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -14,14 +14,14 @@ public class DocumentManager {
 	private final static String ASSET_DOCS = "docs";
 	
 	private Context mContext;
-	private ConcurrentHashMap<String, Document> mDocMap;
+	private WeakHashMap<String, Document> mDocMap;
 	private static DocumentManager mInstance;
 	private SharedPreferences mPreference;
 	private Document mCurrDocument;
 	
 	private DocumentManager(Context context) {
 		mContext = context.getApplicationContext();
-		mDocMap = new ConcurrentHashMap<String, Document>();
+		mDocMap = new WeakHashMap<String, Document>();
 		mPreference = context.getSharedPreferences(Consts.PREF_FILE, Context.MODE_PRIVATE);
 	}
 
@@ -34,11 +34,11 @@ public class DocumentManager {
 		return null;
 	}
 	
-	public Document getDocumentByName(String docName) {
+	public synchronized Document getDocumentByName(String docName) {
 		if (TextUtils.isEmpty(docName)) {
 			return null;
 		}
-		Document doc = new Document(mContext, ASSET_DOCS, docName);
+		Document doc = mDocMap.get(docName);
 		if (null == doc) {
 			doc = new Document(mContext, ASSET_DOCS, docName);
 			mDocMap.put(docName, doc);

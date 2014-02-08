@@ -1,8 +1,6 @@
 package com.coco.reader;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.sunriver.common.utils.ViewUtil;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -13,29 +11,23 @@ import android.os.SystemClock;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.GestureDetector;
-import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.aphidmobile.flip.FlipViewController;
 import com.coco.reader.R;
 import com.coco.reader.adapter.PageAdapter;
 import com.coco.reader.adapter.PageAdapter.PageChnageListener;
-import com.coco.reader.view.MenuListFragment;
 import com.coco.reader.view.MenuListFragment.OnSlideItemSelectListener;
 import com.coco.reader.view.PageView;
 import com.codo.reader.data.Document;
 import com.codo.reader.data.DocumentManager;
-import com.codo.reader.data.Page;
 
 public class MainActivity extends ActionBarActivity implements OnSlideItemSelectListener, PageChnageListener, FlipViewController.ViewFlipListener, View.OnClickListener {
 	private static final String TAG = MainActivity.class.getSimpleName();

@@ -1,6 +1,5 @@
 package com.codo.reader.data;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,7 +9,6 @@ import android.content.res.AssetManager;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
-import com.coco.reader.R;
 
 public class Document implements Parcelable {
 	private final static String TAG = Document.class.getSimpleName();
