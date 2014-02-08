@@ -17,6 +17,6 @@
     <dimen name="title_margin">5dp</dimen>
 
     <!-- navigation -->
-    <dimen name="nav_list_item_height">60dp</dimen>
+    <dimen name="nav_list_item_height">50dp</dimen>
 
 </resources>
