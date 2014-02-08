@@ -65,13 +65,13 @@ public class MainActivity extends ActionBarActivity implements
 		menu.setMenu(R.layout.menu);
 		mSlidingMenu = menu;
 		
-		initNavTab();
+		initSlidingMenuTab();
 
 		registerScrollReceiver(getApplicationContext());
 
 	}
 
-	private void initNavTab() {
+	private void initSlidingMenuTab() {
 		TabHost tabHost = (TabHost) findViewById(R.id.myTabHost);
 		tabHost.setup();
 		String navDirectory = this.getString(R.string.nav_directory);
