@@ -173,6 +173,7 @@ public class MainActivity extends ActionBarActivity implements
 		mAbCustomView.titleTv = (TextView) customView
 				.findViewById(R.id.tv_title_content);
 		mAbCustomView.homeImage.setOnClickListener(this);
+		customView.findViewById(R.id.nav_home).setOnClickListener(this);
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 	}
 
@@ -247,6 +248,7 @@ public class MainActivity extends ActionBarActivity implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.nav_home:
 		case R.id.iv_title_home:
 			mSlidingMenu.showMenu(true);
 			break;
