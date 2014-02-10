@@ -1,6 +1,7 @@
 package com.coco.reader;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -18,22 +20,23 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.SeekBar.OnSeekBarChangeListener;
 import com.aphidmobile.flip.FlipViewController;
 import com.coco.reader.R;
 import com.coco.reader.adapter.PageAdapter;
 import com.coco.reader.adapter.PageAdapter.PageChnageListener;
+import com.coco.reader.view.ChapterFragment;
 import com.coco.reader.view.ChapterFragment.OnSlideItemSelectListener;
+import com.coco.reader.view.OptionFragment;
+import com.coco.reader.view.OptionFragment.TextSizeChangeListener;
 import com.coco.reader.view.PageView;
 import com.coco.reader.data.Document;
 import com.coco.reader.data.DocumentManager;
 
 public class MainActivity extends ActionBarActivity implements
-		OnSlideItemSelectListener, PageChnageListener, OnSeekBarChangeListener,
+		OnSlideItemSelectListener, PageChnageListener, TextSizeChangeListener,
 		FlipViewController.ViewFlipListener, View.OnClickListener {
 	private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -42,6 +45,7 @@ public class MainActivity extends ActionBarActivity implements
 	private DocumentManager mDocManager;
 	private ActionBarCustomView mAbCustomView;
 	private SlidingMenu mSlidingMenu;
+	private SlidingMenuTabs mSlidingMenuTabs;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +80,11 @@ public class MainActivity extends ActionBarActivity implements
 
 		initSlidingMenuTab();
 	}
+	
+	private static class SlidingMenuTabs {
+		ChapterFragment chapter;
+		OptionFragment option;
+	}
 
 	private void initSlidingMenuTab() {
 		TabHost tabHost = (TabHost) findViewById(R.id.myTabHost);
@@ -83,9 +92,14 @@ public class MainActivity extends ActionBarActivity implements
 		String navDirectory = this.getString(R.string.nav_chapter);
 		String navBookmark = this.getString(R.string.nav_option);
 		tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator(navDirectory)
-				.setContent(R.id.nav_directory));
+				.setContent(R.id.nav_chapter));
 		tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator(navBookmark)
 				.setContent(R.id.nav_option));
+		
+		mSlidingMenuTabs = new SlidingMenuTabs(); 
+		FragmentManager fragmentManager = getSupportFragmentManager();
+		mSlidingMenuTabs.chapter = (ChapterFragment) fragmentManager.findFragmentById(R.id.nav_chapter);
+		mSlidingMenuTabs.option = (OptionFragment) fragmentManager.findFragmentById(R.id.nav_option);
 	}
 
 	@Override
@@ -259,9 +273,11 @@ public class MainActivity extends ActionBarActivity implements
 		}
 	}
 
-	private void onSizeChange(View v, int size) {
-		if (v != null) {
-			PageView pg = (PageView) v.findViewById(R.id.tv_content);
+	@Override
+	public void onSizeChangeing(int size) {
+		View selectView = mFlipView.getSelectedView();
+		if (selectView != null) {
+			PageView pg = (PageView) selectView.findViewById(R.id.tv_content);
 			if (pg != null) {
 				pg.setTextSize(size);
 				mPageAdapter.setTextSize(size);
@@ -270,26 +286,11 @@ public class MainActivity extends ActionBarActivity implements
 	}
 
 	@Override
-	public void onProgressChanged(SeekBar seekBar, int progress,
-			boolean fromUser) {
-		View selectView = mFlipView.getSelectedView();
-		onSizeChange(selectView, progress);
-	}
-
-	@Override
-	public void onStartTrackingTouch(SeekBar seekBar) {
+	public void onSizeChanged(int size) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
-	public void onStopTrackingTouch(SeekBar seekBar) {
-		int count = mFlipView.getCount();
-		for (int i = 0; i < count; i++) {
-			View v = mFlipView.getChildAt(i);
-			onSizeChange(v, seekBar.getProgress());
-		}
-		
-	}
+
 
 }

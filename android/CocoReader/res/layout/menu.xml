@@ -32,7 +32,7 @@
                 android:layout_weight="0" >
 
                 <fragment
-                    android:id="@+id/nav_directory"
+                    android:id="@+id/nav_chapter"
                     android:name="com.coco.reader.view.ChapterFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
