@@ -18,9 +18,11 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import com.aphidmobile.flip.FlipViewController;
 import com.coco.reader.R;
 import com.coco.reader.adapter.PageAdapter;
@@ -31,7 +33,7 @@ import com.coco.reader.data.Document;
 import com.coco.reader.data.DocumentManager;
 
 public class MainActivity extends ActionBarActivity implements
-		OnSlideItemSelectListener, PageChnageListener,
+		OnSlideItemSelectListener, PageChnageListener, OnSeekBarChangeListener,
 		FlipViewController.ViewFlipListener, View.OnClickListener {
 	private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -255,6 +257,39 @@ public class MainActivity extends ActionBarActivity implements
 		default:
 			;
 		}
+	}
+
+	private void onSizeChange(View v, int size) {
+		if (v != null) {
+			PageView pg = (PageView) v.findViewById(R.id.tv_content);
+			if (pg != null) {
+				pg.setTextSize(size);
+				mPageAdapter.setTextSize(size);
+			}
+		}
+	}
+
+	@Override
+	public void onProgressChanged(SeekBar seekBar, int progress,
+			boolean fromUser) {
+		View selectView = mFlipView.getSelectedView();
+		onSizeChange(selectView, progress);
+	}
+
+	@Override
+	public void onStartTrackingTouch(SeekBar seekBar) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onStopTrackingTouch(SeekBar seekBar) {
+		int count = mFlipView.getCount();
+		for (int i = 0; i < count; i++) {
+			View v = mFlipView.getChildAt(i);
+			onSizeChange(v, seekBar.getProgress());
+		}
+		
 	}
 
 }

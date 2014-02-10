@@ -1,9 +1,9 @@
 package com.coco.reader.view;
 
+import com.coco.reader.R;
+
 import android.content.Context;
 import android.content.Intent;
-import android.text.Layout;
-import android.text.method.ScrollingMovementMethod;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -47,6 +47,9 @@ public class PageView extends EditText {
 
 	public PageView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
+		int defaultTxtSize = context.getResources().getInteger(R.integer.text_size_default);
+		setTextSize(defaultTxtSize);
+		
 		mScrollByTouchEnabled = true;
 		mGestureDetector = new GestureDetector(mGestureListener);
 		setOnTouchListener(new OnTouchListener () {
@@ -60,6 +63,15 @@ public class PageView extends EditText {
 		});
 	}
 	
+	
+	
+	@Override
+	public void setTextSize(float size) {
+		super.setTextSize(size + 15);
+	}
+
+
+
 	private boolean  isScrollToBottom(int scrollY) {
 		int vsRange = this.computeVerticalScrollRange();
 		if (scrollY + this.getBottom() >= vsRange) {
