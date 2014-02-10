@@ -50,7 +50,7 @@ public class MainActivity extends ActionBarActivity implements
 		initSlidingMenu();
 		registerScrollReceiver(getApplicationContext());
 	}
-	
+
 	private void initFlipView() {
 		mFlipView = new FlipViewController(getApplicationContext());
 		mPageAdapter = new PageAdapter(getApplicationContext(), this);
@@ -79,11 +79,11 @@ public class MainActivity extends ActionBarActivity implements
 		TabHost tabHost = (TabHost) findViewById(R.id.myTabHost);
 		tabHost.setup();
 		String navDirectory = this.getString(R.string.nav_directory);
-		String navBookmark = this.getString(R.string.nav_bookmark);
+		String navBookmark = this.getString(R.string.nav_option);
 		tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator(navDirectory)
 				.setContent(R.id.nav_directory));
 		tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator(navBookmark)
-				.setContent(R.id.nav_bookmark));
+				.setContent(R.id.nav_option));
 	}
 
 	@Override
