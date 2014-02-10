@@ -10,5 +10,12 @@
     <!-- navigation -->
     <string name="nav_directory">Directory</string>
     <string name="nav_bookmark">Bookmark</string>
+    <string name="nav_option">Option</string>
+
+    <!-- options -->
+    <string name="op_text_size">"Text Size:"</string>
+    <string name="op_theme">"Theme:"</string>
+    <string name="op_theme_default">"Default"</string>
+    <string name="op_theme_lightblue">"Light Blue"</string>
 
 </resources>
