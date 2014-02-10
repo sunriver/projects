@@ -8,7 +8,7 @@
     <string name="action_list">目录</string>
 
     <!-- navigation -->
-    <string name="nav_directory">目录</string>
+    <string name="nav_chapter">章节</string>
     <string name="nav_bookmark">书签</string>
     <string name="nav_option">选项</string>
     

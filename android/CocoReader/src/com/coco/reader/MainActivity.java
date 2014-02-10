@@ -25,7 +25,7 @@ import com.aphidmobile.flip.FlipViewController;
 import com.coco.reader.R;
 import com.coco.reader.adapter.PageAdapter;
 import com.coco.reader.adapter.PageAdapter.PageChnageListener;
-import com.coco.reader.view.MenuListFragment.OnSlideItemSelectListener;
+import com.coco.reader.view.ChapterFragment.OnSlideItemSelectListener;
 import com.coco.reader.view.PageView;
 import com.coco.reader.data.Document;
 import com.coco.reader.data.DocumentManager;
@@ -78,7 +78,7 @@ public class MainActivity extends ActionBarActivity implements
 	private void initSlidingMenuTab() {
 		TabHost tabHost = (TabHost) findViewById(R.id.myTabHost);
 		tabHost.setup();
-		String navDirectory = this.getString(R.string.nav_directory);
+		String navDirectory = this.getString(R.string.nav_chapter);
 		String navBookmark = this.getString(R.string.nav_option);
 		tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator(navDirectory)
 				.setContent(R.id.nav_directory));

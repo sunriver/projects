@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-public class MenuListFragment extends ListFragment {
+public class ChapterFragment extends ListFragment {
 	private DocumentManager mDocManager;
 	private OnSlideItemSelectListener mOnSlideItemSelectListener;
 	private SlideMenuAdapter mSlideMenuAdapter;
