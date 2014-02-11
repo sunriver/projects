@@ -42,4 +42,13 @@ public class PageView extends RelativeLayout {
 		}
 	}
 	
+	public float getPageY() {
+		if (mContentEt != null) {
+			return mContentEt.getScaleY();
+		}
+		return 0;
+	}
+	
+
+	
 }

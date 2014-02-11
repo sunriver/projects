@@ -35,6 +35,10 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 		loadDefaultDocument(ctx);
 	}
 	
+	public PageAdapter(Context ctx) {
+		this (ctx, null);
+	}
+	
 	public void setDocument(Document doc) {
 		this.mDocument = doc;
 		mPageList.clear();
