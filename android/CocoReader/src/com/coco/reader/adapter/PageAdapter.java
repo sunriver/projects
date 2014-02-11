@@ -52,8 +52,8 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 	
 	
 	private void init() {
-		mHandler.post(new GetPageTask(0, 5));
-		mHandler.postDelayed(new GetPageTask(5, Integer.MAX_VALUE), 3000);
+		mHandler.post(new GetPageTask(0, 1));
+//		mHandler.postDelayed(new GetPageTask(5, Integer.MAX_VALUE), 3000);
 	}
 	
 	private void loadPages(int pageOffset, int pageCapacity) {
