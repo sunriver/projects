@@ -177,21 +177,18 @@ public class MainActivity extends ActionBarActivity implements
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		// case R.id.menu_search:
-		// onSearchRequested();
-		// break;
-		case R.id.action_list:
-			break;
-		case R.id.action_settings:
-			break;
-		default:
-			super.onOptionsItemSelected(item);
-		}
-		return true;
-	}
+//	@Override
+//	public boolean onOptionsItemSelected(MenuItem item) {
+//		switch (item.getItemId()) {
+//		case R.id.action_list:
+//			break;
+//		case R.id.action_settings:
+//			break;
+//		default:
+//			super.onOptionsItemSelected(item);
+//		}
+//		return true;
+//	}
 
 	@Override
 	public void onPreviousPage() {
