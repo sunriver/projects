@@ -4,16 +4,21 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
-public class Document implements Parcelable {
+public class Document {
 	private final static String TAG = Document.class.getSimpleName();
 	private String mDocName;
 	private String mDocFile;
+	private Map<Integer, Page> mPages;
 	private InputStream mInputStream;
 	private StringBuffer mContent;
 	private int mAvaiableSize;
@@ -26,6 +31,7 @@ public class Document implements Parcelable {
 		mPageIndex = 0;
 		this.mDocName = name;
 		mDocFile = path + "/" + mDocName + ".txt";
+		mPages = new HashMap<Integer, Page>();
 		openDocument();
 	}
 
@@ -61,9 +67,13 @@ public class Document implements Parcelable {
 
 	public Page getPage(int pageIndex) {
 		try {
-			Page page = new Page(pageIndex);
-			int avaiableSize = page.read(mReader, true);
-			Log.d(TAG, "getPage() pageIndex=" + pageIndex + " avaiableSize=" + avaiableSize);
+			Page page = mPages.get(pageIndex);
+			if (null == page) {
+				page = new Page(pageIndex);
+				mPages.put(pageIndex, page);
+				int avaiableSize = page.read(mReader, true);
+				Log.d(TAG, "getPage() pageIndex=" + pageIndex + " avaiableSize=" + avaiableSize);
+			}
 			mPageIndex = pageIndex;
 			return page;
 		} catch (IOException e) {
@@ -101,17 +111,6 @@ public class Document implements Parcelable {
 	public Page nextPage() {
 		int pageIndex = mPageIndex + 1;
 		return getPage(pageIndex);
-	}
-
-	@Override
-	public int describeContents() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		// TODO Auto-generated method stub
 	}
 
 }

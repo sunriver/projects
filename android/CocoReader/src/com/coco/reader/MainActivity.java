@@ -50,11 +50,11 @@ public class MainActivity extends ActionBarActivity implements
 	@Override
     protected void onStart() {
 		super.onStart();
-//    	mPageAdapter.loadDefaultDocument(getApplicationContext());
+    	mPageAdapter.loadDefaultDocument(getApplicationContext());
     }
 	
 
-	
+
 	private void initFlipView() {
 		mFlipView = new FlipViewController(getApplicationContext());
 		mPageAdapter = new PageAdapter(getApplicationContext());
@@ -152,6 +152,7 @@ public class MainActivity extends ActionBarActivity implements
 	@Override
 	protected void onDestroy() {
 		saveState();
+		mDocManager.closeAllDocument();
 		super.onDestroy();
 	}
 

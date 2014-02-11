@@ -1,6 +1,7 @@
 package com.coco.reader.data;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.WeakHashMap;
 
 import android.content.Context;
@@ -58,6 +59,13 @@ public class DocumentManager {
 		}
 		persistDocument();
 		return doc;
+	}
+	
+	public void closeAllDocument() {
+		for (Map.Entry<String,Document> entry : mDocMap.entrySet()) {
+			Document doc = entry.getValue();
+			doc.closeDocument();
+		}
 	}
 	
 	public void persistDocument() {

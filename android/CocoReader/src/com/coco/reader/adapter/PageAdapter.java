@@ -32,7 +32,6 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 		mInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mHandler = new Handler();
 		mTextSize = ctx.getResources().getInteger(R.integer.text_size_default);
-		loadDefaultDocument(ctx);
 	}
 	
 	public PageAdapter(Context ctx) {
