@@ -45,7 +45,7 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 		init();
 	}
 	
-	private void loadDefaultDocument(Context ctx) {
+	public void loadDefaultDocument(Context ctx) {
 		DocumentManager docManager = DocumentManager.getInstance(ctx);
 		Document doc = docManager.getSelectDocument();
 		if (doc != null) {
@@ -99,6 +99,7 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 		PageView pv = null;
 		if (null == convertView) {
 			pv = (PageView) mInflater.inflate(R.layout.page, parent, false);
+			pv.init();
 		} else {
 			pv = (PageView) convertView;
 		}

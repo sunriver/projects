@@ -46,7 +46,15 @@ public class MainActivity extends ActionBarActivity implements
 		initFlipView();
 		initSlidingMenu();
 	}
+	
+	@Override
+    protected void onStart() {
+		super.onStart();
+//    	mPageAdapter.loadDefaultDocument(getApplicationContext());
+    }
+	
 
+	
 	private void initFlipView() {
 		mFlipView = new FlipViewController(getApplicationContext());
 		mPageAdapter = new PageAdapter(getApplicationContext());
@@ -149,7 +157,9 @@ public class MainActivity extends ActionBarActivity implements
 
 	private void saveState() {
 		PageView pv = (PageView) mFlipView.getSelectedView();
-		float pageY = pv.getPageY();
+		if (pv != null) {
+			float pageY = pv.getPageY();
+		}
 		mDocManager.persistDocument();
 	}
 
