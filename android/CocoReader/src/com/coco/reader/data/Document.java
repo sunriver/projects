@@ -62,7 +62,7 @@ public class Document implements Parcelable {
 	public Page getPage(int pageIndex) {
 		try {
 			Page page = new Page(pageIndex);
-			int avaiableSize = page.read(mReader);
+			int avaiableSize = page.read(mReader, true);
 			Log.d(TAG, "getPage() pageIndex=" + pageIndex + " avaiableSize=" + avaiableSize);
 			mPageIndex = pageIndex;
 			return page;

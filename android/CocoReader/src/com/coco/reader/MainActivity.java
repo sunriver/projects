@@ -128,26 +128,13 @@ public class MainActivity extends ActionBarActivity implements
 	}
 
 	private void flipNextPage() {
-		int selectionItemPos = mFlipView.getSelectedItemPosition();
-		int itemCount = mFlipView.getCount();
-		if (selectionItemPos < itemCount) {
-			// mFlipView.postFlippedToView(selectionItemPos + 1);
-		}
-		// mFlipView.setSelection(selectionItemPos + 1);
 		mFlipView.setFlipByTouchEnabled(true);
-		sendMotionEvent(200, 200, -1);
-		// mFlipView.refreshPage(selectionItemPos + 1);
+		sendMotionEvent(200, 500, -1);
 	}
 
 	private void flipPreviousPage() {
-		int selectionItemPos = mFlipView.getSelectedItemPosition();
-		if (selectionItemPos > 0) {
-			// mFlipView.postFlippedToView(selectionItemPos - 1);
-		}
-		// mFlipView.setSelection(selectionItemPos - 1);
 		mFlipView.setFlipByTouchEnabled(true);
 		sendMotionEvent(200, 200, 1);
-		// mFlipView.refreshPage(selectionItemPos - 1);
 	}
 
 	private void sendMotionEvent(int x, int y, int dy) {

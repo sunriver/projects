@@ -11,11 +11,13 @@ public class Page {
 	private int mPageIndex;
 	private char[] mPageBuffer;
 	private int mAvaiableSize;
+	private StringBuffer mStrBuf;
 	
 	public Page(int index) {
 		mPageIndex = index;
 		mAvaiableSize = -1;
 		mPageBuffer = new char[PAGE_SIZE];
+		mStrBuf = new StringBuffer();
 	}
 	
 	public int getIndex() {
@@ -24,7 +26,7 @@ public class Page {
 	
 	public String getContent() {
 		if (mAvaiableSize > 0) {
-			return String.valueOf(mPageBuffer);
+			return mStrBuf.toString();
 		}
 		return "";
 	}
@@ -38,11 +40,19 @@ public class Page {
 	}
 	
 	
-	public int read(Reader reader) throws IOException {
-		int offset = mPageIndex * Page.PAGE_SIZE;
-//		reader.reset();
-//		reader.skip(offset);
-		mAvaiableSize = reader.read(mPageBuffer, 0, Page.PAGE_SIZE);
+	public int read(Reader reader, boolean readAll) throws IOException {
+		int count = reader.read(mPageBuffer, 0, Page.PAGE_SIZE);
+		mAvaiableSize = count;
+		if (count > 0) {
+			mStrBuf.append(mPageBuffer, 0, count);
+		}
+		if (readAll) {
+			while ((count = reader.read(mPageBuffer, 0, Page.PAGE_SIZE)) >= 0) {
+				mAvaiableSize += count;
+				mStrBuf.append(mPageBuffer, 0, count);
+			}
+		} 
 		return mAvaiableSize;
+
 	}
 }
