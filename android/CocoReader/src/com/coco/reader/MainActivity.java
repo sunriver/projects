@@ -1,21 +1,13 @@
 package com.coco.reader;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,7 +18,7 @@ import android.widget.Toast;
 import com.aphidmobile.flip.FlipViewController;
 import com.coco.reader.R;
 import com.coco.reader.adapter.PageAdapter;
-import com.coco.reader.adapter.PageAdapter.PageChnageListener;
+import com.coco.reader.adapter.PageAdapter.PageChangeListener;
 import com.coco.reader.view.ChapterFragment;
 import com.coco.reader.view.ChapterFragment.ChapterSelectListener;
 import com.coco.reader.view.OptionFragment;
@@ -36,7 +28,7 @@ import com.coco.reader.data.Document;
 import com.coco.reader.data.DocumentManager;
 
 public class MainActivity extends ActionBarActivity implements
-		ChapterSelectListener, PageChnageListener, TextSizeChangeListener,
+		ChapterSelectListener, PageChangeListener, TextSizeChangeListener,
 		FlipViewController.ViewFlipListener, View.OnClickListener {
 	private static final String TAG = MainActivity.class.getSimpleName();
 

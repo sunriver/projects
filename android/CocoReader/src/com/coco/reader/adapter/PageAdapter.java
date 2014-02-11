@@ -23,10 +23,10 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 	private List<Page> mPageList;
 	private LayoutInflater mInflater;
 	private Handler mHandler;
-	private PageChnageListener mPageChangeListener;
+	private PageChangeListener mPageChangeListener;
 	private float  mTextSize;
 	
-	public PageAdapter(Context ctx, PageChnageListener l) {
+	public PageAdapter(Context ctx, PageChangeListener l) {
 		this.mPageChangeListener = l;
 		mPageList = new ArrayList<Page>();
 		mInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -155,7 +155,7 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 	}
 
 
-	public interface PageChnageListener {
+	public interface PageChangeListener {
 		public void onPreviousPage();
 		public void onNextPage();
 	}
