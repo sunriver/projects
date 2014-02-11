@@ -1,8 +1,8 @@
 package com.coco.reader.view;
 
 import com.coco.reader.R;
-import com.coco.reader.adapter.SlideMenuAdapter;
-import com.coco.reader.adapter.SlideMenuAdapter.SlideMenuItem;
+import com.coco.reader.adapter.ChapterAdapter;
+import com.coco.reader.adapter.ChapterItem;
 import com.coco.reader.data.Document;
 import com.coco.reader.data.DocumentManager;
 
@@ -17,7 +17,7 @@ import android.widget.ListView;
 public class ChapterFragment extends ListFragment {
 	private DocumentManager mDocManager;
 	private ChapterSelectListener mChapterSelectListener;
-	private SlideMenuAdapter mSlideMenuAdapter;
+	private ChapterAdapter mSlideMenuAdapter;
 	private ListView mListView;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,12 +32,12 @@ public class ChapterFragment extends ListFragment {
 			this.mChapterSelectListener = (ChapterSelectListener) activity;
 		}
 		mListView = this.getListView();
-		mSlideMenuAdapter = new SlideMenuAdapter(activity, mListView);
+		mSlideMenuAdapter = new ChapterAdapter(activity, mListView);
 		String[] docNames = mDocManager.getAllDocuments();
 		if (docNames != null) {
 			for (String docName : docNames) {
 				final String tempDocName = docName.substring(0, docName.length() - 4);
-				mSlideMenuAdapter.add(new SlideMenuItem(tempDocName, android.R.drawable.ic_menu_search));
+				mSlideMenuAdapter.add(new ChapterItem(tempDocName, android.R.drawable.ic_menu_search));
 			}
 		}
 		setListAdapter(mSlideMenuAdapter);
@@ -47,7 +47,7 @@ public class ChapterFragment extends ListFragment {
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		SlideMenuItem item = (SlideMenuItem) v.getTag();
+		ChapterItem item = (ChapterItem) v.getTag();
 		Document doc = mDocManager.getDocumentByName(item.title);
 		if (doc != null && mChapterSelectListener != null) {
 			updateSelectedView(v);
