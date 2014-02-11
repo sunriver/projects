@@ -1,9 +1,6 @@
 package com.coco.reader.view;
 
 import com.coco.reader.R;
-import com.coco.reader.data.DocumentManager;
-import com.coco.reader.view.ChapterFragment.OnSlideItemSelectListener;
-
 import android.support.v4.app.Fragment;
 import android.app.Activity;
 import android.os.Bundle;

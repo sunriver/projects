@@ -16,7 +16,7 @@ import android.widget.ListView;
 
 public class ChapterFragment extends ListFragment {
 	private DocumentManager mDocManager;
-	private OnSlideItemSelectListener mOnSlideItemSelectListener;
+	private ChapterSelectListener mChapterSelectListener;
 	private SlideMenuAdapter mSlideMenuAdapter;
 	private ListView mListView;
 
@@ -28,8 +28,8 @@ public class ChapterFragment extends ListFragment {
 		super.onActivityCreated(savedInstanceState);
 		Activity activity = getActivity();
 		mDocManager = DocumentManager.getInstance(activity);
-		if (activity instanceof OnSlideItemSelectListener) {
-			this.mOnSlideItemSelectListener = (OnSlideItemSelectListener) activity;
+		if (activity instanceof ChapterSelectListener) {
+			this.mChapterSelectListener = (ChapterSelectListener) activity;
 		}
 		mListView = this.getListView();
 		mSlideMenuAdapter = new SlideMenuAdapter(activity, mListView);
@@ -49,10 +49,10 @@ public class ChapterFragment extends ListFragment {
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		SlideMenuItem item = (SlideMenuItem) v.getTag();
 		Document doc = mDocManager.getDocumentByName(item.title);
-		if (doc != null && mOnSlideItemSelectListener != null) {
+		if (doc != null && mChapterSelectListener != null) {
 			updateSelectedView(v);
 			mDocManager.setSelectDocument(doc);
-			mOnSlideItemSelectListener.onSlideItemSelect(doc);
+			mChapterSelectListener.onChanpterSelect(doc);
 		}
 	}
 	
@@ -64,8 +64,8 @@ public class ChapterFragment extends ListFragment {
 	}
 	
 	
-	public interface OnSlideItemSelectListener {
-		public void onSlideItemSelect(Document doc);
+	public interface ChapterSelectListener {
+		public void onChanpterSelect(Document doc);
 	}
 	
 }

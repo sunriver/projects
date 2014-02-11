@@ -28,7 +28,7 @@ import com.coco.reader.R;
 import com.coco.reader.adapter.PageAdapter;
 import com.coco.reader.adapter.PageAdapter.PageChnageListener;
 import com.coco.reader.view.ChapterFragment;
-import com.coco.reader.view.ChapterFragment.OnSlideItemSelectListener;
+import com.coco.reader.view.ChapterFragment.ChapterSelectListener;
 import com.coco.reader.view.OptionFragment;
 import com.coco.reader.view.OptionFragment.TextSizeChangeListener;
 import com.coco.reader.view.PageView;
@@ -36,7 +36,7 @@ import com.coco.reader.data.Document;
 import com.coco.reader.data.DocumentManager;
 
 public class MainActivity extends ActionBarActivity implements
-		OnSlideItemSelectListener, PageChnageListener, TextSizeChangeListener,
+		ChapterSelectListener, PageChnageListener, TextSizeChangeListener,
 		FlipViewController.ViewFlipListener, View.OnClickListener {
 	private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -79,7 +79,7 @@ public class MainActivity extends ActionBarActivity implements
 
 		initSlidingMenuTab();
 	}
-	
+
 	private static class SlidingMenuTabs {
 		ChapterFragment chapter;
 		OptionFragment option;
@@ -94,19 +94,21 @@ public class MainActivity extends ActionBarActivity implements
 				.setContent(R.id.nav_chapter));
 		tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator(navBookmark)
 				.setContent(R.id.nav_option));
-		
-		mSlidingMenuTabs = new SlidingMenuTabs(); 
+
+		mSlidingMenuTabs = new SlidingMenuTabs();
 		FragmentManager fragmentManager = getSupportFragmentManager();
-		mSlidingMenuTabs.chapter = (ChapterFragment) fragmentManager.findFragmentById(R.id.nav_chapter);
-		mSlidingMenuTabs.option = (OptionFragment) fragmentManager.findFragmentById(R.id.nav_option);
+		mSlidingMenuTabs.chapter = (ChapterFragment) fragmentManager
+				.findFragmentById(R.id.nav_chapter);
+		mSlidingMenuTabs.option = (OptionFragment) fragmentManager
+				.findFragmentById(R.id.nav_option);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main, menu);
-		return true;
-	}
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//		MenuInflater inflater = getMenuInflater();
+//		inflater.inflate(R.menu.main, menu);
+//		return true;
+//	}
 
 	@Override
 	protected void onResume() {
@@ -125,7 +127,7 @@ public class MainActivity extends ActionBarActivity implements
 		saveState();
 		super.onDestroy();
 	}
-	
+
 	private void saveState() {
 		int selectedPos = mFlipView.getSelectedItemPosition();
 	}
@@ -199,13 +201,6 @@ public class MainActivity extends ActionBarActivity implements
 		return true;
 	}
 
-
-	@Override
-	public void onSlideItemSelect(Document doc) {
-		mAbCustomView.titleTv.setText(doc.getDocName());
-		mPageAdapter.setDocument(doc);
-	}
-
 	@Override
 	public void onPreviousPage() {
 		flipPreviousPage();
@@ -238,7 +233,7 @@ public class MainActivity extends ActionBarActivity implements
 
 	@Override
 	public void onSizeChangeing(int size) {
-		PageView  pv = (PageView) mFlipView.getSelectedView();
+		PageView pv = (PageView) mFlipView.getSelectedView();
 		if (pv != null) {
 			pv.setTextSize(size);
 		}
@@ -247,9 +242,16 @@ public class MainActivity extends ActionBarActivity implements
 	@Override
 	public void onSizeChanged(int size) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-
+	@Override
+	public void onChanpterSelect(Document doc) {
+		mAbCustomView.titleTv.setText(doc.getDocName());
+		
+		float textSize = mSlidingMenuTabs.option.getTextSize();
+		mPageAdapter.setTextSize(textSize);
+		mPageAdapter.setDocument(doc);
+	}
 
 }
