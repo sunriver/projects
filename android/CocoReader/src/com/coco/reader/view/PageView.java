@@ -3,97 +3,43 @@ package com.coco.reader.view;
 import com.coco.reader.R;
 
 import android.content.Context;
-import android.content.Intent;
+import android.os.Handler;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.GestureDetector;
-import android.view.GestureDetector.SimpleOnGestureListener;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.EditText;
-
-public class PageView extends EditText {
+import android.widget.RelativeLayout;
+public class PageView extends RelativeLayout {
 	private final static String TAG = PageView.class.getSimpleName();
+	private EditText mContentEt;
 	
-	public final static String ACTION_PAGE_BOTTOM = "com.coco.reader.action.PAGE_BOTTOM";
-	public final static String ACTION_PAGE_TOP = "com.coco.reader.action.PAGE_TOP";
-	
-	private GestureDetector mGestureDetector;
-	private SimpleOnGestureListener mGestureListener = new SimpleOnGestureListener() {
-		@Override
-		public boolean onScroll(MotionEvent e1, MotionEvent e2,
-				float distanceX, float distanceY) {
-			int scrollX = getScrollX();
-			int scrollY = getScrollY();
-			int top = getTop();
-			int bottom = getBottom();
-			int vsRange = computeVerticalScrollRange();
-			Log.d(TAG, "onScroll()+ scrollX=" + scrollX + "  scrollY=" + scrollY + " top=" + top + "  bottom=" + bottom + " vsRange=" + vsRange);
-			if (scrollY == 0) {
-//				mScrollByTouchEnabled = false;
-				sendBroadcastForScrollEvent(ACTION_PAGE_TOP);
-//				mPageScrollChangeListener.onPageScrollToTop();
-			} else if (isScrollToBottom(scrollY)) {
-//				mScrollByTouchEnabled = false;
-//				mPageScrollChangeListener.onPageScrollToBottom();
-				sendBroadcastForScrollEvent(ACTION_PAGE_BOTTOM);
-			}
-			return super.onScroll(e1, e2, distanceX, distanceY);
-		}
-	};
-	
-	
-	private boolean mScrollByTouchEnabled;
-
 	public PageView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		int defaultTxtSize = context.getResources().getInteger(R.integer.text_size_default);
-		setTextSize(defaultTxtSize);
-		
-		mScrollByTouchEnabled = true;
-		mGestureDetector = new GestureDetector(mGestureListener);
-		setOnTouchListener(new OnTouchListener () {
+		new Handler().post(new Runnable() {
 			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				if (mScrollByTouchEnabled) {
-					return mGestureDetector.onTouchEvent(event);
-				}
-				return false;
-			}
-		});
+			public void run() {
+				mContentEt = (EditText) PageView.this.findViewById(R.id.tv_content);
+			}});
 	}
 	
 	
+    public PageView(Context context) {
+        this(context, null);
+    }
+
+    public PageView(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
 	
-	@Override
+	
 	public void setTextSize(float size) {
-		super.setTextSize(size + 15);
-	}
-
-
-
-	private boolean  isScrollToBottom(int scrollY) {
-		int vsRange = this.computeVerticalScrollRange();
-		if (scrollY + this.getBottom() >= vsRange) {
-			return true;
+		if (mContentEt != null) {
+			mContentEt.setTextSize(size + 15);
 		}
-		return false;
-	}
-
-	public PageView(Context context, AttributeSet attrs) {
-		this(context, attrs, 0);
-	}
-
-	
-	public void reset() {
-		mScrollByTouchEnabled = true;
 	}
 	
-	
-	private void sendBroadcastForScrollEvent(String action) {
-		Context ctx = this.getContext();
-		Intent intent = new Intent(action);
-		ctx.sendBroadcast(intent);
+	public void setText(String text) {
+		if (mContentEt != null) {
+			mContentEt.setText(text);
+		}
 	}
-
+	
 }

@@ -54,7 +54,6 @@ public class MainActivity extends ActionBarActivity implements
 		initActionBar();
 		initFlipView();
 		initSlidingMenu();
-		registerScrollReceiver(getApplicationContext());
 	}
 
 	private void initFlipView() {
@@ -123,8 +122,12 @@ public class MainActivity extends ActionBarActivity implements
 
 	@Override
 	protected void onDestroy() {
-		// this.unregisterReceiver(mPageScrollReceiver);
+		saveState();
 		super.onDestroy();
+	}
+	
+	private void saveState() {
+		int selectedPos = mFlipView.getSelectedItemPosition();
 	}
 
 	private void flipNextPage() {
@@ -196,33 +199,6 @@ public class MainActivity extends ActionBarActivity implements
 		return true;
 	}
 
-	private void registerScrollReceiver(Context ctx) {
-		IntentFilter filter = new IntentFilter(PageView.ACTION_PAGE_BOTTOM);
-		filter.addAction(PageView.ACTION_PAGE_TOP);
-		ctx.registerReceiver(mPageScrollReceiver, filter);
-	}
-
-	private BroadcastReceiver mPageScrollReceiver = new BroadcastReceiver() {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			final String action = intent.getAction();
-			if (PageView.ACTION_PAGE_BOTTOM.equals(action)) {
-				onPageScrollToBottom();
-			} else if (PageView.ACTION_PAGE_TOP.equals(action)) {
-				onPageScrollToTop();
-			}
-		}
-	};
-
-	private void onPageScrollToBottom() {
-		Log.d(TAG, "onPageScrollToBottom()+");
-		// mFlipView.setFlipByTouchEnabled(true);
-	}
-
-	private void onPageScrollToTop() {
-		Log.d(TAG, "onPageScrollToTop()+");
-		// mFlipView.setFlipByTouchEnabled(true);
-	}
 
 	@Override
 	public void onSlideItemSelect(Document doc) {
@@ -262,13 +238,9 @@ public class MainActivity extends ActionBarActivity implements
 
 	@Override
 	public void onSizeChangeing(int size) {
-		View selectView = mFlipView.getSelectedView();
-		if (selectView != null) {
-			PageView pg = (PageView) selectView.findViewById(R.id.tv_content);
-			if (pg != null) {
-				pg.setTextSize(size);
-				mPageAdapter.setTextSize(size);
-			}
+		PageView  pv = (PageView) mFlipView.getSelectedView();
+		if (pv != null) {
+			pv.setTextSize(size);
 		}
 	}
 

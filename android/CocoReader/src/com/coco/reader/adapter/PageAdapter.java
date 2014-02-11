@@ -89,34 +89,23 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 		return mPageList.get(position);
 	}
 	
-	private static class ViewHolder {
-		private Button prevBtn;
-		private Button nextBtn;
-		private PageView pageView;
-	}
+
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder vh = null;
+		PageView pv = null;
 		if (null == convertView) {
-			vh = new ViewHolder();
-			convertView = mInflater.inflate(R.layout.page, parent, false);
-			vh.pageView = (PageView) convertView.findViewById(R.id.tv_content);
-			vh.prevBtn = (Button) convertView.findViewById(R.id.btn_prev);
-			vh.nextBtn = (Button) convertView.findViewById(R.id.btn_next);
-			vh.prevBtn.setOnClickListener(this);
-			vh.nextBtn.setOnClickListener(this);
-			convertView.setTag(vh);
+			pv = (PageView) mInflater.inflate(R.layout.page, parent, false);
 		} else {
-			vh = (ViewHolder) convertView.getTag();
+			pv = (PageView) convertView;
 		}
 		
 		if (mPageList != null && mPageList.size() > 0) {
 			Page page = mPageList.get(position);
-			vh.pageView.setTextSize(mTextSize);
-			vh.pageView.setText(page.getContent());
+			pv.setTextSize(mTextSize);
+			pv.setText(page.getContent());
 		}
-		return convertView;
+		return pv;
 	}
 
 	
