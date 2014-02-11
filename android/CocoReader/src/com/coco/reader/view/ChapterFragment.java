@@ -17,7 +17,7 @@ import android.widget.ListView;
 public class ChapterFragment extends ListFragment {
 	private DocumentManager mDocManager;
 	private ChapterSelectListener mChapterSelectListener;
-	private ChapterAdapter mSlideMenuAdapter;
+	private ChapterAdapter mChapterAdapter;
 	private ListView mListView;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,15 +32,15 @@ public class ChapterFragment extends ListFragment {
 			this.mChapterSelectListener = (ChapterSelectListener) activity;
 		}
 		mListView = this.getListView();
-		mSlideMenuAdapter = new ChapterAdapter(activity, mListView);
+		mChapterAdapter = new ChapterAdapter(activity, mListView);
 		String[] docNames = mDocManager.getAllDocuments();
 		if (docNames != null) {
 			for (String docName : docNames) {
 				final String tempDocName = docName.substring(0, docName.length() - 4);
-				mSlideMenuAdapter.add(new ChapterItem(tempDocName, android.R.drawable.ic_menu_search));
+				mChapterAdapter.add(new ChapterItem(tempDocName, android.R.drawable.ic_menu_search));
 			}
 		}
-		setListAdapter(mSlideMenuAdapter);
+		setListAdapter(mChapterAdapter);
 	}
 	
 	
