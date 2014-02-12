@@ -83,7 +83,7 @@ public class DocumentManager {
 			int defaultPageIndex = mPreference.getInt(Consts.PREF_PAGE_DEFALUT_INDEX, 0);
 			doc.setSelectPageIndex(defaultPageIndex);
 			int defaultPageScrollY = mPreference.getInt(Consts.PREF_PAGE_DEFALUT_SCROLLY, 0);
-			doc.setSelectPageScrollY(defaultPageScrollY);
+			doc.setSelectPageScrollDy(defaultPageScrollY);
 		}
 		return doc;
 	}

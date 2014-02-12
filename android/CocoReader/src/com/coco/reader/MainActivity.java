@@ -161,8 +161,8 @@ public class MainActivity extends ActionBarActivity implements
 		if (doc != null) {
 			PageView pv = (PageView) mFlipView.getSelectedView();
 			if (pv != null) {
-				int pageY = pv.getPageScrollY();
-				doc.setSelectPageScrollY(pageY);
+				int pageY = pv.getPageScrollDy();
+				doc.setSelectPageScrollDy(pageY);
 			}
 			mDocManager.persistDocument(doc);
 		}

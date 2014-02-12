@@ -26,7 +26,7 @@ public class Document {
 	private Context mContext;
 	private int mSelectedPageIndex;
 	private BufferedReader mReader;
-	private int mSelectedPageScrollY;
+	private int mSelectedPageScrollDy;
 
 	public Document(Context context, String path, String name) {
 		mContext = context;
@@ -37,7 +37,7 @@ public class Document {
 		openDocument();
 	}
 
-	public void openDocument() {
+	private void openDocument() {
 		try {
 			mInputStream = mContext.getAssets().open(mDocFile, AssetManager.ACCESS_RANDOM);
 			mAvaiableSize = mInputStream.available();
@@ -67,7 +67,7 @@ public class Document {
 				Log.d(TAG, "getPage() pageIndex=" + pageIndex + " avaiableSize=" + avaiableSize);
 			}
 			if (pageIndex == mSelectedPageIndex) {
-				page.setScrollY(mSelectedPageScrollY);
+				page.setScrollDy(mSelectedPageScrollDy);
 			}
 			return page;
 		} catch (IOException e) {
@@ -86,11 +86,11 @@ public class Document {
 	
 	
 	public int getSelectPageScrollY() {
-		return mSelectedPageScrollY;
+		return mSelectedPageScrollDy;
 	}
 	
-	public void setSelectPageScrollY(int index) {
-		this.mSelectedPageScrollY = index;
+	public void setSelectPageScrollDy(int dy) {
+		this.mSelectedPageScrollDy = dy;
 	}
 
 	@Override

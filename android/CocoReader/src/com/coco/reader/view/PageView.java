@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 public class PageView extends RelativeLayout {
 	private final static String TAG = PageView.class.getSimpleName();
 	private EditText mContentEt;
+	private int mBaseScrollY;
 	
 	public PageView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -25,6 +26,7 @@ public class PageView extends RelativeLayout {
 	
 	public void init() {
 		mContentEt = (EditText) PageView.this.findViewById(R.id.tv_content);
+		mBaseScrollY = mContentEt.getScrollY();
 	}
 	
 	
@@ -38,11 +40,11 @@ public class PageView extends RelativeLayout {
 	}
 	
 	public void setPageScrollY(int scrollY) {
-		mContentEt.setScrollY(scrollY);
+		mContentEt.scrollTo(0, scrollY);
 	}
 	
-	public int getPageScrollY() {
-		return mContentEt.getScrollY();
+	public int getPageScrollDy() {
+		return mContentEt.getScrollY() - mBaseScrollY;
 	}
 	
 

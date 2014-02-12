@@ -108,10 +108,10 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 		}
 		
 		if (mPageList != null && mPageList.size() > 0) {
-			Page page = mPageList.get(position);
+			final Page page = mPageList.get(position);
 			pv.setTextSize(mTextSize);
 			pv.setText(page.getContent());
-			pv.setPageScrollY(page.getScrollY());
+			pv.setPageScrollY(page.getScrollDY());
 		}
 		return pv;
 	}
