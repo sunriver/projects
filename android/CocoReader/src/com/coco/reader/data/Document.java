@@ -59,7 +59,7 @@ public class Document {
 		if (mInputStream != null) {
 			try {
 				mInputStream.reset();
-			} catch (IOException e) {
+			} catch (Throwable e) {
 				Log.e(TAG, "Can't reset document", e);
 			}
 		}
