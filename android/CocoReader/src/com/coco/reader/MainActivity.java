@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.aphidmobile.flip.FlipViewController;
 import com.coco.reader.R;
 import com.coco.reader.adapter.PageAdapter;
+import com.coco.reader.adapter.PageAdapter.LoadStateChangeListener;
 import com.coco.reader.adapter.PageAdapter.PageChangeListener;
 import com.coco.reader.view.ChapterFragment;
 import com.coco.reader.view.ChapterFragment.ChapterSelectListener;
@@ -32,7 +33,7 @@ import com.coco.reader.data.Document;
 import com.coco.reader.data.DocumentManager;
 
 public class MainActivity extends ActionBarActivity implements
-		ChapterSelectListener, TextSizeChangeListener, View.OnClickListener {
+		ChapterSelectListener, LoadStateChangeListener, TextSizeChangeListener, View.OnClickListener {
 	private static final String TAG = MainActivity.class.getSimpleName();
 
 	private FlipViewController mFlipView;
@@ -61,6 +62,7 @@ public class MainActivity extends ActionBarActivity implements
 	private void initFlipView() {
 		mFlipView = new FlipViewController(getApplicationContext());
 		mPageAdapter = new PageAdapter(getApplicationContext());
+		mPageAdapter.setLoadStateChangeListener(this);
 		mFlipView.setAdapter(mPageAdapter);
 		mFlipView.setFlipByTouchEnabled(false);
 		setContentView(mFlipView);
@@ -194,6 +196,12 @@ public class MainActivity extends ActionBarActivity implements
 		int textSize = (int) mSlidingMenuTabs.option.getTextSize();
 		doc.setTextSize(textSize);
 		mPageAdapter.setDocument(doc);
+	}
+
+	@Override
+	public void onDocumentLoadCompleted(Document doc) {
+		mSlidingMenuTabs.option.setTextSize(doc.getTextSize());
+		
 	}
 
 }

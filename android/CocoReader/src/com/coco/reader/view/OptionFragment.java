@@ -36,6 +36,9 @@ public class OptionFragment extends Fragment implements OnSeekBarChangeListener 
 	public float getTextSize() {
 		return mSeekBar.getProgress();
 	}
+	public void setTextSize(int size) {
+		mSeekBar.setProgress(size);
+	}
 
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress,

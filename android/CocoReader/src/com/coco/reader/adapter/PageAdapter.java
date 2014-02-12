@@ -24,6 +24,7 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 	private LayoutInflater mInflater;
 	private Handler mHandler;
 	private PageChangeListener mPageChangeListener;
+	private LoadStateChangeListener mLoadStateChangeListener;
 	
 	public PageAdapter(Context ctx, PageChangeListener l) {
 		this.mPageChangeListener = l;
@@ -34,6 +35,10 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 	
 	public PageAdapter(Context ctx) {
 		this (ctx, null);
+	}
+	
+	public void setLoadStateChangeListener(LoadStateChangeListener l) {
+		this.mLoadStateChangeListener = l;
 	}
 	
 	public void setDocument(Document doc) {
@@ -130,6 +135,9 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 		@Override
 		protected void onPostExecute(Void result) {
 			notifyDataSetChanged();
+			if (mLoadStateChangeListener != null) {
+				mLoadStateChangeListener.onDocumentLoadCompleted(mDocument);
+			}
 		}
 
 		@Override
@@ -161,5 +169,9 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 	public interface PageChangeListener {
 		public void onPreviousPage();
 		public void onNextPage();
+	}
+	
+	public interface LoadStateChangeListener {
+		public void onDocumentLoadCompleted(Document doc);
 	}
 }
