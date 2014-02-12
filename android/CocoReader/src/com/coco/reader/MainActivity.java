@@ -157,11 +157,15 @@ public class MainActivity extends ActionBarActivity implements
 	}
 
 	private void saveState() {
-		PageView pv = (PageView) mFlipView.getSelectedView();
-		if (pv != null) {
-			float pageY = pv.getPageY();
+		Document doc = mPageAdapter.getDocument();
+		if (doc != null) {
+			PageView pv = (PageView) mFlipView.getSelectedView();
+			if (pv != null) {
+				int pageY = pv.getPageScrollY();
+				doc.setSelectPageScrollY(pageY);
+			}
+			mDocManager.persistDocument(doc);
 		}
-		mDocManager.persistDocument();
 	}
 
 	@Override
@@ -181,7 +185,6 @@ public class MainActivity extends ActionBarActivity implements
 	@Override
 	public void onChanpterSelect(Document doc) {
 		mAbCustomView.titleTv.setText(doc.getDocName());
-		
 		float textSize = mSlidingMenuTabs.option.getTextSize();
 		mPageAdapter.setTextSize(textSize);
 		mPageAdapter.setDocument(doc);

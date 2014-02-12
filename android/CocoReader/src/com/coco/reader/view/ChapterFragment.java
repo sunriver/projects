@@ -50,13 +50,13 @@ public class ChapterFragment extends ListFragment {
 		ChapterItem item = (ChapterItem) v.getTag();
 		Document doc = mDocManager.getDocumentByName(item.title);
 		if (doc != null && mChapterSelectListener != null) {
-			updateSelectedView(v);
+			updateChapterItem(v);
 			mDocManager.setSelectDocument(doc);
 			mChapterSelectListener.onChanpterSelect(doc);
 		}
 	}
 	
-	private void updateSelectedView(View v) {
+	private void updateChapterItem(View v) {
 		View lastedSelectView = (View) mListView.getTag();
 		lastedSelectView.setActivated(false);
 		v.setActivated(true);

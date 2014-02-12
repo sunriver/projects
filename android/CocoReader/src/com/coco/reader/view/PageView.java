@@ -37,11 +37,12 @@ public class PageView extends RelativeLayout {
 		mContentEt.setText(text);
 	}
 	
-	public float getPageY() {
-		if (mContentEt != null) {
-			return mContentEt.getScaleY();
-		}
-		return 0;
+	public void setPageScrollY(int scrollY) {
+		mContentEt.setScrollY(scrollY);
+	}
+	
+	public int getPageScrollY() {
+		return mContentEt.getScrollY();
 	}
 	
 

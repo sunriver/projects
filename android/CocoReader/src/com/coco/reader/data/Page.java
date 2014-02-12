@@ -10,9 +10,11 @@ public class Page {
 	private char[] mPageBuffer;
 	private int mAvaiableSize;
 	private StringBuffer mStrBuf;
+	private int mScrollY;
 	
 	public Page(int index) {
 		mPageIndex = index;
+		mScrollY = 0;
 		mAvaiableSize = -1;
 		mPageBuffer = new char[PAGE_SIZE];
 		mStrBuf = new StringBuffer();
@@ -29,12 +31,16 @@ public class Page {
 		return "";
 	}
 	
-	public char[] getBuffer() {
-		return mPageBuffer;
-	}
-	
 	public int getAvaiableSize() {
 		return mAvaiableSize;
+	}
+	
+	public void setScrollY(int scrollY) {
+		this.mScrollY = scrollY;
+	}
+	
+	public int getScrollY() {
+		return mScrollY;
 	}
 	
 	

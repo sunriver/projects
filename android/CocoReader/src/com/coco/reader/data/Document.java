@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,12 +24,13 @@ public class Document {
 	private StringBuffer mContent;
 	private int mAvaiableSize;
 	private Context mContext;
-	private int mPageIndex;
+	private int mSelectedPageIndex;
 	private BufferedReader mReader;
+	private int mSelectedPageScrollY;
 
 	public Document(Context context, String path, String name) {
 		mContext = context;
-		mPageIndex = 0;
+		mSelectedPageIndex = 0;
 		this.mDocName = name;
 		mDocFile = path + "/" + mDocName + ".txt";
 		mPages = new HashMap<Integer, Page>();
@@ -70,11 +72,13 @@ public class Document {
 			Page page = mPages.get(pageIndex);
 			if (null == page) {
 				page = new Page(pageIndex);
+				if (pageIndex == mSelectedPageIndex) {
+					page.setScrollY(mSelectedPageScrollY);
+				}
 				mPages.put(pageIndex, page);
 				int avaiableSize = page.read(mReader, true);
 				Log.d(TAG, "getPage() pageIndex=" + pageIndex + " avaiableSize=" + avaiableSize);
 			}
-			mPageIndex = pageIndex;
 			return page;
 		} catch (IOException e) {
 			Log.e(TAG, "Can't read file", e);
@@ -83,11 +87,20 @@ public class Document {
 	}
 	
 	public int getSelectPageIndex() {
-		return mPageIndex;
+		return mSelectedPageIndex;
 	}
 	
 	public void setSelectPageIndex(int index) {
-		this.mPageIndex = index;
+		this.mSelectedPageIndex = index;
+	}
+	
+	
+	public int getSelectPageScrollY() {
+		return mSelectedPageScrollY;
+	}
+	
+	public void setSelectPageScrollY(int index) {
+		this.mSelectedPageScrollY = index;
 	}
 
 	@Override
@@ -104,12 +117,12 @@ public class Document {
 	}
 	
 	public Page prevPage() {
-		int pageIndex = (mPageIndex > 0) ? (mPageIndex - 1) : 0;
+		int pageIndex = (mSelectedPageIndex > 0) ? (mSelectedPageIndex - 1) : 0;
 		return getPage(pageIndex);
 	}
 	
 	public Page nextPage() {
-		int pageIndex = mPageIndex + 1;
+		int pageIndex = mSelectedPageIndex + 1;
 		return getPage(pageIndex);
 	}
 

@@ -44,9 +44,13 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 		init();
 	}
 	
+	public Document getDocument() {
+		return mDocument;
+	}
+	
 	public void loadDefaultDocument(Context ctx) {
 		DocumentManager docManager = DocumentManager.getInstance(ctx);
-		Document doc = docManager.getSelectDocument();
+		Document doc = docManager.getDefaultDocument();
 		if (doc != null) {
 			setDocument(doc);
 		}
@@ -107,6 +111,7 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 			Page page = mPageList.get(position);
 			pv.setTextSize(mTextSize);
 			pv.setText(page.getContent());
+			pv.setPageScrollY(page.getScrollY());
 		}
 		return pv;
 	}

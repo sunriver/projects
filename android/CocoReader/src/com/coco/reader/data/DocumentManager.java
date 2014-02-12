@@ -57,7 +57,6 @@ public class DocumentManager {
 		} else {
 			doc.reset();
 		}
-		persistDocument();
 		return doc;
 	}
 	
@@ -68,23 +67,25 @@ public class DocumentManager {
 		}
 	}
 	
-	public void persistDocument() {
-		final Document doc = mSelectDocument;
+	public void persistDocument(Document doc) {
 		if (null == doc) {
 			return;
 		}
 		Editor editor = mPreference.edit();
-		editor.putString(Consts.PREF_PROPERTY_DOCUMENT_DEFALUT, doc.getDocName())
-			  .putInt(Consts.PREF_PROPERTY_PAGE_DEFALUT, doc.getSelectPageIndex())
+		editor.putString(Consts.PREF_DOCUMENT_DEFALUT, doc.getDocName())
+			  .putInt(Consts.PREF_PAGE_DEFALUT_INDEX, doc.getSelectPageIndex())
+			  .putInt(Consts.PREF_PAGE_DEFALUT_SCROLLY, doc.getSelectPageScrollY())
 			  .commit();
 	}
 	
-	private Document getDefaultDocument() {
-		String defaultDocName = mPreference.getString(Consts.PREF_PROPERTY_DOCUMENT_DEFALUT, null);
+	public Document getDefaultDocument() {
+		String defaultDocName = mPreference.getString(Consts.PREF_DOCUMENT_DEFALUT, null);
 		Document doc = getDocumentByName(defaultDocName);
 		if (doc != null) {
-			int defaultPageIndex = mPreference.getInt(Consts.PREF_PROPERTY_PAGE_DEFALUT, 0);
+			int defaultPageIndex = mPreference.getInt(Consts.PREF_PAGE_DEFALUT_INDEX, 0);
 			doc.setSelectPageIndex(defaultPageIndex);
+			int defaultPageScrollY = mPreference.getInt(Consts.PREF_PAGE_DEFALUT_SCROLLY, 0);
+			doc.setSelectPageScrollY(defaultPageScrollY);
 		}
 		return doc;
 	}
