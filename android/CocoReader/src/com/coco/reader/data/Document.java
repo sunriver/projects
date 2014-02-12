@@ -57,27 +57,17 @@ public class Document {
 		}
 	}
 	
-	public void reset() {
-		if (mInputStream != null) {
-			try {
-				mInputStream.reset();
-			} catch (Throwable e) {
-				Log.e(TAG, "Can't reset document", e);
-			}
-		}
-	}
-
 	public Page getPage(int pageIndex) {
 		try {
 			Page page = mPages.get(pageIndex);
 			if (null == page) {
 				page = new Page(pageIndex);
-				if (pageIndex == mSelectedPageIndex) {
-					page.setScrollY(mSelectedPageScrollY);
-				}
 				mPages.put(pageIndex, page);
 				int avaiableSize = page.read(mReader, true);
 				Log.d(TAG, "getPage() pageIndex=" + pageIndex + " avaiableSize=" + avaiableSize);
+			}
+			if (pageIndex == mSelectedPageIndex) {
+				page.setScrollY(mSelectedPageScrollY);
 			}
 			return page;
 		} catch (IOException e) {

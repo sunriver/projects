@@ -54,8 +54,6 @@ public class DocumentManager {
 		if (null == doc) {
 			doc = new Document(mContext, ASSET_DOCS, docName);
 			mDocMap.put(docName, doc);
-		} else {
-			doc.reset();
 		}
 		return doc;
 	}
