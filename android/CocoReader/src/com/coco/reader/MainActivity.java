@@ -1,12 +1,16 @@
 package com.coco.reader;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -53,7 +57,6 @@ public class MainActivity extends ActionBarActivity implements
     	mPageAdapter.loadDefaultDocument(getApplicationContext());
     }
 	
-
 
 	private void initFlipView() {
 		mFlipView = new FlipViewController(getApplicationContext());
@@ -136,11 +139,11 @@ public class MainActivity extends ActionBarActivity implements
 			;
 		}
 	}
+	
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		// mFlipView.onResume();
 	}
 
 	@Override
@@ -181,6 +184,7 @@ public class MainActivity extends ActionBarActivity implements
 		// TODO Auto-generated method stub
 
 	}
+	
 
 	@Override
 	public void onChanpterSelect(Document doc) {

@@ -97,6 +97,7 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 	
 
 
+	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		PageView pv = null;
@@ -110,8 +111,7 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 		if (mPageList != null && mPageList.size() > 0) {
 			final Page page = mPageList.get(position);
 			pv.setTextSize(mTextSize);
-			pv.setText(page.getContent());
-			pv.setPageScrollY(page.getScrollDY());
+			pv.setPage(page);
 		}
 		return pv;
 	}
@@ -162,7 +162,6 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 			break;
 		}
 	}
-
 
 	public interface PageChangeListener {
 		public void onPreviousPage();
