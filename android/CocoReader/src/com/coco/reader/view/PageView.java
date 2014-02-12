@@ -5,15 +5,9 @@ import com.coco.reader.data.Page;
 
 import android.content.Context;
 import android.os.Handler;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 public class PageView extends RelativeLayout {
 	private final static String TAG = PageView.class.getSimpleName();
 	private EditText mContentEt;
