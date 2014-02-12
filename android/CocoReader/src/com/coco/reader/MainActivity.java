@@ -167,6 +167,8 @@ public class MainActivity extends ActionBarActivity implements
 				int pageY = pv.getPageScrollDy();
 				doc.setSelectPageScrollDy(pageY);
 			}
+			int textSize = (int) mSlidingMenuTabs.option.getTextSize();
+			doc.setTextSize(textSize);
 			mDocManager.persistDocument(doc);
 		}
 	}
@@ -189,8 +191,8 @@ public class MainActivity extends ActionBarActivity implements
 	@Override
 	public void onChanpterSelect(Document doc) {
 		mAbCustomView.titleTv.setText(doc.getDocName());
-		float textSize = mSlidingMenuTabs.option.getTextSize();
-		mPageAdapter.setTextSize(textSize);
+		int textSize = (int) mSlidingMenuTabs.option.getTextSize();
+		doc.setTextSize(textSize);
 		mPageAdapter.setDocument(doc);
 	}
 

@@ -24,14 +24,12 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 	private LayoutInflater mInflater;
 	private Handler mHandler;
 	private PageChangeListener mPageChangeListener;
-	private float  mTextSize;
 	
 	public PageAdapter(Context ctx, PageChangeListener l) {
 		this.mPageChangeListener = l;
 		mPageList = new ArrayList<Page>();
 		mInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mHandler = new Handler();
-		mTextSize = ctx.getResources().getInteger(R.integer.text_size_default);
 	}
 	
 	public PageAdapter(Context ctx) {
@@ -72,9 +70,6 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 		}
 	}
 	
-	public void setTextSize(float size) {
-		this.mTextSize = size;
-	}
 	
 	@Override
 	public int getCount() {
@@ -110,7 +105,7 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 		
 		if (mPageList != null && mPageList.size() > 0) {
 			final Page page = mPageList.get(position);
-			pv.setTextSize(mTextSize);
+			pv.setTextSize(mDocument.getTextSize());
 			pv.setPage(page);
 		}
 		return pv;

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import com.coco.reader.R;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -73,6 +75,7 @@ public class DocumentManager {
 		editor.putString(Consts.PREF_DOCUMENT_DEFALUT, doc.getDocName())
 			  .putInt(Consts.PREF_PAGE_DEFALUT_INDEX, doc.getSelectPageIndex())
 			  .putInt(Consts.PREF_PAGE_DEFALUT_SCROLLY, doc.getSelectPageScrollY())
+			  .putInt(Consts.PREF_PAGE_DEFALUT_TEXT_SIZE, doc.getTextSize())
 			  .commit();
 	}
 	
@@ -84,6 +87,10 @@ public class DocumentManager {
 			doc.setSelectPageIndex(defaultPageIndex);
 			int defaultPageScrollY = mPreference.getInt(Consts.PREF_PAGE_DEFALUT_SCROLLY, 0);
 			doc.setSelectPageScrollDy(defaultPageScrollY);
+			
+			int defaultTextSize = mContext.getResources().getInteger(R.integer.text_size_default);
+			defaultTextSize = mPreference.getInt(Consts.PREF_PAGE_DEFALUT_TEXT_SIZE, defaultTextSize);
+			doc.setTextSize(defaultTextSize);
 		}
 		return doc;
 	}

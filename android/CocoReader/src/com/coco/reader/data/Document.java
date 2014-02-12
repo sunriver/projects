@@ -27,6 +27,7 @@ public class Document {
 	private int mSelectedPageIndex;
 	private BufferedReader mReader;
 	private int mSelectedPageScrollDy;
+	private int mTextSize;
 
 	public Document(Context context, String path, String name) {
 		mContext = context;
@@ -82,6 +83,14 @@ public class Document {
 	
 	public void setSelectPageIndex(int index) {
 		this.mSelectedPageIndex = index;
+	}
+	
+	public int getTextSize() {
+		return mTextSize;
+	}
+	
+	public void setTextSize(int size) {
+		this.mTextSize = size;
 	}
 	
 	
