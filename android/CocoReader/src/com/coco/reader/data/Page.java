@@ -31,6 +31,13 @@ public class Page {
 		return "";
 	}
 	
+	public String getContent(int start, int end) {
+		if (mAvaiableSize > 0 && start >= 0 && end < mAvaiableSize) {
+			return mStrBuf.substring(start, end);
+		}
+		return "";
+	}
+	
 	public int getAvaiableSize() {
 		return mAvaiableSize;
 	}

@@ -41,10 +41,5 @@ public class ChapterAdapter extends ArrayAdapter<ChapterItem> {
 		return convertView;
 	}
 	
-	
-	public void selectDocument(Document doc) {
-//		mListView.getSelectedView().setActivated(false);
-	}
-	
 
 }

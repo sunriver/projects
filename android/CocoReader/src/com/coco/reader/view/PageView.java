@@ -6,11 +6,15 @@ import com.coco.reader.data.Page;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 public class PageView extends RelativeLayout {
 	private final static String TAG = PageView.class.getSimpleName();
-	private EditText mContentEt;
+	private TextView mContentEt;
+	private ScrollView mContentSv;
 	private Page mPage;
 	private Handler mHandler;
 	private Runnable mScrollTask;
@@ -21,7 +25,7 @@ public class PageView extends RelativeLayout {
 		mScrollTask = new Runnable() {
 			@Override
 			public void run() {
-				mContentEt.scrollBy(0, mPage.getScrollDY());
+				mContentSv.scrollTo(0, mPage.getScrollDY());
 			}
 		};
 	}
@@ -34,16 +38,25 @@ public class PageView extends RelativeLayout {
         this(context, attrs, 0);
     }
     
+    @Override
+    protected void onAttachedToWindow() {
+    	super.onAttachedToWindow();
+    	mHandler.postDelayed(mScrollTask, 500);
+    }
+    
 	
 	public void init() {
-		mContentEt = (EditText) PageView.this.findViewById(R.id.tv_content);
+		mContentEt = (TextView) PageView.this.findViewById(R.id.tv_content);
+		mContentSv = (ScrollView) PageView.this.findViewById(R.id.sv_content);
 	}
+	
 	
 	public void setPage(Page page) {
 		this.mPage = page;
-		mContentEt.setText(mPage.getContent());
-		mHandler.postDelayed(mScrollTask, 500);
+		mContentEt.setText(page.getContent());
 	}
+	
+	
 	
 	public void setTextSize(final float size) {
 		mContentEt.setTextSize(size + 15);
@@ -54,9 +67,11 @@ public class PageView extends RelativeLayout {
 	}
 	
 	public int getPageScrollDy() {
-		return mContentEt.getScrollY();
+		return mContentSv.getScrollY();
 	}
 	
-
+	public void scrollPageY() {
+		mContentEt.scrollBy(0, mPage.getScrollDY());
+	}
 	
 }
