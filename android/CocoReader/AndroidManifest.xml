@@ -12,7 +12,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.AppCompat.Light" >
+        android:theme="@style/Reader.Theme.LightBlue" >
         <activity
             android:name="com.coco.reader.MainActivity"
             android:configChanges="keyboard|orientation"
