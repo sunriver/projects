@@ -24,7 +24,6 @@ import com.coco.reader.view.ThemeSwitcher;
 import com.coco.reader.data.Document;
 import com.coco.reader.data.DocumentManager;
 import com.coco.reader.data.OptionSetting;
-import com.coco.reader.data.ThemeType;
 
 public class MainActivity extends ActionBarActivity implements
 		ChapterSelectListener, LoadStateChangeListener, TextSizeChangeListener, View.OnClickListener {
@@ -40,9 +39,9 @@ public class MainActivity extends ActionBarActivity implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
 		mDocManager = DocumentManager.getInstance(getApplicationContext());
 		restoreState();
+		super.onCreate(savedInstanceState);
 		initActionBar();
 		initFlipView();
 		initSlidingMenu();
@@ -50,6 +49,7 @@ public class MainActivity extends ActionBarActivity implements
 	
 	private void restoreState() {
 		OptionSetting ops = mDocManager.getDefaultOptionSetting();
+		// "setTheme" must be called before "super.onCreate(), otherwise it will not work.
 		setTheme(ops.getThemeId());
 	}
 	
