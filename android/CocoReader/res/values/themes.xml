@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Reader.Theme" parent="@style/Theme.AppCompat.Light" />
+
+    <style name="Reader.Theme.LightBlue">
+        <item name="android:actionBarStyle">@style/Reader.ActionBar.LightBlue</item>
+    </style>
+
+</resources>
