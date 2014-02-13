@@ -58,9 +58,11 @@ public class ChapterFragment extends ListFragment {
 	
 	private void updateChapterItem(View v) {
 		View lastedSelectView = (View) mListView.getTag();
-		lastedSelectView.setActivated(false);
-		v.setActivated(true);
-		mListView.setTag(v);
+		if (lastedSelectView != null) {
+			lastedSelectView.setActivated(false);
+			v.setActivated(true);
+			mListView.setTag(v);
+		}
 	}
 	
 	
