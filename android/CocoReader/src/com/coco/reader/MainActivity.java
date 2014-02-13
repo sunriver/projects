@@ -201,11 +201,6 @@ public class MainActivity extends ActionBarActivity implements
 	@Override
 	public void onDocumentLoadCompleted(Document doc) {
 		mSlidingMenuTabs.option.setTextSize(doc.getTextSize());
-		PageView pv = (PageView) mFlipView.getSelectedView();
-		if (pv != null) {
-//			pv.scrollPageY();
-		}
-		
 	}
 
 }

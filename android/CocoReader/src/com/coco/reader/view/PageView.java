@@ -70,8 +70,5 @@ public class PageView extends RelativeLayout {
 		return mContentSv.getScrollY();
 	}
 	
-	public void scrollPageY() {
-		mContentEt.scrollBy(0, mPage.getScrollDY());
-	}
 	
 }
