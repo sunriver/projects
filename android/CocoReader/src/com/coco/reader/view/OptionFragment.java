@@ -7,12 +7,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
-public class OptionFragment extends Fragment implements OnSeekBarChangeListener {
+public class OptionFragment extends Fragment implements
+		OnSeekBarChangeListener, OnCheckedChangeListener {
 	private SeekBar mSeekBar;
+	private RadioGroup mThemeRg;
 	private TextSizeChangeListener mTextSizeChangeListener;
+	private ThemeSwitcher mThemeSwitcher;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -21,6 +26,8 @@ public class OptionFragment extends Fragment implements OnSeekBarChangeListener 
 		if (activity instanceof TextSizeChangeListener) {
 			this.mTextSizeChangeListener = (TextSizeChangeListener) activity;
 		}
+		
+//		mThemeSwitcher = new ThemeSwitcher(activity.getApplicationContext(), activity.getActionBar());
 
 	}
 
@@ -29,13 +36,17 @@ public class OptionFragment extends Fragment implements OnSeekBarChangeListener 
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.option, null);
 		mSeekBar = (SeekBar) v.findViewById(R.id.sb_text_size);
+		mThemeRg = (RadioGroup) v.findViewById(R.id.rg_theme);
+
 		mSeekBar.setOnSeekBarChangeListener(this);
+		mThemeRg.setOnCheckedChangeListener(this);
 		return v;
 	}
 
 	public float getTextSize() {
 		return mSeekBar.getProgress();
 	}
+
 	public void setTextSize(int size) {
 		mSeekBar.setProgress(size);
 	}
@@ -56,9 +67,33 @@ public class OptionFragment extends Fragment implements OnSeekBarChangeListener 
 		mTextSizeChangeListener.onSizeChangeing(seekBar.getProgress());
 	}
 
-	
+	@Override
+	public void onCheckedChanged(RadioGroup group, int checkedId) {
+		switch (checkedId) {
+		case R.id.rb_theme_default:
+			mThemeSwitcher.switchLightGreen();
+			break;
+		case R.id.rb_theme_lightblue:
+			mThemeSwitcher.switchLightBlue();
+			break;
+		default:
+			;
+		}
+	}
+
 	public interface TextSizeChangeListener {
 		public void onSizeChangeing(int size);
+
 		public void onSizeChanged(int size);
 	}
+
+	public ThemeSwitcher getThemeSwitcher() {
+		return this.mThemeSwitcher;
+	}
+	
+	
+	public void setThemeSwitcher(ThemeSwitcher switcher) {
+		this.mThemeSwitcher = switcher;
+	}
+
 }

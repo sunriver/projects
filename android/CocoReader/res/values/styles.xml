@@ -2,8 +2,13 @@
 
     <style name="Reader.ActionBar" parent="Widget.AppCompat.Light.ActionBar" />
 
+    <!-- Light Blue -->
     <style name="Reader.ActionBar.LightBlue">
         <item name="android:background">@drawable/back_title</item>
     </style>
 
+    <!-- Light Green -->
+    <style name="Reader.ActionBar.LightGreen">
+        <item name="android:background">@android:color/holo_green_light</item>
+    </style>
 </resources>

@@ -29,6 +29,7 @@ import com.coco.reader.view.ChapterFragment.ChapterSelectListener;
 import com.coco.reader.view.OptionFragment;
 import com.coco.reader.view.OptionFragment.TextSizeChangeListener;
 import com.coco.reader.view.PageView;
+import com.coco.reader.view.ThemeSwitcher;
 import com.coco.reader.data.Document;
 import com.coco.reader.data.DocumentManager;
 
@@ -104,6 +105,8 @@ public class MainActivity extends ActionBarActivity implements
 				.findFragmentById(R.id.nav_chapter);
 		mSlidingMenuTabs.option = (OptionFragment) fragmentManager
 				.findFragmentById(R.id.nav_option);
+		ThemeSwitcher  switcher = new ThemeSwitcher(getApplication(), getSupportActionBar());
+		mSlidingMenuTabs.option.setThemeSwitcher(switcher);
 	}
 	
 	private static class ActionBarCustomView {
@@ -113,9 +116,9 @@ public class MainActivity extends ActionBarActivity implements
 
 	private void initActionBar() {
 		ActionBar actionBar = getSupportActionBar();
-		Drawable d = getResources().getDrawable(
-				R.drawable.actionbar_bg_selector);
-		actionBar.setBackgroundDrawable(d);
+//		Drawable d = getResources().getDrawable(
+//				R.drawable.actionbar_bg_selector);
+//		actionBar.setBackgroundDrawable(d);
 		View customView = LayoutInflater.from(getApplicationContext()).inflate(
 				R.layout.title, null);
 		actionBar.setCustomView(customView);
