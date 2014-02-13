@@ -1,6 +1,8 @@
 package com.coco.reader.view;
 
 import com.coco.reader.R;
+import com.coco.reader.data.ThemeType;
+
 import android.support.v4.app.Fragment;
 import android.app.Activity;
 import android.os.Bundle;
@@ -26,8 +28,9 @@ public class OptionFragment extends Fragment implements
 		if (activity instanceof TextSizeChangeListener) {
 			this.mTextSizeChangeListener = (TextSizeChangeListener) activity;
 		}
-		
-//		mThemeSwitcher = new ThemeSwitcher(activity.getApplicationContext(), activity.getActionBar());
+
+		// mThemeSwitcher = new ThemeSwitcher(activity.getApplicationContext(),
+		// activity.getActionBar());
 
 	}
 
@@ -49,6 +52,17 @@ public class OptionFragment extends Fragment implements
 
 	public void setTextSize(int size) {
 		mSeekBar.setProgress(size);
+	}
+
+	public void setTheme(ThemeType type) {
+		switch (type) {
+		case LightBlue:
+			mThemeRg.check(R.id.rb_theme_lightblue);
+			break;
+		case LightGreen:
+			mThemeRg.check(R.id.rb_theme_default);
+			break;
+		}
 	}
 
 	@Override
@@ -90,8 +104,7 @@ public class OptionFragment extends Fragment implements
 	public ThemeSwitcher getThemeSwitcher() {
 		return this.mThemeSwitcher;
 	}
-	
-	
+
 	public void setThemeSwitcher(ThemeSwitcher switcher) {
 		this.mThemeSwitcher = switcher;
 	}

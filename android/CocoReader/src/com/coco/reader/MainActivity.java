@@ -2,28 +2,19 @@ package com.coco.reader;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.SystemClock;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.aphidmobile.flip.FlipViewController;
 import com.coco.reader.R;
 import com.coco.reader.adapter.PageAdapter;
 import com.coco.reader.adapter.PageAdapter.LoadStateChangeListener;
-import com.coco.reader.adapter.PageAdapter.PageChangeListener;
 import com.coco.reader.view.ChapterFragment;
 import com.coco.reader.view.ChapterFragment.ChapterSelectListener;
 import com.coco.reader.view.OptionFragment;
@@ -32,6 +23,8 @@ import com.coco.reader.view.PageView;
 import com.coco.reader.view.ThemeSwitcher;
 import com.coco.reader.data.Document;
 import com.coco.reader.data.DocumentManager;
+import com.coco.reader.data.OptionSetting;
+import com.coco.reader.data.ThemeType;
 
 public class MainActivity extends ActionBarActivity implements
 		ChapterSelectListener, LoadStateChangeListener, TextSizeChangeListener, View.OnClickListener {
@@ -43,14 +36,21 @@ public class MainActivity extends ActionBarActivity implements
 	private ActionBarCustomView mAbCustomView;
 	private SlidingMenu mSlidingMenu;
 	private SlidingMenuTabs mSlidingMenuTabs;
+	private ThemeSwitcher mThemeSwitcher;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mDocManager = DocumentManager.getInstance(getApplicationContext());
+		restoreState();
 		initActionBar();
 		initFlipView();
 		initSlidingMenu();
+	}
+	
+	private void restoreState() {
+		OptionSetting ops = mDocManager.getDefaultOptionSetting();
+		setTheme(ops.getThemeId());
 	}
 	
 	@Override
@@ -105,8 +105,12 @@ public class MainActivity extends ActionBarActivity implements
 				.findFragmentById(R.id.nav_chapter);
 		mSlidingMenuTabs.option = (OptionFragment) fragmentManager
 				.findFragmentById(R.id.nav_option);
-		ThemeSwitcher  switcher = new ThemeSwitcher(getApplication(), getSupportActionBar());
-		mSlidingMenuTabs.option.setThemeSwitcher(switcher);
+		
+		mThemeSwitcher = new ThemeSwitcher(getApplication(), getSupportActionBar());
+		mSlidingMenuTabs.option.setThemeSwitcher(mThemeSwitcher);
+		
+		OptionSetting ops = mDocManager.getDefaultOptionSetting();
+		mSlidingMenuTabs.option.setTheme(ops.getThemeType());
 	}
 	
 	private static class ActionBarCustomView {
@@ -165,15 +169,20 @@ public class MainActivity extends ActionBarActivity implements
 	}
 
 	private void saveState() {
+		OptionSetting ops = new OptionSetting();
+		ops.setThemeType(mThemeSwitcher.getThemeType());
+		int textSize = (int) mSlidingMenuTabs.option.getTextSize();
+		ops.setTextSize(textSize);
+		mDocManager.persistOptions(ops);
+		
 		Document doc = mPageAdapter.getDocument();
 		if (doc != null) {
+			doc.setTextSize(textSize);
 			PageView pv = (PageView) mFlipView.getSelectedView();
 			if (pv != null) {
 				int pageY = pv.getPageScrollDy();
 				doc.setSelectPageScrollDy(pageY);
 			}
-			int textSize = (int) mSlidingMenuTabs.option.getTextSize();
-			doc.setTextSize(textSize);
 			mDocManager.persistDocument(doc);
 		}
 	}

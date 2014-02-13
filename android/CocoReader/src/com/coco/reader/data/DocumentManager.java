@@ -83,6 +83,7 @@ public class DocumentManager {
 		String defaultDocName = mPreference.getString(Consts.PREF_DOCUMENT_DEFALUT, null);
 		Document doc = getDocumentByName(defaultDocName);
 		if (doc != null) {
+
 			int defaultPageIndex = mPreference.getInt(Consts.PREF_PAGE_DEFALUT_INDEX, 0);
 			doc.setSelectPageIndex(defaultPageIndex);
 			int defaultPageScrollY = mPreference.getInt(Consts.PREF_PAGE_DEFALUT_SCROLLY, 0);
@@ -93,6 +94,27 @@ public class DocumentManager {
 			doc.setTextSize(defaultTextSize);
 		}
 		return doc;
+	}
+	
+	public void persistOptions(OptionSetting ops) {
+		if (null == ops) {
+			return;
+		}
+		Editor editor = mPreference.edit();
+		editor.putInt(Consts.PREF_PAGE_DEFALUT_TEXT_SIZE, ops.getTextSize())
+			  .putString(Consts.PREF_DOCUMENT_DEFALUT_THEME, ops.getThemeType().toString())
+			  .commit();
+	}
+	
+	public OptionSetting getDefaultOptionSetting() {
+		OptionSetting op = new OptionSetting();
+		String defaultDocTheme = mPreference.getString(Consts.PREF_DOCUMENT_DEFALUT_THEME, ThemeType.LightBlue.toString());
+		op.setThemeType(ThemeType.valueOf(defaultDocTheme));
+		
+		int defaultTextSize = mContext.getResources().getInteger(R.integer.text_size_default);
+		defaultTextSize = mPreference.getInt(Consts.PREF_PAGE_DEFALUT_TEXT_SIZE, defaultTextSize);
+		op.setTextSize(defaultTextSize);
+		return op;
 	}
 	
 	public static synchronized DocumentManager getInstance(Context ctx) {
