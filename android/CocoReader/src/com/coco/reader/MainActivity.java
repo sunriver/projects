@@ -24,6 +24,7 @@ import com.coco.reader.view.ThemeSwitcher;
 import com.coco.reader.data.Document;
 import com.coco.reader.data.DocumentManager;
 import com.coco.reader.data.OptionSetting;
+import com.coco.reader.data.ThemeType;
 
 public class MainActivity extends ActionBarActivity implements
 		ChapterSelectListener, LoadStateChangeListener, TextSizeChangeListener, View.OnClickListener {
@@ -110,7 +111,7 @@ public class MainActivity extends ActionBarActivity implements
 		mSlidingMenuTabs.option.setThemeSwitcher(mThemeSwitcher);
 		
 		OptionSetting ops = mDocManager.getDefaultOptionSetting();
-		mSlidingMenuTabs.option.setTheme(ops.getThemeType());
+		mSlidingMenuTabs.option.setOptionSetting(ops);
 	}
 	
 	private static class ActionBarCustomView {
@@ -214,7 +215,7 @@ public class MainActivity extends ActionBarActivity implements
 	public void onDocumentLoadCompleted(Document doc) {
 		mAbCustomView.titleTv.setText(doc.getTitile());
 		mSlidingMenuTabs.option.setTextSize(doc.getTextSize());
-		OptionSetting ops = mDocManager.getDefaultOptionSetting();
+		OptionSetting ops = mSlidingMenuTabs.option.getOptionSetting();
 		PageView pv = (PageView) mFlipView.getSelectedView();
 		if (pv != null) {
 			pv.setPageBackground(ops.getPageBackgroundResId());

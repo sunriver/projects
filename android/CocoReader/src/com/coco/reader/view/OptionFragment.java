@@ -1,6 +1,7 @@
 package com.coco.reader.view;
 
 import com.coco.reader.R;
+import com.coco.reader.data.OptionSetting;
 import com.coco.reader.data.ThemeType;
 
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ public class OptionFragment extends Fragment implements
 	private RadioGroup mThemeRg;
 	private TextSizeChangeListener mTextSizeChangeListener;
 	private ThemeSwitcher mThemeSwitcher;
+	private OptionSetting mOptionSetting;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -28,11 +30,8 @@ public class OptionFragment extends Fragment implements
 		if (activity instanceof TextSizeChangeListener) {
 			this.mTextSizeChangeListener = (TextSizeChangeListener) activity;
 		}
-
-		// mThemeSwitcher = new ThemeSwitcher(activity.getApplicationContext(),
-		// activity.getActionBar());
-
 	}
+	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,9 +52,10 @@ public class OptionFragment extends Fragment implements
 	public void setTextSize(int size) {
 		mSeekBar.setProgress(size);
 	}
-
-	public void setTheme(ThemeType type) {
-		switch (type) {
+	
+	public void setOptionSetting(OptionSetting ops) {
+		this.mOptionSetting = ops;
+		switch (ops.getThemeType()) {
 		case LightBlue:
 			mThemeRg.check(R.id.rb_theme_lightblue);
 			break;
@@ -63,6 +63,10 @@ public class OptionFragment extends Fragment implements
 			mThemeRg.check(R.id.rb_theme_default);
 			break;
 		}
+	}
+	
+	public OptionSetting getOptionSetting() {
+		return mOptionSetting;
 	}
 
 	@Override
@@ -78,16 +82,20 @@ public class OptionFragment extends Fragment implements
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
-		mTextSizeChangeListener.onSizeChangeing(seekBar.getProgress());
+		int size = seekBar.getProgress();
+		mOptionSetting.setTextSize(size);
+		mTextSizeChangeListener.onSizeChangeing(size);
 	}
 
 	@Override
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
 		switch (checkedId) {
 		case R.id.rb_theme_default:
+			mOptionSetting.setThemeType(ThemeType.LightGreen);
 			mThemeSwitcher.switchLightGreen();
 			break;
 		case R.id.rb_theme_lightblue:
+			mOptionSetting.setThemeType(ThemeType.LightBlue);
 			mThemeSwitcher.switchLightBlue();
 			break;
 		default:
@@ -108,5 +116,5 @@ public class OptionFragment extends Fragment implements
 	public void setThemeSwitcher(ThemeSwitcher switcher) {
 		this.mThemeSwitcher = switcher;
 	}
-
+	
 }
