@@ -34,11 +34,11 @@ public class ChapterAdapter extends ArrayAdapter<ChapterItem> {
 		convertView.setTag(item);
 		Document doc = mDocManager.getSelectDocument();
 		if (doc != null && doc.getDocName().equals(item.itemName)) {
-			tv.setActivated(true);
+			tv.setEnabled(true);
 			//Remember the select view.
 			mListView.setTag(tv); 
 		} else {
-			tv.setActivated(false);
+			tv.setEnabled(false);
 		}
 		return convertView;
 	}

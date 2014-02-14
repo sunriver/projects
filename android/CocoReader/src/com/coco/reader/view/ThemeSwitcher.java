@@ -30,7 +30,7 @@ public class ThemeSwitcher {
 		mActionBar.setBackgroundDrawable(d);
 		PageView pv = (PageView) mFlipView.getSelectedView();
 		if (pv != null) {
-			pv.setPageBackground(android.R.color.holo_blue_light);
+			pv.setPageBackground(android.R.color.background_light);
 		}
 	}
 	

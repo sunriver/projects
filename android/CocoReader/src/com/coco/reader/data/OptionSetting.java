@@ -35,11 +35,11 @@ public class OptionSetting {
 	public int getPageBackgroundResId() {
 		switch (mThemeType) {
 		case LightBlue:
-			return android.R.color.holo_blue_light;
+			return android.R.color.background_light;
 		case LightGreen:
 			return R.drawable.page_bg_lightgreen;
 		}
-		return android.R.color.holo_blue_light;
+		return android.R.color.background_light;
 	}
 
 }
