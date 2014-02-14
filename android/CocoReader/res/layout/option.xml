@@ -5,28 +5,34 @@
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="@string/op_text_size" />
-
-        <SeekBar
-            android:id="@+id/sb_text_size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:progress="@integer/text_size_default"
-            android:layout_weight="2"
-            android:max="@integer/text_size_max" />
     </TableRow>
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
+
+        <SeekBar
+            android:id="@+id/sb_text_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:max="@integer/text_size_max"
+            android:progress="@integer/text_size_default" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp" >
 
         <TextView
             android:layout_width="wrap_content"
@@ -35,24 +41,33 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="@string/op_theme" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
         <RadioGroup
             android:id="@+id/rg_theme"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_gravity="center"
             android:orientation="horizontal" >
 
             <RadioButton
                 android:id="@+id/rb_theme_default"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:text="@string/op_theme_default" />
 
             <RadioButton
                 android:id="@+id/rb_theme_lightblue"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:text="@string/op_theme_lightblue" />
         </RadioGroup>
     </TableRow>
