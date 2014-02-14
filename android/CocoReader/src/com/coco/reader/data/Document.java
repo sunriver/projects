@@ -25,7 +25,7 @@ public class Document {
 	private int mSelectedPageScrollDy;
 	private int mTextSize;
 
-	public Document(Context context, String path, String name) {
+	public Document(Context context, String path, String name)  throws Throwable {
 		mContext = context;
 		mSelectedPageIndex = 0;
 		this.mDocName = name;
@@ -34,14 +34,10 @@ public class Document {
 		openDocument();
 	}
 
-	private void openDocument() {
-		try {
-			mInputStream = mContext.getAssets().open(mDocFile, AssetManager.ACCESS_RANDOM);
-			mAvaiableSize = mInputStream.available();
-			mReader = new BufferedReader(new InputStreamReader(mInputStream));
-		} catch (Throwable e) {
-			Log.e(TAG, "Can't open document", e);
-		}
+	private void openDocument() throws Throwable {
+		mInputStream = mContext.getAssets().open(mDocFile, AssetManager.ACCESS_RANDOM);
+		mAvaiableSize = mInputStream.available();
+		mReader = new BufferedReader(new InputStreamReader(mInputStream));
 	}
 	
 	public void closeDocument() {

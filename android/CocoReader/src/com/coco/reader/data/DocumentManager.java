@@ -62,6 +62,7 @@ public class DocumentManager {
 		return null;
 	}
 	
+	
 	public synchronized void setSelectDocument(Document document) {
 		this.mSelectDocument = document;
 	}
@@ -77,10 +78,15 @@ public class DocumentManager {
 		if (TextUtils.isEmpty(docName)) {
 			return null;
 		}
-		Document doc = mDocMap.get(docName);
-		if (null == doc) {
+		if (mDocMap.containsKey(docName)) {
+			return mDocMap.get(docName);
+		}
+		Document doc = null;
+		try {
 			doc = new Document(mContext, ASSET_DOCS, docName);
 			mDocMap.put(docName, doc);
+		} catch (Throwable e) {
+			Log.e(TAG, "Can't create doucment", e);
 		}
 		return doc;
 	}
