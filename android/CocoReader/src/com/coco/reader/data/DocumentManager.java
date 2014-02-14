@@ -141,7 +141,7 @@ public class DocumentManager {
 	
 	public OptionSetting getDefaultOptionSetting() {
 		OptionSetting op = new OptionSetting();
-		String defaultDocTheme = mPreference.getString(Consts.PREF_DOCUMENT_DEFALUT_THEME, ThemeType.LightBlue.toString());
+		String defaultDocTheme = mPreference.getString(Consts.PREF_DOCUMENT_DEFALUT_THEME, ThemeType.LightGreen.toString());
 		op.setThemeType(ThemeType.valueOf(defaultDocTheme));
 		
 		int defaultTextSize = mContext.getResources().getInteger(R.integer.text_size_default);
