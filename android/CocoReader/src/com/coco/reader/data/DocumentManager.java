@@ -35,7 +35,7 @@ public class DocumentManager {
 		mPreference = context.getSharedPreferences(Consts.PREF_FILE, Context.MODE_PRIVATE);
 	}
 
-	public String[] getAllDocuments() {
+	public String[] getAllTitles() {
 		try {
 //			return mContext.getAssets().list(ASSET_DOCS);
 			return getDocOutline();
@@ -73,23 +73,24 @@ public class DocumentManager {
 		}
 		return mSelectDocument;
 	}
-
-	public synchronized Document getDocumentByName(String docName) {
-		if (TextUtils.isEmpty(docName)) {
+	
+	public synchronized Document getDocument(ChapterItem item) {
+		if (null == item) {
 			return null;
 		}
-		if (mDocMap.containsKey(docName)) {
-			return mDocMap.get(docName);
+		if (mDocMap.containsKey(item.itemName)) {
+			return mDocMap.get(item.itemName);
 		}
 		Document doc = null;
 		try {
-			doc = new Document(mContext, ASSET_DOCS, docName);
-			mDocMap.put(docName, doc);
+			doc = new Document(mContext, ASSET_DOCS, item);
+			mDocMap.put(item.itemName, doc);
 		} catch (Throwable e) {
 			Log.e(TAG, "Can't create doucment", e);
 		}
 		return doc;
 	}
+
 	
 	public void closeAllDocument() {
 		for (Map.Entry<String,Document> entry : mDocMap.entrySet()) {
@@ -103,7 +104,8 @@ public class DocumentManager {
 			return;
 		}
 		Editor editor = mPreference.edit();
-		editor.putString(Consts.PREF_DOCUMENT_DEFALUT, doc.getDocName())
+		editor.putString(Consts.PREF_DOCUMENT_DEFALUT_NAME, doc.getDocName())
+		.putString(Consts.PREF_DOCUMENT_DEFALUT_TITLE, doc.getTitile())
 			  .putInt(Consts.PREF_PAGE_DEFALUT_INDEX, doc.getSelectPageIndex())
 			  .putInt(Consts.PREF_PAGE_DEFALUT_SCROLLY, doc.getSelectPageScrollY())
 			  .putInt(Consts.PREF_PAGE_DEFALUT_TEXT_SIZE, doc.getTextSize())
@@ -111,8 +113,9 @@ public class DocumentManager {
 	}
 	
 	public Document getDefaultDocument() {
-		String defaultDocName = mPreference.getString(Consts.PREF_DOCUMENT_DEFALUT, null);
-		Document doc = getDocumentByName(defaultDocName);
+		String defaultDocTitle = mPreference.getString(Consts.PREF_DOCUMENT_DEFALUT_TITLE, null);
+		String defaultDocName = mPreference.getString(Consts.PREF_DOCUMENT_DEFALUT_NAME, null);
+		Document doc = getDocument(new ChapterItem(defaultDocTitle, defaultDocName));
 		if (doc != null) {
 			int defaultPageIndex = mPreference.getInt(Consts.PREF_PAGE_DEFALUT_INDEX, 0);
 			doc.setSelectPageIndex(defaultPageIndex);

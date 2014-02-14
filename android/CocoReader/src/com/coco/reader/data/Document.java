@@ -14,6 +14,7 @@ import android.util.Log;
 public class Document {
 	private final static String TAG = Document.class.getSimpleName();
 	private String mDocName;
+	private String mDocTitle;
 	private String mDocFile;
 	private Map<Integer, Page> mPages;
 	private InputStream mInputStream;
@@ -25,13 +26,18 @@ public class Document {
 	private int mSelectedPageScrollDy;
 	private int mTextSize;
 
-	public Document(Context context, String path, String name)  throws Throwable {
+	public Document(Context context, String path, String title, String name)  throws Throwable {
 		mContext = context;
 		mSelectedPageIndex = 0;
 		this.mDocName = name;
+		this.mDocTitle = title;
 		mDocFile = path + "/" + mDocName + ".txt";
 		mPages = new HashMap<Integer, Page>();
 		openDocument();
+	}
+	
+	public Document(Context context, String path, ChapterItem item)  throws Throwable {
+		this(context, path, item.title, item.itemName);
 	}
 
 	private void openDocument() throws Throwable {
@@ -104,6 +110,10 @@ public class Document {
 
 	public final String getDocName() {
 		return mDocName;
+	}
+	
+	public final String getTitile() {
+		return mDocTitle;
 	}
 	
 	public Page prevPage() {

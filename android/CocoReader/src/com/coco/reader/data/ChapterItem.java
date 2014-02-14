@@ -1,4 +1,4 @@
-package com.coco.reader.adapter;
+package com.coco.reader.data;
 
 public class ChapterItem {
 	public String title;

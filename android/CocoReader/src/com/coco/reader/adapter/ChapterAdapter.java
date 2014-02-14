@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.coco.reader.data.ChapterItem;
 import com.coco.reader.data.Document;
 import com.coco.reader.data.DocumentManager;
 

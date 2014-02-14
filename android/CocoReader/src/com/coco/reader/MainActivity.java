@@ -204,7 +204,7 @@ public class MainActivity extends ActionBarActivity implements
 
 	@Override
 	public void onChanpterSelect(Document doc) {
-		mAbCustomView.titleTv.setText(doc.getDocName());
+		mAbCustomView.titleTv.setText(doc.getTitile());
 		int textSize = (int) mSlidingMenuTabs.option.getTextSize();
 		doc.setTextSize(textSize);
 		mPageAdapter.setDocument(doc);

@@ -2,7 +2,7 @@ package com.coco.reader.view;
 
 import com.coco.reader.R;
 import com.coco.reader.adapter.ChapterAdapter;
-import com.coco.reader.adapter.ChapterItem;
+import com.coco.reader.data.ChapterItem;
 import com.coco.reader.data.Document;
 import com.coco.reader.data.DocumentManager;
 
@@ -33,10 +33,10 @@ public class ChapterFragment extends ListFragment {
 		}
 		mListView = this.getListView();
 		mChapterAdapter = new ChapterAdapter(activity, mListView);
-		String[] docNames = mDocManager.getAllDocuments();
-		if (docNames != null) {
-			for (int index = 0, len = docNames.length; index < len; index ++) {
-				mChapterAdapter.add(new ChapterItem(docNames[index], String.valueOf(index + 1)));
+		String[] docTitles = mDocManager.getAllTitles();
+		if (docTitles != null) {
+			for (int index = 0, len = docTitles.length; index < len; index ++) {
+				mChapterAdapter.add(new ChapterItem(docTitles[index], String.valueOf(index + 1)));
 			}
 		}
 		setListAdapter(mChapterAdapter);
@@ -47,7 +47,7 @@ public class ChapterFragment extends ListFragment {
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		ChapterItem item = (ChapterItem) v.getTag();
-		Document doc = mDocManager.getDocumentByName(item.itemName);
+		Document doc = mDocManager.getDocument(item);
 		if (doc != null && mChapterSelectListener != null) {
 			updateChapterItem(v);
 			mDocManager.setSelectDocument(doc);
