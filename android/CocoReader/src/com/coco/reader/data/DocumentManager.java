@@ -114,7 +114,6 @@ public class DocumentManager {
 		String defaultDocName = mPreference.getString(Consts.PREF_DOCUMENT_DEFALUT, null);
 		Document doc = getDocumentByName(defaultDocName);
 		if (doc != null) {
-
 			int defaultPageIndex = mPreference.getInt(Consts.PREF_PAGE_DEFALUT_INDEX, 0);
 			doc.setSelectPageIndex(defaultPageIndex);
 			int defaultPageScrollY = mPreference.getInt(Consts.PREF_PAGE_DEFALUT_SCROLLY, 0);

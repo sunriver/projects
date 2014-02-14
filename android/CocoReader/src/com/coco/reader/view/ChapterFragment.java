@@ -35,9 +35,8 @@ public class ChapterFragment extends ListFragment {
 		mChapterAdapter = new ChapterAdapter(activity, mListView);
 		String[] docNames = mDocManager.getAllDocuments();
 		if (docNames != null) {
-			for (String docName : docNames) {
-				final String tempDocName = docName.substring(0, docName.length() - 4);
-				mChapterAdapter.add(new ChapterItem(tempDocName, android.R.drawable.ic_menu_search));
+			for (int index = 0, len = docNames.length; index < len; index ++) {
+				mChapterAdapter.add(new ChapterItem(docNames[index], String.valueOf(index + 1)));
 			}
 		}
 		setListAdapter(mChapterAdapter);
@@ -48,7 +47,7 @@ public class ChapterFragment extends ListFragment {
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		ChapterItem item = (ChapterItem) v.getTag();
-		Document doc = mDocManager.getDocumentByName(String.valueOf(position + 1));
+		Document doc = mDocManager.getDocumentByName(item.itemName);
 		if (doc != null && mChapterSelectListener != null) {
 			updateChapterItem(v);
 			mDocManager.setSelectDocument(doc);
@@ -60,9 +59,9 @@ public class ChapterFragment extends ListFragment {
 		View lastedSelectView = (View) mListView.getTag();
 		if (lastedSelectView != null) {
 			lastedSelectView.setActivated(false);
-			v.setActivated(true);
-			mListView.setTag(v);
 		}
+		v.setActivated(true);
+		mListView.setTag(v);
 	}
 	
 	

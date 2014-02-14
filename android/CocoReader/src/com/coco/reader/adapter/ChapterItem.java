@@ -2,10 +2,10 @@ package com.coco.reader.adapter;
 
 public class ChapterItem {
 	public String title;
-	public int iconRes;
+	public String itemName;
 
-	public ChapterItem(String title, int iconRes) {
+	public ChapterItem(String title, String itemName) {
 		this.title = title;
-		this.iconRes = iconRes;
+		this.itemName = itemName;
 	}
 }

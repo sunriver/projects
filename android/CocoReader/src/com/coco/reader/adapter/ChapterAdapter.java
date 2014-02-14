@@ -31,7 +31,7 @@ public class ChapterAdapter extends ArrayAdapter<ChapterItem> {
 		tv.setText(item.title);
 		convertView.setTag(item);
 		Document doc = mDocManager.getSelectDocument();
-		if (doc != null && doc.getDocName().equals(item.title)) {
+		if (doc != null && doc.getDocName().equals(item.itemName)) {
 			tv.setActivated(true);
 			//Remember the select view.
 			mListView.setTag(tv); 
