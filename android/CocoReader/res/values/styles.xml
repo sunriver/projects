@@ -1,6 +1,7 @@
 <resources>
 
     <style name="Reader.ActionBar" parent="Widget.AppCompat.Light.ActionBar" />
+    <style name="Reader.PageView" parent="" />
 
     <!-- Light Blue -->
     <style name="Reader.ActionBar.LightBlue">
@@ -9,6 +10,9 @@
 
     <!-- Light Green -->
     <style name="Reader.ActionBar.LightGreen">
-        <item name="android:background">@android:color/holo_green_light</item>
+        <item name="android:background">@drawable/page_bg_lightgreen</item>
+    </style>
+    <style name="Reader.PageView.LightGreen">
+        <item name="android:background">@drawable/page_bg_lightgreen</item>
     </style>
 </resources>

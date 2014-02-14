@@ -70,5 +70,9 @@ public class PageView extends RelativeLayout {
 		return mContentSv.getScrollY();
 	}
 	
+	public void setPageBackground(int resId) {
+		mContentEt.setBackgroundResource(resId);
+	}
+	
 	
 }

@@ -106,7 +106,7 @@ public class MainActivity extends ActionBarActivity implements
 		mSlidingMenuTabs.option = (OptionFragment) fragmentManager
 				.findFragmentById(R.id.nav_option);
 		
-		mThemeSwitcher = new ThemeSwitcher(getApplication(), getSupportActionBar());
+		mThemeSwitcher = new ThemeSwitcher(getApplication(), getSupportActionBar(), mFlipView);
 		mSlidingMenuTabs.option.setThemeSwitcher(mThemeSwitcher);
 		
 		OptionSetting ops = mDocManager.getDefaultOptionSetting();
@@ -213,6 +213,11 @@ public class MainActivity extends ActionBarActivity implements
 	@Override
 	public void onDocumentLoadCompleted(Document doc) {
 		mSlidingMenuTabs.option.setTextSize(doc.getTextSize());
+		OptionSetting ops = mDocManager.getDefaultOptionSetting();
+		PageView pv = (PageView) mFlipView.getSelectedView();
+		if (pv != null) {
+			pv.setPageBackground(ops.getPageBackgroundResId());
+		}
 	}
 
 }
