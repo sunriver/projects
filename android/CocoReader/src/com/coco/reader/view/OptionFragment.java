@@ -46,11 +46,12 @@ public class OptionFragment extends Fragment implements
 	}
 
 	public float getTextSize() {
-		return mSeekBar.getProgress();
+		return mOptionSetting.getTextSize();
 	}
 
 	public void setTextSize(int size) {
 		mSeekBar.setProgress(size);
+		mOptionSetting.setTextSize(size);
 	}
 	
 	public void setOptionSetting(OptionSetting ops) {
@@ -72,6 +73,7 @@ public class OptionFragment extends Fragment implements
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress,
 			boolean fromUser) {
+		mOptionSetting.setTextSize(progress);
 		mTextSizeChangeListener.onSizeChangeing(progress);
 	}
 

@@ -15,7 +15,6 @@ public class ThemeSwitcher {
 	private ActionBar mActionBar;
 	private FlipViewController mFlipView;
 	private Resources mResources;
-	private ThemeType mThemeType;
 
 
 	public ThemeSwitcher(Context ctx, ActionBar actionBar, FlipViewController flipView) {
@@ -27,7 +26,6 @@ public class ThemeSwitcher {
 	
 	
 	public void switchLightBlue() {
-		mThemeType = ThemeType.LightBlue;
 		Drawable d = mResources.getDrawable(R.drawable.actionbar_bg_selector);
 		mActionBar.setBackgroundDrawable(d);
 		PageView pv = (PageView) mFlipView.getSelectedView();
@@ -37,20 +35,11 @@ public class ThemeSwitcher {
 	}
 	
 	public void switchLightGreen() {
-		mThemeType = ThemeType.LightGreen;
 		Drawable d = mResources.getDrawable(R.drawable.page_bg_lightgreen);
 		mActionBar.setBackgroundDrawable(d);
 		PageView pv = (PageView) mFlipView.getSelectedView();
 		if (pv != null) {
 			pv.setPageBackground(R.drawable.page_bg_lightgreen);
 		}
-	}
-	
-	public ThemeType getThemeType() {
-		return mThemeType;
-	}
-	
-	public void setThemeType(ThemeType type) {
-		this.mThemeType = type;
 	}
 }

@@ -170,15 +170,11 @@ public class MainActivity extends ActionBarActivity implements
 	}
 
 	private void saveState() {
-		OptionSetting ops = new OptionSetting();
-		ops.setThemeType(mThemeSwitcher.getThemeType());
-		int textSize = (int) mSlidingMenuTabs.option.getTextSize();
-		ops.setTextSize(textSize);
+		OptionSetting ops = mSlidingMenuTabs.option.getOptionSetting();
 		mDocManager.persistOptions(ops);
 		
 		Document doc = mPageAdapter.getDocument();
 		if (doc != null) {
-			doc.setTextSize(textSize);
 			PageView pv = (PageView) mFlipView.getSelectedView();
 			if (pv != null) {
 				int pageY = pv.getPageScrollDy();
