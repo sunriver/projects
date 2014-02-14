@@ -39,7 +39,7 @@ public class Document {
 			mInputStream = mContext.getAssets().open(mDocFile, AssetManager.ACCESS_RANDOM);
 			mAvaiableSize = mInputStream.available();
 			mReader = new BufferedReader(new InputStreamReader(mInputStream));
-		} catch (IOException e) {
+		} catch (Throwable e) {
 			Log.e(TAG, "Can't open document", e);
 		}
 	}

@@ -48,7 +48,7 @@ public class ChapterFragment extends ListFragment {
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		ChapterItem item = (ChapterItem) v.getTag();
-		Document doc = mDocManager.getDocumentByName(item.title);
+		Document doc = mDocManager.getDocumentByName(String.valueOf(position + 1));
 		if (doc != null && mChapterSelectListener != null) {
 			updateChapterItem(v);
 			mDocManager.setSelectDocument(doc);

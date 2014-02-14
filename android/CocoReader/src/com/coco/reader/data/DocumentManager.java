@@ -1,6 +1,13 @@
 package com.coco.reader.data;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -30,9 +37,27 @@ public class DocumentManager {
 
 	public String[] getAllDocuments() {
 		try {
-			return mContext.getAssets().list(ASSET_DOCS);
-		} catch (IOException e) {
+//			return mContext.getAssets().list(ASSET_DOCS);
+			return getDocOutline();
+		} catch (Throwable e) {
 			Log.e(TAG, "Can't get all documents", e);
+		}
+		return null;
+	}
+	
+	private String[] getDocOutline() {
+		try {
+			String outlineFileName = ASSET_DOCS + "/outline.txt";
+			InputStream is = mContext.getAssets().open(outlineFileName);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+			String line = null;
+			List<String> lines = new ArrayList<String>();
+			while ((line = reader.readLine()) != null) {
+				lines.add(line);
+			}
+			return lines.toArray(new String[lines.size()]);
+		} catch (IOException e) {
+			Log.e(TAG, "Can't get document outline", e);
 		}
 		return null;
 	}
@@ -47,7 +72,7 @@ public class DocumentManager {
 		}
 		return mSelectDocument;
 	}
-	
+
 	public synchronized Document getDocumentByName(String docName) {
 		if (TextUtils.isEmpty(docName)) {
 			return null;
