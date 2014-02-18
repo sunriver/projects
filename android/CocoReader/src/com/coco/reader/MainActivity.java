@@ -201,6 +201,11 @@ public class MainActivity extends ActionBarActivity implements
 
 	@Override
 	public void onChanpterSelect(Document doc) {
+		PageView prevPageView = (PageView) mFlipView.getSelectedView();
+		if (prevPageView != null) {
+			prevPageView.savePageScrollDy();
+		}
+		
 		mAbCustomView.titleTv.setText(doc.getTitile());
 		int textSize = (int) mSlidingMenuTabs.option.getTextSize();
 		doc.setTextSize(textSize);

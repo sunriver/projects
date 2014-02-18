@@ -29,11 +29,13 @@ public class DocumentManager {
 	private SharedPreferences mPreference;
 	private Document mSelectDocument;
 	private OptionSetting mOptionSetting;
+	private String[] mOutLine;
 	
 	private DocumentManager(Context context) {
 		mContext = context.getApplicationContext();
 		mDocMap = new WeakHashMap<String, Document>();
 		mPreference = context.getSharedPreferences(Consts.PREF_FILE, Context.MODE_PRIVATE);
+		mOutLine = getDocOutline();
 		initOptionSettings();
 	}
 	
@@ -50,13 +52,7 @@ public class DocumentManager {
 	}
 
 	public String[] getAllTitles() {
-		try {
-//			return mContext.getAssets().list(ASSET_DOCS);
-			return getDocOutline();
-		} catch (Throwable e) {
-			Log.e(TAG, "Can't get all documents", e);
-		}
-		return null;
+		return mOutLine;
 	}
 	
 	private String[] getDocOutline() {
@@ -126,8 +122,8 @@ public class DocumentManager {
 	}
 	
 	public Document getDefaultDocument() {
-		String defaultDocTitle = mPreference.getString(Consts.PREF_DOCUMENT_DEFALUT_TITLE, null);
-		String defaultDocName = mPreference.getString(Consts.PREF_DOCUMENT_DEFALUT_NAME, null);
+		String defaultDocTitle = mPreference.getString(Consts.PREF_DOCUMENT_DEFALUT_TITLE, mOutLine[0]);
+		String defaultDocName = mPreference.getString(Consts.PREF_DOCUMENT_DEFALUT_NAME, "1");
 		Document doc = getDocument(new ChapterItem(defaultDocTitle, defaultDocName));
 		if (doc != null) {
 			int defaultPageIndex = mPreference.getInt(Consts.PREF_PAGE_DEFALUT_INDEX, 0);

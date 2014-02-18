@@ -53,6 +53,7 @@ public class PageView extends RelativeLayout {
 	
 	public void setPage(Page page) {
 		this.mPage = page;
+		mContentSv.scrollTo(0, mPage.getScrollDY());
 		mContentEt.setText(page.getContent());
 	}
 	
@@ -68,6 +69,10 @@ public class PageView extends RelativeLayout {
 	
 	public int getPageScrollDy() {
 		return mContentSv.getScrollY();
+	}
+	
+	public void savePageScrollDy() {
+		mPage.setScrollDy(getPageScrollDy());
 	}
 	
 	public void setPageBackground(int resId) {
