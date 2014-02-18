@@ -62,7 +62,11 @@ public class Page {
 				mAvaiableSize += count;
 				mStrBuf.append(mPageBuffer, 0, count);
 			}
-		} 
+		}
+		if (mAvaiableSize < 0) {
+			//move cursor to the end of file and close input stream.
+			reader.close();
+		}
 		return mAvaiableSize;
 
 	}
