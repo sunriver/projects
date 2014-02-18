@@ -28,11 +28,25 @@ public class DocumentManager {
 	private static DocumentManager mInstance;
 	private SharedPreferences mPreference;
 	private Document mSelectDocument;
+	private OptionSetting mOptionSetting;
 	
 	private DocumentManager(Context context) {
 		mContext = context.getApplicationContext();
 		mDocMap = new WeakHashMap<String, Document>();
 		mPreference = context.getSharedPreferences(Consts.PREF_FILE, Context.MODE_PRIVATE);
+		initOptionSettings();
+	}
+	
+	private void initOptionSettings() {
+		OptionSetting op = new OptionSetting();
+		String defaultDocTheme = mPreference.getString(Consts.PREF_DOCUMENT_DEFALUT_THEME, ThemeType.LightGreen.toString());
+		op.setThemeType(ThemeType.valueOf(defaultDocTheme));
+		
+		int defaultTextSize = mContext.getResources().getInteger(R.integer.text_size_default);
+		defaultTextSize = mPreference.getInt(Consts.PREF_PAGE_DEFALUT_TEXT_SIZE, defaultTextSize);
+		op.setTextSize(defaultTextSize);
+		
+		mOptionSetting = op;
 	}
 
 	public String[] getAllTitles() {
@@ -108,7 +122,6 @@ public class DocumentManager {
 		.putString(Consts.PREF_DOCUMENT_DEFALUT_TITLE, doc.getTitile())
 			  .putInt(Consts.PREF_PAGE_DEFALUT_INDEX, doc.getSelectPageIndex())
 			  .putInt(Consts.PREF_PAGE_DEFALUT_SCROLLY, doc.getSelectPageScrollY())
-			  .putInt(Consts.PREF_PAGE_DEFALUT_TEXT_SIZE, doc.getTextSize())
 			  .commit();
 	}
 	
@@ -139,15 +152,8 @@ public class DocumentManager {
 			  .commit();
 	}
 	
-	public OptionSetting getDefaultOptionSetting() {
-		OptionSetting op = new OptionSetting();
-		String defaultDocTheme = mPreference.getString(Consts.PREF_DOCUMENT_DEFALUT_THEME, ThemeType.LightGreen.toString());
-		op.setThemeType(ThemeType.valueOf(defaultDocTheme));
-		
-		int defaultTextSize = mContext.getResources().getInteger(R.integer.text_size_default);
-		defaultTextSize = mPreference.getInt(Consts.PREF_PAGE_DEFALUT_TEXT_SIZE, defaultTextSize);
-		op.setTextSize(defaultTextSize);
-		return op;
+	public OptionSetting getOptionSetting() {
+		return mOptionSetting;
 	}
 	
 	public static synchronized DocumentManager getInstance(Context ctx) {

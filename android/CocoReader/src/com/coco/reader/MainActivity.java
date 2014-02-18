@@ -49,7 +49,7 @@ public class MainActivity extends ActionBarActivity implements
 	}
 	
 	private void restoreState() {
-		OptionSetting ops = mDocManager.getDefaultOptionSetting();
+		OptionSetting ops = mDocManager.getOptionSetting();
 		// "setTheme" must be called before "super.onCreate(), otherwise it will not work.
 		setTheme(ops.getThemeId());
 	}
@@ -110,7 +110,7 @@ public class MainActivity extends ActionBarActivity implements
 		mThemeSwitcher = new ThemeSwitcher(getApplication(), getSupportActionBar(), mFlipView);
 		mSlidingMenuTabs.option.setThemeSwitcher(mThemeSwitcher);
 		
-		OptionSetting ops = mDocManager.getDefaultOptionSetting();
+		OptionSetting ops = mDocManager.getOptionSetting();
 		mSlidingMenuTabs.option.setOptionSetting(ops);
 	}
 	
