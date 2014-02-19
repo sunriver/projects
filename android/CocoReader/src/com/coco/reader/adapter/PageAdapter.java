@@ -1,7 +1,5 @@
 package com.coco.reader.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import com.coco.reader.R;
 import com.coco.reader.view.PageView;
@@ -20,7 +18,6 @@ import android.widget.BaseAdapter;
 public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 	private static final String TAG = PageAdapter.class.getSimpleName();
 	private Document mDocument;
-	private List<Page> mPageList;
 	private LayoutInflater mInflater;
 	private Handler mHandler;
 	private PageChangeListener mPageChangeListener;
@@ -28,7 +25,6 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 	
 	public PageAdapter(Context ctx, PageChangeListener l) {
 		this.mPageChangeListener = l;
-		mPageList = new ArrayList<Page>();
 		mInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mHandler = new Handler();
 	}
@@ -43,8 +39,11 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 	
 	public void setDocument(Document doc) {
 		this.mDocument = doc;
-		mPageList.clear();
-		init();
+		if (mDocument.isLoaded()) {
+			refresh();
+			return ;
+		}
+		mHandler.post(new GetPageTask(0, 1));
 	}
 	
 	public Document getDocument() {
@@ -59,26 +58,9 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 		}
 	}
 	
-	
-	private void init() {
-		mHandler.post(new GetPageTask(0, 1));
-//		mHandler.postDelayed(new GetPageTask(5, Integer.MAX_VALUE), 3000);
-	}
-	
-	private void loadPages(int pageOffset, int pageCapacity) {
-		for (int pageIndex = pageOffset; pageIndex < pageCapacity; pageIndex ++) {
-			Page page = mDocument.getPage(pageIndex);
-			if (page.getAvaiableSize() < 0) {
-				break;
-			}
-			mPageList.add(page);
-		}
-	}
-	
-	
 	@Override
 	public int getCount() {
-		return mPageList.size();
+		return mDocument != null ? mDocument.getPageCount() : 0;
 	}
 
 	@Override
@@ -91,12 +73,6 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 		return position;
 	}
 	
-	public Page getPage(int position) {
-		return mPageList.get(position);
-	}
-	
-
-
 	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -107,13 +83,13 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 		} else {
 			pv = (PageView) convertView;
 		}
-		int scrollDy = pv.getPageScrollDy();
 		
-		if (mPageList != null && mPageList.size() > 0) {
-			final Page page = mPageList.get(position);
+		Page page = mDocument.getPage(position);
+		if (page != null) {
 			pv.setTextSize(mDocument.getTextSize());
 			pv.setPage(page);
 		}
+		
 		return pv;
 	}
 
@@ -129,16 +105,13 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 		
 		@Override
 		protected Void doInBackground(Void... params) {
-			loadPages(offset, capacity);
+			mDocument.loadPages(offset, capacity);
 			return null;
 		}
 
 		@Override
 		protected void onPostExecute(Void result) {
-			notifyDataSetChanged();
-			if (mLoadStateChangeListener != null) {
-				mLoadStateChangeListener.onDocumentLoadCompleted(mDocument);
-			}
+			refresh();
 		}
 
 		@Override
@@ -150,6 +123,13 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 			}
 		}
 		
+	}
+	
+	private void refresh() {
+		notifyDataSetChanged();
+		if (mLoadStateChangeListener != null) {
+			mLoadStateChangeListener.onDocumentLoadCompleted(mDocument);
+		}
 	}
 	
 	@Override

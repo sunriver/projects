@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
@@ -16,7 +18,7 @@ public class Document {
 	private String mDocName;
 	private String mDocTitle;
 	private String mDocFile;
-	private Map<Integer, Page> mPages;
+	private List<Page> mPages;
 	private InputStream mInputStream;
 	private StringBuffer mContent;
 	private int mAvaiableSize;
@@ -25,6 +27,7 @@ public class Document {
 	private BufferedReader mReader;
 	private int mSelectedPageScrollDy;
 	private int mTextSize;
+	private boolean mIsLoaded;
 
 	public Document(Context context, String path, String title, String name)  throws Throwable {
 		mContext = context;
@@ -32,7 +35,8 @@ public class Document {
 		this.mDocName = name;
 		this.mDocTitle = title;
 		mDocFile = path + "/" + mDocName + ".txt";
-		mPages = new HashMap<Integer, Page>();
+		mPages = new ArrayList<Page>();
+		mIsLoaded = false;
 		openDocument();
 	}
 	
@@ -56,24 +60,58 @@ public class Document {
 		}
 	}
 	
-	public Page getPage(int pageIndex) {
+	public boolean isLoaded() {
+		return mIsLoaded;
+	}
+	
+	public void loadPages(int start, int length) {
 		try {
-			Page page = mPages.get(pageIndex);
-			if (null == page) {
-				page = new Page(pageIndex);
-				mPages.put(pageIndex, page);
+			for (int pageIndex = start; pageIndex < length; pageIndex ++) {
+				Page page = new Page(pageIndex);
 				int avaiableSize = page.read(mReader, true);
-				Log.d(TAG, "getPage() pageIndex=" + pageIndex + " avaiableSize=" + avaiableSize);
+				if (avaiableSize < 0) {
+					mIsLoaded = true;
+					break;
+				}
+				if (pageIndex == mSelectedPageIndex) {
+					page.setScrollDy(mSelectedPageScrollDy);
+				}	
+				mPages.add(page);
 			}
-			if (pageIndex == mSelectedPageIndex) {
-				page.setScrollDy(mSelectedPageScrollDy);
-			}
-			return page;
 		} catch (IOException e) {
 			Log.e(TAG, "Can't read file", e);
 		}
-		return null;
 	}
+	
+	public Page getPage(int index) {
+		if (index > mPages.size() || index < 0) {
+			return null;
+		}
+		return mPages.get(index);
+	}
+	
+	public int getPageCount() {
+		return mPages.size();
+	}
+	
+//	public Page getPage(int pageIndex) {
+//		try {
+//			Page page = mPages.get(pageIndex);
+//			if (null == page) {
+//				page = new Page(pageIndex);
+//				mPages.put(pageIndex, page);
+//				int avaiableSize = page.read(mReader, true);
+//				Log.d(TAG, "getPage() pageIndex=" + pageIndex + " avaiableSize=" + avaiableSize);
+//			}
+//			if (pageIndex == mSelectedPageIndex) {
+//				page.setScrollDy(mSelectedPageScrollDy);
+//			}
+//			return page;
+//		} catch (IOException e) {
+//			Log.e(TAG, "Can't read file", e);
+//		}
+//		return null;
+//	}
 	
 	public int getSelectPageIndex() {
 		return mSelectedPageIndex;
@@ -118,12 +156,12 @@ public class Document {
 	
 	public Page prevPage() {
 		int pageIndex = (mSelectedPageIndex > 0) ? (mSelectedPageIndex - 1) : 0;
-		return getPage(pageIndex);
+		return mPages.get(pageIndex);
 	}
 	
 	public Page nextPage() {
 		int pageIndex = mSelectedPageIndex + 1;
-		return getPage(pageIndex);
+		return mPages.get(pageIndex);
 	}
 
 }
