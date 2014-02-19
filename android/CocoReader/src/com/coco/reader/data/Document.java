@@ -94,25 +94,6 @@ public class Document {
 		return mPages.size();
 	}
 	
-//	public Page getPage(int pageIndex) {
-//		try {
-//			Page page = mPages.get(pageIndex);
-//			if (null == page) {
-//				page = new Page(pageIndex);
-//				mPages.put(pageIndex, page);
-//				int avaiableSize = page.read(mReader, true);
-//				Log.d(TAG, "getPage() pageIndex=" + pageIndex + " avaiableSize=" + avaiableSize);
-//			}
-//			if (pageIndex == mSelectedPageIndex) {
-//				page.setScrollDy(mSelectedPageScrollDy);
-//			}
-//			return page;
-//		} catch (IOException e) {
-//			Log.e(TAG, "Can't read file", e);
-//		}
-//		return null;
-//	}
-	
 	public int getSelectPageIndex() {
 		return mSelectedPageIndex;
 	}
