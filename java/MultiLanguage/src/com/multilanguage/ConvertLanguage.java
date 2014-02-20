@@ -35,11 +35,11 @@ public class ConvertLanguage {
 				String folder = folderMap.get(entry.getKey());
 				count++;
 				System.out.println("count=" + count + "  lan=" + entry.getKey() + "  folder=" + folder + "  [" + entry.getValue() + "]");
-				File valueDir = new File(targetDir + folder + "_test");
+				File valueDir = new File(targetDir + folder + "");
 				if (!valueDir.exists()) {
 					valueDir.mkdir();
 				}
-				File targetFile = new File(valueDir, "string.xml");
+				File targetFile = new File(valueDir, "strings.xml");
 				if (targetFile.exists()) {
 					targetFile.delete();
 				}
