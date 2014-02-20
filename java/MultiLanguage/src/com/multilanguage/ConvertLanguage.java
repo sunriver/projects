@@ -27,7 +27,9 @@ public class ConvertLanguage {
 		String sourceFile = "C:\\Users\\alu\\Desktop\\language\\language.txt";
 		try {
 			FileParser parser = new FileParser(sourceFile);
+			long now = System.currentTimeMillis();
 			Map<String, String> namesMap = parser.parse();
+			System.out.println("ParseEx elasped time:" + (System.currentTimeMillis() - now));
 			Map<String, String> folderMap = LanguageFolder.getMap();
 			Set<Entry<String, String>> namesSet =  namesMap.entrySet();
 			int count = 0;
@@ -37,7 +39,7 @@ public class ConvertLanguage {
 				System.out.println("count=" + count + "  lan=" + entry.getKey() + "  folder=" + folder + "  [" + entry.getValue() + "]");
 				File valueDir = new File(targetDir + folder + "");
 				if (!valueDir.exists()) {
-					valueDir.mkdir();
+					valueDir.mkdirs();
 				}
 				File targetFile = new File(valueDir, "strings.xml");
 				if (targetFile.exists()) {
