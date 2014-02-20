@@ -6,7 +6,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +26,8 @@ public class FileParser {
 		this.mFileName = fileName;
 	}
 	
+
+	
 	private void open() throws FileNotFoundException {
 		FileInputStream fis = new FileInputStream(new File(mFileName));
 		mReader = new BufferedReader(new InputStreamReader(fis, Charset.forName("UTF-8")));
@@ -28,6 +36,22 @@ public class FileParser {
 	private void close() throws IOException {
 		if (mReader != null) {
 			mReader.close();
+		}
+	}
+	
+	//Use channel to read file
+	public Map<String, String> parseEx() throws Exception {
+		try (
+				FileChannel fcin = FileChannel.open(Paths.get(mFileName), StandardOpenOption.READ); //try里面的资源必须实现AutoCloseable,否者编译错误
+		) {
+			ByteBuffer buffer = ByteBuffer.allocate(512);
+			mValueMap = new HashMap<String, String>();
+			Charset utf8 = Charset.forName("utf-8");
+			while ((fcin.read(buffer)) != -1) {
+				buffer.flip();
+				CharBuffer charBuffer = utf8.decode(buffer);
+			}
+			return mValueMap;
 		}
 	}
 	
