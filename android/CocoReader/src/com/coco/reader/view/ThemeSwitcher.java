@@ -44,11 +44,11 @@ public class ThemeSwitcher {
 	}
 	
 	public void switchLightGreen() {
-		Drawable d = mResources.getDrawable(R.drawable.page_bg_lightgreen);
+		Drawable d = mResources.getDrawable(R.drawable.page_bg_light_green);
 		mActionBar.setBackgroundDrawable(d);
 		PageView pv = (PageView) mFlipView.getSelectedView();
 		if (pv != null) {
-			pv.setPageBackground(R.drawable.page_bg_lightgreen);
+			pv.setPageBackground(R.drawable.page_bg_light_green);
 		}
 	}
 	

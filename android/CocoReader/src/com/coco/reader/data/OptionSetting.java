@@ -24,22 +24,22 @@ public class OptionSetting {
 
 	public int getThemeId() {
 		switch (mThemeType) {
-		case LightBlue:
-			return R.style.Reader_Theme_LightBlue;
 		case LightGreen:
 			return R.style.Reader_Theme_LightGreen;
+		case GrayGreen:
+			return R.style.Reader_Theme_GrayGreen;
 		}
-		return R.style.Reader_Theme_LightBlue;
+		return R.style.Reader_Theme_LightGreen;
 	}
 
 	public int getPageBackgroundResId() {
 		switch (mThemeType) {
-		case LightBlue:
-			return android.R.color.background_light;
 		case LightGreen:
-			return R.drawable.page_bg_lightgreen;
+			return R.drawable.page_bg_light_green;
+		case GrayGreen:
+			return R.drawable.page_bg_gray_green;
 		}
-		return android.R.color.background_light;
+		return R.drawable.page_bg_light_green;
 	}
 
 }

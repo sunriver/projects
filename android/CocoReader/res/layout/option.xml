@@ -60,7 +60,7 @@
                 android:layout_height="@dimen/nav_theme_radio_height"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/page_bg_lightgreen"
+                android:background="@drawable/page_bg_light_green"
                 android:button="@null" />
 
             <RadioButton

@@ -3,12 +3,12 @@
 
     <style name="Reader.Theme" parent="@style/Theme.AppCompat.Light" />
 
-    <style name="Reader.Theme.LightBlue">
-        <item name="android:actionBarStyle">@style/Reader.ActionBar.LightBlue</item>
-    </style>
-
     <style name="Reader.Theme.LightGreen">
         <item name="android:actionBarStyle">@style/Reader.ActionBar.LightGreen</item>
+    </style>
+
+    <style name="Reader.Theme.GrayGreen">
+        <item name="android:actionBarStyle">@style/Reader.ActionBar.GrayGreen</item>
     </style>
 
 </resources>
