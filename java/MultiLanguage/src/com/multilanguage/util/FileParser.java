@@ -45,13 +45,13 @@ public class FileParser {
 				FileChannel fcin = FileChannel.open(Paths.get(mFileName), StandardOpenOption.READ); //try里面的资源必须实现AutoCloseable,否者编译错误
 		) {
 			ByteBuffer buffer = ByteBuffer.allocate(512);
-			mValueMap = new HashMap<String, String>();
+			HashMap<String, String> map = new HashMap<String, String>();
 			Charset utf8 = Charset.forName("utf-8");
 			while ((fcin.read(buffer)) != -1) {
 				buffer.flip();
 				CharBuffer charBuffer = utf8.decode(buffer);
 			}
-			return mValueMap;
+			return map;
 		}
 	}
 	
