@@ -27,4 +27,13 @@
         <item name="android:background">@drawable/page_bg_gray_green</item>
     </style>
 
+    <!--Deep Yellow -->
+    <style name="Reader.ActionBar.DeepYellow">
+        <item name="android:background">@drawable/page_bg_deep_yellow</item>
+    </style>
+
+    <style name="Reader.PageView.DeepYellow">
+        <item name="android:background">@drawable/page_bg_deep_yellow</item>
+    </style>
+
 </resources>

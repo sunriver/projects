@@ -11,4 +11,8 @@
         <item name="android:actionBarStyle">@style/Reader.ActionBar.GrayGreen</item>
     </style>
 
+    <style name="Reader.Theme.DeepYellow">
+        <item name="android:actionBarStyle">@style/Reader.ActionBar.DeepYellow</item>
+    </style>
+
 </resources>

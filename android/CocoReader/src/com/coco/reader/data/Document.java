@@ -78,7 +78,7 @@ public class Document {
 				}	
 				mPages.add(page);
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			Log.e(TAG, "Can't read file", e);
 		}
 	}

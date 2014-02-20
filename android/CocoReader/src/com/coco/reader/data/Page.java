@@ -51,7 +51,7 @@ public class Page {
 	}
 	
 	
-	public int read(Reader reader, boolean readAll) throws IOException {
+	public int read(Reader reader, boolean readAll) throws Exception {
 		int count = reader.read(mPageBuffer, 0, Page.PAGE_SIZE);
 		mAvaiableSize = count;
 		if (count > 0) {

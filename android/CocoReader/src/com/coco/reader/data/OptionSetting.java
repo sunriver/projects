@@ -28,6 +28,8 @@ public class OptionSetting {
 			return R.style.Reader_Theme_LightGreen;
 		case GrayGreen:
 			return R.style.Reader_Theme_GrayGreen;
+		case DeepYellow:
+			return R.style.Reader_Theme_DeepYellow;
 		}
 		return R.style.Reader_Theme_LightGreen;
 	}
@@ -38,6 +40,8 @@ public class OptionSetting {
 			return R.drawable.page_bg_light_green;
 		case GrayGreen:
 			return R.drawable.page_bg_gray_green;
+		case DeepYellow:
+			return R.drawable.page_bg_deep_yellow;
 		}
 		return R.drawable.page_bg_light_green;
 	}
