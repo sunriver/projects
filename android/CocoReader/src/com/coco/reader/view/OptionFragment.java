@@ -57,11 +57,14 @@ public class OptionFragment extends Fragment implements
 	public void setOptionSetting(OptionSetting ops) {
 		this.mOptionSetting = ops;
 		switch (ops.getThemeType()) {
-		case LightBlue:
-			mThemeRg.check(R.id.rb_theme_lightblue);
-			break;
 		case LightGreen:
 			mThemeRg.check(R.id.rb_theme_default);
+			break;
+		case GrayGreen:
+			mThemeRg.check(R.id.rb_theme_gray_green);
+			break;
+		case DeepYellow:
+			mThemeRg.check(R.id.rb_theme_deep_yellow);
 			break;
 		}
 	}
@@ -96,9 +99,13 @@ public class OptionFragment extends Fragment implements
 			mOptionSetting.setThemeType(ThemeType.LightGreen);
 			mThemeSwitcher.switchLightGreen();
 			break;
-		case R.id.rb_theme_lightblue:
-			mOptionSetting.setThemeType(ThemeType.LightBlue);
-			mThemeSwitcher.switchLightBlue();
+		case R.id.rb_theme_gray_green:
+			mOptionSetting.setThemeType(ThemeType.GrayGreen);
+			mThemeSwitcher.switchGrayGreen();
+			break;
+		case R.id.rb_theme_deep_yellow:
+			mOptionSetting.setThemeType(ThemeType.DeepYellow);
+			mThemeSwitcher.switchDeepYellow();
 			break;
 		default:
 			;

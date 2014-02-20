@@ -25,12 +25,21 @@ public class ThemeSwitcher {
 	}
 	
 	
-	public void switchLightBlue() {
-		Drawable d = mResources.getDrawable(R.drawable.actionbar_bg_selector);
+//	public void switchLightBlue() {
+//		Drawable d = mResources.getDrawable(R.drawable.actionbar_bg_selector);
+//		mActionBar.setBackgroundDrawable(d);
+//		PageView pv = (PageView) mFlipView.getSelectedView();
+//		if (pv != null) {
+//			pv.setPageBackground(android.R.color.background_light);
+//		}
+//	}
+	
+	public void switchGrayGreen() {
+		Drawable d = mResources.getDrawable(R.drawable.page_bg_gray_green);
 		mActionBar.setBackgroundDrawable(d);
 		PageView pv = (PageView) mFlipView.getSelectedView();
 		if (pv != null) {
-			pv.setPageBackground(android.R.color.background_light);
+			pv.setPageBackground(R.drawable.page_bg_gray_green);
 		}
 	}
 	
@@ -40,6 +49,15 @@ public class ThemeSwitcher {
 		PageView pv = (PageView) mFlipView.getSelectedView();
 		if (pv != null) {
 			pv.setPageBackground(R.drawable.page_bg_lightgreen);
+		}
+	}
+	
+	public void switchDeepYellow() {
+		Drawable d = mResources.getDrawable(R.drawable.page_bg_deep_yellow);
+		mActionBar.setBackgroundDrawable(d);
+		PageView pv = (PageView) mFlipView.getSelectedView();
+		if (pv != null) {
+			pv.setPageBackground(R.drawable.page_bg_deep_yellow);
 		}
 	}
 }
