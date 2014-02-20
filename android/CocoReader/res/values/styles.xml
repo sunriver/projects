@@ -36,4 +36,31 @@
         <item name="android:background">@drawable/page_bg_deep_yellow</item>
     </style>
 
+    <!--Gray White -->
+    <style name="Reader.ActionBar.GrayWhite">
+        <item name="android:background">@drawable/page_bg_gray_white</item>
+    </style>
+
+    <style name="Reader.PageView.GrayWhite">
+        <item name="android:background">@drawable/page_bg_gray_white</item>
+    </style>
+
+    <!--Light Yellow -->
+    <style name="Reader.ActionBar.LightYellow">
+        <item name="android:background">@drawable/page_bg_light_yellow</item>
+    </style>
+
+    <style name="Reader.PageView.LightYellow">
+        <item name="android:background">@drawable/page_bg_light_yellow</item>
+    </style>
+
+    <!--Deep Gray -->
+    <style name="Reader.ActionBar.DeepGray">
+        <item name="android:background">@drawable/page_bg_deep_gray</item>
+    </style>
+
+    <style name="Reader.PageView.DeepGray">
+        <item name="android:background">@drawable/page_bg_deep_gray</item>
+    </style>
+
 </resources>

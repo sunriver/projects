@@ -54,12 +54,12 @@
             android:layout_gravity="center" >
 
             <LinearLayout
-                android:layout_margin="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp" >
 
                 <RadioButton
-                    android:id="@+id/rb_theme_default"
+                    android:id="@+id/rb_theme_light_green"
                     android:layout_width="@dimen/nav_theme_radio_width"
                     android:layout_height="@dimen/nav_theme_radio_height"
                     android:layout_marginLeft="10dp"
@@ -87,32 +87,35 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_margin="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp" >
 
                 <RadioButton
+                    android:id="@+id/rb_theme_gray_white"
                     android:layout_width="@dimen/nav_theme_radio_width"
                     android:layout_height="@dimen/nav_theme_radio_height"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/page_bg_light_green"
+                    android:background="@drawable/page_bg_gray_white"
                     android:button="@null" />
 
                 <RadioButton
+                    android:id="@+id/rb_theme_light_yellow"
                     android:layout_width="@dimen/nav_theme_radio_width"
                     android:layout_height="@dimen/nav_theme_radio_height"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/page_bg_gray_green"
+                    android:background="@drawable/page_bg_light_yellow"
                     android:button="@null" />
 
                 <RadioButton
+                    android:id="@+id/rb_theme_deep_gray"
                     android:layout_width="@dimen/nav_theme_radio_width"
                     android:layout_height="@dimen/nav_theme_radio_height"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/page_bg_deep_yellow"
+                    android:background="@drawable/page_bg_deep_gray"
                     android:button="@null" />
             </LinearLayout>
         </com.sunriver.common.view.RadioGroupEx>

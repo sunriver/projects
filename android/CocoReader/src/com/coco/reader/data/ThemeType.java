@@ -1,5 +1,5 @@
 package com.coco.reader.data;
 
 public enum ThemeType {
-	LightGreen, GrayGreen, DeepYellow
+	LightGreen, GrayGreen, DeepYellow, LightYellow, GrayWhite, DeepGray
 }

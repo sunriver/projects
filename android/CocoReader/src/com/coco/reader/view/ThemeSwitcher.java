@@ -60,4 +60,28 @@ public class ThemeSwitcher {
 			pv.setPageBackground(R.drawable.page_bg_deep_yellow);
 		}
 	}
+	public void switchDeepGray() {
+		Drawable d = mResources.getDrawable(R.drawable.page_bg_deep_gray);
+		mActionBar.setBackgroundDrawable(d);
+		PageView pv = (PageView) mFlipView.getSelectedView();
+		if (pv != null) {
+			pv.setPageBackground(R.drawable.page_bg_deep_gray);
+		}
+	}
+	public void switchGrayWhite() {
+		Drawable d = mResources.getDrawable(R.drawable.page_bg_gray_white);
+		mActionBar.setBackgroundDrawable(d);
+		PageView pv = (PageView) mFlipView.getSelectedView();
+		if (pv != null) {
+			pv.setPageBackground(R.drawable.page_bg_gray_white);
+		}
+	}
+	public void switchLightYellow() {
+		Drawable d = mResources.getDrawable(R.drawable.page_bg_light_yellow);
+		mActionBar.setBackgroundDrawable(d);
+		PageView pv = (PageView) mFlipView.getSelectedView();
+		if (pv != null) {
+			pv.setPageBackground(R.drawable.page_bg_light_yellow);
+		}
+	}
 }

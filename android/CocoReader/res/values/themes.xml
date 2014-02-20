@@ -15,4 +15,16 @@
         <item name="android:actionBarStyle">@style/Reader.ActionBar.DeepYellow</item>
     </style>
 
+    <style name="Reader.Theme.DeepGray">
+        <item name="android:actionBarStyle">@style/Reader.ActionBar.DeepGray</item>
+    </style>
+
+    <style name="Reader.Theme.GrayWhite">
+        <item name="android:actionBarStyle">@style/Reader.ActionBar.GrayWhite</item>
+    </style>
+
+    <style name="Reader.Theme.LightYellow">
+        <item name="android:actionBarStyle">@style/Reader.ActionBar.LightYellow</item>
+    </style>
+
 </resources>

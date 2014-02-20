@@ -59,13 +59,22 @@ public class OptionFragment extends Fragment implements
 		this.mOptionSetting = ops;
 		switch (ops.getThemeType()) {
 		case LightGreen:
-			mThemeRg.check(R.id.rb_theme_default);
+			mThemeRg.check(R.id.rb_theme_light_green);
 			break;
 		case GrayGreen:
 			mThemeRg.check(R.id.rb_theme_gray_green);
 			break;
 		case DeepYellow:
 			mThemeRg.check(R.id.rb_theme_deep_yellow);
+			break;
+		case LightYellow:
+			mThemeRg.check(R.id.rb_theme_light_yellow);
+			break;
+		case GrayWhite:
+			mThemeRg.check(R.id.rb_theme_gray_white);
+			break;
+		case DeepGray:
+			mThemeRg.check(R.id.rb_theme_deep_gray);
 			break;
 		}
 	}
@@ -96,7 +105,7 @@ public class OptionFragment extends Fragment implements
 	@Override
 	public void onCheckedChanged(RadioGroupEx group, int checkedId) {
 		switch (checkedId) {
-		case R.id.rb_theme_default:
+		case R.id.rb_theme_light_green:
 			mOptionSetting.setThemeType(ThemeType.LightGreen);
 			mThemeSwitcher.switchLightGreen();
 			break;
@@ -107,6 +116,18 @@ public class OptionFragment extends Fragment implements
 		case R.id.rb_theme_deep_yellow:
 			mOptionSetting.setThemeType(ThemeType.DeepYellow);
 			mThemeSwitcher.switchDeepYellow();
+			break;
+		case R.id.rb_theme_light_yellow:
+			mOptionSetting.setThemeType(ThemeType.LightYellow);
+			mThemeSwitcher.switchLightYellow();
+			break;
+		case R.id.rb_theme_gray_white:
+			mOptionSetting.setThemeType(ThemeType.GrayWhite);
+			mThemeSwitcher.switchGrayWhite();
+			break;
+		case R.id.rb_theme_deep_gray:
+			mOptionSetting.setThemeType(ThemeType.DeepGray);
+			mThemeSwitcher.switchDeepGray();
 			break;
 		default:
 			;
