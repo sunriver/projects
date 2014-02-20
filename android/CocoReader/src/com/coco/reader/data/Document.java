@@ -120,7 +120,9 @@ public class Document {
 
 	@Override
 	protected void finalize() throws Throwable {
+		Log.d(TAG, "finalize() +");
 		if (mInputStream != null) {
+			Log.d(TAG, "finalize() close input stream");
 			mInputStream.close();
 		}
 		super.finalize();

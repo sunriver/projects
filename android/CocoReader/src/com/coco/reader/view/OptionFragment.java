@@ -3,6 +3,8 @@ package com.coco.reader.view;
 import com.coco.reader.R;
 import com.coco.reader.data.OptionSetting;
 import com.coco.reader.data.ThemeType;
+import com.sunriver.common.view.RadioGroupEx;
+import com.sunriver.common.view.RadioGroupEx.OnCheckedChangeListener;
 
 import android.support.v4.app.Fragment;
 import android.app.Activity;
@@ -11,14 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
 public class OptionFragment extends Fragment implements
 		OnSeekBarChangeListener, OnCheckedChangeListener {
 	private SeekBar mSeekBar;
-	private RadioGroup mThemeRg;
+	private RadioGroupEx mThemeRg;
 	private TextSizeChangeListener mTextSizeChangeListener;
 	private ThemeSwitcher mThemeSwitcher;
 	private OptionSetting mOptionSetting;
@@ -38,7 +39,7 @@ public class OptionFragment extends Fragment implements
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.option, null);
 		mSeekBar = (SeekBar) v.findViewById(R.id.sb_text_size);
-		mThemeRg = (RadioGroup) v.findViewById(R.id.rg_theme);
+		mThemeRg = (RadioGroupEx) v.findViewById(R.id.rg_theme);
 
 		mSeekBar.setOnSeekBarChangeListener(this);
 		mThemeRg.setOnCheckedChangeListener(this);
@@ -93,7 +94,7 @@ public class OptionFragment extends Fragment implements
 	}
 
 	@Override
-	public void onCheckedChanged(RadioGroup group, int checkedId) {
+	public void onCheckedChanged(RadioGroupEx group, int checkedId) {
 		switch (checkedId) {
 		case R.id.rb_theme_default:
 			mOptionSetting.setThemeType(ThemeType.LightGreen);
@@ -125,5 +126,6 @@ public class OptionFragment extends Fragment implements
 	public void setThemeSwitcher(ThemeSwitcher switcher) {
 		this.mThemeSwitcher = switcher;
 	}
+
 	
 }

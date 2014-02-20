@@ -166,6 +166,7 @@ public class MainActivity extends ActionBarActivity implements
 	protected void onDestroy() {
 		saveState();
 		mDocManager.closeAllDocument();
+		DocumentManager.GcInstance();
 		super.onDestroy();
 	}
 

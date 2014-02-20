@@ -158,4 +158,9 @@ public class DocumentManager {
 		}
 		return mInstance;
 	}
+	
+	public static synchronized void GcInstance() {
+		mInstance = null;
+		System.gc();
+	}
 }

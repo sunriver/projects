@@ -105,7 +105,9 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 		
 		@Override
 		protected Void doInBackground(Void... params) {
-			mDocument.loadPages(offset, capacity);
+			if (!mDocument.isLoaded()) {
+				mDocument.loadPages(offset, capacity);
+			}
 			return null;
 		}
 

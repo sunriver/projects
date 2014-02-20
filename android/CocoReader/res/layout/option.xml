@@ -47,40 +47,75 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <RadioGroup
+        <com.sunriver.common.view.RadioGroupEx
             android:id="@+id/rg_theme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="horizontal" >
+            android:layout_gravity="center" >
 
-            <RadioButton
-                android:id="@+id/rb_theme_default"
-                android:layout_width="@dimen/nav_theme_radio_width"
-                android:layout_height="@dimen/nav_theme_radio_height"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/page_bg_light_green"
-                android:button="@null" />
+            <LinearLayout
+                android:layout_margin="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-            <RadioButton
-                android:id="@+id/rb_theme_gray_green"
-                android:layout_width="@dimen/nav_theme_radio_width"
-                android:layout_height="@dimen/nav_theme_radio_height"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/page_bg_gray_green"
-                android:button="@null" />
+                <RadioButton
+                    android:id="@+id/rb_theme_default"
+                    android:layout_width="@dimen/nav_theme_radio_width"
+                    android:layout_height="@dimen/nav_theme_radio_height"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/page_bg_light_green"
+                    android:button="@null" />
 
-            <RadioButton
-                android:id="@+id/rb_theme_deep_yellow"
-                android:layout_width="@dimen/nav_theme_radio_width"
-                android:layout_height="@dimen/nav_theme_radio_height"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/page_bg_deep_yellow"
-                android:button="@null" />
-        </RadioGroup>
+                <RadioButton
+                    android:id="@+id/rb_theme_gray_green"
+                    android:layout_width="@dimen/nav_theme_radio_width"
+                    android:layout_height="@dimen/nav_theme_radio_height"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/page_bg_gray_green"
+                    android:button="@null" />
+
+                <RadioButton
+                    android:id="@+id/rb_theme_deep_yellow"
+                    android:layout_width="@dimen/nav_theme_radio_width"
+                    android:layout_height="@dimen/nav_theme_radio_height"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/page_bg_deep_yellow"
+                    android:button="@null" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_margin="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <RadioButton
+                    android:layout_width="@dimen/nav_theme_radio_width"
+                    android:layout_height="@dimen/nav_theme_radio_height"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/page_bg_light_green"
+                    android:button="@null" />
+
+                <RadioButton
+                    android:layout_width="@dimen/nav_theme_radio_width"
+                    android:layout_height="@dimen/nav_theme_radio_height"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/page_bg_gray_green"
+                    android:button="@null" />
+
+                <RadioButton
+                    android:layout_width="@dimen/nav_theme_radio_width"
+                    android:layout_height="@dimen/nav_theme_radio_height"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/page_bg_deep_yellow"
+                    android:button="@null" />
+            </LinearLayout>
+        </com.sunriver.common.view.RadioGroupEx>
     </TableRow>
 
 </TableLayout>
