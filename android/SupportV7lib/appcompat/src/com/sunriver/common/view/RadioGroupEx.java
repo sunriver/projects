@@ -119,45 +119,36 @@ public class RadioGroupEx extends LinearLayout {
             setCheckedId(mCheckedId);
         }
     }
+    
+    private void updateCheckState(RadioButton button) {
+    	button.setChecked(true);
+		checkRadioButton(button);
+		if(mOnCheckedChangeListener != null){
+			mOnCheckedChangeListener.onCheckedChanged(RadioGroupEx.this, button.getId());
+		}
+    }
+    
+    private OnClickListener mRbOnClickListener = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			updateCheckState((RadioButton) v);
+		}
+    	
+    };
+    
 
     @Override
     public void addView(final View child, int index, ViewGroup.LayoutParams params) {
         if (child instanceof RadioButton) {
-        	
-        	((RadioButton) child).setOnTouchListener(new OnTouchListener() {
-				
-				@Override
-				public boolean onTouch(View v, MotionEvent event) {
-					((RadioButton) child).setChecked(true);
-					checkRadioButton((RadioButton) child);
-					if(mOnCheckedChangeListener != null){
-						mOnCheckedChangeListener.onCheckedChanged(RadioGroupEx.this, child.getId());
-					}
-					return true;
-				}
-			});
-        	
+        	((RadioButton) child).setOnClickListener(mRbOnClickListener);
         } else if(child instanceof LinearLayout){
         	int childCount = ((LinearLayout) child).getChildCount();
         	for(int i = 0; i < childCount; i++){
         		View view = ((LinearLayout) child).getChildAt(i);
         		if (view instanceof RadioButton) {
                     final RadioButton button = (RadioButton) view;
-
-                	
-                	((RadioButton) button).setOnTouchListener(new OnTouchListener() {
-        				
-        				@Override
-        				public boolean onTouch(View v, MotionEvent event) {
-        					((RadioButton) button).setChecked(true);
-        					checkRadioButton((RadioButton) button);
-        					if(mOnCheckedChangeListener != null){
-        						mOnCheckedChangeListener.onCheckedChanged(RadioGroupEx.this, button.getId());
-        					}
-        					return true;
-        				}
-        			});
-                    
+                    button.setOnClickListener(mRbOnClickListener);
                 }
         	}
         }
