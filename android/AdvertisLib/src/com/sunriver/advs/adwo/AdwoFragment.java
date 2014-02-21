@@ -1,4 +1,4 @@
-package com.sunriver.adfrag;
+package com.sunriver.advs.adwo;
 
 import com.adwo.adsdk.AdListener;
 import com.adwo.adsdk.AdwoAdView;

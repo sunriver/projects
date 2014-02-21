@@ -1,4 +1,4 @@
-package com.sunriver.adfrag;
+package com.sunriver.advs.adchina;
 
 
 import com.adchina.android.ads.AdManager;
