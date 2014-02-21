@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -62,12 +63,14 @@ public class MainActivity extends ActionBarActivity implements
 	
 
 	private void initFlipView() {
+		setContentView(R.layout.activity_main);
+		ViewGroup mainContent = (ViewGroup) this.findViewById(R.id.main_content);
 		mFlipView = new FlipViewController(getApplicationContext());
 		mPageAdapter = new PageAdapter(getApplicationContext());
 		mPageAdapter.setLoadStateChangeListener(this);
 		mFlipView.setAdapter(mPageAdapter);
 		mFlipView.setFlipByTouchEnabled(false);
-		setContentView(mFlipView);
+		mainContent.addView(mFlipView, 0);
 	}
 
 	private void initSlidingMenu() {
