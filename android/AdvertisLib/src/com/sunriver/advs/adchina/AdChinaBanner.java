@@ -18,8 +18,8 @@ import android.widget.LinearLayout;
 public class AdChinaBanner extends Fragment implements AdBannerListener {
 	private static final String TAG = AdChinaBanner.class.getSimpleName();
 	
-//	private static final String AD_ID = "2134693";
-	private static final String AD_ID = "69327"; //Test ID
+	private static final String AD_ID = "2134693";
+//	private static final String AD_ID = "69327"; //Test ID
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,9 +33,9 @@ public class AdChinaBanner extends Fragment implements AdBannerListener {
 		LinearLayout parent = new LinearLayout(getActivity());
 		Context ctx = getActivity().getApplicationContext();
 
-		AdView view = new AdView(ctx, AD_ID, false, false);
+		AdView view = new AdView(ctx, AD_ID, true, true);
 		view.setAdBannerListener(this);
-//		view.setAdReferenceSize(480, 72);
+		view.setAdReferenceSize(480, 72);
 		parent.addView(view);
 
 		view.setAdRefreshTime(20);
@@ -45,7 +45,7 @@ public class AdChinaBanner extends Fragment implements AdBannerListener {
 		AdManager.setAnimation(true);
 		LocationManager locationManager = (LocationManager) ctx.getSystemService(Context.LOCATION_SERVICE);
 		AdManager.setLocationManager(locationManager);
-		AdManager.setDebugMode(false);
+		AdManager.setDebugMode(true);
 		AdManager.setLogMode(true);
 		view.start();
 		return parent;
