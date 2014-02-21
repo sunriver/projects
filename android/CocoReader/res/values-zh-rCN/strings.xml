@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">可可读</string>
+    <string name="app_name">西游记</string>
 
     <!-- menu action -->
     <string name="action_settings">设置</string>
