@@ -1,6 +1,7 @@
 package com.coco.reader;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.sunriver.advs.AdvsManager;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -47,6 +48,7 @@ public class MainActivity extends ActionBarActivity implements
 		initActionBar();
 		initFlipView();
 		initSlidingMenu();
+		AdvsManager.showAdvs(this);
 	}
 	
 	private void restoreState() {
