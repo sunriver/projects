@@ -26,7 +26,6 @@ import com.coco.reader.view.ThemeSwitcher;
 import com.coco.reader.data.Document;
 import com.coco.reader.data.DocumentManager;
 import com.coco.reader.data.OptionSetting;
-import com.coco.reader.data.ThemeType;
 
 public class MainActivity extends ActionBarActivity implements
 		ChapterSelectListener, LoadStateChangeListener, TextSizeChangeListener, View.OnClickListener {
