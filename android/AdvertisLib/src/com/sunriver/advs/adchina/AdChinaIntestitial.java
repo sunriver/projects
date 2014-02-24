@@ -14,16 +14,22 @@ public class AdChinaIntestitial implements AdInterstitialListener {
 	private AdInterstitial adItst;
 	private Handler mHandler;
 	private Runnable mRunnable;
+	private boolean mItstAdReceived;
 	
 	public AdChinaIntestitial(Context context) {
 		this.mContext = context;
 		mHandler = new Handler();
+		mItstAdReceived = false;
 		mRunnable = new Runnable() {
 
 				@Override
 				public void run() {
-					adItst.start();
-					mHandler.postDelayed(this, 30000);
+					if (mItstAdReceived) {
+						adItst.showItst();
+					} else {
+						adItst.start();
+					}
+					mHandler.postDelayed(this, 60000);
 				}
 				
 			};
@@ -42,7 +48,10 @@ public class AdChinaIntestitial implements AdInterstitialListener {
 
     @Override
 	public void onReceivedItstAd() {
-    	if(adItst != null)adItst.showItst();
+    	mItstAdReceived = true;
+    	if(adItst != null) {
+    		adItst.showItst();
+    	}
     	Log.d(TAG, "onItstReceived()+");
 	}
     
