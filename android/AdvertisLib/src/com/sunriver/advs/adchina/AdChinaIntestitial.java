@@ -9,6 +9,7 @@ import android.util.Log;
 
 public class AdChinaIntestitial implements AdInterstitialListener {
 	private static final String TAG = AdChinaIntestitial.class.getSimpleName();
+	private static final int DELAY_TIME = 1000 * 60 * 15;
 	private Context mContext;
 	private final String ITST_ID = "2138037";
 	private AdInterstitial adItst;
@@ -24,12 +25,16 @@ public class AdChinaIntestitial implements AdInterstitialListener {
 
 				@Override
 				public void run() {
-					if (mItstAdReceived) {
-						adItst.showItst();
-					} else {
-						adItst.start();
+					try {
+						if (mItstAdReceived) {
+							adItst.showItst();
+						} else {
+							adItst.start();
+						}
+						mHandler.postDelayed(this, DELAY_TIME);
+					} catch (Throwable any) {
+						Log.d(TAG, "Error when show intert tial", any);
 					}
-					mHandler.postDelayed(this, 60000);
 				}
 				
 			};
