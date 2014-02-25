@@ -29,8 +29,7 @@ public class HomeActivity extends MainActivity {
 			info = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
 			return info.metaData.getString("com.coco.reader.xiyouji.itst_id");
 		} catch (NameNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.d(TAG, "fail to get itst id", e);
 		}
 		return null;
 	}
