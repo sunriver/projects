@@ -18,8 +18,8 @@ import android.widget.LinearLayout;
 public class AdChinaBanner extends Fragment implements AdBannerListener {
 	private static final String TAG = AdChinaBanner.class.getSimpleName();
 	
-	private static final String AD_ID = "2134693";
-//	private static final String AD_ID = "69327"; //Test ID
+//	private static final String AD_ID = "2134693";
+	private static final String AD_ID = "69327"; //Test ID
 	private View mAdView;
 	
 	@Override
