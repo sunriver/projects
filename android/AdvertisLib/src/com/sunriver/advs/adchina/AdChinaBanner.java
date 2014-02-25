@@ -20,11 +20,13 @@ public class AdChinaBanner extends Fragment implements AdBannerListener {
 	
 	private static final String AD_ID = "2134693";
 //	private static final String AD_ID = "69327"; //Test ID
+	private View mAdView;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		return createAdView();
+		mAdView = createAdView();
+		return mAdView;
 	}
 	
 	
@@ -56,6 +58,9 @@ public class AdChinaBanner extends Fragment implements AdBannerListener {
 	@Override
 	public void onClickBanner(AdView v) {
 		Log.d(TAG, "onClickBanner()+");
+		if (mAdView != null) {
+			mAdView.setVisibility(View.INVISIBLE);
+		}
 	}
 
 
