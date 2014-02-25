@@ -8,7 +8,7 @@ import android.os.Handler;
 import android.util.Log;
 
 public class AdChinaIntestitial implements AdInterstitialListener, IAdvs {
-	private final boolean IS_TEST_MODE = true;
+	private final boolean IS_TEST_MODE = false;
 	private static final String TAG = AdChinaIntestitial.class.getSimpleName();
 	private static final int DELAY_TIME = 1000 * 60 * 15;
 	private Context mContext;
@@ -39,7 +39,6 @@ public class AdChinaIntestitial implements AdInterstitialListener, IAdvs {
 				}
 				
 			};
-		addItstView();
 	}
 
     
@@ -49,6 +48,7 @@ public class AdChinaIntestitial implements AdInterstitialListener, IAdvs {
     }
 
 	public void start() {
+		addItstView();
 		mHandler.postDelayed(mRunnable, 10000);
 	}
 
