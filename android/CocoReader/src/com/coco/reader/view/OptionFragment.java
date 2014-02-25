@@ -32,7 +32,6 @@ public class OptionFragment extends Fragment implements
 			this.mTextSizeChangeListener = (TextSizeChangeListener) activity;
 		}
 	}
-	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,7 +53,7 @@ public class OptionFragment extends Fragment implements
 		mSeekBar.setProgress(size);
 		mOptionSetting.setTextSize(size);
 	}
-	
+
 	public void setOptionSetting(OptionSetting ops) {
 		this.mOptionSetting = ops;
 		switch (ops.getThemeType()) {
@@ -78,7 +77,7 @@ public class OptionFragment extends Fragment implements
 			break;
 		}
 	}
-	
+
 	public OptionSetting getOptionSetting() {
 		return mOptionSetting;
 	}
@@ -104,34 +103,53 @@ public class OptionFragment extends Fragment implements
 
 	@Override
 	public void onCheckedChanged(RadioGroupEx group, int checkedId) {
-		switch (checkedId) {
-		case R.id.rb_theme_light_green:
+		if (checkedId == R.id.rb_theme_light_green) {
 			mOptionSetting.setThemeType(ThemeType.LightGreen);
 			mThemeSwitcher.switchLightGreen();
-			break;
-		case R.id.rb_theme_gray_green:
+		} else if (checkedId == R.id.rb_theme_gray_green) {
 			mOptionSetting.setThemeType(ThemeType.GrayGreen);
 			mThemeSwitcher.switchGrayGreen();
-			break;
-		case R.id.rb_theme_deep_yellow:
+		} else if (checkedId == R.id.rb_theme_deep_yellow) {
 			mOptionSetting.setThemeType(ThemeType.DeepYellow);
 			mThemeSwitcher.switchDeepYellow();
-			break;
-		case R.id.rb_theme_light_yellow:
+		} else if (checkedId == R.id.rb_theme_light_yellow) {
 			mOptionSetting.setThemeType(ThemeType.LightYellow);
 			mThemeSwitcher.switchLightYellow();
-			break;
-		case R.id.rb_theme_gray_white:
+		} else if (checkedId == R.id.rb_theme_gray_white) {
 			mOptionSetting.setThemeType(ThemeType.GrayWhite);
 			mThemeSwitcher.switchGrayWhite();
-			break;
-		case R.id.rb_theme_deep_gray:
+		} else if (checkedId == R.id.rb_theme_deep_gray) {
 			mOptionSetting.setThemeType(ThemeType.DeepGray);
 			mThemeSwitcher.switchDeepGray();
-			break;
-		default:
-			;
 		}
+		// switch (checkedId) {
+		// case R.id.rb_theme_light_green:
+		// mOptionSetting.setThemeType(ThemeType.LightGreen);
+		// mThemeSwitcher.switchLightGreen();
+		// break;
+		// case R.id.rb_theme_gray_green:
+		// mOptionSetting.setThemeType(ThemeType.GrayGreen);
+		// mThemeSwitcher.switchGrayGreen();
+		// break;
+		// case R.id.rb_theme_deep_yellow:
+		// mOptionSetting.setThemeType(ThemeType.DeepYellow);
+		// mThemeSwitcher.switchDeepYellow();
+		// break;
+		// case R.id.rb_theme_light_yellow:
+		// mOptionSetting.setThemeType(ThemeType.LightYellow);
+		// mThemeSwitcher.switchLightYellow();
+		// break;
+		// case R.id.rb_theme_gray_white:
+		// mOptionSetting.setThemeType(ThemeType.GrayWhite);
+		// mThemeSwitcher.switchGrayWhite();
+		// break;
+		// case R.id.rb_theme_deep_gray:
+		// mOptionSetting.setThemeType(ThemeType.DeepGray);
+		// mThemeSwitcher.switchDeepGray();
+		// break;
+		// default:
+		// ;
+		// }
 	}
 
 	public interface TextSizeChangeListener {
@@ -148,5 +166,4 @@ public class OptionFragment extends Fragment implements
 		this.mThemeSwitcher = switcher;
 	}
 
-	
 }

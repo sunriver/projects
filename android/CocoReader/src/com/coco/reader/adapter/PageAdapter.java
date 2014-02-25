@@ -139,14 +139,20 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 		if (null == mPageChangeListener) {
 			return;
 		}
-		switch (v.getId()) {
-		case R.id.btn_prev:
+		int id = v.getId();
+		if (id == R.id.btn_prev) {
 			mPageChangeListener.onPreviousPage();
-			break;
-		case R.id.btn_next:
+		} else if (id == R.id.btn_next) {
 			mPageChangeListener.onNextPage();
-			break;
 		}
+//		switch (v.getId()) {
+//		case R.id.btn_prev:
+//			mPageChangeListener.onPreviousPage();
+//			break;
+//		case R.id.btn_next:
+//			mPageChangeListener.onNextPage();
+//			break;
+//		}
 	}
 
 	public interface PageChangeListener {

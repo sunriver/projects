@@ -144,14 +144,18 @@ public class MainActivity extends ActionBarActivity implements
 
 	@Override
 	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.nav_home:
-		case R.id.iv_title_home:
+		int id = v.getId();
+		if (id == R.id.nav_home || id == R.id.iv_title_home) {
 			mSlidingMenu.showMenu(true);
-			break;
-		default:
-			;
 		}
+//		switch (v.getId()) {
+//		case R.id.nav_home:
+//		case R.id.iv_title_home:
+//			mSlidingMenu.showMenu(true);
+//			break;
+//		default:
+//			;
+//		}
 	}
 	
 
