@@ -38,6 +38,8 @@ public class MainActivity extends ActionBarActivity implements
 	private SlidingMenu mSlidingMenu;
 	private SlidingMenuTabs mSlidingMenuTabs;
 	private ThemeSwitcher mThemeSwitcher;
+	private ViewGroup mMainContent;
+	private ViewGroup mBannerContainer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,6 @@ public class MainActivity extends ActionBarActivity implements
 		initActionBar();
 		initFlipView();
 		initSlidingMenu();
-		AdvsManager.showAdvs(this);
 	}
 	
 	private void restoreState() {
@@ -65,13 +66,23 @@ public class MainActivity extends ActionBarActivity implements
 
 	private void initFlipView() {
 		setContentView(R.layout.activity_main);
-		ViewGroup mainContent = (ViewGroup) this.findViewById(R.id.main_content);
+		mMainContent = (ViewGroup) this.findViewById(R.id.main_content);
+		mBannerContainer = (ViewGroup) this.findViewById(R.id.bannerLayout);
 		mFlipView = new FlipViewController(getApplicationContext());
 		mPageAdapter = new PageAdapter(getApplicationContext());
 		mPageAdapter.setLoadStateChangeListener(this);
 		mFlipView.setAdapter(mPageAdapter);
 		mFlipView.setFlipByTouchEnabled(false);
-		mainContent.addView(mFlipView, 0);
+		mMainContent.addView(mFlipView, 0);
+	}
+	
+	public ViewGroup getMainContent() {
+		return mMainContent;
+	}
+	
+	
+	public ViewGroup getBannerContainer() {
+		return mBannerContainer;
 	}
 
 	private void initSlidingMenu() {
