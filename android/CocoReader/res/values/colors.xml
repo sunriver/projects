@@ -2,5 +2,7 @@
 <resources>
 
     <color name="backColor">#2000</color>
+    <color name="gray_white">#c5c8c6</color>
+    <color name="gray_black">#1d1f21</color>
 
 </resources>
