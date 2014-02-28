@@ -7,8 +7,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
 
-public class AdChinaIntestitial implements AdInterstitialListener, IAdvs {
-	private final boolean IS_TEST_MODE = false;
+public class AdChinaIntestitial implements AdInterstitialListener{
 	private static final String TAG = AdChinaIntestitial.class.getSimpleName();
 	private static final int DELAY_TIME = 1000 * 60 * 15;
 	private Context mContext;
@@ -18,8 +17,9 @@ public class AdChinaIntestitial implements AdInterstitialListener, IAdvs {
 	private Runnable mRunnable;
 	private boolean mItstAdReceived;
 	
-	public AdChinaIntestitial(Context context) {
+	public AdChinaIntestitial(Context context, String id) {
 		this.mContext = context;
+		this.ITST_ID = id;
 		mHandler = new Handler();
 		mItstAdReceived = false;
 		mRunnable = new Runnable() {
@@ -83,20 +83,5 @@ public class AdChinaIntestitial implements AdInterstitialListener, IAdvs {
 	public void onFailedToReceiveItstAd() {
 		Log.d(TAG, "onFailedToReceiveItstAd()+");
 	}
-
-
-	@Override
-	public void setAdvsID(String id) {
-		if (!IS_TEST_MODE) {
-			this.ITST_ID = id;
-		}
-	}
-
-
-	@Override
-	public String getAdvsID() {
-		return ITST_ID;
-	}
-
 
 }
