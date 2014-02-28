@@ -1,5 +1,10 @@
 <resources>
 
-    <string name="com.coco.reader.xiyouji.itst_id">"2167768"</string>
+    <!-- adchina -->
+    <string name="com.coco.reader.xiyouji.adchina.itst_id">"2167768"</string>
+
+    <!-- youmi -->
+    <string name="com.coco.reader.xiyouji.youmi.id">"bec04c4bd8c9c515"</string>
+    <string name="com.coco.reader.xiyouji.youmi.key">"481f1552582de8bd"</string>
 
 </resources>
