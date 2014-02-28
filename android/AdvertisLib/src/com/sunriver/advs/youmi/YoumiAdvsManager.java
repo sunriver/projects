@@ -9,18 +9,18 @@ import android.view.ViewGroup;
 
 public class YoumiAdvsManager {
 	
-	public static void setEnableTestMode(Context ctx, boolean enable) {
-		AdManager.getInstance(ctx).setEnableDebugLog(enable);
+	public static void setEnableTestMode(Context ctx, String apiID, String key, boolean enable) {
+		AdManager adManager = AdManager.getInstance(ctx);
+		adManager.init(apiID, key, enable);
+		AdManager.getInstance(ctx).setEnableDebugLog(true);
 	}
 	
-	public static void showAdvsOfSmartBanner(Context ctx, String id, String key) {
-		AdManager.getInstance(ctx).init(id, key, false); 
-		SmartBannerManager.init(ctx);
+	
+	public static void showAdvsOfSmartBanner(Context ctx) {
 		SmartBannerManager.show(ctx);
 	}
 	
-	public static void showAdvsOfBanner(Context ctx, String id, String key, ViewGroup parent) {
-		AdManager.getInstance(ctx).init(id, key, false); 
+	public static void showAdvsOfBanner(Context ctx, ViewGroup parent) {
 		YoumiBanner banner = new YoumiBanner(ctx);
 		parent.addView(banner.getBannerView());
 	}
