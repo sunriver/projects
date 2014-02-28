@@ -15,9 +15,9 @@ public class AdchinaAdvsManager {
 		ad.start();
 	}
 	
-	public static void setTestMode(Context ctx, boolean mode) {
-		AdManager.setDebugMode(mode);
-		AdManager.setLogMode(mode);
+	public static void setEnableTestMode(Context ctx, boolean enable) {
+		AdManager.setDebugMode(enable);
+		AdManager.setLogMode(enable);
 		AdManager.setRelateScreenRotate(ctx, true);
 		AdManager.setCanHardWare(true);
 		AdManager.setEnableLbs(true); 

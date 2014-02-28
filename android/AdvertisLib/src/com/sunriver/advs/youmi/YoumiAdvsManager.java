@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 
 public class YoumiAdvsManager {
 	
-	public static void setTestMode(Context ctx, boolean mode) {
-		AdManager.getInstance(ctx).setEnableDebugLog(mode);
+	public static void setEnableTestMode(Context ctx, boolean enable) {
+		AdManager.getInstance(ctx).setEnableDebugLog(enable);
 	}
 	
 	public static void showAdvsOfSmartBanner(Context ctx, String id, String key) {
