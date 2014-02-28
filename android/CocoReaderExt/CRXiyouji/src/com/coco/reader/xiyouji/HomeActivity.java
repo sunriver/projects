@@ -1,5 +1,6 @@
 package com.coco.reader.xiyouji;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import com.coco.reader.MainActivity;
@@ -19,9 +20,10 @@ public class HomeActivity extends MainActivity {
 	private void addAdvsOfYoumi() {
 		String youmiApiID = getString(R.string.com_coco_reader_xiyouji_youmi_api_id);
 		String youmiKey = getString(R.string.com_coco_reader_xiyouji_youmi_key);
-		net.youmi.android.AdManager.getInstance(getApplicationContext()).setEnableDebugLog(true);
-		YoumiAdvsManager.showAdvsOfSmartBanner(getApplicationContext(), youmiApiID, youmiKey);
-		YoumiAdvsManager.showAdvsOfBanner(getApplicationContext(), youmiApiID, youmiKey, getBannerContainer());
+		Context appCtx = this.getApplicationContext();
+		net.youmi.android.AdManager.getInstance(appCtx).setEnableDebugLog(true);
+		YoumiAdvsManager.showAdvsOfSmartBanner(appCtx, youmiApiID, youmiKey);
+		YoumiAdvsManager.showAdvsOfBanner(appCtx, youmiApiID, youmiKey, getBannerContainer());
 	}
 	
 	private void addAdvsOfAdchina() {
