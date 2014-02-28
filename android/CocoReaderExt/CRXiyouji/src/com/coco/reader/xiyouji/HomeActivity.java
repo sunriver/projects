@@ -18,12 +18,13 @@ public class HomeActivity extends MainActivity {
 	}
 	
 	private void addAdvsOfYoumi() {
-		YoumiAdvsManager.setEnableTestMode(getApplicationContext(), true);
+		Context appCtx = this.getApplicationContext();
 		String youmiApiID = getString(R.string.com_coco_reader_xiyouji_youmi_api_id);
 		String youmiKey = getString(R.string.com_coco_reader_xiyouji_youmi_key);
-		Context appCtx = this.getApplicationContext();
-		YoumiAdvsManager.showAdvsOfSmartBanner(appCtx, youmiApiID, youmiKey);
-		YoumiAdvsManager.showAdvsOfBanner(appCtx, youmiApiID, youmiKey, getBannerContainer());
+		YoumiAdvsManager.setEnableTestMode(appCtx, youmiApiID, youmiKey, true);
+		
+		YoumiAdvsManager.showAdvsOfSmartBanner(appCtx);
+		YoumiAdvsManager.showAdvsOfBanner(appCtx, getBannerContainer());
 	}
 	
 	private void addAdvsOfAdchina() {
