@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.coco.reader.MainActivity;
+import com.coco.reader.data.Document;
 import com.sunriver.advs.adchina.AdchinaAdvsManager;
 import com.sunriver.advs.youmi.YoumiAdvsManager;
 
@@ -30,12 +31,12 @@ public class HomeActivity extends MainActivity {
 		
 //		YoumiAdvsManager.showAdvsOfSmartBanner(appCtx);
 //		YoumiAdvsManager.showAdvsOfBanner(appCtx, getBannerContainer());
-		YoumiAdvsManager.showAdvsOfIntestitial(appCtx);
+//		YoumiAdvsManager.showAdvsOfIntestitial(appCtx);
 		Runnable r = new Runnable() {
 			@Override
 			public void run() {
-				mHandler.postDelayed(this, 1000 * 60 * 15);
 				YoumiAdvsManager.showAdvsOfIntestitial(appCtx);
+				mHandler.postDelayed(this, 1000 * 60 * 15);
 			}
 		};
 		mHandler.post(r);
@@ -50,6 +51,14 @@ public class HomeActivity extends MainActivity {
 		AdchinaAdvsManager.setEnableLogMode(true);
 		AdchinaAdvsManager.showAdvsOfIntestitial(this, getString(R.string.com_coco_reader_xiyouji_adchina_itst_id));
 	}
+
+	@Override
+	public void onDocumentLoadCompleted(Document doc) {
+		super.onDocumentLoadCompleted(doc);
+		YoumiAdvsManager.showAdvsOfIntestitial(this.getApplicationContext());
+	}
+	
+	
 	
 	
 }
