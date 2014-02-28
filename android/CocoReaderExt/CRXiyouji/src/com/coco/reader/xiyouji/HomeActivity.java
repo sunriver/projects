@@ -16,8 +16,8 @@ public class HomeActivity extends MainActivity {
 		
 		String youmiApiID = getString(R.string.com_coco_reader_xiyouji_youmi_api_id);
 		String youmiKey = getString(R.string.com_coco_reader_xiyouji_youmi_key);
-		YoumiAdvsManager.showAdvsOfSmartBanner(this, youmiApiID, youmiKey);
-		YoumiAdvsManager.showAdvsOfBanner(this, youmiApiID, youmiKey, getBannerContainer());
+		YoumiAdvsManager.showAdvsOfSmartBanner(getApplicationContext(), youmiApiID, youmiKey);
+		YoumiAdvsManager.showAdvsOfBanner(getApplicationContext(), youmiApiID, youmiKey, getBannerContainer());
 	}
 	
 	
