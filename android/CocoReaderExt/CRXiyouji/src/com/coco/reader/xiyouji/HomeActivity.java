@@ -39,6 +39,10 @@ public class HomeActivity extends MainActivity {
 			}
 		};
 		mHandler.post(r);
+		
+		boolean checkResult = net.youmi.android.spot.SpotManager.checkSpotAdConfig(appCtx); 
+		
+		Log.w(TAG, "addAdvsOfYoumi(): checkResult=" + checkResult);
 	}
 	
 	private void addAdvsOfAdchina() {
