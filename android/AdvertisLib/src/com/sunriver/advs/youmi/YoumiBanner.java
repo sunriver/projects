@@ -20,8 +20,8 @@ public class YoumiBanner extends AbstractBanner implements AdViewListener {
 	private View mAdView;
 
 	public YoumiBanner(Context ctx) {
-		mAdView = createAdView(ctx);
-		mContext = ctx;
+		mContext = ctx.getApplicationContext();
+		mAdView = createAdView(mContext);
 	}
 	
 	private View createAdView(Context ctx) {
@@ -33,14 +33,14 @@ public class YoumiBanner extends AbstractBanner implements AdViewListener {
 
 
 	@Override
-	public void onFailedToReceivedAd(net.youmi.android.banner.AdView arg0) {
+	public void onFailedToReceivedAd(net.youmi.android.banner.AdView adview) {
 		Log.d(TAG, "onFailedToReceivedAd()+");
 	}
 
 
 
 	@Override
-	public void onReceivedAd(net.youmi.android.banner.AdView arg0) {
+	public void onReceivedAd(net.youmi.android.banner.AdView adview) {
 		Log.d(TAG, "onReceivedAd()+");
 		
 	}
