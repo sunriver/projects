@@ -18,7 +18,7 @@ public class HomeActivity extends MainActivity {
 	}
 	
 	private void addAdvsOfYoumi() {
-		YoumiAdvsManager.setTestMode(getApplicationContext(), true);
+		YoumiAdvsManager.setEnableTestMode(getApplicationContext(), true);
 		String youmiApiID = getString(R.string.com_coco_reader_xiyouji_youmi_api_id);
 		String youmiKey = getString(R.string.com_coco_reader_xiyouji_youmi_key);
 		Context appCtx = this.getApplicationContext();
@@ -27,7 +27,7 @@ public class HomeActivity extends MainActivity {
 	}
 	
 	private void addAdvsOfAdchina() {
-		AdchinaAdvsManager.setTestMode(getApplicationContext(), false);
+		AdchinaAdvsManager.setEnableTestMode(getApplicationContext(), false);
 		AdchinaAdvsManager.showAdvsOfIntestitial(this, getString(R.string.com_coco_reader_xiyouji_adchina_itst_id));
 	}
 	
