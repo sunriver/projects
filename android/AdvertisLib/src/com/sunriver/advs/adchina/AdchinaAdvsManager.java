@@ -15,15 +15,18 @@ public class AdchinaAdvsManager {
 		ad.start();
 	}
 	
+	public static void setEnableLogMode(boolean enable) {
+		AdManager.setLogMode(enable);
+	}
+	
 	public static void setEnableTestMode(Context ctx, boolean enable) {
 		AdManager.setDebugMode(enable);
-		AdManager.setLogMode(enable);
-		AdManager.setRelateScreenRotate(ctx, true);
-		AdManager.setCanHardWare(true);
-		AdManager.setEnableLbs(true); 
-		AdManager.setAnimation(true);
-		LocationManager locationManager = (LocationManager) ctx.getSystemService(Context.LOCATION_SERVICE);
-		AdManager.setLocationManager(locationManager);
+//		AdManager.setRelateScreenRotate(ctx, true);
+//		AdManager.setCanHardWare(true);
+//		AdManager.setEnableLbs(true); 
+//		AdManager.setAnimation(true);
+//		LocationManager locationManager = (LocationManager) ctx.getSystemService(Context.LOCATION_SERVICE);
+//		AdManager.setLocationManager(locationManager);
 	}
 
 }
