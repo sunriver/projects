@@ -48,7 +48,7 @@ public class YoumiBanner extends AbstractBanner implements AdViewListener {
 
 
 	@Override
-	public void onSwitchedAd(net.youmi.android.banner.AdView arg0) {
+	public void onSwitchedAd(net.youmi.android.banner.AdView adview) {
 		Log.d(TAG, "onSwitchedAd()+");
 	}
 
