@@ -12,7 +12,11 @@ public class YoumiAdvsManager {
 	public static void setEnableTestMode(Context ctx, String apiID, String key, boolean enable) {
 		AdManager adManager = AdManager.getInstance(ctx);
 		adManager.init(apiID, key, enable);
-		AdManager.getInstance(ctx).setEnableDebugLog(true);
+
+	}
+	
+	public static void setEnableLogMode(Context ctx, boolean enable) {
+		AdManager.getInstance(ctx).setEnableDebugLog(enable);
 	}
 	
 	
