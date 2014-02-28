@@ -21,7 +21,7 @@ public class HomeActivity extends MainActivity {
 		Context appCtx = this.getApplicationContext();
 		String youmiApiID = getString(R.string.com_coco_reader_xiyouji_youmi_api_id);
 		String youmiKey = getString(R.string.com_coco_reader_xiyouji_youmi_key);
-		YoumiAdvsManager.setEnableTestMode(appCtx, youmiApiID, youmiKey, true);
+		YoumiAdvsManager.setEnableTestMode(appCtx, youmiApiID, youmiKey, false);
 		YoumiAdvsManager.setEnableLogMode(appCtx, true);
 		
 		YoumiAdvsManager.showAdvsOfSmartBanner(appCtx);
