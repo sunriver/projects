@@ -3,6 +3,8 @@ package com.sunriver.advs.adchina;
 
 import com.adchina.android.ads.api.AdInterstitial;
 import com.adchina.android.ads.api.AdInterstitialListener;
+
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
@@ -10,15 +12,13 @@ import android.util.Log;
 public class AdChinaIntestitial implements AdInterstitialListener{
 	private static final String TAG = AdChinaIntestitial.class.getSimpleName();
 	private static final int DELAY_TIME = 1000 * 60 * 15;
-	private Context mContext;
 	private String ITST_ID = "2138037"; //test ID
 	private AdInterstitial adItst;
 	private Handler mHandler;
 	private Runnable mRunnable;
 	private boolean mItstAdReceived;
 	
-	public AdChinaIntestitial(Context context, String id) {
-		this.mContext = context;
+	public AdChinaIntestitial(Activity act, String id) {
 		this.ITST_ID = id;
 		mHandler = new Handler();
 		mItstAdReceived = false;
@@ -39,16 +39,16 @@ public class AdChinaIntestitial implements AdInterstitialListener{
 				}
 				
 			};
+			addItstView(act);
 	}
 
     
-    private void addItstView(){
-    	adItst = new AdInterstitial(mContext, ITST_ID);
+    private void addItstView(Activity act){
+    	adItst = new AdInterstitial(act, ITST_ID);
     	adItst.setAdInterstitialListener(this);
     }
 
 	public void start() {
-		addItstView();
 		mHandler.postDelayed(mRunnable, 10000);
 	}
 
