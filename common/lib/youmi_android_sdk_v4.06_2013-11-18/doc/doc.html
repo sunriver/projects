@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>有米广告Android SDK开发者文档</title>
+		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="css/bootstrap.css" rel="stylesheet">
+		<link href="css/bootstrap-responsive.css" rel="stylesheet">
+		<!--
+		<link href="css/prettify.css" rel="stylesheet" />
+		-->
+		<!--
+		<link href="css/doc.css" rel="stylesheet" />
+		-->
+		<link href="css/docs.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <!--
+        <script type="text/javascript" src="js/prettify.js"></script>
+        -->
+		<script type="text/javascript" src="js/doc.js"></script>
+        <script src="js/highlight.pack.js"></script>
+        <script>
+			hljs.tabReplace = ' ';
+			hljs.initHighlightingOnLoad();
+		</script>
+	</head>
+
+	<body data-spy="scroll" onload="prettyPrint();" data-target="#ym-navbar">
+
+
+	<div class="header navbar-inner">
+			<div class="container clearfix">
+                <img class="pull-left" src="img/icon.png">
+                <span class="pull-left brand">有米广告Android SDK开发者文档</span>
+			</div>
+		</div>
+
+		<!-- data-target=".bs-docs-sidebar" -->
+
+		<!--
+		<div class="navbar  navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<label class="brand"><img src="img/icon.png"> 有米广告Android SDK开发者文档 </label>
+				</div>
+			</div>
+		</div>
+                -->
+		
+		<div class="container">
+<!--			<div class="row-fluid"> -->
+<!--				<div class="span4 bs-docs-sidebar" id="mynavbar"> -->
+					<!--Sidebar content-->
+					<!--<ul class="nav nav-list bs-docs-sidenav affix nav-pills nav-stacked"  > 
+						 
+					</ul>-->
+<!--					<ul class="nav nav-list bs-docs-sidenav affix nav-pills nav-stacked"  > -->
+                                        <ul class="nav nav-list bs-docs-sidenav affix" id="ym-navbar"> 
+						<li class='dropdown'> <a class='dropdown-toggle' id='menu_section_preface' role='button' data-toggle='dropdown'  data-target='#' href='#section_preface'>前言 <b class='caret'></b></a><ul class='dropdown-menu' role='menu' aria-labelledby='menu_section_preface'><li><a href='#section_preface_desc'>1.文档说明 </a></li><li><a href='#section_preface_overview'>2.SDK功能概览 </a></li><li><a href='#section_preface_updatelog'>3.更新日志 </a></li></ul></li><li class='dropdown'> <a class='dropdown-toggle' id='menu_section_ready' role='button' data-toggle='dropdown'  data-target='#' href='#section_ready'>一、准备工作 <b class='caret'></b></a><ul class='dropdown-menu' role='menu' aria-labelledby='menu_section_ready'><li><a href='#section_ready_application'>1.申请AppID </a></li><li><a href='#section_ready_import_sdk'>2.导入SDK </a></li><li><a href='#section_ready_config_manifest'>3.配置AndroidManifest </a></li><li><a href='#section_ready_config_channel'>4.设置渠道号(可选) </a></li><li><a href='#section_ready_init'>5.调用初始化接口(重要) </a></li><li><a href='#section_ready_pk_proguard'>6.混淆配置(重要) </a></li><li><a href='#section_ready_pk_to_check_config'>7.验证配置(重要) </a></li></ul></li><li class='dropdown'> <a class='dropdown-toggle' id='menu_section_offers' role='button' data-toggle='dropdown'  data-target='#' href='#section_offers'>二、调用积分广告 <b class='caret'></b></a><ul class='dropdown-menu' role='menu' aria-labelledby='menu_section_offers'><li><a href='#section_offers_config_userid'>1.设置用户标识(可选) </a></li><li><a href='#section_offers_init'>2.积分墙初始化接口 </a></li><li><a href='#section_offers_exit'>3.积分墙会话结束接口 </a></li><li><a href='#section_offers_show'>4.积分广告展现形式 </a></li><li><a href='#section_offers_points_account'>5.积分托管 </a></li><li><a href='#section_offers_listener_orders'>6.监听积分赚取订单 (可选) </a></li><li><a href='#section_offers_custom_points'>7.自定义积分账户(可选) </a></li><li><a href='#section_offers_points_order_callback'>8.服务器积分订单回调(可选) </a></li><li><a href='#section_offers_config_points_notification'>9.配置积分墙SDK的积分到账提醒(可选) </a></li></ul></li><li class='dropdown'> <a class='dropdown-toggle' id='menu_section_ad' role='button' data-toggle='dropdown'  data-target='#' href='#section_ad'>三、调用无积分广告 <b class='caret'></b></a><ul class='dropdown-menu' role='menu' aria-labelledby='menu_section_ad'><li><a href='#section_spot'>1.有米插屏广告调用接口 </a></li><li><a href='#section_banner'>2.有米广告条调用接口 </a></li><li><a href='#section_diy'>3.有米自定义广告调用接口 </a></li><li><a href='#section_smart_banner'>4.SmartBanner调用接口 </a></li></ul></li><li class='dropdown'> <a class='dropdown-toggle' id='menu_section_functional' role='button' data-toggle='dropdown'  data-target='#' href='#section_functional'>四、实用功能 <b class='caret'></b></a><ul class='dropdown-menu' role='menu' aria-labelledby='menu_section_functional'><li><a href='#section_functional_check_update'>1.检查更新接口 (可选) </a></li><li><a href='#section_functional_online_config'>2.在线参数 (可选) </a></li></ul></li><li class='dropdown'> <a class='dropdown-toggle' id='menu_section_pk' role='button' data-toggle='dropdown'  data-target='#' href='#section_pk'>五、打包发布 <b class='caret'></b></a><ul class='dropdown-menu' role='menu' aria-labelledby='menu_section_pk'><li><a href='#section_pk_check'>1.打包前检查 </a></li><li><a href='#section_pk_test'>2.测试 </a></li><li><a href='#section_pk_upload'>3.上传审核 </a></li><li><a href='#section_pk_public'>4.发布 </a></li></ul></li><li class='dropdown'> <a class='dropdown-toggle' id='menu_section_faq' role='button' data-toggle='dropdown'  data-target='#' href='#section_faq'>六、常见问题 <b class='caret'></b></a><ul class='dropdown-menu' role='menu' aria-labelledby='menu_section_faq'><li><a href='#section_faq_env'>1.环境配置问题 </a></li><li><a href='#section_faq_debuglog'>2.如何关闭debug log </a></li><li><a href='#section_faq_debugmode'>3.关于测试模式 </a></li><li><a href='#section_faq_contact_us'>4.联系我们 </a></li></ul></li>
+					</ul> 
+<!--				</div> -->
+				<!--<div class="span8" >-->
+                                <div class="doc-content">
+					<!--Body content-->
+					<h1 class="sdkhead" id="section_sdk">有米Android SDK开发者文档</h1>
+<h2 class="sdkhead" id="section_preface">前言</h2>
+<h3 class="sdkhead" id="section_preface_desc">1.文档说明</h3>
+<p>有米Android SDK v4从4.02版本开始整合了有米平台的所有广告形式以及实用功能服务。广告方面主要包含有积分和无积分两大类广告形式，无积分形式以SmartBanner、广告条、插屏和自定义广告为主；有积分广告形式是以积分墙为核心，配合多种展现形式实现的一套完整的积分广告流程；实用功能包含检查更新和在线配置参数等功能服务。</p>
+<blockquote>
+<p>*v4系列SDK的接口已经进行了大量修改，所有配置请以本文档为准。如果您的项目之前使用的是有米积分墙v2、广告条v3的话，建议清除所有相关的广告配置，并按本文档重新实现广告配置。</p>
+</blockquote>
+<h3 class="sdkhead" id="section_preface_overview">2.SDK功能概览</h3>
+<ul>
+<li>无积分广告<ul>
+<li>插播  </li>
+<li>广告条  </li>
+<li>自定义广告</li>
+<li>SmartBanner       </li>
+</ul>
+</li>
+<li>积分广告  <ul>
+<li>全屏积分墙列表  </li>
+<li>对话框积分墙列表    </li>
+<li>积分广告条  </li>
+<li>积分迷你广告条  </li>
+</ul>
+</li>
+<li>实用功能  <ul>
+<li>检查更新  </li>
+<li>在线配置  </li>
+</ul>
+</li>
+</ul>
+<h3 class="sdkhead" id="section_preface_updatelog">3.更新日志</h3>
+<ul>
+<li>
+<p>v4.06 2013-11-14  </p>
+<ul>
+<li>无积分广告[插播]  <ul>
+<li>增加超时时间设置接口  </li>
+<li>优化展示机制   </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>v4.05 2013-08-28</p>
+<ul>
+<li>无积分广告[SmartBanner]新广告形式上线</li>
+<li>无积分广告[插播]<ul>
+<li>增加回调接口</li>
+</ul>
+</li>
+<li>无积分广告[Banner]<ul>
+<li>修复在初始化时候广告请求的bug</li>
+</ul>
+</li>
+<li>所有广告形式增加检测是否配置完整的函数</li>
+</ul>
+</li>
+<li>
+<p>v4.04</p>
+<ul>
+<li>无积分广告[插播]<ul>
+<li>增加引导安装提示语</li>
+</ul>
+</li>
+<li>无积分广告[自定义广告]<ul>
+<li>新增迷你广告条展现形式</li>
+<li>新增推荐墙展现形式</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>v4.03  </p>
+<ul>
+<li>无积分广告[插播]<ul>
+<li>支持CPC广告</li>
+<li>支持开发者后台云控制插播防误点功能</li>
+<li>支持开发者后台云控制插播展示频率</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>v4.02  </p>
+<ul>
+<li>SDK整合，详见<a href="#section_preface_overview"> SDK功能概览 </a></li>
+<li>有积分广告  <ul>
+<li>新增积分广告条和积分迷你广告条两种积分广告的展现形式。  </li>
+<li>新增积分墙显示积分余额的功能(该功能可以在开发者主站控制面板关闭)。  </li>
+<li>修复弹出框积分列表的若干bug。          </li>
+</ul>
+</li>
+<li>修复了一个特殊情况下无法启动下载任务的bug。</li>
+<li>修复使用4.2.2(即API-17)打包时无法正常显示广告的bug。</li>
+</ul>
+</li>
+</ul>
+<h2 class="sdkhead" id="section_ready">一、准备工作</h2>
+<h3 class="sdkhead" id="section_ready_application">1.申请AppID</h3>
+<blockquote>
+<p>1). 点击<a href="https://www.youmi.net/apps/create"> 创建应用 </a> 进行新应用创建。<br />
+2). 查看<a href="https://www.youmi.net/apps/view"> 应用详情 </a> ，获取发布ID和应用密钥，在后续<a href="#section_ready_init">初始化</a>中使用。</p>
+</blockquote>
+<h3 class="sdkhead" id="section_ready_import_sdk">2.导入SDK</h3>
+<p>将 YoumiSdk_*.jar 导入您的工程中。</p>
+<blockquote>
+<p>1).  右键您的工程根目录，选择“New”，再选择“Folder”，输入Folder name为"libs"<br />
+2).  将 YoumiSdk_<em>.jar 拷贝到工程根目录的libs文件夹下<br />
+3).  右键 YoumSdk_</em>.jar ，选择“Build Path”再选择“Add to Build Path”<br />
+4).  右键您的工程根目录，选择Properties-&gt;Java Build Path-&gt;Order and Export，勾选Android Private Libraries和Android Dependencies，可消除classnotfoundexception，详见下图。
+5).  导入成功</p>
+</blockquote>
+<p><img alt="设置输出第三方jar" src="img/youmisdk/config_adt22_classnotfound.png" /></p>
+<h3 class="sdkhead" id="section_ready_config_manifest">3.配置AndroidManifest</h3>
+<h4 class="sdkhead" id="section_ready_config_manifest_permission">3.1 配置用户权限(重要)</h4>
+<p>在AndroidManifest.xml文件中配置用户权限  </p>
+<blockquote>
+<p><em>请将下面权限配置代码复制到 AndroidManifest.xml 文件中 :</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-xml">
+    &lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/&gt; 
+    &lt;uses-permission android:name=&quot;android.permission.READ_PHONE_STATE&quot;/&gt;
+    &lt;uses-permission android:name=&quot;android.permission.ACCESS_NETWORK_STATE&quot; /&gt; 
+    &lt;uses-permission android:name=&quot;android.permission.ACCESS_WIFI_STATE&quot;/&gt;
+    &lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot;/&gt; 
+    &lt;uses-permission android:name=&quot;android.permission.SYSTEM_ALERT_WINDOW&quot;/&gt;
+    &lt;uses-permission android:name=&quot;android.permission.GET_TASKS&quot;/&gt;
+    &lt;!--以下为可选权限--&gt;
+    &lt;uses-permission android:name=&quot;com.android.launcher.permission.INSTALL_SHORTCUT&quot;/&gt;
+
+</code></pre>
+
+<h4 class="sdkhead" id="section_ready_config_manifest_component">3.2 添加必须组件(重要)</h4>
+<p>为确保正常使用广告业务，请务必配置AdBrowser,AdReceiver和AdService。</p>
+<blockquote>
+<p><em>请将以下代码复制到AndroidManifest.xml的Application节点里面:</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-xml">
+    &lt;activity
+        android:name=&quot;net.youmi.android.AdBrowser&quot;
+        android:configChanges=&quot;keyboard|keyboardHidden|orientation&quot;            
+        android:theme=&quot;@android:style/Theme.Light.NoTitleBar&quot; &gt;
+    &lt;/activity&gt;
+    &lt;service
+        android:name=&quot;net.youmi.android.AdService&quot;
+        android:exported=&quot;false&quot; &gt;
+    &lt;/service&gt;
+    &lt;receiver 
+        android:name=&quot;net.youmi.android.AdReceiver&quot; &gt;
+        &lt;intent-filter&gt;
+            &lt;action android:name=&quot;android.intent.action.PACKAGE_ADDED&quot; /&gt;
+            &lt;data android:scheme=&quot;package&quot; /&gt;
+        &lt;/intent-filter&gt;
+    &lt;/receiver&gt; 
+</code></pre>
+
+<blockquote>
+<p><em>为了避免由于手写引起的配置错误，建议直接复制上述代码</em></p>
+</blockquote>
+<h4 class="sdkhead" id="section_ready_config_mainfest_component_smartbanner">3.3 配置SmartBanner(重要)</h4>
+<p>为正常使用SmartBanner广告业务，请务必配置SmartBannerActivity，SmartBannerService, 另外针对res/values/styles.xml配置透明设置(如果您没有使用SmartBanner，则可跳过该步骤)</p>
+<blockquote>
+<p><em>请将以下代码复制到AndroidManifest.xml的Application节点里面:</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-xml">
+    &lt;activity
+    android:name=&quot;net.youmi.android.SmartBannerActivity&quot;
+    android:configChanges=&quot;keyboard|keyboardHidden|orientation&quot;
+    android:theme=&quot;@style/Transparent&quot;&gt;        
+    &lt;/activity&gt;
+    &lt;service
+    android:name=&quot;net.youmi.android.SmartBannerService&quot;
+    android:exported=&quot;false&quot;&gt;        
+    &lt;/service&gt;
+
+</code></pre>
+
+<blockquote>
+<p><em>请将以下代码复制到res/values/styles.xml的resources节点里面:</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-xml">
+    &lt;style name=&quot;Transparent&quot;&gt;
+        &lt;item name=&quot;android:windowBackground&quot;&gt;@android:color/transparent&lt;/item&gt;
+        &lt;item name=&quot;android:windowNoTitle&quot;&gt;true&lt;/item&gt;
+        &lt;item name=&quot;android:windowIsTranslucent&quot;&gt;true&lt;/item&gt;
+        &lt;item name=&quot;android:windowAnimationStyle&quot;&gt;@android:style/Animation.Translucent&lt;/item&gt;
+    &lt;/style&gt;
+
+</code></pre>
+
+<h4 class="sdkhead" id="section_ready_config_manifest_component_offersreceiver">3.4 配置OffersReceiver(重要)</h4>
+<p>为正常使用积分广告业务，请务必配置OffersReceiver，否则将有可能获取不到积分。(如果您没有使用积分墙广告，则可以跳过该步骤)</p>
+<blockquote>
+<p><em>请将以下代码复制到AndroidManifest.xml的Application节点里面:</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-xml">
+    &lt;receiver
+        android:name=&quot;net.youmi.android.offers.OffersReceiver&quot;
+        android:exported=&quot;false&quot; &gt;
+    &lt;/receiver&gt;
+</code></pre>
+
+<h3 class="sdkhead" id="section_ready_config_channel">4.设置渠道号(可选)</h3>
+<p>目前，有米已经与多家应用商店合作，当您发布的目标应用商店有要求您加上有米的渠道号时，您可以按以下操作加入渠道号进行打包，这样可以保证您的应用在该应用商店上顺利审核通过。  </p>
+<blockquote>
+<p>渠道号列表详见:<a href="http://wiki.youmi.net/Wiki/PromotionChannelIDs">有米广告推广渠道号列表</a>  </p>
+<p><em>请在AndroidManifest.xml中添加以下代码:</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-xml">
+    &lt;meta-data android:name=&quot;YOUMI_CHANNEL&quot;
+                android:value=&quot;这里替换为非负整数的渠道号&quot; &gt;
+    &lt;/meta-data&gt;
+
+</code></pre>
+
+<h3 class="sdkhead" id="section_ready_init">5.调用初始化接口(重要)</h3>
+<p>请务必在主Activity的onCreate中调用AdManager.getInstance(context).init 接口初始化App的发布ID 、应用密钥和测试模式等参数。<br />
+其中，发布ID和密钥在上文的<a href="#section_ready_application">申请AppID</a>获得。</p>
+<blockquote>
+<p><em>代码示例:</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    package com.test
+    import android.app.Activity 
+    import net.youmi.android.AdManager;
+    /**
+    * 这是您的应用的主Activity
+    */  
+    public class YourMainActivity extends Activity { 
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            // TODO Auto-generated method stub
+            super.onCreate(savedInstanceState); 
+            // 初始化应用的发布ID和密钥，以及设置测试模式
+            AdManager.getInstance(this).init(&quot;您的应用发布ID&quot;,&quot;您的应用密钥&quot;, false); 
+        }
+    }
+
+
+</code></pre>
+
+<blockquote>
+<p><strong>！请将测试模式设置为false后上传至网站等待审核。</strong><br />
+<strong>！未上传应用安装包、未通过审核的应用、模拟器运行，都只能获得测试广告，审核通过后，模拟器上依旧是测试广告，真机才会获取到正常的广告。</strong></p>
+</blockquote>
+<h3 class="sdkhead" id="section_ready_pk_proguard">6.混淆配置(重要)</h3>
+<blockquote>
+<p>如果您的项目使用了Proguard混淆打包，请务必在proguard-project.txt中添加以下代码,否则将有可能获取不到广告:</p>
+</blockquote>
+<pre><code class="prettyprint lang-java">    -dontwarn net.youmi.android.**
+    -keep class net.youmi.android.** {
+    *;  
+    }  
+</code></pre>
+
+<h3 class="sdkhead" id="section_ready_pk_to_check_config">7.验证配置(重要)</h3>
+<blockquote>
+<p>可以在完成配置之后，在任意可以执行到代码的地方，如主Activity的onCreate，根据您已经嵌入的广告形式调用相应的配置验证接口进行配置验证。验证接口往往返回true或false，如果返回的是false，您需要详细查看logcat的提示，及时更正配置。
+当您验证完配置之后，可以移除配置验证接口的调用，因为它只适用于调试阶段。</p>
+</blockquote>
+<ul>
+<li>检查无积分插播广告配置</li>
+</ul>
+<pre><code class="prettyprint lang-java">    bool checkResult = net.youmi.android.spot.SpotManager.checkSpotAdConfig(context); 
+</code></pre>
+
+<ul>
+<li>检查无积分广告配置</li>
+</ul>
+<pre><code class="prettyprint lang-java">    bool checkResult = net.youmi.android.smart.SmartBannerManager.checkSmartBannerAdConfig(context); 
+</code></pre>
+
+<ul>
+<li>检查积分广告配置</li>
+</ul>
+<pre><code class="prettyprint lang-java">    //使用sdk自带的积分托管，不自定义积分账户的配置检查:
+    bool checkResult = net.youmi.android.offers.OffersManager.checkOffersAdConfig();
+    //不使用sdk自带的积分托管，使用自定义积分账户的配置检查：
+    bool checkResult = net.youmi.android.offers.OffersManager.checkOffersAdConfig(true);
+</code></pre>
+
+<h2 class="sdkhead" id="section_offers">二、调用积分广告</h2>
+<blockquote>
+<p><a href="https://www.youmi.net/page/product#wall">-&gt;了解积分墙</a>  </p>
+</blockquote>
+<p>!注意,使用积分广告请务必配置 <a href="#section_ready_config_manifest_component_offersreceiver">OffersReceiver</a></p>
+<h3 class="sdkhead" id="section_offers_config_userid">1.设置用户标识(可选)</h3>
+<blockquote>
+<p>如果您的应用有独立的用户账号体系，并且允许用户随时切换账户，那么您可能需要准确跟踪用户的哪个账号完成了积分墙广告并赚取了积分。通过为用户设置一个自定义标识(比如账户名)，便可以将这个标识附加在积分墙会话中，这样在积分结算以及订单回调时，您将可以清楚知道具体哪个账号完成了积分任务，从而进行下一步处理。 </p>
+</blockquote>
+<p><em>示例代码</em>: </p>
+<pre><code class="prettyprint lang-java">
+    // 调用以下接口设置您的用户的唯一标识  
+    OffersManager.getInstance(this).setCustomUserId(&quot;abcdefg_123&quot;);
+
+</code></pre>
+
+<blockquote>
+<p><em>注:用户标识必须为"字母数字下划线"组合</em></p>
+<p>*此设置适用于<a href="#section_offers_custom_points">自定义积分账户</a>和<a href="#section_offers_points_order_callback">服务器积分订单回调</a> *</p>
+</blockquote>
+<h3 class="sdkhead" id="section_offers_init">2.积分墙初始化接口</h3>
+<blockquote>
+<p>请务必在应用的启动代码，即在主Activity的onCreate方法中分别调用积分墙专用的初始化接口。<br />
+<em>代码示例:</em> </p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    package com.test
+    import android.app.Activity 
+    import net.youmi.android.AdManager;
+    import net.youmi.android.offers.OffersManager;
+    /**
+    * 这是您的应用的主Activity
+    */  
+    public class YourMainActivity extends Activity { 
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            // TODO Auto-generated method stub
+            super.onCreate(savedInstanceState); 
+            // 初始化应用发布ID和密钥，以及设置测试模式
+            AdManager.getInstance(this).init(&quot;您的应用发布ID&quot;,&quot;您的应用密钥&quot;, false); 
+            // 请务必调用以下代码，告诉SDK应用启动，可以让SDK进行一些初始化操作。该接口务必在SDK的初始化接口之后调用。
+            OffersManager.getInstance(this).onAppLaunch(); 
+        } 
+    }
+
+</code></pre>
+
+<h3 class="sdkhead" id="section_offers_exit">3.积分墙会话结束接口</h3>
+<blockquote>
+<p>请务必在应用退出前调用积分墙专用的会话结束接口，让SDK进行一些资源的释放和清理。<br />
+<em>代码示例:</em> </p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    import net.youmi.android.offers.OffersManager;  
+    ...
+    // 请务必在应用退出的时候调用以下代码，告诉SDK应用已经关闭，可以让SDK进行一些资源的释放和清理。
+    OffersManager.getInstance(this).onAppExit(); 
+    ...
+
+</code></pre>
+
+<h3 class="sdkhead" id="section_offers_show">4.积分广告展现形式</h3>
+<h4 class="sdkhead" id="section_offers_show_fullscreen">4.1 全屏积分墙</h4>
+<p><img alt="全屏积分墙" src="img/youmisdk/offers/fullscreenofferswall.png" /></p>
+<h5 class="sdkhead" id="section_offers_show_fullscreen_invoke">4.1.1 基本调用方法</h5>
+<blockquote>
+<p>调用OffersManager.getInstance(this).showOffersWall()展示全屏的积分墙。</p>
+</blockquote>
+<p><em>代码示例:</em></p>
+<pre><code class="prettyprint lang-java">
+    import android.app.Activity  
+    import net.youmi.android.offers.OffersManager;
+    ....
+    //调用showOffersWall显示全屏的积分墙界面
+    OffersManager.getInstance(this).showOffersWall();
+    ....
+</code></pre>
+
+<h5 class="sdkhead" id="section_offers_show_fullscreen_orientation">4.1.2 设置全屏积分墙屏幕方向(可选)</h5>
+<blockquote>
+<p>积分墙默认情况下根据手机系统的屏幕方向布局，如果希望强制设置积分墙的方向为竖向或横向，只需要在AndroidManifest.xml中配置AdBrowser即可。</p>
+</blockquote>
+<p><em>设置为竖向显示:</em></p>
+<pre><code class="prettyprint lang-xml">
+    &lt;activity
+        android:name=&quot;net.youmi.android.AdBrowser&quot;
+        android:configChanges=&quot;keyboard|keyboardHidden|orientation&quot;
+        android:screenOrientation=&quot;portrait&quot;
+        android:theme=&quot;@android:style/Theme.Light.NoTitleBar&quot; &gt;
+    &lt;/activity&gt;     
+
+</code></pre>
+
+<blockquote>
+<p><em>设置为横向显示:</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-xml">
+    &lt;activity
+        android:name=&quot;net.youmi.android.AdBrowser&quot;
+        android:configChanges=&quot;keyboard|keyboardHidden|orientation&quot;
+        android:screenOrientation=&quot;landscape&quot;
+        android:theme=&quot;@android:style/Theme.Light.NoTitleBar&quot; &gt;
+    &lt;/activity&gt;
+
+</code></pre>
+
+<h4 class="sdkhead" id="section_offers_show_dialog">4.2 对话框积分墙</h4>
+<p><img alt="对话框积分墙" src="img/youmisdk/offers/dialogofferswall.png" /></p>
+<blockquote>
+<p>调用OffersManager的showOffersWallDialog(Activity activity)方法即可。</p>
+</blockquote>
+<p><em>如果您希望自定义对话框的大小，可以调用其重载函数。</em>  </p>
+<p><em>代码示例</em>  </p>
+<pre><code class="prettyprint lang-java">
+    import android.app.Activity  
+    import net.youmi.android.offers.OffersManager;
+    ....
+    //下面展示三种可选的调用方法:
+    //*调用方式1.调用showOffersWallDialog显示默认的对话框样式积分墙:
+    OffersManager.getInstance(this).showOffersWallDialog(this); 
+    //*调用方式2.传入宽度和高度的像素值(注意：传入的宽高请确保是在竖屏状态下最佳的值，sdk会自动适应屏幕方向):
+    OffersManager.getInstance(this).showOffersWallDialog(this,300,400); 
+    //*调用方式3.传入宽度和高度占系统屏幕的百分比(注意,值类型为double，请确保大于0并小于1)
+    OffersManager.getInstance(this).showOffersWallDialog(this,0.9d,0.95d);
+    ....
+</code></pre>
+
+<h4 class="sdkhead" id="section_offers_show_banner">4.3 积分Banner和积分迷你Banner</h4>
+<p>显示有积分的横幅广告条，将高度为60dp的积分广告条定义为积分Banner，高度为32dp的积分广告条定义为积分迷你Banner。<br />
+<em>通过OffersBanner和OffersAdSize实例化积分广告条。</em> </p>
+<blockquote></blockquote>
+<p><em>以下是OffersAdSize的几种规格定义:</em>  </p>
+<ul>
+<li>OffersAdSize.SIZE_320x60 =&gt; <em>宽:320dp,高:60dp的积分Banner</em></li>
+<li>OffersAdSize.SIZE_320x60 =&gt; <em>宽:320dp,高:60dp的积分Banner</em></li>
+<li>OffersAdSize.SIZE_320x60 =&gt; <em>宽:320dp,高:60dp的积分Banner</em> </li>
+<li>OffersAdSize.SIZE_320x60 =&gt; <em>宽:320dp,高:60dp的积分Banner</em>  </li>
+</ul>
+<blockquote></blockquote>
+<p>效果图1(竖屏):  </p>
+<h2><img alt="积分广告条尺寸展示（竖屏）" src="img/youmisdk/offers/offersbanners_1.png" /></h2>
+<blockquote></blockquote>
+<p>效果图2(横屏):  </p>
+<h2><img alt="积分广告条尺寸展示（横屏）" src="img/youmisdk/offers/offersbanners_2.png" /></h2>
+<h5>4.3.1 普通布局(适用于应用)</h5>
+<p>1).配置布局文件</p>
+<blockquote></blockquote>
+<p>复制以下代码到要展示广告的Activity的layout文件中，并且放在合适的位置： </p>
+<pre><code class="prettyprint lang-xml">
+    &lt;RelativeLayout android:id=&quot;@+id/offersAdLayout&quot;
+    android:layout_width=&quot;fill_parent&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    android:gravity=&quot;center_horizontal&quot;&gt;
+    &lt;/RelativeLayout&gt;
+</code></pre>
+
+<p>2).将积分Banner加入布局</p>
+<blockquote></blockquote>
+<p>在展示广告的Activity类中，添加如下代码： </p>
+<pre><code class="prettyprint lang-java">    ...
+    import net.youmi.android.offers.OffersBanner; 
+    import net.youmi.android.offers.OffersAdSize;
+    ... 
+    //获取要嵌入积分广告条的布局
+    RelativeLayout adLayout=(RelativeLayout)findViewById(R.id.offersAdLayout);
+    //demo 1 积分Banner : 宽满屏，高60dp
+    OffersBanner banner = new OffersBanner(this, OffersAdSize.SIZE_MATCH_SCREENx60);//传入高度为60dp的OffersAdSize来定义积分Banner 
+    //demo 2 积分Banner : 宽320dp，高60dp
+    OffersBanner banner = new OffersBanner(this, OffersAdSize.SIZE_320x60);//传入高度为60dp的OffersAdSize来定义积分Banner  
+    //demo 3 积分迷你Banner : 宽满屏，高32dp
+    OffersBanner banner = new OffersBanner(this, OffersAdSize.SIZE_MATCH_SCREENx32);//传入高度为32dp的OffersAdSize来定义积分迷你Banner   
+    //demo 4 积分迷你Banner : 宽320dp，高32dp
+    OffersBanner banner = new OffersBanner(this, OffersAdSize.SIZE_320x32);//传入高度为32dp的OffersAdSize来定义积分迷你Banner    
+    //将积分Banner加入到布局中
+    adLayout.addView(banner);
+
+</code></pre>
+
+<h5>4.3.2 悬浮布局(适用于游戏)</h5>
+<blockquote>
+<p>在展示广告的Activity的onCreate中，添加如下代码:</p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    //实例化LayoutParams(重要)
+    FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+        FrameLayout.LayoutParams.FILL_PARENT,
+        FrameLayout.LayoutParams.WRAP_CONTENT);     
+    //设置积分Banner的悬浮位置
+    layoutParams.gravity = Gravity.BOTTOM | Gravity.RIGHT; // 这里示例为右下角  
+    //实例化积分Banner
+    OffersBanner banner = new OffersBanner(this, OffersAdSize.SIZE_MATCH_SCREENx60);//传入高度为60dp的OffersAdSize来定义积分Banner
+    //调用Activity的addContentView函数
+    this.addContentView(banner, layoutParams);
+
+</code></pre>
+
+<h4>4.4 积分广告相关设置</h4>
+<blockquote>
+<p>可以在<a href="https://www.youmi.net/apps/setting">有米主站开发者面板</a>设置积分广告条的切换频率和背景颜色等。</p>
+</blockquote>
+<h3 class="sdkhead" id="section_offers_points_account">5.积分托管</h3>
+<p>积分墙SDK内置积分账户托管，以下是调用方法。</p>
+<h4 class="sdkhead" id="section_offers_points_account_query">5.1 查询积分余额</h4>
+<blockquote>
+<p><em>代码示例:</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    import android.app.Activity  
+    import net.youmi.android.offers.OffersManager;
+    ...  
+    //调用queryPoints获取积分余额
+    int myPointBalance = PointsManager.getInstance(this).queryPoints();
+    Log.d(&quot;test&quot;,&quot;积分余额为:&quot;+myPointBalance);
+    ...
+
+</code></pre>
+
+<h4 class="sdkhead" id="section_offers_points_account_spend">5.2 消费积分</h4>
+<blockquote></blockquote>
+<p><em>代码示例:</em></p>
+<pre><code class="prettyprint lang-java">
+    import android.app.Activity  
+    import net.youmi.android.offers.PointsManager;
+    ...   
+    //调用spendPoints消费指定金额的积分，这里示例消费100积分
+    if(PointsManager.getInstance(this).spendPoints(100)){           
+        Log.d(&quot;test&quot;,&quot;已消费100积分&quot;);
+    }else{
+        Log.d(&quot;text&quot;,&quot;消费积分失败(积分余额不足)&quot;);
+    }   
+    ...     
+
+</code></pre>
+
+<h4 class="sdkhead" id="section_offers_points_account_award">5.3 奖励积分(可选)</h4>
+<blockquote></blockquote>
+<p>当用户连续n天登录或通过了某关卡时，您可以使用以下接口奖励用户一定额度的积分。  </p>
+<p><em>代码示例:</em></p>
+<pre><code class="prettyprint lang-java">
+    import android.app.Activity  
+    import net.youmi.android.offers.PointsManager;
+    ...
+    //调用awardPoints可以奖励指定金额的积分，这里示例奖励50积分   
+    PointsManager.getInstance(this).awardPoints(50);                
+    Log.d(&quot;test&quot;,&quot;已成功奖励50积分&quot;);          
+    ...
+
+</code></pre>
+
+<h4 class="sdkhead" id="section_offers_points_account_blance_change_notify">5.4 监听积分余额变动</h4>
+<blockquote></blockquote>
+<p>SDK提供了监听积分余额变动接口，方便UI自动刷新显示变动的积分余额。  </p>
+<p>监听积分变动的UI相关的类必须implements PointsChangeNotify接口，并且需要在初始化及关闭时分别调用PointsManager的registerNotify和unRegisterNotify接口示例如下:</p>
+<pre><code class="prettyprint lang-java">
+    package com.test
+    import net.youmi.android.offers.OffersManager;
+    import net.youmi.android.offers.PointsChangeNotify;
+    import net.youmi.android.offers.PointsManager;
+    import android.app.Activity;        
+    public class YourTestActivity extends Activity implements PointsChangeNotify { 
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {    
+            // TODO Auto-generated method stub
+            super.onCreate(savedInstanceState);     
+            //注意:请务必调用registerNotify来注册监听器，否则将得不到积分账户余额变动的通知。
+            PointsManager.getInstance(this).registerNotify(this);    
+        }
+        @Override
+        protected void onDestroy() {
+            // TODO Auto-generated method stub
+            super.onDestroy();
+            //注意:请务必在onDestroy中调用unRegisterNotify来注销监听
+            PointsManager.getInstance(this).unRegisterNotify(this);
+        } 
+        @Override
+        public void onPointBalanceChange(int pointsBalance) {
+            // TODO Auto-generated method stub  
+            //当该方法被调用时，表示积分账户余额已经变动了，这里的pointsBalance是积分的当前余额数
+            Log.d(&quot;test&quot;,&quot;积分账户余额已变动，当前余额为:&quot;+pointsBalance);
+            //注:您可以在这里进行更新界面显示等操作，
+        }
+    }  
+
+</code></pre>
+
+<h3 class="sdkhead" id="section_offers_listener_orders">6.监听积分赚取订单 (可选)</h3>
+<p>上文提到的<a href="#section_offers_points_account_blance_change_notify">监听积分余额变动</a>只是用于监听SDK托管积分账户的余额变动，如果您希望监听用户赚取积分的订单详情，您可以使用监听积分赚取订单接口。  </p>
+<blockquote></blockquote>
+<p>首先，您需要定义一个MyPointsReceiver类(名字可以随意)，它必须继承自PointsReceiver:  </p>
+<p><em>示例代码</em>: </p>
+<pre><code class="prettyprint lang-java">
+    package com.test;  
+    import android.content.Context;    
+    import net.youmi.android.offers.EarnPointsOrderList;  
+    import net.youmi.android.offers.PointsReceiver; 
+    public class MyPointsReceiver extends PointsReceiver{       
+        @Override
+        protected void onEarnPoints(Context context, EarnPointsOrderList list) {
+            //当SDK获取到用户赚取积分的订单时，会第一时间调用该方法通知您。
+            //参数EarnPointsOrderList是一个积分订单列表，您可以在这里处理积分详细订单。
+        }       
+        @Override
+        protected void onViewPoints(Context context) {
+            //这里是个有趣的小功能，当用户赚取积分之后，积分墙SDK会在通知栏上显示一条获取积分的提示，如果用户点击了这个通知，该函数会被调用。  
+            //这时候您可以在这里实现一个跳转，让用户跳转到您设计好的一个积分账户余额页面(如&quot;我的账户&quot;之类的Activity)。
+            //该操作是可选的，如果需要关闭通知栏积分提示，请调用PointsManager.getInstance(context).setEnableEarnPointsNotification(false) 
+        }   
+    }
+
+</code></pre>
+
+<blockquote></blockquote>
+<p>下一步，您需要在AndroidManifest.xml上配置刚刚定义的 MyPointsReceiver:  </p>
+<p><em>示例代码</em>: </p>
+<pre><code class="prettyprint lang-xml">
+    &lt;receiver
+        android:name=&quot;MyPointsReceiver&quot;
+        android:exported=&quot;false&quot; &gt;
+        &lt;intent-filter&gt;
+            &lt;action android:name=&quot;ep_请替换为您的AppID&quot; /&gt;
+            &lt;action android:name=&quot;vp_请替换为您的AppID&quot; /&gt;
+        &lt;/intent-filter&gt;
+    &lt;/receiver&gt;
+
+</code></pre>
+
+<blockquote>
+<p>注意:这里有一个很关键的细节，您必须为MyPointsReceiver配置两个Action，Action的名字分别是以"ep_"和"vp_"开头的，以您的应用的AppID结尾的字符串。（AppID是从有米主站上申请的应用ID，16个字符，所以Action的总长度应该是19个字符）</p>
+<p>附录:积分订单类定义</p>
+</blockquote>
+<p>EarnPointsOrderList:</p>
+<pre><code class="prettyprint lang-java">    package net.youmi.android.offers;
+    ...
+    /**
+     * 积分订单列表
+     * 
+     */
+    public class EarnPointsOrderList {
+        /**
+         * 获取服务器上设置积分单位名称
+         */
+        public String getCurrencyName();
+        /**
+         * 根据index获取订单详情(EarnPointsOrderInfo)
+         */
+        public EarnPointsOrderInfo get(int index);
+        /**
+         * 判断列表是否为空
+         */
+        public boolean isEmpty();
+        /**
+         * 获取列表项数量
+         */
+        public int size(); 
+    }
+</code></pre>
+
+<blockquote></blockquote>
+<p>EarnPointsOrderInfo:</p>
+<pre><code class="prettyprint lang-java">    package net.youmi.android.offers; 
+    /**
+     * 赚取积分的订单
+     */
+    public final class EarnPointsOrderInfo {
+        /**
+         * 获取订单号(具有唯一性)
+         */
+        public String getOrderID();
+        /**
+         * 获取渠道号，这里指在AndroidManifest.xml上配置的有米渠道号，详见文档 
+         */
+        public int getChannelId();
+        /**
+         * 获取开发者自定义用户唯一标识，该值通过OffersManager设置
+         */
+        public String getCustomUserID();
+        /**
+         * 获取积分订单的状态: 1.表示开发者获得了收入并且用户获得了积分。 2.表示开发者没有获得收入但用户获得了积分(未通过审核以及测试模式下结算无效等情况)。
+         */
+        public int getStatus()
+        /**
+         * 本次获取积分的描述语，如&quot;成功安装《--》获取了100金币&quot; 
+         */
+        public String getMessage();
+        /**
+         * 本次获得的积分 
+         */
+        public int getPoints();
+        /**
+         * 本次获得积分的结算时间
+         */
+        public long getSettlingTime();
+}
+
+</code></pre>
+
+<h3 class="sdkhead" id="section_offers_custom_points">7.自定义积分账户(可选)</h3>
+<p>如果您不想使用上文提到的<a href="#section_offers_points_account">SDK积分托管</a>，而是希望实现自己的客户端积分托管功能(即自定义积分账户)，请参照<a href="#section_offers_listener_orders">监听积分赚取订单</a>的步骤实现积分订单监听并实现自定义积分管理功能。</p>
+<h3 class="sdkhead" id="section_offers_points_order_callback">8.服务器积分订单回调(可选)</h3>
+<p>如果您希望用户赚取积分的订单结算完成后，直接由有米的服务器通知您的服务器，可以使用服务器积分订单回调接口， 
+协议传送门: <a href="http://wiki.youmi.net/Youmi_android_offers_order_callback_protocol">有米积分墙积分订单服务器回调协议</a> <br />
+1.实现接收订单的回调接口时，请务必按照协议说明进行。<br />
+2.务必在<a href="http://www.youmi.net">有米主站</a>开发者面板的目标应用详情页上设置您的回调地址。</p>
+<blockquote>
+<p><strong><em>请注意，一旦您设置了积分订单回调地址，有米服务器会在用户的积分订单成功结算后第一时间通知您的服务器，但客户端将不再接收到任何积分订单记录，即上文提到的<a href="#section_offers_points_account">SDK积分托管</a>、<a href="#section_offers_listener_orders">监听积分赚取订单</a>以及<a href="#section_offers_custom_points">自定义积分账户</a>等功能将不可用。</em></strong>  </p>
+</blockquote>
+<h3 class="sdkhead" id="section_offers_config_points_notification">9.配置积分墙SDK的积分到账提醒(可选)</h3>
+<p>为了让用户更加清楚获知积分的赚取情况，SDK使用了悬浮提示框以及通知栏提示来提醒用户积分到账情况。此功能是默认开启的，但您可以通过PointsManager的相关接口来关闭提醒功能。</p>
+<blockquote>
+<p><em>示例代码</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    ...
+    import net.youmi.android.offers.PointsManager   
+    ...  
+    //关闭积分到账通知栏提示功能
+    PointsManager.getInstance(this).setEnableEarnPointsNotification(false);
+    ...
+    //关闭积分到账悬浮框提示功能
+    PointsManager.getInstance(this).setEnableEarnPointsToastTips(false);
+    ...
+
+</code></pre>
+
+<h2 class="sdkhead" id="section_ad">三、调用无积分广告</h2>
+<h3 class="sdkhead" id="section_spot">1.有米插屏广告调用接口</h3>
+<h4 class="sdkhead" id="section_spot_init">1.1 预加载插屏广告数据</h4>
+<blockquote>
+<p>预加载广告数据，在应用启动初始化的时候调用，SDK将会以异步方式预加载3-5条广告数据到本地缓存，当调用展示插播接口时候便能立即展示广告。  </p>
+</blockquote>
+<p>如果不先加载数据，调用展示插播接口的时候，会等待广告数据加载成功再进行展示，会造成一定延时。</p>
+<p><em>调用接口</em></p>
+<pre><code class="prettyprint lang-java">
+    SpotManager.getInstance(this).loadSpotAds();
+
+</code></pre>
+
+<blockquote>
+<p>注:this参数是继承自Context的类实例</p>
+</blockquote>
+<h4>1.2 设置展示超时时间(可选)</h4>
+<blockquote>
+<p>SDK提供给有需要的开发者调用展示广告的时候加载广告超时时间，如果超过该值，则不展示，默认0，代表不设定超时时间（单位：毫秒）</p>
+</blockquote>
+<pre><code class="prettyprint lang-java">        SpotManager.getInstance(this).setSpotTimeout(5000);//5秒
+</code></pre>
+
+<h4 class="sdkhead" id="section_spot_show">1.3 展示插播广告</h4>
+<blockquote>
+<p>展示插播广告，一般可以在应用启动或者游戏通关等场景中调用。</p>
+</blockquote>
+<p>开发者可以到开发者后台设置展示频率，需要到开发者后台设置页面（详细信息-&gt;业务信息-&gt;无积分广告业务-&gt;高级设置）</p>
+<p>自4.03版本增加云控制是否开启防误点功能，需要到开发者后台设置页面（详细信息-&gt;业务信息-&gt;无积分广告业务-&gt;高级设置）</p>
+<pre><code class="prettyprint lang-java">
+    SpotManager.getInstance(this).showSpotAds(this);
+
+</code></pre>
+
+<blockquote>
+<p>效果图:  </p>
+</blockquote>
+<h2><img alt="插播展示" src="img/youmisdk/spot/spot.png" /></h2>
+<h4 class="sdkhead" id="section_spot_listen">1.4 使用插播监听接口(可选)</h4>
+<blockquote>
+<p>SDK提供给有需要的开发者使用插播监听接口，用于监听插播的状态</p>
+</blockquote>
+<pre><code class="prettyprint lang-java">        SpotManager.getInstance(this).showSpotAds(this, new SpotDialogListener() {
+            @Override
+            public void onShowSuccess() {
+                Log.i(&quot;Youmi&quot;, &quot;onShowSuccess&quot;);
+            }
+
+            @Override
+            public void onShowFailed() {
+                Log.i(&quot;Youmi&quot;, &quot;onShowFailed&quot;);
+            }
+
+        });
+</code></pre>
+
+<h3 class="sdkhead" id="section_banner">2.有米广告条调用接口</h3>
+<h4 class="sdkhead" id="section_banner_size">2.1 广告条尺寸</h4>
+<blockquote></blockquote>
+<p>！AdSize提供了五种广告条尺寸提供给开发者使用：  <br />
+AdSize.FIT_SCREEN    自适应屏幕宽度
+AdSize.SIZE_320x50   手机<br />
+AdSize.SIZE_300x250  手机，平板<br />
+AdSize.SIZE_468x60   平板<br />
+AdSize.SIZE_728x90   平板  </p>
+<h4 class="sdkhead" id="section_banner_normal">2.2 普通布局(适用于应用)</h4>
+<h5 class="sdkhead" id="section_banner_normal_xml">2.2.1 配置布局文件</h5>
+<blockquote>
+<p>复制以下代码到要展示广告的Activity的layout文件中，并且放在合适的位置： </p>
+</blockquote>
+<pre><code class="prettyprint lang-xml">
+    &lt;LinearLayout android:id=&quot;@+id/adLayout&quot;
+    android:layout_width=&quot;fill_parent&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    android:gravity=&quot;center_horizontal&quot;&gt;
+    &lt;/LinearLayout&gt;
+</code></pre>
+
+<h5 class="sdkhead" id="section_banner_normal_java">2.2.2 将AdView加入布局</h5>
+<blockquote>
+<p>在展示广告的Activity类中，添加如下代码： </p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    //实例化广告条
+    AdView adView = new AdView(this, AdSize.FIT_SCREEN);
+    //获取要嵌入广告条的布局
+    LinearLayout adLayout=(LinearLayout)findViewById(R.id.adLayout);
+    //将广告条加入到布局中
+    adLayout.addView(adView);
+
+</code></pre>
+
+<h4 class="sdkhead" id="section_banner_normal_float">2.2.3 悬浮布局(适用于游戏)</h4>
+<blockquote>
+<p>在展示广告的Activity的onCreate中，添加如下代码:</p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    //实例化LayoutParams(重要)
+    FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+        FrameLayout.LayoutParams.FILL_PARENT,
+        FrameLayout.LayoutParams.WRAP_CONTENT);     
+    //设置广告条的悬浮位置
+    layoutParams.gravity = Gravity.BOTTOM | Gravity.RIGHT; // 这里示例为右下角  
+    //实例化广告条
+    AdView adView = new AdView(this, AdSize.FIT_SCREEN);
+    //调用Activity的addContentView函数
+    this.addContentView(adView, layoutParams);
+
+</code></pre>
+
+<blockquote>
+<p>效果图:  </p>
+</blockquote>
+<h2><img alt="广告条展示" src="img/youmisdk/banner/banner.png" /></h2>
+<h4 class="sdkhead" id="section_banner_normal_listen">2.2.4 使用广告条监听接口（可选）</h4>
+<blockquote>
+<p>SDK提供给有需要的开发者使用广告条监听接口，用于监听广告条的状态</p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    adView.setAdListener(new AdViewListener() { 
+        @Override
+        public void onSwitchedAd(AdView adView) {
+        // 切换广告并展示
+        }  
+        @Override
+        public void onReceivedAd(AdView adView) {
+        // 请求广告成功
+        }
+        @Override
+        public void onFailedToReceivedAd(AdView adView) {
+        // 请求广告失败  
+        }
+    });
+
+</code></pre>
+
+<h3 class="sdkhead" id="section_diy">3.有米自定义广告调用接口</h3>
+<h4 class="sdkhead" id="section_diy_recommend">3.1 推荐墙接口</h4>
+<blockquote>
+<p><em>调用接口</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    DiyManager.showRecommendWall(this); //展示所有无积分推荐墙
+    //DiyManager.showRecommendAppWall(this);  //展示应用推荐墙
+    //DiyManager.showRecommendGameWall(this); //展示游戏推荐墙
+
+</code></pre>
+
+<blockquote>
+<p>效果图:  </p>
+</blockquote>
+<h2><img alt="无积分推荐墙展示" src="img/youmisdk/diy/diy_list.png" /></h2>
+<h4 class="sdkhead" id="section_diy_mini">3.2 迷你广告条接口</h4>
+<p>显示无积分的横幅广告条，将高度为32dp的广告条定义为迷你Banner。  </p>
+<h5 class="sdkhead" id="section_diy_mini_normal">3.2.1 普通布局(适用于应用)</h5>
+<p>1).配置布局文件</p>
+<blockquote>
+<p>复制以下代码到要展示广告的Activity的layout文件中，并且放在合适的位置： </p>
+</blockquote>
+<pre><code class="prettyprint lang-xml">
+    &lt;RelativeLayout android:id=&quot;@+id/AdLayout&quot;
+    android:layout_width=&quot;fill_parent&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    android:gravity=&quot;center_horizontal&quot;&gt;
+    &lt;/RelativeLayout&gt;
+</code></pre>
+
+<p>2).将迷你Banner加入布局</p>
+<blockquote>
+<p>在展示广告的Activity类中，添加如下代码： </p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    //获取要嵌入迷你广告条的布局
+    RelativeLayout adLayout=(RelativeLayout)findViewById(R.id.AdLayout);
+    //demo 1 迷你Banner : 宽满屏，高32dp
+    DiyBanner banner = new DiyBanner(this, DiyAdSize.SIZE_MATCH_SCREENx32);//传入高度为32dp的AdSize来定义迷你Banner    
+    //demo 2 迷你Banner : 宽320dp，高32dp
+    DiyBanner banner = new DiyBanner(this, DiyAdSize.SIZE_320x32);//传入高度为32dp的AdSize来定义迷你Banner 
+    //将积分Banner加入到布局中
+    adLayout.addView(banner);
+
+</code></pre>
+
+<h5 class="sdkhead" id="section_diy_mini_float">3.2.2 悬浮布局(适用于游戏)</h5>
+<blockquote>
+<p>在展示广告的Activity的onCreate中，添加如下代码:</p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    //实例化LayoutParams(重要)
+    FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+        FrameLayout.LayoutParams.FILL_PARENT,
+        FrameLayout.LayoutParams.WRAP_CONTENT);     
+    //设置迷你Banner的悬浮位置
+    layoutParams.gravity = Gravity.BOTTOM | Gravity.RIGHT; // 这里示例为右下角  
+    //实例化迷你Banner
+    DiyBanner banner = new DiyBanner(this, DiyAdSize.SIZE_MATCH_SCREENx32);//传入高度为32dp的DiyAdSize来定义迷你Banner
+    //调用Activity的addContentView函数
+    this.addContentView(banner, layoutParams);
+
+</code></pre>
+
+<blockquote>
+<p>效果图:  </p>
+</blockquote>
+<h2><img alt="迷你广告条尺寸展示" src="img/youmisdk/diy/diy_minibanner.png" /></h2>
+<h3 class="sdkhead" id="section_smart_banner">4.SmartBanner调用接口</h3>
+<h4 class="sdkhead" id="section_smart_banner_init">4.1 初始化接口(重要)</h4>
+<blockquote>
+<p>在应用启动初始化的时候调用，SDK将会针对用户手机上已经安装的应用列表进行广告匹配。</p>
+</blockquote>
+<pre><code class="prettyprint lang-java">    SmartBannerManager.init(this);
+</code></pre>
+
+<h4 class="sdkhead" id="section_smart_banner_show">4.2 展示SmartBanner</h4>
+<blockquote>
+<p>调用即在屏幕展示SmartBanner，如果没有出现，请检查网络情况是否良好，混淆代码是否配置正确。</p>
+</blockquote>
+<pre><code class="prettyprint lang-java">    SmartBannerManager.show(this);
+</code></pre>
+
+<blockquote>
+<p>效果图1:  </p>
+</blockquote>
+<h2><img alt="SmartBanner展示" src="img/youmisdk/smartbanner/smartbanner_show.png" /></h2>
+<blockquote>
+<p>效果图2:  </p>
+</blockquote>
+<h2><img alt="SmartBanner详情页" src="img/youmisdk/smartbanner/smartbanner_detail.png" /></h2>
+<h2 class="sdkhead" id="section_functional">四、实用功能</h2>
+<h3 class="sdkhead" id="section_functional_check_update">1.检查更新接口 (可选)</h3>
+<blockquote>
+<p>有米广告SDK提供应用版本检查更新接口，您可以在应用中调用提示用户升级。<br />
+通过在<a href="https://www.youmi.net">有米主站</a>上传应用的新版本通过审核后，使用有米广告SDK的应用版本检查更新接口就可以获得更新信息，它包括更新提示和下载地址，这样您可以进行下一步的操作，如向用户提示更新以及下载安装新版本。</p>
+<p><em>接口:</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    ...
+    import net.youmi.android.AdManager
+    import net.youmi.android.dev.AppUpdateInfo
+    import net.youmi.android.dev.CheckAppUpdateCallBack;
+    ...
+    //通过调用AdManager的syncCheckAppUpdate或asyncCheckAppUpdate接口即可检查更新。
+    //返回值AppUpdateInfo包含了更新提示以及下载地址，如果结果为null则表示当前已经是最新版本，无需下一步操作
+    //
+    //1.同步调用方法:   
+    AppUpdateInfo updateInfo=AdManager.getInstance(this).syncCheckAppUpdate();  //注意，此方法务必在非UI线程调用，否则有可能不成功。
+    //
+    //2.异步调用方法
+    AdManager.getInstance(this).asyncCheckAppUpdate(callback); //注意，此方法可以在任意线程中调用。
+    //
+    //当updateInfo不为null时，请自行处理提示及下载安装流程。    
+    ...
+</code></pre>
+
+<blockquote></blockquote>
+<p><em>示例(同步接口，必须在非UI线程中调用，示例使用了AsyncTask):</em></p>
+<pre><code class="prettyprint lang-java">
+    import net.youmi.android.AdManager;  
+    import net.youmi.android.dev.AppUpdateInfo;  
+    import android.app.AlertDialog;
+    import android.content.Context;
+    import android.content.DialogInterface;
+    import android.content.Intent;
+    import android.net.Uri;
+    import android.os.AsyncTask;
+    /*
+    *这里示例一个调用更新应用接口的工具类，由开发者自定义，继承自AsyncTask 
+    *
+    */
+    public class UpdateHelper extends AsyncTask&lt;Void, Void, AppUpdateInfo&gt; {
+    private Context mContext; 
+    public UpdateHelper(Context context) {
+        mContext = context;
+    }
+    @Override
+    protected AppUpdateInfo doInBackground(Void... params) { 
+        try {
+            //在doInBackground中调用AdManager的checkAppUpdate即可从有米服务器获得应用更新信息。
+            return AdManager.getInstance(mContext).syncCheckAppUpdate();  //此方法务必在非UI线程调用，否则有可能不成功。
+        } catch (Throwable e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return null;
+    }
+    @Override
+    protected void onPostExecute(AppUpdateInfo result) {
+        super.onPostExecute(result);
+        try {
+            if (result == null || result.getUrl() == null) {
+                //如果AppUpdateInfo为null或它的url属性为null，则可以判断为没有新版本。
+                Toast.makeText(this, &quot;当前版本已经是最新版&quot;, Toast.LENGTH_SHORT).show();
+                return;
+            } 
+            //这里简单示例使用一个对话框来显示更新信息
+            new AlertDialog.Builder(mContext)
+                    .setTitle(&quot;发现新版本&quot;)
+                    .setMessage(result.getUpdateTips())//这里是版本更新信息
+                    .setNegativeButton(&quot;马上升级&quot;,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog,
+                                        int which) {
+                                    Intent intent = new Intent(
+                                            Intent.ACTION_VIEW, Uri
+                                                    .parse(result
+                                                            .getUrl())); 
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+                                    mContext.startActivity(intent);
+                                    //ps:这里示例点击&quot;马上升级&quot;按钮之后简单地调用系统浏览器进行新版本的下载，
+                                    //但强烈建议开发者实现自己的下载管理流程，这样可以获得更好的用户体验。
+                                }
+                            })
+                    .setPositiveButton(&quot;下次再说&quot;,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog,
+                                        int which) { 
+                                    dialog.cancel();
+                                }
+                            }).create().show(); 
+                } catch (Throwable e) { 
+                    e.printStackTrace();
+                }
+        }
+    }
+
+</code></pre>
+
+<blockquote>
+<p><em>示例(异步接口，可在任意线程使用):</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    import net.youmi.android.AdManager;  
+    import net.youmi.android.dev.AppUpdateInfo;   
+    import net.youmi.android.dev.CheckAppUpdateCallBack;
+    import android.content.Context;
+    import android.app.Activity 
+    import android.content.Intent;
+    import android.net.Uri; 
+    /*
+    *这里示例一个Activity调用
+    *
+    */
+    public class UpdateActivity extends Activity implements CheckAppUpdateCallBack{ 
+    @Override
+    protected void onCreate(Bundle savedInstanceState)  {  
+        //调用检查更新接口，这里可以在UI线程调用，也可以在非UI线程调用。
+        AdManager.getInstance(this).asyncCheckAppUpdate(this);   
+    }
+    @Override 
+    public void onCheckAppUpdateFinish(AppUpdateInfo updateInfo) {
+        //检查更新回调，注意，这里是在UI线程回调的，因此您可以直接与UI交互，但不可以进行长时间的操作(如在这里访问网络  是不允许的)
+        if(updateInfo==null){
+            //当前已经是最新版本
+        }else{
+            //有更新信息
+        }
+    }  
+    }
+
+</code></pre>
+
+<h3 class="sdkhead" id="section_functional_online_config">2.在线参数 (可选)</h3>
+<h4>2.1 在线参数介绍</h4>
+<blockquote>
+<p>在线参数是有米平台推出的新服务，可以让开发者动态修改应用中的配置项，如欢迎语、道具价格、广告开关等等。它以Key-Value的形式使用。</p>
+</blockquote>
+<h4>2.2 使用在线参数</h4>
+<blockquote>
+<p>开发者可以在<a href="https://www.youmi.net">有米主站</a>开发者面板的应用详情里面设置指定应用的在线参数，然后在代码中调用它。接口示例如下:</p>
+</blockquote>
+<p><em>示例代码</em>: </p>
+<pre><code class="prettyprint lang-java">
+    import net.youmi.android.AdManager;   
+    import net.youmi.android.dev.OnlineConfigCallBack; //异步回调
+    ... 
+    String mykey=&quot;mycustomkey&quot;;//key  
+    String defaultValue=null;//默认的value，当获取不到在线参数时，会返回该值  
+    //1.同步调用方法，务必在非UI线程中调用，否则可能会失败。
+    String value=AdManager.getInstance(context).syncGetOnlineConfig(key,
+        defaultValue);  
+    //--------------------------------------------------
+    //2.异步调用方法(可在任意线程中调用):
+    AdManager.getInstance(this).asyncGetOnlineConfig(mykey, new OnlineConfigCallBack() {
+        @Override
+        public void onGetOnlineConfigSuccessful(String key, String value) {
+        // TODO Auto-generated method stub
+            //获取在线参数成功
+        }       
+        @Override
+        public void onGetOnlineConfigFailed(String key) {
+            // TODO Auto-generated method stub
+            //获取在线参数失败，可能原因有：键值未设置或为空、网络异常、服务器异常
+        }
+    });
+    ...
+
+</code></pre>
+
+<p><em>注:在线配置服务缓存具有一定的延时，因此在开发者控制面板上更改的配置项客户端可能需要一定的时间才能响应更新。</em></p>
+<h2 class="sdkhead" id="section_pk">五、打包发布</h2>
+<h3 class="sdkhead" id="section_pk_check">1.打包前检查</h3>
+<blockquote></blockquote>
+<p>请检查是否已经按文档的步骤嵌入了广告SDK，包括AndroidManifest.xml的配置、初始化接口的调用以及各个广告接口的使用。  </p>
+<h4>1.1 检查基本配置</h4>
+<ul>
+<li>检查<a href="#section_ready_config_manifest_permission">权限声明</a><br />
+请务必按照文档中的权限声明配置，否则将有可能获取不到广告。  </li>
+<li>检查<a href="#section_ready_config_manifest_component">必须配置项</a>:<ul>
+<li>AdBrowser</li>
+<li>AdService</li>
+<li>AdReceiver</li>
+<li>OffersReceiver</li>
+<li>SmartBannerService</li>
+<li>SmartBannerActivity</li>
+</ul>
+</li>
+<li>检查<a href="#section_ready_init">初始化接口</a>:  </li>
+<li>检查积分墙配置:<ul>
+<li><a href="#section_ready_config_manifest_component_offersreceiver">OffersReceiver</a></li>
+<li><a href="#section_offers_init">积分广告初始化</a></li>
+<li><a href="#section_offers_exit">积分广告会话结束接口</a></li>
+</ul>
+</li>
+</ul>
+<h4 class="sdkhead" id="section_pk_proguard">1.2 检查混淆配置</h4>
+<p>请务必详细检查<a href="#section_ready_pk_proguard">混淆配置</a>，否则将有可能获取不到广告。</p>
+<h3 class="sdkhead" id="section_pk_test">2.测试</h3>
+<blockquote>
+<blockquote>
+<p>请在手机上运行测试是否可以正常获取广告。</p>
+</blockquote>
+</blockquote>
+<h3 class="sdkhead" id="section_pk_upload">3.上传审核</h3>
+<blockquote></blockquote>
+<p>发布前请在<a href="https://www.youmi.net">有米主站</a>上传应用进行审核。审核通过之后请测试是否可以正常获得收入，在<a href="https://www.youmi.net">有米主站</a>开发者面板的收入报表中可以查看收入情况。</p>
+<h3 class="sdkhead" id="section_pk_public">4.发布</h3>
+<blockquote>
+<p>通过审核并且确认可以获得广告收入之后，就可以正式发布应用了。</p>
+</blockquote>
+<h2 class="sdkhead" id="section_faq">六、常见问题</h2>
+<h3 class="sdkhead" id="section_faq_env">1.环境配置问题</h3>
+<h4>1.1 有米广告SDK使用哪种字符编码</h4>
+<blockquote>
+<p>有米广告SDK使用UTF-8字符编码,在嵌入广告以及导入示例程序的时候请使用UTF-8编程环境，否则会出现乱码情况。</p>
+</blockquote>
+<h4>1.2 有米广告SDK兼容Android系统SDK的哪些版本</h4>
+<blockquote>
+<p>有米广告Android SDK兼容Android 系统 2.1及以上版本SDK，对于2.1以下版本可能会有兼容性问题。</p>
+</blockquote>
+<h3 class="sdkhead" id="section_faq_debuglog">2.如何关闭debug log</h3>
+<blockquote></blockquote>
+<p>如果需要关闭有米广告SDK的 debug log，请调用AdManager.setEnableDebugLog(false)来关闭sdk的log输出。
+"<em>代码示例:</em>"</p>
+<pre><code class="prettyprint lang-java">
+    import net.youmi.android.AdManager
+    ...
+    //调用以下接口关闭有米广告SDK相关的log
+    AdManager.getInstance(this).setEnableDebugLog(false);
+    ...
+
+</code></pre>
+
+<blockquote></blockquote>
+<p>注意:上传到有米主站进行审核时务必开启debug log,这样才能保证通过审核。</p>
+<h3 class="sdkhead" id="section_faq_debugmode">3.关于测试模式</h3>
+<blockquote>
+<p>广告运行在非发布状态下的情况属于测试模式。</p>
+<p>以下情况下属于测试模式：<br />
+1. 在初始化接口设置测试模式为true<br />
+2. 应用未上传、待审核的情况下属于测试模式<br />
+3. 已上传并通过审核，但是后续版本应用ID和密钥与应用的包名不对应 </p>
+<p>测试模式下积分墙的标题会有"测试"字样的提示语，该模式下可以获得更多的测试广告，已经安装过的广告卸载后可以重复安装，但只能结算积分，不结算收入。正式发布前请务必将初始化接口的测试模式参数设置为flase，并且上传应用到<a href="http://www.youmi.net">有米主站</a>进行审核。</p>
+</blockquote>
+<h3 class="sdkhead" id="section_faq_contact_us">4.联系我们</h3>
+<p>如果您在使用有米Android SDK 的过程中遇到了问题，或者对于SDK有任何宝贵的改进意见，欢迎联系我们的企业客服Q : 800006808   我们将竭诚为您服务。</p>
+				</div>
+			<!--</div>-->
+		</div>
+
+<!--style="margin-top:30px;" style="margin-top:60px;" -->
+	</body>
+</html>

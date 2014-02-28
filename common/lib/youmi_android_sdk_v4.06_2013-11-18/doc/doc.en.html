@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>有米广告Android SDK开发者文档</title>
+		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="css/bootstrap.css" rel="stylesheet">
+		<link href="css/bootstrap-responsive.css" rel="stylesheet">
+		<!--
+		<link href="css/prettify.css" rel="stylesheet" />
+		-->
+		<!--
+		<link href="css/doc.css" rel="stylesheet" />
+		-->
+		<link href="css/docs.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <!--
+        <script type="text/javascript" src="js/prettify.js"></script>
+        -->
+		<script type="text/javascript" src="js/doc.js"></script>
+        <script src="js/highlight.pack.js"></script>
+        <script>
+			hljs.tabReplace = ' ';
+			hljs.initHighlightingOnLoad();
+		</script>
+	</head>
+
+	<body data-spy="scroll" onload="prettyPrint();" data-target="#ym-navbar">
+
+
+	<div class="header navbar-inner">
+			<div class="container clearfix">
+                <img class="pull-left" src="img/icon.png">
+                <span class="pull-left brand">有米广告Android SDK开发者文档</span>
+			</div>
+		</div>
+
+		<!-- data-target=".bs-docs-sidebar" -->
+
+		<!--
+		<div class="navbar  navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<label class="brand"><img src="img/icon.png"> 有米广告Android SDK开发者文档 </label>
+				</div>
+			</div>
+		</div>
+                -->
+		
+		<div class="container">
+<!--			<div class="row-fluid"> -->
+<!--				<div class="span4 bs-docs-sidebar" id="mynavbar"> -->
+					<!--Sidebar content-->
+					<!--<ul class="nav nav-list bs-docs-sidenav affix nav-pills nav-stacked"  > 
+						 
+					</ul>-->
+<!--					<ul class="nav nav-list bs-docs-sidenav affix nav-pills nav-stacked"  > -->
+                                        <ul class="nav nav-list bs-docs-sidenav affix" id="ym-navbar"> 
+						<li class='dropdown'> <a class='dropdown-toggle' id='menu_section_preface' role='button' data-toggle='dropdown'  data-target='#' href='#section_preface'>Preface <b class='caret'></b></a><ul class='dropdown-menu' role='menu' aria-labelledby='menu_section_preface'><li><a href='#section_preface_desc'>1.Instruction </a></li><li><a href='#section_preface_overview'>2.SDK Function Overview  </a></li><li><a href='#section_preface_updatelog'>3.Update Log  </a></li></ul></li><li class='dropdown'> <a class='dropdown-toggle' id='menu_section_ready' role='button' data-toggle='dropdown'  data-target='#' href='#section_ready'>I.Preparation  <b class='caret'></b></a><ul class='dropdown-menu' role='menu' aria-labelledby='menu_section_ready'><li><a href='#section_ready_application'>1.Apply for AppID </a></li><li><a href='#section_ready_import_sdk'>2.Import SDK </a></li><li><a href='#section_ready_config_manifest'>3. Configure AndroidManifest  </a></li><li><a href='#section_ready_config_channel'>4.Set the Channel Mark [Optional] </a></li><li><a href='#section_ready_init'>5.Invoke the initialization API [important] </a></li><li><a href='#section_ready_pk_proguard'>6.Proguard (Important) </a></li></ul></li><li class='dropdown'> <a class='dropdown-toggle' id='menu_section_offers' role='button' data-toggle='dropdown'  data-target='#' href='#section_offers'>II.Invoke incentive ad <b class='caret'></b></a><ul class='dropdown-menu' role='menu' aria-labelledby='menu_section_offers'><li><a href='#section_offers_config_userid'>1.set user ID (optional) </a></li><li><a href='#section_offers_init'>2.Offerwall Initialization API </a></li><li><a href='#section_offers_show'>3.Offerwall Display Form </a></li><li><a href='#section_offers_points_account'>4.Points Managed </a></li><li><a href='#section_offers_listener_orders'>5.Tracking the Points order (optional) </a></li><li><a href='#section_offers_custom_points'>6.Custom Points Account (optional)  </a></li><li><a href='#section_offers_points_order_callback'>7.Server-end Points Order Callback (Optional) </a></li><li><a href='#section_offers_config_points_notification'>8.Configure the notification for points arrival (optional) </a></li></ul></li><li class='dropdown'> <a class='dropdown-toggle' id='menu_section_ad' role='button' data-toggle='dropdown'  data-target='#' href='#section_ad'>III.Invoke non-incentive ad <b class='caret'></b></a><ul class='dropdown-menu' role='menu' aria-labelledby='menu_section_ad'><li><a href='#section_spot'>1.Youmi Interstitial API </a></li><li><a href='#section_banner'>2.Youmi Banner API </a></li></ul></li><li class='dropdown'> <a class='dropdown-toggle' id='menu_section_functional' role='button' data-toggle='dropdown'  data-target='#' href='#section_functional'>IV.Practical Function <b class='caret'></b></a><ul class='dropdown-menu' role='menu' aria-labelledby='menu_section_functional'><li><a href='#section_functional_check_update'>1. Update Check API (Optional) </a></li><li><a href='#section_functional_online_config'>2.Online Parameter (optional) </a></li></ul></li><li class='dropdown'> <a class='dropdown-toggle' id='menu_section_pk' role='button' data-toggle='dropdown'  data-target='#' href='#section_pk'>V.Packing and Release <b class='caret'></b></a><ul class='dropdown-menu' role='menu' aria-labelledby='menu_section_pk'><li><a href='#section_pk_check'>1.Check before packing </a></li><li><a href='#section_pk_test'>2.Test </a></li><li><a href='#section_pk_upload'>3.Youmi Review </a></li><li><a href='#section_pk_public'>4.Release </a></li></ul></li><li class='dropdown'> <a class='dropdown-toggle' id='menu_section_faq' role='button' data-toggle='dropdown'  data-target='#' href='#section_faq'>VI.FAQ <b class='caret'></b></a><ul class='dropdown-menu' role='menu' aria-labelledby='menu_section_faq'><li><a href='#section_faq_env'>1.Environment Configuration </a></li><li><a href='#section_faq_debuglog'>2.How to end debug log </a></li><li><a href='#section_faq_debugmode'>3.About TEST mode </a></li><li><a href='#section_faq_contact_us'>4.Contact Us </a></li></ul></li>
+					</ul> 
+<!--				</div> -->
+				<!--<div class="span8" >-->
+                                <div class="doc-content">
+					<!--Body content-->
+					<h1 class="sdkhead" id="section_sdk">Youmi Android SDK Developer Guide</h1>
+<h2 class="sdkhead" id="section_preface">Preface</h2>
+<h3 class="sdkhead" id="section_preface_desc">1.Instruction</h3>
+<p>Youmi Android SDK met its big change in its 4.02 version, and it united all ad forms and other practical service provided by Youmi network. Youmi Ad here divided into two big ad forms of incentive ad and non-incentive ad. Non-incentive ad includes banner, interstitial and Ad-wall. Incentive-ad mainly contains Offerwall and other ad presence supporting Offerwall entrance. Youmi Ad service also includes the update-check and online configuration.  </p>
+<blockquote>
+<p>*There is a big change of SDK V4.0 and all the configuration please refer to the documentation herein. If you are implementing Youmi Offerwall SDK V2.0 or Banner SDK V 3.0, Please eliminate all the ad configuration first, and then integrate the new SDK in accordance to the steps listed in this file.<br />
+</p>
+</blockquote>
+<h3 class="sdkhead" id="section_preface_overview">2.SDK Function Overview</h3>
+<ul>
+<li>Non-incentive Ad  <ul>
+<li>Interstitial  </li>
+<li>Banner    </li>
+</ul>
+</li>
+<li>Incentive Ad   <ul>
+<li>Full-Page Offerwall List   </li>
+<li>Pop-out Offerwall List    </li>
+<li>Incentive Banner (with Points/Credits)  </li>
+<li>Incentive Mini Banner </li>
+</ul>
+</li>
+<li>Youmi Service   <ul>
+<li>Update check   </li>
+<li>Online Configuration   </li>
+</ul>
+</li>
+</ul>
+<h3 class="sdkhead" id="section_preface_updatelog">3.Update Log</h3>
+<ul>
+<li>
+<p>v4.03  </p>
+<ul>
+<li>Non-incentive Ad [Interstitial]  <ul>
+<li>Supporting CPC ad  </li>
+<li>Supporting Interstitial Double-click setting on Youmi Backend  </li>
+<li>Suporting Interstitial display frequency setting on Youmi Backend  </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>v4.02   </p>
+<ul>
+<li>SDK Integration, more details please refer to [SDK Function Overview]  </li>
+<li>Incentive-Ad   <ul>
+<li>Incentive Banner and Incentive mini banner  </li>
+<li>Points/Credits balance display (You can disable it on the dashboard of Youmi backend).    </li>
+<li>Fix the bug of pop-out Offerwall list.  </li>
+</ul>
+</li>
+<li>Fix the bug of download failure in certain circumstance.  </li>
+<li>Fix the bug of ad display failure when packing with 4.2.2 (API-17).  </li>
+</ul>
+</li>
+</ul>
+<h2 class="sdkhead" id="section_ready">I.Preparation</h2>
+<h3 class="sdkhead" id="section_ready_application">1.Apply for AppID</h3>
+<blockquote>
+<p>1). Click on <a href="http://www.youmi.net/applications/create">Add an APP</a> to create an app account on Youmi website. <br />
+2). Check <a href="http://www.youmi.net/applications/info"> APP Info </a> , to obtain AppID and Sercret, and you will need them in <a href="#section_ready_init">initialization</a> afterwards.  </p>
+</blockquote>
+<h3 class="sdkhead" id="section_ready_import_sdk">2.Import SDK</h3>
+<p>Import YoumiSdk_*.jar to your project.  </p>
+<blockquote>
+<p>1).  Right click on the root directory of your project, select "New" and choose "Folder", and anme Folder name as "libs" <br />
+2).  Copy YoumiSdk_<em>.jar to the libs file in root directory of project <br />
+3).  Right click on YoumSdk_</em>.jar, select "Build Path" and then choose "Add to Build Path"  <br />
+4).  Successfully imported  </p>
+</blockquote>
+<h3 class="sdkhead" id="section_ready_config_manifest">3. Configure AndroidManifest</h3>
+<h4 class="sdkhead" id="section_ready_config_manifest_permission">3.1 Configure User Permission [Important]</h4>
+<p>Configure user permission in AndroidManifest.xml file  </p>
+<blockquote>
+<p><em>Please copy the following code to AndroidManifest.xml file:</em>  </p>
+</blockquote>
+<pre><code class="prettyprint lang-xml">    &lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/&gt; 
+    &lt;uses-permission android:name=&quot;android.permission.READ_PHONE_STATE&quot;/&gt;
+    &lt;uses-permission android:name=&quot;android.permission.ACCESS_NETWORK_STATE&quot; /&gt; 
+    &lt;uses-permission android:name=&quot;android.permission.ACCESS_WIFI_STATE&quot;/&gt;
+    &lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot;/&gt;
+    &lt;!--Hereunder ONE permissions are optional--&gt;
+    &lt;uses-permission android:name=&quot;com.android.launcher.permission.INSTALL_SHORTCUT&quot;/&gt;
+
+</code></pre>
+
+<h4 class="sdkhead" id="section_ready_config_manifest_component">3.2 Add necessary components (Important)</h4>
+<p>Make sure to implement ad right, please configure AdBrowser, AdReceiver and AdService [must]  </p>
+<blockquote>
+<p><em>Please copy the following code to Application node in AndroidManifest.xml:</em>  </p>
+</blockquote>
+<pre><code class="prettyprint lang-xml">
+    &lt;activity
+        android:name=&quot;net.youmi.android.AdBrowser&quot;
+        android:configChanges=&quot;keyboard|keyboardHidden|orientation&quot;            
+        android:theme=&quot;@android:style/Theme.Light.NoTitleBar&quot; &gt;
+    &lt;/activity&gt;
+    &lt;service
+        android:name=&quot;net.youmi.android.AdService&quot;
+        android:exported=&quot;false&quot; &gt;
+    &lt;/service&gt;
+    &lt;receiver 
+        android:name=&quot;net.youmi.android.AdReceiver&quot; &gt;
+        &lt;intent-filter&gt;
+            &lt;action android:name=&quot;android.intent.action.PACKAGE_ADDED&quot; /&gt;
+            &lt;data android:scheme=&quot;package&quot; /&gt;
+        &lt;/intent-filter&gt;
+    &lt;/receiver&gt; 
+</code></pre>
+
+<blockquote>
+<p><em>To avoid any typing mistakes, please copy the above code directly.</em></p>
+</blockquote>
+<h4 class="sdkhead" id="section_ready_config_manifest_component_offersreceiver">3.3 Configure OffersReceiver [important]</h4>
+<p>To implement incentive ad properly, please must configure OffersReceiver, otherwise user may not able to receive points. (Please ignore this part if you are not integrating Offerwall ad)</p>
+<blockquote>
+<p><em>Please copy the following code to Application node in  AndroidManifest.xml的Application:</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-xml">
+    &lt;receiver
+        android:name=&quot;net.youmi.android.offers.OffersReceiver&quot;
+        android:exported=&quot;false&quot; &gt;
+    &lt;/receiver&gt;
+</code></pre>
+
+<h3 class="sdkhead" id="section_ready_config_channel">4.Set the Channel Mark [Optional]</h3>
+<p>Currently Youmi already cooperate with many domestic app distribution channels. Whenever your app is rejected by the app stores and they requires you to add their channel mark, you can add channel mark in the following way.</p>
+<blockquote>
+<p>Channel Mark details please refer to:<a href="http://wiki.youmi.net/Wiki/PromotionChannelIDs">Youmi Channel List</a><br />
+<em>Please add the following code to AndroidManifest.xml:</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-xml">
+    &lt;meta-data android:name=&quot;YOUMI_CHANNEL&quot;
+                android:value=&quot;Here replace with the corresponding channel mark&quot; &gt;
+    &lt;/meta-data&gt;
+</code></pre>
+
+<h3 class="sdkhead" id="section_ready_init">5.Invoke the initialization API [important]</h3>
+<p>Please must invoke AdManager.getInstance(context).init on the onCreate in main Activity to initialize the AppID, Secert and Testmode, etc.
+Here please get the AppID and Secret from <a href="#section_ready_application">Aplly for AppID</a></p>
+<blockquote>
+<p><em>Cpding Instance:</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    package com.test
+    import android.app.Activity 
+    import net.youmi.android.AdManager;
+    /**
+    * This is the Main Activity
+    */  
+    public class YourMainActivity extends Activity { 
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            // TODO Auto-generated method stub
+            super.onCreate(savedInstanceState); 
+            // Initial AppID, Secret and set the test mode
+            AdManager.getInstance(this).init(&quot;AppID&quot;,&quot;Secret&quot;, false); 
+        }
+    }
+
+
+</code></pre>
+
+<blockquote>
+<p><strong>！Please set the test mode to FALSE before uploading for review.</strong><br />
+<strong>！Before approval you only can see test ad running in your app on your device or the imitator; After review and approved the app starts receiving official ad on device, but test ad on imitator still.</strong></p>
+</blockquote>
+<h3 class="sdkhead" id="section_ready_pk_proguard">6.Proguard (Important)</h3>
+<blockquote>
+<p>If you implement proguard for packing in your project, please must add following code to  proguard-project.txt, otherwise you may fail to receive ads:</p>
+</blockquote>
+<pre><code class="prettyprint lang-java">    -dontwarn net.youmi.android.**
+    -keep class net.youmi.android.** {  
+    *;  
+    }  
+</code></pre>
+
+<h2 class="sdkhead" id="section_offers">II.Invoke incentive ad</h2>
+<blockquote>
+<p><a href="http://www.youmi.net/page/help/app_wall">&gt;Get to know Offerwall</a>  </p>
+</blockquote>
+<p>!p.s: Please must configure <a href="#section_ready_config_manifest_component_offersreceiver">OffersReceiver</a></p>
+<h3 class="sdkhead" id="section_offers_config_userid">1.set user ID (optional)</h3>
+<blockquote>
+<p>If your app do have created independent user account system and allows user freely switch accounts, you may need to track the point record of each account. Allocating specific identifier for user helps you to distinguish points from different account on the same device.<br />
+<em>Sample code</em>: </p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    // Invoke the following API as the unique identifier for your user
+    OffersManager.getInstance(this).setCustomUserId(&quot;abcdefg_123&quot;);
+
+</code></pre>
+
+<blockquote>
+<p><em>p.s: The user identifier shall be "letter-number-underline" combination</em>
+*This setting applies to <a href="#section_offers_custom_points">custom credit account</a>and<a href="#section_offers_points_order_callback">Server-end point order callback</a> *</p>
+</blockquote>
+<h3 class="sdkhead" id="section_offers_init">2.Offerwall Initialization API</h3>
+<blockquote>
+<p>Please must invoke the initialization API respectively in onCreate of Main Activity in the starting code. 
+<em>Sample Code:</em> </p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    package com.test
+    import android.app.Activity 
+    import net.youmi.android.AdManager;
+    import net.youmi.android.offers.OffersManager;
+    /**
+    * Here is your app Main Activity
+    */  
+    public class YourMainActivity extends Activity { 
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            // TODO Auto-generated method stub
+            super.onCreate(savedInstanceState); 
+            // Initial AppID and Secret, and set the test mode
+            AdManager.getInstance(this).init(&quot;AppID&quot;,&quot;Secret&quot;, false); 
+            // Please must invoke the following code to inform SDK of the app starting, to allow some initialization operation of SDK. This API must be invoked after the initialization.
+            OffersManager.getInstance(this).onAppLaunch(); 
+        } 
+    }
+
+</code></pre>
+
+<h3 class="sdkhead" id="section_offers_show">3.Offerwall Display Form</h3>
+<h4 class="sdkhead" id="section_offers_show_fullscreen">3.1 Full-Page Offerwall</h4>
+<p><img alt="Full-Page Offerwall" src="img/youmisdk/offers/fullscreenofferswall.png" /></p>
+<h5 class="sdkhead" id="section_offers_show_fullscreen_invoke">3.1.1 Basic way to invoke</h5>
+<blockquote>
+<p>Invoke OffersManager.getInstance(this).showOffersWall() to display the full-page Offerwall.
+<em>Sample Code:</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    import android.app.Activity  
+    import net.youmi.android.offers.OffersManager;
+    ....
+    //Invoke showOffersWall to display the full-page Offerwall
+    OffersManager.getInstance(this).showOffersWall();
+    ....
+</code></pre>
+
+<h5 class="sdkhead" id="section_offers_show_fullscreen_orientation">3.1.2 Set the full-page Offerwall Direction (optional)</h5>
+<blockquote>
+<p>Here Offerwall direction will follow the system setting by default. If you need to force the Offerwall display as portrait or landscape, you only need to configure AdBrowser in AndroidManifest.xml.
+<em>Set it to portrait:</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-xml">
+    &lt;activity
+        android:name=&quot;net.youmi.android.AdBrowser&quot;
+        android:configChanges=&quot;keyboard|keyboardHidden|orientation&quot;
+        android:screenOrientation=&quot;portrait&quot;
+        android:theme=&quot;@android:style/Theme.Light.NoTitleBar&quot; &gt;
+    &lt;/activity&gt;     
+
+</code></pre>
+
+<blockquote>
+<p><em>set it to landscape:</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-xml">
+    &lt;activity
+        android:name=&quot;net.youmi.android.AdBrowser&quot;
+        android:configChanges=&quot;keyboard|keyboardHidden|orientation&quot;
+        android:screenOrientation=&quot;landscape&quot;
+        android:theme=&quot;@android:style/Theme.Light.NoTitleBar&quot; &gt;
+    &lt;/activity&gt;
+
+</code></pre>
+
+<h4 class="sdkhead" id="section_offers_show_dialog">3.2 Pop-up Offerwall</h4>
+<p><img alt="Pop-up Offerwall" src="img/youmisdk/offers/dialogofferswall.png" /></p>
+<blockquote>
+<p>Here you only need to invoke showOffersWallDialog(Activity activity) of offersManager.
+<em>If you want to set the size of poo-up offerwall window, please invoke its function as follow.</em><br />
+<em>Sample Code:</em>  </p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    import android.app.Activity  
+    import net.youmi.android.offers.OffersManager;
+    ....
+    //Hereunder are three optional ways to invoke:
+    //*1.Invoke showOffersWallDialog to show the poo-up window of Offerwall by default:
+    OffersManager.getInstance(this).showOffersWallDialog(this); 
+    //*2.Set the pixel value of width and length (p.s: please make sure setting the best value for portrait so that the SDK will adapt to the screen direction automatically):
+    OffersManager.getInstance(this).showOffersWallDialog(this,300,400); 
+    //*3.Pencentage of the width and length to the screen (p.s: the value type is double, please make sure it is between 0 and 1)
+    OffersManager.getInstance(this).showOffersWallDialog(this,0.9d,0.95d);
+    ....
+</code></pre>
+
+<h4 class="sdkhead" id="section_offers_show_banner">3.3 Incentive banner and incentive mini banner</h4>
+<p>To display incentive banner, define 60dp height incentive banner as the incentive banner, and define 32dp height banner as the incentive mini banner.
+<em>Instantiate incentive banner via OffersBanner and OffersAdSize.</em> </p>
+<blockquote>
+<p><em>Hereunder are some size definitions of OffersAdSize:</em>  </p>
+</blockquote>
+<ul>
+<li>OffersAdSize.SIZE_320x60 =&gt; <em>width:320dp, height:60dp incentive Banner</em></li>
+<li>OffersAdSize.SIZE_320x60 =&gt; <em>width:320dp, height:60dp incentive Banner</em></li>
+<li>OffersAdSize.SIZE_320x60 =&gt; <em>width:320dp, height:60dp incentive Banner</em> </li>
+<li>OffersAdSize.SIZE_320x60 =&gt; <em>width:320dp, height:60dp incentive Banner</em>  </li>
+</ul>
+<blockquote>
+<p>Image 01 (portrait):  </p>
+</blockquote>
+<h2><img alt="Incentive banner size display (portrait)" src="img/youmisdk/offers/offersbanners_1.png" /></h2>
+<blockquote>
+<p>Image 02 (landscape):</p>
+</blockquote>
+<h2><img alt="Incentive banner size display (landscape)" src="img/youmisdk/offers/offersbanners_2.png" /></h2>
+<h5>3.3.1 Ordinary layout (for app)</h5>
+<p>1).configure layout file</p>
+<blockquote>
+<p>Copy the following code to the layout file of the Main Activity in which you need to display your ad, and put it in the right place:</p>
+</blockquote>
+<pre><code class="prettyprint lang-xml">
+    &lt;RelativeLayout android:id=&quot;@+id/offersAdLayout&quot;
+    android:layout_width=&quot;fill_parent&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    android:gravity=&quot;center_horizontal&quot;&gt;
+    &lt;/RelativeLayout&gt;
+</code></pre>
+
+<p>2).Add the incentive banner to layout</p>
+<blockquote>
+<p>Please add the following code to the Activity class in which you need to display ad:</p>
+</blockquote>
+<pre><code class="prettyprint lang-java">    ...
+    import net.youmi.android.offers.OffersBanner; 
+    import net.youmi.android.offers.OffersAdSize;
+    ... 
+    //obtain the layout for incentive banner integration
+    RelativeLayout adLayout=(RelativeLayout)findViewById(R.id.offersAdLayout);
+    //demo 1 incentive Banner: full width, height 60dp
+    OffersBanner banner = new OffersBanner(this, OffersAdSize.SIZE_MATCH_SCREENx60);//OffersAdSize height 60dp to define incentive banner   
+    //demo 2 incentive Banner: width 320dp and height 60dp
+    OffersBanner banner = new OffersBanner(this, OffersAdSize.SIZE_320x60);//OffersAdSize height 60dp to define incentive banner    
+    //demo 3 incentive mini Banner: full width, height 32dp
+    OffersBanner banner = new OffersBanner(this, OffersAdSize.SIZE_MATCH_SCREENx32);//OffersAdSize height 32dp to define incentive mini banner  
+    //demo 4 incentive mini Banner: width 320dp and height 32dp
+    OffersBanner banner = new OffersBanner(this, OffersAdSize.SIZE_320x32);//OffersAdSize height 32dp to define incentive mini banner   
+    //add incentive banner to layout
+    adLayout.addView(banner);
+
+</code></pre>
+
+<h5>3.3.2 Floating layout (for game)</h5>
+<blockquote>
+<p>Please add the following code to onCreate of Activity in which you need to display ad:</p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    //Instantiate LayoutParams(important)
+    FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+        FrameLayout.LayoutParams.FILL_PARENT,
+        FrameLayout.LayoutParams.WRAP_CONTENT);     
+    //set the floating room for incentive banner
+    layoutParams.gravity = Gravity.BOTTOM | Gravity.RIGHT; // Here the sample is right down corner  
+    //Instantiate Banner
+    OffersBanner banner = new OffersBanner(this, OffersAdSize.SIZE_MATCH_SCREENx60);//OffersAdSize height 60dp to define incentive banner
+    //invoke addContentView function of Activity
+    this.addContentView(banner, layoutParams);
+
+</code></pre>
+
+<h4>3.4 Relevant setting of incentive ad</h4>
+<blockquote>
+<p>On Youmi website<a href="http://www.youmi.net/applications/settings">Developer Dashboard</a> you can freely set the switch banner display frequency, the color of the background and so on.</p>
+</blockquote>
+<h3 class="sdkhead" id="section_offers_points_account">4.Points Managed</h3>
+<p>Offerwall SDK provides Points account managed, hereunder is the way to invoke:</p>
+<h4 class="sdkhead" id="section_offers_points_account_query">4.1 Points Balance Query</h4>
+<blockquote>
+<p><em>sample code:</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    import android.app.Activity  
+    import net.youmi.android.offers.OffersManager;
+    ...  
+    //Invoke queryPoints to obtain the points balance
+    int myPointBalance = PointsManager.getInstance(this).queryPoints();
+    Log.d(&quot;test&quot;,&quot;Points Balance as:&quot;+myPointBalance);
+    ...
+
+</code></pre>
+
+<h4 class="sdkhead" id="section_offers_points_account_spend">4.2 points Consumption</h4>
+<blockquote>
+<p><em>Sample Code:</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    import android.app.Activity  
+    import net.youmi.android.offers.PointsManager;
+    ...   
+    //Invoke spendPoints to consume points of certain amount, here taking 100 points consumption as an example
+    if(PointsManager.getInstance(this).spendPoints(100)){           
+        Log.d(&quot;test&quot;,&quot;100 points spent&quot;);
+    }else{
+        Log.d(&quot;text&quot;,&quot;Consumption Error(Lacking points balance)&quot;);
+    }   
+    ...     
+
+</code></pre>
+
+<h4 class="sdkhead" id="section_offers_points_account_award">4.3 Points Reward (optional)</h4>
+<blockquote>
+<p>Whenever user continously starts your app for several days or pass certain levels in one time, you can reward user some points/credits.
+<em>Sample Code:</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    import android.app.Activity  
+    import net.youmi.android.offers.PointsManager;
+    ...
+    //Invoke awardPoints to reward user certain points, here taking 50 points reward as example
+    PointsManager.getInstance(this).awardPoints(50);                
+    Log.d(&quot;test&quot;,&quot;Successfully reward 50 points&quot;);          
+    ...
+
+</code></pre>
+
+<h4 class="sdkhead" id="section_offers_points_account_blance_change_notify">4.4 Tracking the points balance change</h4>
+<blockquote>
+<p>SDK here provides the listener API to track any change of the points balance, and its change will update to the UI after refresh 
+To listen to the balance change, please implement implements PointsChangeNotify API, and invoke registerNotify and unRegisterNotify of PointsManager respectively when initializing and ending, as the sample as follows:
+</p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    package com.test
+    import net.youmi.android.offers.OffersManager;
+    import net.youmi.android.offers.PointsChangeNotify;
+    import net.youmi.android.offers.PointsManager;
+    import android.app.Activity;        
+    public class YourTestActivity extends Activity implements PointsChangeNotify { 
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {    
+            // TODO Auto-generated method stub
+            super.onCreate(savedInstanceState);     
+            //p.s: please must invoke registerNotify to register the listener, otherwise you may not able to receive the notification of balance change.
+            PointsManager.getInstance(this).registerNotify(this);    
+        }
+        @Override
+        protected void onDestroy() {
+            // TODO Auto-generated method stub
+            super.onDestroy();
+            //p.s: please must invoke unRegisterNotify to cancel tracking
+            PointsManager.getInstance(this).unRegisterNotify(this);
+        } 
+        @Override
+        public void onPointBalanceChange(int pointsBalance) {
+            // TODO Auto-generated method stub  
+            //when this is invoked, it means that the points balance changes and here the pointsBalance is the current balance
+            Log.d(&quot;test&quot;,&quot;Points balance changes and the current balance is:&quot;+pointsBalance);
+            //p.s: here you can perform UI display update and so on.
+        }
+    }  
+
+</code></pre>
+
+<h3 class="sdkhead" id="section_offers_listener_orders">5.Tracking the Points order (optional)</h3>
+<p>The abovementioned <a href="#section_offers_points_account_blance_change_notify">Tracking the Points Blance Change</a> is only for tracking the points balance. If you want to track the order details, please implement the Tracking points order API.</p>
+<blockquote>
+<p>Firstly, you may need to define a MyPointsReceiver class (with a random name), and it must carry on PointsReceiver:
+<em>Sample Code:</em>: </p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    package com.test;  
+    import android.content.Context;    
+    import net.youmi.android.offers.EarnPointsOrderList;  
+    import net.youmi.android.offers.PointsReceiver; 
+    public class MyPointsReceiver extends PointsReceiver{       
+        @Override
+        protected void onEarnPoints(Context context, EarnPointsOrderList list) {
+            //When SDK receives the Points Order from user will inform you immediately.
+            //Parameter EarnPointsOrderList is a Points oeder list, and you can deal with the Points details order here.
+        }       
+        @Override
+        protected void onViewPoints(Context context) {
+            //Here is an interesting function, whenever user earn points, SDK will push a notification to his device. This function will be invoked when user click on this notification.  
+            //Here you can realize a direct, to lead user to a points balance page you designed. (such as Activity like &quot;my account&quot; and so on).
+            //This operation is optional, please invoke PointsManager.getInstance(context).setEnableEarnPointsNotification(false) if you need to disable the notification function.
+        }   
+    }
+
+</code></pre>
+
+<blockquote>
+<p>Next step, please configure MyPointsReceiver on AndroidManifest.xml MyPointsReceiver:  </p>
+<p><em>Sample Code:</em>: </p>
+</blockquote>
+<pre><code class="prettyprint lang-xml">
+    &lt;receiver
+        android:name=&quot;MyPointsReceiver&quot;
+        android:exported=&quot;false&quot; &gt;
+        &lt;intent-filter&gt;
+            &lt;action android:name=&quot;ep_Please replace with your AppID&quot; /&gt;
+            &lt;action android:name=&quot;vp_Please replace with your AppID&quot; /&gt;
+        &lt;/intent-filter&gt;
+    &lt;/receiver&gt;
+
+</code></pre>
+
+<blockquote>
+<p>p.s: here is an important detail, you must configure two Action for MyPointsReceiver and name it with the beginning of "ep_" and "vp_", and ends with string of your AppID.（AppID is the ID for your app applied on Youmi website, 16 characters, SO the full length of Action is 19 characters）</p>
+<p>Appendix: definition of points order</p>
+<p>EarnPointsOrderList:</p>
+</blockquote>
+<pre><code class="prettyprint lang-java">    package net.youmi.android.offers;
+    ...
+    /**
+     * Points Order List
+     * 
+     */
+    public class EarnPointsOrderList {
+        /**
+         * Obtain the name of point unit on the server
+         */
+        public String getCurrencyName();
+        /**
+         * According to index and receive the order details(EarnPointsOrderInfo)
+         */
+        public EarnPointsOrderInfo get(int index);
+        /**
+         * See if the list is empty
+         */
+        public boolean isEmpty();
+        /**
+         * Receive the items number of the list
+         */
+        public int size(); 
+    }
+</code></pre>
+
+<blockquote>
+<p>EarnPointsOrderInfo:</p>
+</blockquote>
+<pre><code class="prettyprint lang-java">    package net.youmi.android.offers; 
+    /**
+     * Order to earn points
+     */
+    public final class EarnPointsOrderInfo {
+        /**
+         * obtain the order No. (exclusively)
+         */
+        public String getOrderID();
+        /**
+         * obtain the channel No., here means the Youmi channel No. configured on AndroidManifest.xml, details please refer to the documentation 
+         */
+        public int getChannelId();
+        /**
+         * Obtain the unique user identifier defined by developer, and this can be set via OffersManager
+         */
+        public String getCustomUserID();
+        /**
+         * Obtain the points order status:1. it means developer receives revenue and user obtains points. 2. it means developer fails to receive revenue but user obtain points. (in the test mode.)
+         */
+        public int getStatus()
+        /**
+         * Discription of points obtain, such as &quot;Successfully installed, and you have received 100 coins&quot; 
+         */
+        public String getMessage();
+        /**
+         * Points obtained this time 
+         */
+        public int getPoints();
+        /**
+         * Settlement time this time
+         */
+        public long getSettlingTime();
+}
+
+</code></pre>
+
+<h3 class="sdkhead" id="section_offers_custom_points">6.Custom Points Account (optional)</h3>
+<p>If you dont want to implement<a href="#section_offers_points_account">SDK points managed</a> as we mentioned above, but want to realize points managed on your own (custom points account), plese refer to steps of <a href="#section_offers_listener_orders">Tracking Points Order</a> to realize the points order listenning and the custom points management.</p>
+<h3 class="sdkhead" id="section_offers_points_order_callback">7.Server-end Points Order Callback (Optional)</h3>
+<p>If you want to get notification on your server from Youmi server after user earns points, you can implement the Server-end Points Callback API. 
+<a href="http://wiki.youmi.net/Youmi_android_offers_order_callback_protocol">Youmi Offerwall Points Order Server-end Callback Protocol</a> <br />
+1.Please stick to the protocol instruction when you try to realize the order callback API. 
+2.Please must set the callback URL on developer dashboard of <a href="http://www.youmi.net">Youmi Website</a></p>
+<blockquote>
+<p><strong><em>P.S:Once you set the Points Order Callback URL, Youmi will inform your server of any successful order completes, but you will not receive any notice on your client-end like you do <a href="#section_offers_points_account">SDK Points Managed</a>、<a href="#section_offers_listener_orders">Tracking Points Order</a> and <a href="#section_offers_custom_points">Custom Points Account</a> will be disabled.</em></strong>  </p>
+</blockquote>
+<h3 class="sdkhead" id="section_offers_config_points_notification">8.Configure the notification for points arrival (optional)</h3>
+<p>Allow user to know if he successfully earn points from Offerwall, SDK implement floating window and notification bar to send the arrival message. This function is enable by default, but you can disable it via relevant API of PointsManager.</p>
+<blockquote>
+<p><em>Sample Code:</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    ...
+    import net.youmi.android.offers.PointsManager   
+    ...  
+    //Disable Points Arrival Notification Bar reminder
+    PointsManager.getInstance(this).setEnableEarnPointsNotification(false);
+    ...
+    //Disable Points Arrival floating window reminder
+    PointsManager.getInstance(this).setEnableEarnPointsToastTips(false);
+    ...
+
+</code></pre>
+
+<h2 class="sdkhead" id="section_ad">III.Invoke non-incentive ad</h2>
+<h3 class="sdkhead" id="section_spot">1.Youmi Interstitial API</h3>
+<h4>1.1 Pre-load interstitial ad data</h4>
+<blockquote>
+<p>Pre-loading ad data will be invoked when the app starting, SDK will pre-load 3-5 ad banner material to local cache so that ads can be shown right after the API being invoked.
+Delay may happens if there is no data pre-loaded.</p>
+<p><em>Invoke API</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    SpotManager.getInstance(this).loadSpotAds();
+
+</code></pre>
+
+<blockquote>
+<p>p.s: this parameter is carry on from class instance of Context</p>
+</blockquote>
+<h4>1.2 Interstitial Display</h4>
+<blockquote>
+<p>To display Interstitial ad, we mostly invoke it when app starts or game level clearance.
+Here developer can set the display frequency on the developer backend (detail info-business info-non-incentive ad-advanced setup)
+From V4.03 developer can set the enable/disable anti-misclick function on youmi backend.</p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    SpotManager.getInstance(this).showSpotAds(this);
+
+</code></pre>
+
+<h3 class="sdkhead" id="section_banner">2.Youmi Banner API</h3>
+<h4>2.1 Banner Size</h4>
+<blockquote>
+<p>！AdSize provides developer four types of banner sizes:
+AdSize.FIT_SCREEN    Phone/Pad  <br />
+AdSize.SIZE_320x50   Phone<br />
+AdSize.SIZE_300x250  Phone/Pad
+AdSize.SIZE_468x60   Pad 
+AdSize.SIZE_728x90   Pad  </p>
+</blockquote>
+<h4>2.2 Layout (Application)</h4>
+<h5>2.2.1 Configure Layout file</h5>
+<blockquote>
+<p>Copy the following code to layout file of the Activity in which you need to display ad, and put it on the right place:</p>
+</blockquote>
+<pre><code class="prettyprint lang-xml">
+    &lt;LinearLayout android:id=&quot;@+id/adLayout&quot;
+    android:layout_width=&quot;fill_parent&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    android:gravity=&quot;center_horizontal&quot;&gt;
+    &lt;/LinearLayout&gt;
+</code></pre>
+
+<h5>2.2.2 Put AdView to the layout</h5>
+<blockquote>
+<p>Add the following code to the Activity class for ad display:</p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    //Instantiate banner 
+    AdView adView = new AdView(this, AdSize.SIZE_320x50);
+    //Receive layout to integrate banner
+    LinearLayout adLayout=(LinearLayout)findViewById(R.id.adLayout);
+    //Integrate banner to layout
+    adLayout.addView(adView);
+
+</code></pre>
+
+<h4>2.2.3 Floating Layout (For Game)</h4>
+<blockquote>
+<p>Add the following code to the onCreate of Activity for ad display:</p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    //Instantiate LayoutParams (important)
+    FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+        FrameLayout.LayoutParams.FILL_PARENT,
+        FrameLayout.LayoutParams.WRAP_CONTENT);     
+    //set the floating place for banner
+    layoutParams.gravity = Gravity.BOTTOM | Gravity.RIGHT; // Here in the instance is the right down corner
+    //Instantiate banner
+    AdView adView = new AdView(this, AdSize.SIZE_320x50);
+    //Invoke addContentView function of Activity
+    this.addContentView(adView, layoutParams);
+
+</code></pre>
+
+<h4>2.2.4 Implement banner listener API (optional)</h4>
+<blockquote>
+<p>Here SDK provides banner listener API, to monitor the status of banner</p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    adView.setAdListener(new AdViewLinstener() { 
+        @Override
+        public void onSwitchedAd(AdView adView) {
+        // Switch ad and display
+        }  
+        @Override
+        public void onReceivedAd(AdView adView) {
+        // Successful ad request
+        }
+        @Override
+        public void onFailedToReceivedAd(AdView adView) {
+        // Ad request failure  
+        }
+    });
+
+</code></pre>
+
+<h2 class="sdkhead" id="section_functional">IV.Practical Function</h2>
+<h3 class="sdkhead" id="section_functional_check_update">1. Update Check API (Optional)</h3>
+<blockquote>
+<p>Here Youmi SDK provides the version update check API to developer, you can invoke it to notify user any update information.
+When your updated app is uploaded on <a href="http://www.youmi.net">Youmi website</a> and approved on review, the Youmi SDK update check API will receive the update info including the update notification and the new download URL.</p>
+<p><em>API:</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    ...
+    import net.youmi.android.AdManager
+    import net.youmi.android.dev.AppUpdateInfo
+    import net.youmi.android.dev.CheckAppUpdateCallBack;
+    ...
+    //Invoking syncCheckAppUpdate or asyncCheckAppUpdate of AdManager to realize update check.
+    //Return value AppUpdateInfo includes update notification and download URL, if it shows null it means it is the latest version, and there is no further operation required.
+    //
+    //1.synchronous invocation: 
+    AppUpdateInfo updateInfo=AdManager.getInstance(this).syncCheckAppUpdate();  //p.s: it must be invoked on non-UI thread, otherwise it may fail.
+    //
+    //2.asynchronous invocation:
+    AdManager.getInstance(this).asyncCheckAppUpdate(callback); //p.s: it can be invoke on any threads.
+    //
+    //when updateInfo is not null, please handle the notification and the download-install process on your own.   
+    ...
+</code></pre>
+
+<blockquote>
+<p><em>Sample(synchronous API and it must be invoke on non-UI thread, here in the sample we implement AsyncTask):</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    import net.youmi.android.AdManager;  
+    import net.youmi.android.dev.AppUpdateInfo;  
+    import android.app.AlertDialog;
+    import android.content.Context;
+    import android.content.DialogInterface;
+    import android.content.Intent;
+    import android.net.Uri;
+    import android.os.AsyncTask;
+    /*
+    *Here in the same it invokes update check API and it is defined by developer, carried on from AsyncTask 
+    *
+    */
+    public class UpdateHelper extends AsyncTask&lt;Void, Void, AppUpdateInfo&gt; {
+    private Context mContext; 
+    public UpdateHelper(Context context) {
+        mContext = context;
+    }
+    @Override
+    protected AppUpdateInfo doInBackground(Void... params) { 
+        try {
+            //In doInBackground to invoke checkAppUpdate of AdManager will receive update info from Youmi Server.
+            return AdManager.getInstance(mContext).syncCheckAppUpdate();  //It must be invoked on non-UI thread, otherwise it may fail.
+        } catch (Throwable e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return null;
+    }
+    @Override
+    protected void onPostExecute(AppUpdateInfo result) {
+        super.onPostExecute(result);
+        try {
+            if (result == null || result.getUrl() == null) {
+                //If the AppUpdateInfo is null or the attribute of its url is null, it may be considered as the latest version.
+                Toast.makeText(this, &quot;Current App is the latest version&quot;, Toast.LENGTH_SHORT).show();
+                return;
+            } 
+            //Here the sample implement floating window to show the update info
+            new AlertDialog.Builder(mContext)
+                    .setTitle(&quot;Find the New Version&quot;)
+                    .setMessage(result.getUpdateTips())//Here is the update info of the latest version
+                    .setNegativeButton(&quot;update now&quot;,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog,
+                                        int which) {
+                                    Intent intent = new Intent(
+                                            Intent.ACTION_VIEW, Uri
+                                                    .parse(result
+                                                            .getUrl())); 
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+                                    mContext.startActivity(intent);
+                                    //ps:Here the sample will simply invoke the inner browser to download the latest version when tap on (update now),
+                                    //but strongly recommand developer to realize its own download-install process, for better user experience guarantee.
+                                }
+                            })
+                    .setPositiveButton(&quot;Next time&quot;,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog,
+                                        int which) { 
+                                    dialog.cancel();
+                                }
+                            }).create().show(); 
+                } catch (Throwable e) { 
+                    e.printStackTrace();
+                }
+        }
+    }
+
+</code></pre>
+
+<blockquote>
+<p><em>Sample(asynchronous API, use on any):</em></p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    import net.youmi.android.AdManager;  
+    import net.youmi.android.dev.AppUpdateInfo;   
+    import net.youmi.android.dev.CheckAppUpdateCallBack;
+    import android.content.Context;
+    import android.app.Activity 
+    import android.content.Intent;
+    import android.net.Uri; 
+    /*
+    *Here is the sample of Activity invocation
+    *
+    */
+    public class UpdateActivity extends Activity implements CheckAppUpdateCallBack{ 
+    @Override
+    protected void onCreate(Bundle savedInstanceState)  {  
+        //Invoke the update check API, here it can be invoked on UI thread, and non-UI as well.
+        AdManager.getInstance(this).asyncCheckAppUpdate(this);   
+    }
+    @Override 
+    public void onCheckAppUpdateFinish(AppUpdateInfo updateInfo) {
+        //Check update callback. p.s: the callback implemented on UI thread so that you can interact with UI directly, but it limited in a short time (no allow Internet access)
+        if(updateInfo==null){
+            //Current version is the latest
+        }else{
+            //New update info
+        }
+    }  
+    }
+
+</code></pre>
+
+<h3 class="sdkhead" id="section_functional_online_config">2.Online Parameter (optional)</h3>
+<h4>2.1 Online Parameter Introduction</h4>
+<blockquote>
+<p>Online parameter is the new service provided on Youmi network. Developer can modify the configuration setting such as the greeting. prop price and ad switch etc. It exists as Key-Value.</p>
+</blockquote>
+<h4>2.2 Implement online Parameter</h4>
+<blockquote>
+<p>Here developer can set the assigned app parameter on the dashboard of <a href="http://www.youmi.net">Youmi Website</a>, and invoke it from coding. The API sample is as follows:</p>
+<p><em>Sample Code</em>: </p>
+</blockquote>
+<pre><code class="prettyprint lang-java">
+    import net.youmi.android.AdManager;   
+    import net.youmi.android.dev.OnlineConfigCallBack; //asynchronous callback
+    ... 
+    String mykey=&quot;mycustomkey&quot;;//key  
+    String defaultValue=null;//default value, it will returned when no online parameter obtained  
+    //1.Synchronous invocation, please must invoke on non-UI thread, otherwise it may fail.
+    String value=AdManager.getInstance(context).syncGetOnlineConfig(key,
+        defaultValue);  
+    //--------------------------------------------------
+    //2.Asynchronous invocation (invoke on any threads):
+    AdManager.getInstance(this).asyncGetOnlineConfig(mykey, new OnlineConfigCallBack() {
+        @Override
+        public void onGetOnlineConfigSuccessful(String key, String value) {
+        // TODO Auto-generated method stub
+            //receive online parameter successfully
+        }       
+        @Override
+        public void onGetOnlineConfigFailed(String key) {
+            // TODO Auto-generated method stub
+            //Fail to receive online parameter for reasons: Key-value void/network error/server error
+        }
+    });
+    ...
+
+</code></pre>
+
+<blockquote>
+<p><em>p.s: Online configuration cache may delays, so it takes time to update after developer modify configuration on dashboard of Youmi website.</em></p>
+</blockquote>
+<h2 class="sdkhead" id="section_pk">V.Packing and Release</h2>
+<h3 class="sdkhead" id="section_pk_check">1.Check before packing</h3>
+<blockquote>
+<p>Please check if the SDK integration stick to the steps of the guide, follow the instruction of the AndroidManifest.xml configuration, initialization API invocation and other API implementation, etc. </p>
+</blockquote>
+<h4>1.1 Check basic configuration</h4>
+<ul>
+<li>Check <a href="#section_ready_config_manifest_permission">Permission Statement</a><br />
+Please must follow the configuration listed on the Permission Statement, otherwise you may be able to receive any ads.  </li>
+<li>Check <a href="#section_ready_config_manifest_component">Required Configurable</a>:<ul>
+<li>AdBrowser</li>
+<li>AdService</li>
+<li>AdReceiver</li>
+<li>OffersReceiver</li>
+</ul>
+</li>
+<li>Check <a href="#section_ready_init">Initialization API</a>:  </li>
+<li>Check Offerwall Configuration:<ul>
+<li><a href="#section_ready_config_manifest_component_offersreceiver">OffersReceiver</a></li>
+<li><a href="#section_offers_init">Incentive ad initialization</a></li>
+<li><a href="#section_offers_exit">Incentive ad  end API</a></li>
+</ul>
+</li>
+</ul>
+<h4 class="sdkhead" id="section_pk_proguard">1.2 Check Proguard Configuration</h4>
+<p>Please must carefully check <a href="#section_ready_pk_proguard">Proguard Configuration</a>, otherwise you may not able to receive ad.</p>
+<h3 class="sdkhead" id="section_pk_test">2.Test</h3>
+<blockquote>
+<blockquote>
+<p>Please test on your device to see if your app can receive ad normally. (p.s: besides ad test, you can also test the compatibility of your app on various devices via "app compatibility test" on dashboard of <a href="http://www.youmi.net">Youmi Website</a>)</p>
+</blockquote>
+</blockquote>
+<h3 class="sdkhead" id="section_pk_upload">3.Youmi Review</h3>
+<blockquote>
+<p>After SDK Integration and before official release, please upload your app to <a href="http://www.youmi.net">Youmi Website</a> for review. After approved in review, please test and confirm if you can obtain revenue normally. You can check the revenue detail from income report on dashboard of <a href="http://www.youmi.net">Youmi Website</a>.</p>
+</blockquote>
+<h3 class="sdkhead" id="section_pk_public">4.Release</h3>
+<blockquote>
+<p>After review and you confirmed that revenue can be obtained normally, you may official release your app on market.</p>
+</blockquote>
+<h2 class="sdkhead" id="section_faq">VI.FAQ</h2>
+<h3 class="sdkhead" id="section_faq_env">1.Environment Configuration</h3>
+<h4>1.1 Encoding</h4>
+<blockquote>
+<p>Youmi SDK implement UTF-8 character encoding, please use UTF-8 encoding enviroment during integration and sample project import, otherwise it may bring messy. </p>
+</blockquote>
+<h4>1.2 Compatibility</h4>
+<blockquote>
+<p>Youmi Android SDK complies with Android version 2.1 or above.  </p>
+</blockquote>
+<h3 class="sdkhead" id="section_faq_debuglog">2.How to end debug log</h3>
+<blockquote>
+<p>If you need to disable debug log of Youmi SDK, please invoke AdManager.setEnableDebugLog(false) to end the log output of SDK.</p>
+</blockquote>
+<p>"<em>Sample Code:</em>"</p>
+<pre><code class="prettyprint lang-java">
+    import net.youmi.android.AdManager
+    ...
+    //Invoke the following API to end relevant log of Youmi SDK
+    AdManager.getInstance(this).setEnableDebugLog(false);
+    ...
+
+</code></pre>
+
+<blockquote>
+<p>p.s: Please must enable debug log during Youmi review, to ensure approval in review.</p>
+</blockquote>
+<h3 class="sdkhead" id="section_faq_debugmode">3.About TEST mode</h3>
+<blockquote>
+<p>When we see test ad: 
+1. Set the test mode to true in the initialization API 
+2. App not be upload and approved in Youmi review<br />
+3. Already be approved in review, but package name of the later version has been changed, and can not match with previous AppID.</p>
+<p>Please set the test mode to false before official release, otherwise you may not able to receive revenue. </p>
+</blockquote>
+<h3 class="sdkhead" id="section_faq_contact_us">4.Contact Us</h3>
+<p>If there are any problems you meet during integration, or any advice and suggestion you have for Youmi SDK, please contact us.<br />
+QQ: 800006808<br />
+Skype: julia.zhang061<br />
+email: zhangyujuan@youmi.net  </p>
+				</div>
+			<!--</div>-->
+		</div>
+
+<!--style="margin-top:30px;" style="margin-top:60px;" -->
+	</body>
+</html>
