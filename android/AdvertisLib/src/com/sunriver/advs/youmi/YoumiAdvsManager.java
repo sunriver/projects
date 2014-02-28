@@ -33,7 +33,6 @@ public class YoumiAdvsManager {
 	public static void showAdvsOfIntestitial(Context ctx) {
 		SpotManager spotManager = SpotManager.getInstance(ctx); 
 		spotManager.loadSpotAds();
-		spotManager.setSpotTimeout(1000 * 60 * 15);
 		spotManager.showSpotAds(ctx);
 	}
 
