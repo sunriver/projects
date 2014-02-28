@@ -79,5 +79,9 @@ public class PageView extends RelativeLayout {
 		mContentEt.setBackgroundResource(resId);
 	}
 	
+	public void setPageTextColor(int color) {
+		mContentEt.setTextColor(color);
+	}
+	
 	
 }
