@@ -3,8 +3,6 @@ package com.sunriver.advs.youmi;
 
 import net.youmi.android.smart.SmartBannerManager;
 
-import com.sunriver.advs.adchina.AdChinaIntestitial;
-
 import android.content.Context;
 import android.view.ViewGroup;
 
