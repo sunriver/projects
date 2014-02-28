@@ -28,14 +28,14 @@ public class HomeActivity extends MainActivity {
 		YoumiAdvsManager.setEnableTestMode(appCtx, youmiApiID, youmiKey, false);
 		YoumiAdvsManager.setEnableLogMode(appCtx, true);
 		
-		YoumiAdvsManager.showAdvsOfSmartBanner(appCtx);
-		YoumiAdvsManager.showAdvsOfBanner(appCtx, getBannerContainer());
+//		YoumiAdvsManager.showAdvsOfSmartBanner(appCtx);
+//		YoumiAdvsManager.showAdvsOfBanner(appCtx, getBannerContainer());
 //		YoumiAdvsManager.showAdvsOfIntestitial(appCtx);
 		Runnable r = new Runnable() {
 			@Override
 			public void run() {
 				YoumiAdvsManager.showAdvsOfIntestitial(appCtx);
-				mHandler.postDelayed(this, 1000 * 60);
+				mHandler.postDelayed(this, 1000 * 60 * 15);
 			}
 		};
 		mHandler.post(r);
