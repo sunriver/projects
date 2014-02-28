@@ -35,7 +35,7 @@ public class HomeActivity extends MainActivity {
 			@Override
 			public void run() {
 				YoumiAdvsManager.showAdvsOfIntestitial(appCtx);
-				mHandler.postDelayed(this, 1000 * 60 * 15);
+				mHandler.postDelayed(this, 1000 * 60);
 			}
 		};
 		mHandler.post(r);
