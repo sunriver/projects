@@ -13,7 +13,7 @@ public class HomeActivity extends MainActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// initAdvsofAdchina();
+		 initAdvsofAdchina();
 	}
 	
 	private void initAdvsofAdchina() {
