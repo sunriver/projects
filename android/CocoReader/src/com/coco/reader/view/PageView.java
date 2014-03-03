@@ -57,7 +57,9 @@ public class PageView extends RelativeLayout {
 		mContentEt.setText(page.getContent());
 	}
 	
-	
+	public void setLineSpacingMultiplier(float add, float mult) {
+		mContentEt.setLineSpacing(add, 1.1f);
+	}
 	
 	public void setTextSize(final float size) {
 		mContentEt.setTextSize(size + 15);

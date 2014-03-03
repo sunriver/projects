@@ -48,6 +48,10 @@ public class DocumentManager {
 		defaultTextSize = mPreference.getInt(Consts.PREF_PAGE_DEFALUT_TEXT_SIZE, defaultTextSize);
 		op.setTextSize(defaultTextSize);
 		
+		int defaultLineSpace = mContext.getResources().getInteger(R.integer.line_space_default);
+		defaultLineSpace = mPreference.getInt(Consts.PREF_PAGE_DEFALUT_LINE_SPACE, defaultLineSpace);
+		op.setLineSpace(defaultLineSpace);
+		
 		mOptionSetting = op;
 	}
 
@@ -144,6 +148,7 @@ public class DocumentManager {
 		}
 		Editor editor = mPreference.edit();
 		editor.putInt(Consts.PREF_PAGE_DEFALUT_TEXT_SIZE, ops.getTextSize())
+			  .putInt(Consts.PREF_PAGE_DEFALUT_LINE_SPACE, ops.getLineSpace())
 			  .putString(Consts.PREF_DOCUMENT_DEFALUT_THEME, ops.getThemeType().toString())
 			  .commit();
 	}

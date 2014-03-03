@@ -4,6 +4,7 @@ import com.coco.reader.R;
 
 public class OptionSetting {
 	private int mTextSize;
+	private int mLineSpace;
 	private ThemeType mThemeType;
 
 	public int getTextSize() {
@@ -12,6 +13,14 @@ public class OptionSetting {
 
 	public void setTextSize(int size) {
 		this.mTextSize = size;
+	}
+	
+	public void setLineSpace(int space) {
+		this.mLineSpace = space;
+	}
+	
+	public int getLineSpace() {
+		return mLineSpace;
 	}
 
 	public void setThemeType(ThemeType type) {

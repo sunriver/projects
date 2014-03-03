@@ -18,9 +18,11 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 
 public class OptionFragment extends Fragment implements
 		OnSeekBarChangeListener, OnCheckedChangeListener {
-	private SeekBar mSeekBar;
+	private SeekBar mTextSizeSeekBar;
+	private SeekBar mLineSpaceSeekBar;
 	private RadioGroupEx mThemeRg;
 	private TextSizeChangeListener mTextSizeChangeListener;
+	private LineSpaceChangeListener mLineSpaceChangeListener;
 	private ThemeSwitcher mThemeSwitcher;
 	private OptionSetting mOptionSetting;
 
@@ -31,16 +33,21 @@ public class OptionFragment extends Fragment implements
 		if (activity instanceof TextSizeChangeListener) {
 			this.mTextSizeChangeListener = (TextSizeChangeListener) activity;
 		}
+		if (activity instanceof LineSpaceChangeListener) {
+			this.mLineSpaceChangeListener = (LineSpaceChangeListener) activity;
+		}
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.option, null);
-		mSeekBar = (SeekBar) v.findViewById(R.id.sb_text_size);
+		mTextSizeSeekBar = (SeekBar) v.findViewById(R.id.sb_text_size);
+		mLineSpaceSeekBar = (SeekBar) v.findViewById(R.id.sb_line_space);
 		mThemeRg = (RadioGroupEx) v.findViewById(R.id.rg_theme);
 
-		mSeekBar.setOnSeekBarChangeListener(this);
+		mTextSizeSeekBar.setOnSeekBarChangeListener(this);
+		mLineSpaceSeekBar.setOnSeekBarChangeListener(this);
 		mThemeRg.setOnCheckedChangeListener(this);
 		return v;
 	}
@@ -50,7 +57,7 @@ public class OptionFragment extends Fragment implements
 	}
 
 	public void setTextSize(int size) {
-		mSeekBar.setProgress(size);
+		mTextSizeSeekBar.setProgress(size);
 		mOptionSetting.setTextSize(size);
 	}
 
@@ -85,8 +92,12 @@ public class OptionFragment extends Fragment implements
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress,
 			boolean fromUser) {
-		mOptionSetting.setTextSize(progress);
-		mTextSizeChangeListener.onSizeChangeing(progress);
+		int id = seekBar.getId();
+		if (id == R.id.sb_text_size) {
+			updateTextSize(progress);
+		} else if (id == R.id.sb_line_space) {
+			updateLineSpace(progress);
+		}
 	}
 
 	@Override
@@ -96,9 +107,23 @@ public class OptionFragment extends Fragment implements
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
+		int id = seekBar.getId();
 		int size = seekBar.getProgress();
+		if (id == R.id.sb_text_size) {
+			updateTextSize(size);
+		} else if (id == R.id.sb_line_space) {
+			updateLineSpace(size);
+		}
+
+	}
+	private void updateTextSize(int size) {
 		mOptionSetting.setTextSize(size);
 		mTextSizeChangeListener.onSizeChangeing(size);
+	}
+	
+	private void updateLineSpace(int size) {
+		mOptionSetting.setLineSpace(size);
+		mLineSpaceChangeListener.onLineSpaceChanging(size);
 	}
 
 	@Override
@@ -156,6 +181,12 @@ public class OptionFragment extends Fragment implements
 		public void onSizeChangeing(int size);
 
 		public void onSizeChanged(int size);
+	}
+	
+	public interface LineSpaceChangeListener {
+		public void onLineSpaceChanging(int size);
+		
+		public void onLineSpaceChanged(int size);
 	}
 
 	public ThemeSwitcher getThemeSwitcher() {

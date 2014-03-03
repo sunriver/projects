@@ -8,4 +8,5 @@ public class Consts {
 	public static final String  PREF_PAGE_DEFALUT_INDEX = "page.default.index";
 	public static final String  PREF_PAGE_DEFALUT_SCROLLY = "page.default.ScrollY";
 	public static final String  PREF_PAGE_DEFALUT_TEXT_SIZE = "page.default.text.size";
+	public static final String  PREF_PAGE_DEFALUT_LINE_SPACE = "page.default.line.space";
 }

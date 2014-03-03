@@ -26,7 +26,7 @@ import com.coco.reader.data.DocumentManager;
 import com.coco.reader.data.OptionSetting;
 
 public class MainActivity extends ActionBarActivity implements
-		ChapterSelectListener, LoadStateChangeListener, TextSizeChangeListener, View.OnClickListener {
+		ChapterSelectListener, LoadStateChangeListener, TextSizeChangeListener, OptionFragment.LineSpaceChangeListener, View.OnClickListener {
 	private static final String TAG = MainActivity.class.getSimpleName();
 
 	private FlipViewController mFlipView;
@@ -239,6 +239,20 @@ public class MainActivity extends ActionBarActivity implements
 		if (pv != null) {
 			pv.setPageBackground(ops.getPageBackgroundResId());
 		}
+	}
+
+	@Override
+	public void onLineSpaceChanging(int size) {
+		PageView pv = (PageView) mFlipView.getSelectedView();
+		if (pv != null) {
+			pv.setLineSpacingMultiplier(size, 0);
+		}
+	}
+
+	@Override
+	public void onLineSpaceChanged(int size) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
