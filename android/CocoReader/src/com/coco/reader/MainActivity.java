@@ -235,6 +235,7 @@ public class MainActivity extends ActionBarActivity implements
 		mAbCustomView.titleTv.setText(doc.getTitile());
 		mSlidingMenuTabs.option.setTextSize(doc.getTextSize());
 		OptionSetting ops = mSlidingMenuTabs.option.getOptionSetting();
+		mSlidingMenuTabs.option.setLineSpace(ops.getLineSpace());
 		PageView pv = (PageView) mFlipView.getSelectedView();
 		if (pv != null) {
 			pv.setPageBackground(ops.getPageBackgroundResId());
