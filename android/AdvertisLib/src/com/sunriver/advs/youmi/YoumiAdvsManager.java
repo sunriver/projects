@@ -32,10 +32,13 @@ public class YoumiAdvsManager {
 	
 	public static void showAdvsOfIntestitial(Context ctx) {
 		SpotManager spotManager = SpotManager.getInstance(ctx); 
-		spotManager.loadSpotAds();
 		spotManager.showSpotAds(ctx);
 	}
-
+	
+	public static void loadAdvsOfIntestitial(Context ctx) {
+		SpotManager spotManager = SpotManager.getInstance(ctx); 
+		spotManager.loadSpotAds();
+	}
 
 
 }
