@@ -60,6 +60,15 @@ public class OptionFragment extends Fragment implements
 		mTextSizeSeekBar.setProgress(size);
 		mOptionSetting.setTextSize(size);
 	}
+	
+	public int getLineSpace() {
+		return mOptionSetting.getLineSpace();
+	}
+
+	public void setLineSpace(int size) {
+		mLineSpaceSeekBar.setProgress(size);
+		mOptionSetting.setLineSpace(size);
+	}
 
 	public void setOptionSetting(OptionSetting ops) {
 		this.mOptionSetting = ops;
