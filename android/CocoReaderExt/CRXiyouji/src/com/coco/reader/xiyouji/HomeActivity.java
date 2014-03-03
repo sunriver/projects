@@ -27,6 +27,17 @@ public class HomeActivity extends MainActivity {
 	public void onDocumentLoadCompleted(Document doc) {
 		super.onDocumentLoadCompleted(doc);
 	}
+	
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		if (mAdChinaIntestitial != null) {
+			mAdChinaIntestitial.show();
+		}
+	}
+	
+	
 
 	@Override
 	protected void onDestroy() {
