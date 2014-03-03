@@ -76,6 +76,15 @@ public class OptionFragment extends Fragment implements
 		mLineSpaceSeekBar.setProgress(size);
 		mOptionSetting.setLineSpace(size);
 	}
+	
+	public int getScreenBrightness() {
+		return mOptionSetting.getScreenBrightness();
+	}
+	
+	public void setScreenBrightness(int size) {
+		mScreenBrightnessSeekBar.setProgress(size);
+		mOptionSetting.setScreenBrightness(size);
+	}
 
 	public void setOptionSetting(OptionSetting ops) {
 		this.mOptionSetting = ops;

@@ -9,4 +9,5 @@ public class Consts {
 	public static final String  PREF_PAGE_DEFALUT_SCROLLY = "page.default.ScrollY";
 	public static final String  PREF_PAGE_DEFALUT_TEXT_SIZE = "page.default.text.size";
 	public static final String  PREF_PAGE_DEFALUT_LINE_SPACE = "page.default.line.space";
+	public static final String  PREF_PAGE_DEFALUT_SCREEN_BRIGHTNESS = "page.default.screen.brightness";
 }

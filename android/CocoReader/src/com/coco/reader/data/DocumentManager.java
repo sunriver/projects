@@ -52,6 +52,10 @@ public class DocumentManager {
 		defaultLineSpace = mPreference.getInt(Consts.PREF_PAGE_DEFALUT_LINE_SPACE, defaultLineSpace);
 		op.setLineSpace(defaultLineSpace);
 		
+		int defaultScreenBrightness = mContext.getResources().getInteger(R.integer.screen_brightness_default);
+		defaultScreenBrightness = mPreference.getInt(Consts.PREF_PAGE_DEFALUT_SCREEN_BRIGHTNESS, defaultScreenBrightness);
+		op.setScreenBrightness(defaultScreenBrightness);
+		
 		mOptionSetting = op;
 	}
 
@@ -149,6 +153,7 @@ public class DocumentManager {
 		Editor editor = mPreference.edit();
 		editor.putInt(Consts.PREF_PAGE_DEFALUT_TEXT_SIZE, ops.getTextSize())
 			  .putInt(Consts.PREF_PAGE_DEFALUT_LINE_SPACE, ops.getLineSpace())
+			  .putInt(Consts.PREF_PAGE_DEFALUT_SCREEN_BRIGHTNESS, ops.getScreenBrightness())
 			  .putString(Consts.PREF_DOCUMENT_DEFALUT_THEME, ops.getThemeType().toString())
 			  .commit();
 	}
