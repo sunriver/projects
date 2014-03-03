@@ -6,5 +6,8 @@
     
     <integer name="line_space_default">10</integer>
     <integer name="line_space_max">40</integer>
+    
+    <integer name="screen_brightness_default">125</integer>
+    <integer name="screen_brightness_max">255</integer>
 
 </resources>
