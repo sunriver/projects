@@ -11,12 +11,12 @@
     <string name="nav_chapter">章节</string>
     <string name="nav_bookmark">书签</string>
     <string name="nav_option">选项</string>
-    
+
     <!-- options -->
     <string name="op_text_size">"字体大小:"</string>
+    <string name="op_line_space">"行间距:"</string>
     <string name="op_theme">"主题:"</string>
     <string name="op_theme_default">默认</string>
     <string name="op_theme_lightblue">浅蓝</string>
-    
 
 </resources>

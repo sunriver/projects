@@ -9,6 +9,7 @@
         android:layout_height="match_parent" >
 
         <TextView
+            android:lineSpacingMultiplier="1.2"
             android:id="@+id/tv_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

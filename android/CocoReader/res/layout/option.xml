@@ -28,6 +28,31 @@
             android:max="@integer/text_size_max"
             android:progress="@integer/text_size_default" />
     </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:text="@string/op_line_space" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <SeekBar
+            android:id="@+id/sb_line_space"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:max="@integer/line_space_max"
+            android:progress="@integer/line_space_default" />
+    </TableRow>
 
     <TableRow
         android:layout_width="match_parent"
