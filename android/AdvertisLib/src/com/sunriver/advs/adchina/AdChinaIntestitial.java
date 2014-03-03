@@ -51,6 +51,15 @@ public class AdChinaIntestitial implements AdInterstitialListener{
 	public void start() {
 		mHandler.postDelayed(mRunnable, 10000);
 	}
+	
+	public void stop() {
+		if (mRunnable != null) {
+			mHandler.removeCallbacks(mRunnable);
+		}
+		if (adItst != null) {
+			adItst.stop();
+		}
+	}
 
     @Override
 	public void onReceivedItstAd() {
