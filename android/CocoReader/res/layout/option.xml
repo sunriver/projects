@@ -53,6 +53,31 @@
             android:max="@integer/line_space_max"
             android:progress="@integer/line_space_default" />
     </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:text="@string/op_screen_brightness" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <SeekBar
+            android:id="@+id/sb_screen_brightness"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:max="@integer/screen_brightness_max"
+            android:progress="@integer/screen_brightness_default" />
+    </TableRow>
 
     <TableRow
         android:layout_width="match_parent"
