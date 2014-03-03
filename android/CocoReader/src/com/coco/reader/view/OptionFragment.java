@@ -20,9 +20,11 @@ public class OptionFragment extends Fragment implements
 		OnSeekBarChangeListener, OnCheckedChangeListener {
 	private SeekBar mTextSizeSeekBar;
 	private SeekBar mLineSpaceSeekBar;
+	private SeekBar mScreenBrightnessSeekBar;
 	private RadioGroupEx mThemeRg;
 	private TextSizeChangeListener mTextSizeChangeListener;
 	private LineSpaceChangeListener mLineSpaceChangeListener;
+	private ScreenBrightnessChangeListener mScreenBrightnessChangeListener;
 	private ThemeSwitcher mThemeSwitcher;
 	private OptionSetting mOptionSetting;
 
@@ -36,6 +38,9 @@ public class OptionFragment extends Fragment implements
 		if (activity instanceof LineSpaceChangeListener) {
 			this.mLineSpaceChangeListener = (LineSpaceChangeListener) activity;
 		}
+		if (activity instanceof ScreenBrightnessChangeListener) {
+			this.mScreenBrightnessChangeListener = (ScreenBrightnessChangeListener) activity;
+		}
 	}
 
 	@Override
@@ -44,10 +49,12 @@ public class OptionFragment extends Fragment implements
 		View v = inflater.inflate(R.layout.option, null);
 		mTextSizeSeekBar = (SeekBar) v.findViewById(R.id.sb_text_size);
 		mLineSpaceSeekBar = (SeekBar) v.findViewById(R.id.sb_line_space);
+		mScreenBrightnessSeekBar = (SeekBar) v.findViewById(R.id.sb_screen_brightness);
 		mThemeRg = (RadioGroupEx) v.findViewById(R.id.rg_theme);
 
 		mTextSizeSeekBar.setOnSeekBarChangeListener(this);
 		mLineSpaceSeekBar.setOnSeekBarChangeListener(this);
+		mScreenBrightnessSeekBar.setOnSeekBarChangeListener(this);
 		mThemeRg.setOnCheckedChangeListener(this);
 		return v;
 	}
@@ -106,6 +113,8 @@ public class OptionFragment extends Fragment implements
 			updateTextSize(progress);
 		} else if (id == R.id.sb_line_space) {
 			updateLineSpace(progress);
+		} else if (id == R.id.sb_screen_brightness) {
+			updateScreenBrightness(progress);
 		}
 	}
 
@@ -122,9 +131,17 @@ public class OptionFragment extends Fragment implements
 			updateTextSize(size);
 		} else if (id == R.id.sb_line_space) {
 			updateLineSpace(size);
+		} else if (id == R.id.sb_screen_brightness) {
+			updateScreenBrightness(size);
 		}
 
 	}
+	
+	private void updateScreenBrightness(int size) {
+		mOptionSetting.setScreenBrightness(size);
+		mScreenBrightnessChangeListener.onScreenBrightnessChanging(size);
+	}
+	
 	private void updateTextSize(int size) {
 		mOptionSetting.setTextSize(size);
 		mTextSizeChangeListener.onSizeChangeing(size);
@@ -196,6 +213,12 @@ public class OptionFragment extends Fragment implements
 		public void onLineSpaceChanging(int size);
 		
 		public void onLineSpaceChanged(int size);
+	}
+	
+	public interface ScreenBrightnessChangeListener {
+		public void onScreenBrightnessChanging(int size);
+		
+		public void onScreenBrightnessChanged(int size);
 	}
 
 	public ThemeSwitcher getThemeSwitcher() {

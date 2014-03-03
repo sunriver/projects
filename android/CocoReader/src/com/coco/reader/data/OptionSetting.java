@@ -5,6 +5,7 @@ import com.coco.reader.R;
 public class OptionSetting {
 	private int mTextSize;
 	private int mLineSpace;
+	private int mScreenBrightness;
 	private ThemeType mThemeType;
 
 	public int getTextSize() {
@@ -21,6 +22,14 @@ public class OptionSetting {
 	
 	public int getLineSpace() {
 		return mLineSpace;
+	}
+	
+	public void setScreenBrightness(int size) {
+		this.mScreenBrightness = size;
+	}
+	
+	public int getScreenBrightness() {
+		return this.mScreenBrightness;
 	}
 
 	public void setThemeType(ThemeType type) {

@@ -2,12 +2,15 @@ package com.coco.reader;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -18,6 +21,7 @@ import com.coco.reader.adapter.PageAdapter.LoadStateChangeListener;
 import com.coco.reader.view.ChapterFragment;
 import com.coco.reader.view.ChapterFragment.ChapterSelectListener;
 import com.coco.reader.view.OptionFragment;
+import com.coco.reader.view.OptionFragment.ScreenBrightnessChangeListener;
 import com.coco.reader.view.OptionFragment.TextSizeChangeListener;
 import com.coco.reader.view.PageView;
 import com.coco.reader.view.ThemeSwitcher;
@@ -26,7 +30,7 @@ import com.coco.reader.data.DocumentManager;
 import com.coco.reader.data.OptionSetting;
 
 public class MainActivity extends ActionBarActivity implements
-		ChapterSelectListener, LoadStateChangeListener, TextSizeChangeListener, OptionFragment.LineSpaceChangeListener, View.OnClickListener {
+		ChapterSelectListener, LoadStateChangeListener, TextSizeChangeListener, OptionFragment.LineSpaceChangeListener, ScreenBrightnessChangeListener, View.OnClickListener {
 	private static final String TAG = MainActivity.class.getSimpleName();
 
 	private FlipViewController mFlipView;
@@ -255,5 +259,32 @@ public class MainActivity extends ActionBarActivity implements
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void onScreenBrightnessChanging(int size) {
+		setScreenMode(Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);  
+		setScreenBrightness(size);
+	}
+	
+	@Override
+	public void onScreenBrightnessChanged(int size) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+    private void setScreenMode(int value) {  
+        Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, value);  
+    }  
+    
+    private void setScreenBrightness(float value) {  
+        Window mWindow = getWindow();  
+        WindowManager.LayoutParams mParams = mWindow.getAttributes();  
+        float f = value / 255.0F;  
+        mParams.screenBrightness = f;  
+        mWindow.setAttributes(mParams);  
+  
+        Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, (int) value);  
+    }
+
 
 }
