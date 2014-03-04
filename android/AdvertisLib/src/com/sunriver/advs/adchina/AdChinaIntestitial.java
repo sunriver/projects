@@ -60,6 +60,12 @@ public class AdChinaIntestitial implements AdInterstitialListener{
 			adItst.stop();
 		}
 	}
+	
+	public void show() {
+    	if(adItst != null) {
+    		adItst.showItst();
+    	}
+	}
 
     @Override
 	public void onReceivedItstAd() {
