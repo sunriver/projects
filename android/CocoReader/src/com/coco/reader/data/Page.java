@@ -1,8 +1,6 @@
 package com.coco.reader.data;
 
-import java.io.IOException;
 import java.io.Reader;
-
 public class Page {
 	private final static String TAG = Page.class.getSimpleName();
 	public final static int PAGE_SIZE = 1024;
