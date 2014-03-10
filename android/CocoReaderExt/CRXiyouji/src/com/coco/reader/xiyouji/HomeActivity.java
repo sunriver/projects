@@ -32,9 +32,9 @@ public class HomeActivity extends MainActivity {
 	@Override
 	protected void onStop() {
 		super.onStop();
-		if (mAdChinaIntestitial != null) {
-			mAdChinaIntestitial.show();
-		}
+//		if (mAdChinaIntestitial != null) {
+//			mAdChinaIntestitial.show();
+//		}
 	}
 	
 	
