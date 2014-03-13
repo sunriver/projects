@@ -3,6 +3,7 @@ package com.coco.reader;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.sunriver.common.utils.BrightnessControl;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
@@ -13,6 +14,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.TabHost.TabContentFactory;
+import android.widget.TabHost.TabSpec;
+
 import com.aphidmobile.flip.FlipViewController;
 import com.coco.reader.R;
 import com.coco.reader.adapter.PageAdapter;
@@ -107,14 +111,21 @@ public class MainActivity extends ActionBarActivity implements
 	}
 
 	private void initSlidingMenuTab() {
+		Context ctx = this.getApplicationContext();
 		TabHost tabHost = (TabHost) findViewById(R.id.myTabHost);
 		tabHost.setup();
 		String navDirectory = this.getString(R.string.nav_chapter);
-		String navBookmark = this.getString(R.string.nav_option);
-		tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator(navDirectory)
+		String navOption = this.getString(R.string.nav_option);
+		
+		View navDirectoryTabView = createTabView(ctx, navDirectory);
+		tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator(navDirectoryTabView)
 				.setContent(R.id.nav_chapter));
-		tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator(navBookmark)
+		
+		View navOptionTabView = createTabView(ctx, navOption);
+		tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator(navOptionTabView)
 				.setContent(R.id.nav_option));
+		
+		tabHost.getTabWidget().setDividerDrawable(R.drawable.tab_divider);
 
 		mSlidingMenuTabs = new SlidingMenuTabs();
 		FragmentManager fragmentManager = getSupportFragmentManager();
@@ -128,6 +139,14 @@ public class MainActivity extends ActionBarActivity implements
 		
 		OptionSetting ops = mDocManager.getOptionSetting();
 		mSlidingMenuTabs.option.setOptionSetting(ops);
+	}
+	
+	
+	private  View createTabView(final Context context, final String text) {
+		View view = LayoutInflater.from(context).inflate(R.layout.menu_tab, null);
+		TextView tv = (TextView) view.findViewById(R.id.tabsText);
+		tv.setText(text);
+		return view;
 	}
 	
 	private static class ActionBarCustomView {
