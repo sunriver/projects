@@ -3,6 +3,11 @@
 
     <style name="Reader.Theme" parent="@style/Theme.AppCompat.Light" />
 
+    <style name="Theme.splash" parent="Reader.Theme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
     <style name="Reader.Theme.LightGreen">
         <item name="android:actionBarStyle">@style/Reader.ActionBar.LightGreen</item>
     </style>
