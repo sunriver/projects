@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TabHost;
+import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.TabHost.TabContentFactory;
 import android.widget.TabHost.TabSpec;
@@ -111,17 +112,17 @@ public class MainActivity extends ActionBarActivity implements
 	}
 
 	private void initSlidingMenuTab() {
-		Context ctx = this.getApplicationContext();
+
 		TabHost tabHost = (TabHost) findViewById(R.id.myTabHost);
 		tabHost.setup();
 		String navDirectory = this.getString(R.string.nav_chapter);
 		String navOption = this.getString(R.string.nav_option);
 		
-		View navDirectoryTabView = createTabView(ctx, navDirectory);
+		View navDirectoryTabView = createTabView(tabHost, navDirectory);
 		tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator(navDirectoryTabView)
 				.setContent(R.id.nav_chapter));
 		
-		View navOptionTabView = createTabView(ctx, navOption);
+		View navOptionTabView = createTabView(tabHost, navOption);
 		tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator(navOptionTabView)
 				.setContent(R.id.nav_option));
 		
@@ -142,8 +143,10 @@ public class MainActivity extends ActionBarActivity implements
 	}
 	
 	
-	private  View createTabView(final Context context, final String text) {
-		View view = LayoutInflater.from(context).inflate(R.layout.menu_tab, null);
+	private  View createTabView(final TabHost tabHost, final String text) {
+		Context ctx = this.getApplicationContext();
+		TabWidget tw = tabHost.getTabWidget();
+		View view = LayoutInflater.from(ctx).inflate(R.layout.menu_tab, tw, false);
 		TextView tv = (TextView) view.findViewById(R.id.tabsText);
 		tv.setText(text);
 		return view;
