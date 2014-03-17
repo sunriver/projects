@@ -2,6 +2,8 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/row_title"
     android:enabled="false"
+    android:ellipsize="end" 
+    android:lines="1"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_list_item_height"
     android:background="@drawable/nav_list_bg_selector"
