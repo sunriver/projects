@@ -126,7 +126,7 @@ public class MainActivity extends ActionBarActivity implements
 		tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator(navOptionTabView)
 				.setContent(R.id.nav_option));
 		
-		tabHost.getTabWidget().setDividerDrawable(R.drawable.tab_divider);
+//		tabHost.getTabWidget().setDividerDrawable(R.drawable.tab_divider);
 
 		mSlidingMenuTabs = new SlidingMenuTabs();
 		FragmentManager fragmentManager = getSupportFragmentManager();
