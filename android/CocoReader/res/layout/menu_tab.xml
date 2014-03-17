@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) 2010 Josh Clemm -->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tabsLayout"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@drawable/tab_bg_selector"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:padding="10dip" >
+    style="@style/Reader.SlidingMenu.Tab"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:gravity="center" >
 
     <TextView
         android:id="@+id/tabsText"
