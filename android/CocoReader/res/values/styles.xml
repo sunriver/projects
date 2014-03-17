@@ -4,6 +4,13 @@
 
     <style name="Reader.PageView" parent="" />
 
+    <style name="Reader.SlidingMenu.Tab" parent="">
+        <item name="android:layout_width">0dip</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:minWidth">80dip</item>
+        <item name="android:background">@drawable/tab_bg_selector</item>
+    </style>
+
     <!-- Light Blue -->
     <style name="Reader.ActionBar.LightBlue">
         <item name="android:background">@drawable/back_title</item>
@@ -27,7 +34,7 @@
         <item name="android:background">@drawable/page_bg_gray_green</item>
     </style>
 
-    <!--Deep Yellow -->
+    <!-- Deep Yellow -->
     <style name="Reader.ActionBar.DeepYellow">
         <item name="android:background">@drawable/page_bg_deep_yellow</item>
     </style>
@@ -36,7 +43,7 @@
         <item name="android:background">@drawable/page_bg_deep_yellow</item>
     </style>
 
-    <!--Gray White -->
+    <!-- Gray White -->
     <style name="Reader.ActionBar.GrayWhite">
         <item name="android:background">@drawable/page_bg_gray_white</item>
     </style>
@@ -45,7 +52,7 @@
         <item name="android:background">@drawable/page_bg_gray_white</item>
     </style>
 
-    <!--Light Yellow -->
+    <!-- Light Yellow -->
     <style name="Reader.ActionBar.LightYellow">
         <item name="android:background">@drawable/page_bg_light_yellow</item>
     </style>
@@ -54,7 +61,7 @@
         <item name="android:background">@drawable/page_bg_light_yellow</item>
     </style>
 
-    <!--Deep Gray -->
+    <!-- Deep Gray -->
     <style name="Reader.ActionBar.DeepGray">
         <item name="android:background">@drawable/page_bg_deep_gray</item>
     </style>
