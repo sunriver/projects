@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@drawable/deep_gray" >
 
     <TableRow
         android:layout_width="match_parent"
@@ -13,7 +14,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
-            android:text="@string/op_text_size" />
+            android:text="@string/op_text_size"
+            android:textColor="@android:color/white" />
     </TableRow>
 
     <TableRow
@@ -28,7 +30,8 @@
             android:max="@integer/text_size_max"
             android:progress="@integer/text_size_default" />
     </TableRow>
-    <TableRow
+
+    <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp" >
@@ -38,7 +41,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
-            android:text="@string/op_line_space" />
+            android:text="@string/op_line_space"
+            android:textColor="@android:color/white" />
     </TableRow>
 
     <TableRow
@@ -53,7 +57,8 @@
             android:max="@integer/line_space_max"
             android:progress="@integer/line_space_default" />
     </TableRow>
-    <TableRow
+
+    <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp" >
@@ -63,7 +68,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
-            android:text="@string/op_screen_brightness" />
+            android:text="@string/op_screen_brightness"
+            android:textColor="@android:color/white" />
     </TableRow>
 
     <TableRow
@@ -90,7 +96,8 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="@string/op_theme" />
+            android:text="@string/op_theme"
+            android:textColor="@android:color/white" />
     </TableRow>
 
     <TableRow
