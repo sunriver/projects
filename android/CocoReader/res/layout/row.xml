@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/row_title"
-    android:enabled="false"
-    android:ellipsize="end" 
-    android:lines="1"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_list_item_height"
     android:background="@drawable/nav_list_bg_selector"
+    android:ellipsize="end"
+    android:enabled="false"
     android:gravity="center_vertical"
-    android:textAppearance="@android:style/TextAppearance.Medium" />
+    android:lines="1"
+    android:textColor="@drawable/text_selector" />
