@@ -34,7 +34,7 @@ public class SplashActivity extends ActionBarActivity implements AnimationListen
 
 	@Override
 	public void onAnimationEnd(Animation animation) {
-		Intent intent = new Intent(this, YoumiHomeActivity.class);
+		Intent intent = new Intent(this, HomeActivity.class);
 		startActivity(intent);
 		finish();
 	}

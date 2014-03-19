@@ -33,7 +33,7 @@ public class HomeActivity extends MainActivity {
 	protected void onStop() {
 		super.onStop();
 //		if (mAdChinaIntestitial != null) {
-//			mAdChinaIntestitial.show();
+//			mAdChinaIntestitial.stop();
 //		}
 	}
 	

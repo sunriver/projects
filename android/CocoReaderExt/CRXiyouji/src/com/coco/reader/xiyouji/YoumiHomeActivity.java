@@ -23,7 +23,7 @@ public class YoumiHomeActivity extends MainActivity {
 		mHandler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				OffersManager.getInstance(YoumiHomeActivity.this).showOffersWall();
+//				OffersManager.getInstance(YoumiHomeActivity.this).showOffersWall();
 			}
 		}, 10000);
 	}
