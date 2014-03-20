@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -42,6 +43,14 @@ public class MainActivity extends ActionBarActivity implements
 	private DocumentManager mDocManager;
 	private ActionBarCustomView mAbCustomView;
 	private SlidingMenu mSlidingMenu;
+	
+	@Override
+	public boolean onCreatePanelMenu(int featureId, Menu menu) {
+		// TODO Auto-generated method stub
+//		return super.onCreatePanelMenu(featureId, menu);
+		return true;
+	}
+
 	private SlidingMenuTabs mSlidingMenuTabs;
 	private ThemeSwitcher mThemeSwitcher;
 	private ViewGroup mMainContent;
