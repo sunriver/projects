@@ -20,28 +20,41 @@ public class AdChinaBanner extends Fragment implements AdBannerListener {
 	
 	private static final String AD_ID = "2134693";
 //	private static final String AD_ID = "69327"; //Test ID
-	private View mAdView;
+	private AdView mAdView;
+	private ViewGroup mParent;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		mAdView = createAdView();
-		return mAdView;
+		mParent = new LinearLayout(this.getActivity());
+		show(AD_ID);
+		return mParent;
+	}
+	
+	public void show(String adsID) {
+		if (null == mAdView) {
+			mAdView = createAdView(AD_ID);
+			mParent.addView(mAdView);
+			mAdView.start();
+		}
 	}
 	
 	
 	
-	private LinearLayout createAdView() {
-		Context ctx = getActivity().getApplicationContext();
-		LinearLayout parent = new LinearLayout(ctx);
-		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.WRAP_CONTENT);
-		parent.setLayoutParams(lp);
+	@Override
+	public void onDestroyView() {
+		if (mAdView != null) {
+			mAdView.stop();
+			mAdView = null;
+		}
+		super.onDestroyView();
+	}
 
-		AdView view = new AdView(ctx, AD_ID, true, true);
+	private AdView createAdView(final String adsID) {
+		Context ctx = getActivity().getApplicationContext();
+		AdView view = new AdView(ctx, AD_ID, false, true); 
 		view.setAdBannerListener(this);
 		view.setAdReferenceSize(480, 72);
-		parent.addView(view);
-
 		view.setAdRefreshTime(20);
 		AdManager.setRelateScreenRotate(ctx, true);
 		AdManager.setCanHardWare(true);
@@ -50,7 +63,7 @@ public class AdChinaBanner extends Fragment implements AdBannerListener {
 		LocationManager locationManager = (LocationManager) ctx.getSystemService(Context.LOCATION_SERVICE);
 		AdManager.setLocationManager(locationManager);
 
-		return parent;
+		return view;
 	}
 
 
