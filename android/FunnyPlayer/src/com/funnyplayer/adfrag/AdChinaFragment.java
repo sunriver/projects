@@ -30,7 +30,7 @@ public class AdChinaFragment extends Fragment  {
 		Context ctx = getActivity().getApplicationContext();
 
 		AdView view = new AdView(ctx, AD_ID, true, true);
-//		view.setAdReferenceSize(480, 72);
+		view.setAdReferenceSize(480, 72);
 		parent.addView(view);
 
 		view.setAdRefreshTime(20);
