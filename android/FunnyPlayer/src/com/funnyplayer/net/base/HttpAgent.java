@@ -11,7 +11,7 @@ import android.content.Context;
 import android.util.Log;
 
 public class HttpAgent {
-	protected static final String TAG = "HttpAgent";
+	private static final String TAG = HttpAgent.class.getSimpleName();
 	
 	private static HttpAgent mInstance;
 
