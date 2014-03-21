@@ -18,8 +18,8 @@ import android.widget.LinearLayout;
 public class AdChinaBanner extends Fragment implements AdBannerListener {
 	private static final String TAG = AdChinaBanner.class.getSimpleName();
 	
-//	private static final String AD_ID = "2134693";
-	private static final String AD_ID = "69327"; //Test ID
+	private static final String AD_ID = "2134693";
+//	private static final String AD_ID = "69327"; //Test ID
 	private View mAdView;
 	
 	@Override
@@ -32,13 +32,14 @@ public class AdChinaBanner extends Fragment implements AdBannerListener {
 	
 	
 	private LinearLayout createAdView() {
-		LinearLayout parent = new LinearLayout(getActivity());
 		Context ctx = getActivity().getApplicationContext();
+		LinearLayout parent = new LinearLayout(ctx);
 
 		AdView view = new AdView(ctx, AD_ID, true, true);
 		view.setAdBannerListener(this);
 		view.setAdReferenceSize(480, 72);
-		parent.addView(view);
+	    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.WRAP_CONTENT);
+		parent.addView(view, lp);
 
 		view.setAdRefreshTime(20);
 		AdManager.setRelateScreenRotate(ctx, true);
@@ -47,9 +48,7 @@ public class AdChinaBanner extends Fragment implements AdBannerListener {
 		AdManager.setAnimation(true);
 		LocationManager locationManager = (LocationManager) ctx.getSystemService(Context.LOCATION_SERVICE);
 		AdManager.setLocationManager(locationManager);
-		AdManager.setDebugMode(true);
-		AdManager.setLogMode(true);
-		view.start();
+
 		return parent;
 	}
 
@@ -58,9 +57,9 @@ public class AdChinaBanner extends Fragment implements AdBannerListener {
 	@Override
 	public void onClickBanner(AdView v) {
 		Log.d(TAG, "onClickBanner()+");
-		if (mAdView != null) {
-			mAdView.setVisibility(View.INVISIBLE);
-		}
+//		if (mAdView != null) {
+//			mAdView.setVisibility(View.INVISIBLE);
+//		}
 	}
 
 
