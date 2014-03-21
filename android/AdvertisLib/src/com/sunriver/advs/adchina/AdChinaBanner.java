@@ -34,12 +34,13 @@ public class AdChinaBanner extends Fragment implements AdBannerListener {
 	private LinearLayout createAdView() {
 		Context ctx = getActivity().getApplicationContext();
 		LinearLayout parent = new LinearLayout(ctx);
+		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.WRAP_CONTENT);
+		parent.setLayoutParams(lp);
 
 		AdView view = new AdView(ctx, AD_ID, true, true);
 		view.setAdBannerListener(this);
 		view.setAdReferenceSize(480, 72);
-	    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.WRAP_CONTENT);
-		parent.addView(view, lp);
+		parent.addView(view);
 
 		view.setAdRefreshTime(20);
 		AdManager.setRelateScreenRotate(ctx, true);
