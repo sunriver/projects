@@ -21,9 +21,13 @@ public class HttpAgent {
 		mHttpClient = new AppHttpClient(context);
 	}
 
-	public static synchronized HttpAgent getInstance(Context context) {
+	public static HttpAgent getInstance(final Context context) {
 		if (null == mInstance) {
-			mInstance = new HttpAgent(context);
+			synchronized (HttpAgent.class) {
+				if (null == mInstance) {
+					mInstance = new HttpAgent(context);
+				}
+			}
 		}
 		return mInstance;
 	}
