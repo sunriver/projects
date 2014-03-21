@@ -42,8 +42,8 @@
 
         <fragment 
             android:id="@+id/ad_view_fragment"
-            android:name="com.sunriver.advs.adwo.AdwoBanner"
-            android:layout_width="wrap_content"
+            android:name="com.sunriver.advs.adchina.AdChinaBanner"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
