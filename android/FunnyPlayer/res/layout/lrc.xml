@@ -35,16 +35,12 @@
         android:layout_height="wrap_content"
         android:layout_weight="1" />
 
-    <LinearLayout
+    <com.sunriver.advs.adchina.AdChinaBannerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" >
-
-        <fragment 
-            android:id="@+id/ad_view_fragment"
-            android:name="com.sunriver.advs.adchina.AdChinaBanner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+        android:layout_alignParentBottom="true"
+        adspace_id="2134693"
+        autoStart="true"
+        log="false" />
 
 </LinearLayout>
