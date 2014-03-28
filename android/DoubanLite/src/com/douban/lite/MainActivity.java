@@ -2,7 +2,7 @@ package com.douban.lite;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.douban.lite.fragment.EventFragment;
+import com.douban.lite.event.fragment.EventFragment;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
