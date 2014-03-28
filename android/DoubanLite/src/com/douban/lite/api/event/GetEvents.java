@@ -47,6 +47,7 @@ public class GetEvents {
 				return;
 			}
 			EventList eventList = EventList.fromJSONObject(response);
+			mFragment.updateEvents(eventList);
 			Log.d(TAG, "onResponse()-");
 		}
 
