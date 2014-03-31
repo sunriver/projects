@@ -54,6 +54,13 @@ public class EventList implements Serializable {
 	public void setEvents(Event[] events) {
 		this.events = events;
 	}
+	
+	public EventList() {
+		this.count = 0;
+		this.start = 0;
+		this.total = 0;
+		this.events = new Event[0];
+	}
 
 	public static EventList fromJSONObject(JSONObject obj) {
 		EventList eventList = new EventList();
