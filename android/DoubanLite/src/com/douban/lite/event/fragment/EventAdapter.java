@@ -48,7 +48,7 @@ public class EventAdapter extends BaseAdapter {
 
 	private static class ViewHolder {
 		TextView eventNameTv;
-		NetworkImageView   eventThumbIv;
+		NetworkImageView  eventThumbIv;
 	}
 	
 	
@@ -67,7 +67,7 @@ public class EventAdapter extends BaseAdapter {
 		}
 		Event evt = mEvents.events[position];
 		holder.eventNameTv.setText(evt.title);
-		holder.eventThumbIv.setImageUrl(evt.image_lmobile, mImageLoader);
+		holder.eventThumbIv.setImageUrl(evt.image, mImageLoader);
 		return convertView;
 	}
 
