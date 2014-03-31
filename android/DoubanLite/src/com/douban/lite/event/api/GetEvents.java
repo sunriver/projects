@@ -14,7 +14,7 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.douban.lite.event.EventList;
+import com.douban.lite.event.bean.EventList;
 import com.douban.lite.event.fragment.EventFragment;
 
 /**

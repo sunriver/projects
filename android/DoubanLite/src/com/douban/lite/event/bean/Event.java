@@ -1,16 +1,9 @@
-package com.douban.lite.api.event;
+package com.douban.lite.event.bean;
 
 import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.util.Date;
-
-import org.json.JSONArray;
 import org.json.JSONObject;
-
 import android.util.Log;
-
-import com.douban.lite.api.event.EventList.Property;
-
 public class Event implements Serializable {
 	private static final String TAG = Event.class.getSimpleName();
 	private static final long serialVersionUID = 1L;

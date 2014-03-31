@@ -1,4 +1,4 @@
-package com.douban.lite.event;
+package com.douban.lite.event.bean;
 
 import java.io.Serializable;
 import org.json.JSONArray;

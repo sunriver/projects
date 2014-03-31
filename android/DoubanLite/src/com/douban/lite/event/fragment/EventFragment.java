@@ -4,9 +4,9 @@ import java.util.LinkedList;
 
 import com.android.volley.RequestQueue;
 import com.douban.lite.R;
-import com.douban.lite.event.Event;
-import com.douban.lite.event.EventList;
 import com.douban.lite.event.api.GetEvents;
+import com.douban.lite.event.bean.Event;
+import com.douban.lite.event.bean.EventList;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
@@ -43,8 +43,7 @@ public class EventFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		Context ctx = getActivity().getApplicationContext();
-		ViewGroup contentView = (ViewGroup) inflater.inflate(
-				R.layout.fragment_event, null, false);
+		ViewGroup contentView = (ViewGroup) inflater.inflate(R.layout.fragment_event, null, false);
 		mPullRefreshListView = (PullToRefreshListView) contentView.findViewById(R.id.lv_event);
 		
 		mLocPair = new SpinnerPair();
