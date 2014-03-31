@@ -1,11 +1,10 @@
 package com.douban.lite.event.fragment;
 
-import java.util.LinkedList;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
 import com.douban.lite.R;
 import com.douban.lite.event.api.GetEvents;
-import com.douban.lite.event.bean.Event;
 import com.douban.lite.event.bean.EventList;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -26,10 +25,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 public class EventFragment extends Fragment {
+	private ImageLoader mImageLoader;
 	private PullToRefreshListView mPullRefreshListView;
 	private GetEvents mGetEvents;
-	private ArrayAdapter<String> mAdapter;
-	private LinkedList<String> mListItems;
+	private EventAdapter mEventAdapter;
 	private SpinnerPair mLocPair;
 	private SpinnerPair mDateTypePair;
 	private SpinnerPair mTypePair;
@@ -67,14 +66,18 @@ public class EventFragment extends Fragment {
 			}
 			
 		});
-		
 		initPullRefreshListView(ctx);
 		return contentView;
 	}
-
-	public void bindRequetQueue(RequestQueue queue) {
-		mGetEvents = new GetEvents(getActivity().getApplicationContext(), queue, this);
+	
+	public void init(RequestQueue queue, ImageLoader imageLoader) {
+		Context ctx = getActivity().getApplicationContext();
+		mGetEvents = new GetEvents(ctx, queue, this);
+		mImageLoader = imageLoader;
+		mEventAdapter = new EventAdapter(ctx, imageLoader);
 	}
+
+
 
 	@Override
 	public void onStart() {
@@ -83,22 +86,11 @@ public class EventFragment extends Fragment {
 	}
 
 	public void updateEvents(EventList eventList) {
-		if (eventList != null) {
-			Event[] events = eventList.events;
-			for (int i = 0, len = events.length; i < len; i++) {
-				Event evt = events[i];
-				mListItems.add(evt.title);
-			}
-		}
-		mAdapter.notifyDataSetChanged();
+		mEventAdapter.updateEventList(eventList);
 		mPullRefreshListView.onRefreshComplete();
 	}
 
 	private void initPullRefreshListView(final Context ctx) {
-		mListItems = new LinkedList<String>();
-		mAdapter = new ArrayAdapter<String>(ctx,
-				android.R.layout.simple_list_item_1, mListItems);
-
 		// Set a listener to be invoked when the list should be refreshed.
 		mPullRefreshListView
 				.setOnRefreshListener(new OnRefreshListener<ListView>() {
@@ -132,7 +124,7 @@ public class EventFragment extends Fragment {
 				});
 
 		ListView actualListView = mPullRefreshListView.getRefreshableView();
-		actualListView.setAdapter(mAdapter);
+		actualListView.setAdapter(mEventAdapter);
 
 		// Need to use the Actual ListView when registering for Context Menu
 		registerForContextMenu(actualListView);
