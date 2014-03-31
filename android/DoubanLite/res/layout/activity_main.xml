@@ -26,7 +26,7 @@
 
                 <fragment
                     android:id="@+id/fragment_event"
-                    android:name="com.douban.lite.event.fragment.EventFragment"
+                    android:name="com.douban.lite.event.EventFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </FrameLayout>
