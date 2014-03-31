@@ -48,7 +48,7 @@ public class EventFragment extends Fragment {
 		
 		mLocPair = new SpinnerPair();
 		mLocPair.sp = (Spinner) contentView.findViewById(R.id.sp_loc);
-		mLocPair.adapter = ArrayAdapter.createFromResource(ctx, R.array.event_loc, android.R.layout.simple_spinner_item);
+		mLocPair.adapter = ArrayAdapter.createFromResource(ctx, R.array.event_loc, R.layout.spinner_item_loc);
 		mLocPair.adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		mLocPair.sp.setAdapter(mLocPair.adapter);
 
