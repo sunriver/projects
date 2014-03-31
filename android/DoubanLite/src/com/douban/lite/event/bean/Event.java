@@ -17,10 +17,12 @@ public class Event implements Serializable {
 		public static final String BEGIN_TIME = "begin_time";
 		public static final String END_TIME = "end_time";
 		public static final String IMAGE_LMOBILE = "image_lmobile";
+		public static final String IMAGE = "image";
 	}
 
 	public String title;
 	public String image_lmobile;
+	public String image;
 	public String address;
 	public String loc_name;
 	public String loc_id;
@@ -92,6 +94,9 @@ public class Event implements Serializable {
 			}
 			if (obj.has(Property.IMAGE_LMOBILE)) {
 				evt.image_lmobile = obj.getString(Property.IMAGE_LMOBILE);
+			}
+			if (obj.has(Property.IMAGE)) {
+				evt.image = obj.getString(Property.IMAGE);
 			}
 			if (obj.has(Property.ADDRESS)) {
 				evt.address = obj.getString(Property.ADDRESS);
