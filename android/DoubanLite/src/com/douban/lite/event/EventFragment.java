@@ -1,4 +1,4 @@
-package com.douban.lite.event.fragment;
+package com.douban.lite.event;
 
 
 import com.android.volley.RequestQueue;

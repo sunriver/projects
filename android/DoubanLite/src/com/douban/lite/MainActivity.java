@@ -4,7 +4,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.douban.lite.common.BitmapCache;
-import com.douban.lite.event.fragment.EventFragment;
+import com.douban.lite.event.EventFragment;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

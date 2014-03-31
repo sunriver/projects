@@ -15,7 +15,7 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.douban.lite.event.bean.EventList;
-import com.douban.lite.event.fragment.EventFragment;
+import com.douban.lite.event.EventFragment;
 
 /**
  * 获取活动列表 # GET https://api.douban.com/v2/event/list 返回格式:Event List
