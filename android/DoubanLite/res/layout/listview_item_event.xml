@@ -9,19 +9,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="@dimen/listview_item_event__height" >
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" >
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3" >
         </LinearLayout>
 
         <com.android.volley.toolbox.NetworkImageView
+            android:layout_alignParentRight="true"
             android:id="@+id/iv_event_thumb"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+    </RelativeLayout>
 
 </LinearLayout>
