@@ -4,11 +4,14 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
+import android.util.Log;
 
 import com.android.volley.toolbox.ImageLoader.ImageCache;
+import com.douban.lite.MyApplication;
 import com.sunriver.common.utils.ApiUtil;
 
 public class BitmapCache implements ImageCache {
+	private final static String TAG = BitmapCache.class.getSimpleName();
 	private LruCache<String, Bitmap> mCache;
 
 	public BitmapCache(final Context context) {
@@ -35,6 +38,11 @@ public class BitmapCache implements ImageCache {
 	@Override
 	public void putBitmap(String url, Bitmap bitmap) {
 		mCache.put(url, bitmap);
+	}
+	
+	public void clear() {
+		Log.d(TAG, "clear()+");
+		mCache.evictAll();
 	}
 
 }

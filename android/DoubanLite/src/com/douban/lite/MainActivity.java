@@ -26,8 +26,14 @@ public class MainActivity extends ActionBarActivity {
 	
 	private void init() {
 		MyApplication myApp = (MyApplication) getApplication();
-		mRequestQueue = myApp.getRequestQueue();
-		mImageLoader = myApp.getImageLoader();
+		Context appCtx = this.getApplicationContext();
+		BitmapCache bitmapCache = new BitmapCache(appCtx);
+		
+		mRequestQueue = Volley.newRequestQueue(appCtx);
+		mImageLoader = new ImageLoader(mRequestQueue, bitmapCache);
+		myApp.setImageLoader(mImageLoader);
+		myApp.setRequestQueue(mRequestQueue);
+		myApp.setBitmapCache(bitmapCache);
 	}
 
 	@Override
@@ -45,5 +51,14 @@ public class MainActivity extends ActionBarActivity {
 			break;
 		}
     }
+
+	@Override
+	protected void onDestroy() {
+		MyApplication myApp = (MyApplication) getApplication();
+		myApp.clear();
+		super.onDestroy();
+	}
+	
+	
 
 }
