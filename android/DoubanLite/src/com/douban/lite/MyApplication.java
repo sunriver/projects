@@ -13,7 +13,6 @@ public class MyApplication extends Application {
 	private final static String TAG = MyApplication.class.getSimpleName();
 	private RequestQueue mRequestQueue;
 	private ImageLoader mImageLoader;
-	private BitmapCache mBitmapCache;
 	
 	public ImageLoader getImageLoader() {
 		return mImageLoader;
@@ -31,22 +30,11 @@ public class MyApplication extends Application {
 		this.mRequestQueue = queue;
 	}
 	
-	public BitmapCache getBitmapCache() {
-		return mBitmapCache;
-	}
-	
-	public void setBitmapCache(BitmapCache cache) {
-		this.mBitmapCache = cache;
-	}
 	
 	public void clear() {
-		if (mBitmapCache != null) {
-			mBitmapCache.clear();
-		}
 		if (mRequestQueue != null) {
 			mRequestQueue.stop();
 		}
-		mBitmapCache = null;
 		mRequestQueue = null;
 		mImageLoader = null;
 	}

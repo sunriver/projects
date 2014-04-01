@@ -1,13 +1,12 @@
 package com.douban.lite.common;
 
+
 import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
 import android.util.Log;
-
 import com.android.volley.toolbox.ImageLoader.ImageCache;
-import com.douban.lite.MyApplication;
 import com.sunriver.common.utils.ApiUtil;
 
 public class BitmapCache implements ImageCache {

@@ -33,7 +33,6 @@ public class MainActivity extends ActionBarActivity {
 		mImageLoader = new ImageLoader(mRequestQueue, bitmapCache);
 		myApp.setImageLoader(mImageLoader);
 		myApp.setRequestQueue(mRequestQueue);
-		myApp.setBitmapCache(bitmapCache);
 	}
 
 	@Override
