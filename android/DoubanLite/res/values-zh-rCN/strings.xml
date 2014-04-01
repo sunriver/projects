@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">豆瓣Lite</string>
+    <string name="action_settings">设置</string>
+
+    <!-- douban -->
+    <string name="douban_tongchen">同城</string>
+    
+    <!-- event -->
+    <string name="event_introduction">活动介绍</string>
+
+</resources>

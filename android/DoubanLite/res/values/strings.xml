@@ -3,8 +3,10 @@
 
     <string name="app_name">DoubanLite</string>
     <string name="action_settings">Settings</string>
-    
+
     <!-- douban -->
     <string name="douban_tongchen">City</string>
+    <!-- event -->
+    <string name="event_introduction">Introduction</string>
 
 </resources>
