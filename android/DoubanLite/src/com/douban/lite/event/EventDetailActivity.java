@@ -40,6 +40,7 @@ public class EventDetailActivity extends ActionBarActivity {
 			mEventNameTv.setText(evt.title);
 			mEventContentTv.setText(evt.content);
 			mEventAddressTv.setText(evt.address);
+			mEventTimeTv.setText(evt.getEventTime());
 		}
 	}
 	
