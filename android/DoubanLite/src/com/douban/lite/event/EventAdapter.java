@@ -48,6 +48,8 @@ public class EventAdapter extends BaseAdapter {
 
 	private static class ViewHolder {
 		TextView eventNameTv;
+		TextView eventAddressTv;
+		TextView eventTimeTv;
 		NetworkImageView  eventThumbIv;
 	}
 	
@@ -59,6 +61,8 @@ public class EventAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			ViewGroup vg = (ViewGroup) mInflater.inflate(R.layout.listview_item_event, null, false);
 			holder.eventNameTv = (TextView) vg.findViewById(R.id.tv_event_name);
+			holder.eventAddressTv = (TextView) vg.findViewById(R.id.tv_event_address);
+			holder.eventTimeTv = (TextView) vg.findViewById(R.id.tv_event_time);
 			holder.eventThumbIv = (NetworkImageView) vg.findViewById(R.id.niv_event_thumb);
 			vg.setTag(holder);
 			convertView = vg;
@@ -67,6 +71,8 @@ public class EventAdapter extends BaseAdapter {
 		}
 		Event evt = mEvents.events[position];
 		holder.eventNameTv.setText(evt.title);
+		holder.eventAddressTv.setText(evt.address);
+//		holder.eventNameTv.setText(evt.begin_time.toLocaleString());
 		holder.eventThumbIv.setImageUrl(evt.image, mImageLoader);
 		return convertView;
 	}
