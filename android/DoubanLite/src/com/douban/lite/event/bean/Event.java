@@ -1,6 +1,8 @@
 package com.douban.lite.event.bean;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.json.JSONObject;
 import android.util.Log;
@@ -8,7 +10,7 @@ public class Event implements Serializable {
 	private static final String TAG = Event.class.getSimpleName();
 	private static final long serialVersionUID = 1L;
 
-	public interface Property {
+	private interface Property {
 		public static final String TITLE = "title";
 		public static final String ADDRESS = "address";
 		public static final String LOC_NAME = "loc_name";
@@ -85,6 +87,23 @@ public class Event implements Serializable {
 	public void setEnd_time(Date end_time) {
 		this.end_time = end_time;
 	}
+	
+	private static Date convertToDate(String sDate) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
+			return sdf.parse(sDate);
+		} catch (ParseException ignored) {
+		}
+		return null;
+	}
+	
+	
+	public String getEventTime() {
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd HH:mm");
+		String sBeginTime = sdf.format(begin_time);
+		String sEndTime = sdf.format(end_time);
+		return sBeginTime + " - " + sEndTime;
+	}
 
 	public static Event fromJSONObject(JSONObject obj) {
 		Event evt = new Event();
@@ -111,10 +130,12 @@ public class Event implements Serializable {
 				evt.content = obj.getString(Property.CONTENT);
 			}
 			if (obj.has(Property.BEGIN_TIME)) {
-				evt.begin_time = new Date(obj.getString(Property.BEGIN_TIME));
+				String beginTime = obj.getString(Property.BEGIN_TIME);
+				evt.begin_time = convertToDate(beginTime);
 			}
 			if (obj.has(Property.END_TIME)) {
-				evt.end_time = new Date(obj.getString(Property.END_TIME));
+				String endTime = obj.getString(Property.END_TIME);
+				evt.end_time = convertToDate(endTime);
 			}
 
 		} catch (Exception any) {

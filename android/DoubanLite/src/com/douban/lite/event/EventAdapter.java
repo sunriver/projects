@@ -72,7 +72,8 @@ public class EventAdapter extends BaseAdapter {
 		Event evt = mEvents.events[position];
 		holder.eventNameTv.setText(evt.title);
 		holder.eventAddressTv.setText(evt.address);
-//		holder.eventNameTv.setText(evt.begin_time.toLocaleString());
+		
+		holder.eventTimeTv.setText(evt.getEventTime());
 		holder.eventThumbIv.setImageUrl(evt.image, mImageLoader);
 		return convertView;
 	}
