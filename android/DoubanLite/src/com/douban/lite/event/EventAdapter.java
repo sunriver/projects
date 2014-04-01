@@ -59,7 +59,7 @@ public class EventAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			ViewGroup vg = (ViewGroup) mInflater.inflate(R.layout.listview_item_event, null, false);
 			holder.eventNameTv = (TextView) vg.findViewById(R.id.tv_event_name);
-			holder.eventThumbIv = (NetworkImageView) vg.findViewById(R.id.iv_event_thumb);
+			holder.eventThumbIv = (NetworkImageView) vg.findViewById(R.id.niv_event_thumb);
 			vg.setTag(holder);
 			convertView = vg;
 		} else {

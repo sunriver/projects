@@ -5,12 +5,14 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.douban.lite.R;
 import com.douban.lite.event.api.GetEvents;
+import com.douban.lite.event.bean.Event;
 import com.douban.lite.event.bean.EventList;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.format.DateUtils;
@@ -18,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -25,7 +28,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 public class EventFragment extends Fragment {
-	private ImageLoader mImageLoader;
 	private PullToRefreshListView mPullRefreshListView;
 	private GetEvents mGetEvents;
 	private EventAdapter mEventAdapter;
@@ -73,7 +75,6 @@ public class EventFragment extends Fragment {
 	public void init(RequestQueue queue, ImageLoader imageLoader) {
 		Context ctx = getActivity().getApplicationContext();
 		mGetEvents = new GetEvents(ctx, queue, this);
-		mImageLoader = imageLoader;
 		mEventAdapter = new EventAdapter(ctx, imageLoader);
 	}
 
@@ -122,12 +123,33 @@ public class EventFragment extends Fragment {
 								.show();
 					}
 				});
+		
+		mPullRefreshListView.setOnItemClickListener(new OnItemClickListener() {
 
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Event evt = (Event) mEventAdapter.getItem(position);
+				showEventDetail(evt);
+			}
+			
+		});
+		
 		ListView actualListView = mPullRefreshListView.getRefreshableView();
 		actualListView.setAdapter(mEventAdapter);
 
 		// Need to use the Actual ListView when registering for Context Menu
 		registerForContextMenu(actualListView);
+	}
+	
+	
+	private void showEventDetail(Event evt) {
+		Context ctx = this.getActivity();
+		Intent intent = new Intent(ctx, EventDetailActivity.class);
+		Bundle bundle = new Bundle();
+		bundle.putSerializable(EventDetailActivity.STATE_EVENT, evt);
+		intent.putExtras(bundle);
+		ctx.startActivity(intent);
 	}
 
 }
