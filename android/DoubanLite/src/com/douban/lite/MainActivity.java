@@ -25,9 +25,9 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	private void init() {
-		Context ctx = getApplicationContext();
-		mRequestQueue = Volley.newRequestQueue(ctx);
-		mImageLoader = new ImageLoader(mRequestQueue, new BitmapCache(ctx));
+		MyApplication myApp = (MyApplication) getApplication();
+		mRequestQueue = myApp.getRequestQueue();
+		mImageLoader = myApp.getImageLoader();
 	}
 
 	@Override

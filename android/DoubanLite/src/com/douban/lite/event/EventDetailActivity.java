@@ -1,6 +1,8 @@
 package com.douban.lite.event;
 
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.douban.lite.MyApplication;
 import com.douban.lite.R;
 import com.douban.lite.event.bean.Event;
 
@@ -8,15 +10,13 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class EventDetailActivity extends ActionBarActivity {
 	private final static String TAG = EventDetailActivity.class.getSimpleName();
-
+	
+	private ImageLoader mImageLoader;
 	final static String STATE_EVENT = "state_event";
 	private TextView mEventNameTv;
 	private TextView mEventContentTv;
@@ -29,8 +29,16 @@ public class EventDetailActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_event_detail);
+		init();
+	}
+	
+	private void init() {
+		MyApplication myApp = (MyApplication) this.getApplication();
+		mImageLoader = myApp.getImageLoader();
+		
 		initViews();
 		initActionBar();
+		
 	}
 
 	private void initActionBar() {
@@ -44,8 +52,7 @@ public class EventDetailActivity extends ActionBarActivity {
 		mEventTimeTv = (TextView) this.findViewById(R.id.tv_event_time);
 		mEventAddressTv = (TextView) this.findViewById(R.id.tv_event_address);
 		mEventTypeTv = (TextView) this.findViewById(R.id.tv_event_type);
-		mEventThumbNiv = (NetworkImageView) this
-				.findViewById(R.id.niv_event_thumb);
+		mEventThumbNiv = (NetworkImageView) this.findViewById(R.id.niv_event_thumb);
 
 		Bundle bundle = this.getIntent().getExtras();
 		if (bundle != null) {
@@ -54,6 +61,7 @@ public class EventDetailActivity extends ActionBarActivity {
 			mEventContentTv.setText(evt.content);
 			mEventAddressTv.setText(evt.address);
 			mEventTimeTv.setText(evt.getEventTime());
+			mEventThumbNiv.setImageUrl(evt.image, mImageLoader);
 		}
 	}
 
