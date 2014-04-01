@@ -99,6 +99,9 @@ public class Event implements Serializable {
 	
 	
 	public String getEventTime() {
+		if (null == begin_time || null == end_time) {
+			return "";
+		}
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd HH:mm");
 		String sBeginTime = sdf.format(begin_time);
 		String sEndTime = sdf.format(end_time);
