@@ -20,7 +20,7 @@
         </LinearLayout>
 
         <com.android.volley.toolbox.NetworkImageView
-            android:id="@+id/iv_event_thumb"
+            android:id="@+id/niv_event_thumb"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true" />
