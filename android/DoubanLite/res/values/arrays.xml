@@ -2,8 +2,11 @@
 <resources>
 
     <string-array name="event_loc">
-        <item>HangZhou</item>
-        <item>BeiJing</item>
+        <item>Beijing</item>
+        <item>Guangzhou</item>
+        <item>Hangzhou</item>
+        <item>Shanghai</item>
+        <item>Shenzheng</item>
     </string-array>
 
 </resources>
