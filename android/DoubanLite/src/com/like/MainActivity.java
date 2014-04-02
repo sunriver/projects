@@ -1,10 +1,10 @@
-package com.douban.lite;
+package com.like;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
-import com.douban.lite.common.BitmapCache;
-import com.douban.lite.event.EventFragment;
+import com.like.common.BitmapCache;
+import com.like.douban.event.EventFragment;
 
 import android.content.Context;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.douban.lite.event.api;
+package com.like.douban.event.api;
 
 import java.lang.reflect.Field;
 
@@ -14,20 +14,9 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.douban.lite.event.bean.EventList;
-import com.douban.lite.event.EventFragment;
+import com.like.douban.event.EventFragment;
+import com.like.douban.event.bean.EventList;
 
-/**
- * 获取活动列表 # GET https://api.douban.com/v2/event/list 返回格式:Event List
- * 
- * 参数 : loc:城市 id day_type: 时间类型 future, week, weekend, today, tomorrow
- * type:活动类型 all,music, film, drama, commonweal, salon, exhibition, party,
- * sports,travel, others;
- * ex: https://api.douban.com/v2/event/list?loc=108288 or https://api.douban.com/v2/event/list?loc=beijing
- * 
- * @author alu
- * 
- */
 
 public class GetEvents {
 	private final static String TAG = GetEvents.class.getSimpleName();

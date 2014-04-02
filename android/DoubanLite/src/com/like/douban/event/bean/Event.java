@@ -1,4 +1,4 @@
-package com.douban.lite.event.bean;
+package com.like.douban.event.bean;
 
 import java.io.Serializable;
 import java.text.ParseException;

@@ -1,4 +1,4 @@
-package com.douban.lite.common;
+package com.like.common;
 
 
 import android.app.ActivityManager;

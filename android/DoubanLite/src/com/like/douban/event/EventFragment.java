@@ -1,16 +1,17 @@
-package com.douban.lite.event;
+package com.like.douban.event;
 
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
-import com.douban.lite.R;
-import com.douban.lite.event.api.GetEvents;
-import com.douban.lite.event.bean.Event;
-import com.douban.lite.event.bean.EventList;
+import com.like.R;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
+import com.like.douban.event.api.GetEvents;
+import com.like.douban.event.bean.Event;
+import com.like.douban.event.bean.EventList;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;

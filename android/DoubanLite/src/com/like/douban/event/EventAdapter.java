@@ -1,10 +1,10 @@
-package com.douban.lite.event;
+package com.like.douban.event;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-import com.douban.lite.R;
-import com.douban.lite.event.bean.Event;
-import com.douban.lite.event.bean.EventList;
+import com.like.R;
+import com.like.douban.event.bean.Event;
+import com.like.douban.event.bean.EventList;
 
 import android.content.Context;
 import android.view.LayoutInflater;

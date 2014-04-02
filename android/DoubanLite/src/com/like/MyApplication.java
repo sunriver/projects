@@ -1,12 +1,8 @@
-package com.douban.lite;
+package com.like;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.Volley;
-import com.douban.lite.common.BitmapCache;
-
 import android.app.Application;
-import android.content.Context;
 import android.util.Log;
 
 public class MyApplication extends Application {
