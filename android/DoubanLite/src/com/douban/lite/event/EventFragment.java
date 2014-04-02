@@ -15,9 +15,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.internal.widget.ListPopupWindow;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -25,6 +27,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class EventFragment extends Fragment {
@@ -46,7 +49,6 @@ public class EventFragment extends Fragment {
 		Context ctx = getActivity().getApplicationContext();
 		ViewGroup contentView = (ViewGroup) inflater.inflate(R.layout.fragment_event, null, false);
 		mPullRefreshListView = (PullToRefreshListView) contentView.findViewById(R.id.lv_event);
-		
 		mLocPair = new SpinnerPair();
 		mLocPair.sp = (Spinner) contentView.findViewById(R.id.sp_loc);
 		mLocPair.adapter = ArrayAdapter.createFromResource(ctx, R.array.event_loc, R.layout.spinner_item_loc);
@@ -151,5 +153,6 @@ public class EventFragment extends Fragment {
 		intent.putExtras(bundle);
 		ctx.startActivity(intent);
 	}
+	
 
 }
