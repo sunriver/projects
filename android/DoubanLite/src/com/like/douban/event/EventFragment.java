@@ -163,8 +163,7 @@ public class EventFragment extends Fragment {
 
 	private void initPullRefreshListView(final Context ctx) {
 		// Set a listener to be invoked when the list should be refreshed.
-		mPullRefreshListView
-				.setOnRefreshListener(new OnRefreshListener<ListView>() {
+		mPullRefreshListView.setOnRefreshListener(new OnRefreshListener<ListView>() {
 					@Override
 					public void onRefresh(
 							PullToRefreshBase<ListView> refreshView) {
@@ -184,13 +183,12 @@ public class EventFragment extends Fragment {
 				});
 
 		// Add an end-of-list listener
-		mPullRefreshListView
-				.setOnLastItemVisibleListener(new OnLastItemVisibleListener() {
+		mPullRefreshListView.setOnLastItemVisibleListener(new OnLastItemVisibleListener() {
 
 					@Override
 					public void onLastItemVisible() {
-						Toast.makeText(ctx, "End of List!", Toast.LENGTH_SHORT)
-								.show();
+//						Toast.makeText(ctx, "End of List!", Toast.LENGTH_SHORT)
+//								.show();
 					}
 				});
 
