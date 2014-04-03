@@ -43,7 +43,10 @@ public class EventDetailActivity extends ActionBarActivity {
 
 	private void initActionBar() {
 		ActionBar actionBar = getSupportActionBar();
-		actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP);
+		actionBar.setTitle(R.string.event_detail);
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP
+				| ActionBar.DISPLAY_SHOW_TITLE, ActionBar.DISPLAY_HOME_AS_UP
+				| ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_HOME);
 	}
 
 	private void initViews() {
@@ -70,7 +73,7 @@ public class EventDetailActivity extends ActionBarActivity {
 		Log.d(TAG, "onOptionsItemSelected()+");
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			finish();
+			super.onBackPressed();
 			break;
 		}
 		return super.onOptionsItemSelected(item);
