@@ -30,12 +30,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class EventFragment extends Fragment {
-//	private String[] mEventLocationValus;
-//	private String[] mEventDayTypeValus;
-//	private String[] mEventTypeValus;
-//	private String mEventLocationValue;
-//	private String mEventDayTypeValue;
-//	private String mEventTypeValue;
 	private PullToRefreshListView mPullRefreshListView;
 	private GetEvents mGetEvents;
 	private EventAdapter mEventAdapter;
