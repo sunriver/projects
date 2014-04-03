@@ -178,7 +178,7 @@ public class EventFragment extends Fragment {
 								.setLastUpdatedLabel(label);
 
 						// Do work to refresh the list here.
-						mGetEvents.query(mLocPair.selectedValue);
+						mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
 					}
 				});
 
