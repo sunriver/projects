@@ -197,7 +197,7 @@ public class EventFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Event evt = (Event) mEventAdapter.getItem(position);
+				Event evt = (Event) mEventAdapter.getItem(position - 1);
 				showEventDetail(evt);
 			}
 
