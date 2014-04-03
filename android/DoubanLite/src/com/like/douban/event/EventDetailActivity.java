@@ -5,6 +5,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.like.R;
 import com.like.MyApplication;
 import com.like.douban.event.bean.Event;
+import com.sunriver.common.utils.ViewUtil;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -47,6 +48,7 @@ public class EventDetailActivity extends ActionBarActivity {
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP
 				| ActionBar.DISPLAY_SHOW_TITLE, ActionBar.DISPLAY_HOME_AS_UP
 				| ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_HOME);
+		ViewUtil.setActionBarBackgroundRepeat(this, actionBar, R.drawable.bg_base);
 	}
 
 	private void initViews() {
