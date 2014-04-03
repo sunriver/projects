@@ -6,8 +6,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize" >
-        <Spinner
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/bg_base" >
+
+        <Spinner
             android:id="@+id/sp_loc"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -35,9 +37,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:background="@android:color/white"
         android:cacheColorHint="#00000000"
         android:divider="#19000000"
-        android:dividerHeight="4dp"
+        android:dividerHeight="2dp"
         android:fadingEdge="none"
         android:fastScrollEnabled="false"
         android:footerDividersEnabled="false"

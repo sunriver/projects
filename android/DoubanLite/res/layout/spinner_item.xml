@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:ellipsize="marquee"
     android:singleLine="true"
+    android:textColor="@android:color/black"
     android:layout_gravity="center"
     android:gravity="center"
     android:textAlignment="inherit" />
