@@ -1,6 +1,5 @@
 package com.like.douban.event;
 
-
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.like.R;
@@ -11,12 +10,11 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.like.douban.event.api.GetEvents;
 import com.like.douban.event.bean.Event;
 import com.like.douban.event.bean.EventList;
-
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.internal.widget.ListPopupWindow;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,14 +30,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class EventFragment extends Fragment {
+//	private String[] mEventLocationValus;
+//	private String[] mEventDayTypeValus;
+//	private String[] mEventTypeValus;
+//	private String mEventLocationValue;
+//	private String mEventDayTypeValue;
+//	private String mEventTypeValue;
 	private PullToRefreshListView mPullRefreshListView;
 	private GetEvents mGetEvents;
 	private EventAdapter mEventAdapter;
 	private SpinnerPair mLocPair;
 	private SpinnerPair mDateTypePair;
 	private SpinnerPair mTypePair;
-	
+
 	private static class SpinnerPair {
+		String selectedValue;
+		String[] values;
 		Spinner sp;
 		ArrayAdapter<CharSequence> adapter;
 	}
@@ -50,9 +56,20 @@ public class EventFragment extends Fragment {
 		Context ctx = getActivity().getApplicationContext();
 		ViewGroup contentView = (ViewGroup) inflater.inflate(R.layout.fragment_event, null, false);
 		mPullRefreshListView = (PullToRefreshListView) contentView.findViewById(R.id.lv_event);
+		initLocationSpinner(ctx, contentView);
+		initDayTypeSpinner(ctx, contentView);
+		initEventTypeSpinner(ctx, contentView);
+		initPullRefreshListView(ctx);
+		
+		return contentView;
+	}
+	
+	private void initLocationSpinner(Context ctx, ViewGroup contentView) {
 		mLocPair = new SpinnerPair();
+		mLocPair.values = ctx.getResources().getStringArray(R.array.event_location_values);
+		mLocPair.selectedValue = mLocPair.values[0];
 		mLocPair.sp = (Spinner) contentView.findViewById(R.id.sp_loc);
-		mLocPair.adapter = ArrayAdapter.createFromResource(ctx, R.array.event_loc, R.layout.spinner_item_loc);
+		mLocPair.adapter = ArrayAdapter.createFromResource(ctx,R.array.event_location_names, R.layout.spinner_item);
 		mLocPair.adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		mLocPair.sp.setAdapter(mLocPair.adapter);
 
@@ -61,32 +78,81 @@ public class EventFragment extends Fragment {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
-				
+				mLocPair.selectedValue = mLocPair.values[position];
+				mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
 		});
-		initPullRefreshListView(ctx);
-		return contentView;
 	}
 	
+	private void initDayTypeSpinner(Context ctx, ViewGroup contentView) {
+		mDateTypePair = new SpinnerPair();
+		mDateTypePair.values = getResources().getStringArray(R.array.event_dayType_values);
+		mDateTypePair.selectedValue = mDateTypePair.values[0];
+		mDateTypePair.sp = (Spinner) contentView.findViewById(R.id.sp_dateType);
+		mDateTypePair.adapter = ArrayAdapter.createFromResource(ctx,R.array.event_dayType_names, R.layout.spinner_item);
+		mDateTypePair.adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		mDateTypePair.sp.setAdapter(mDateTypePair.adapter);
+
+		mDateTypePair.sp.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				mDateTypePair.selectedValue = mDateTypePair.values[position];
+				mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+	}
+	
+	private void initEventTypeSpinner(Context ctx, ViewGroup contentView) {
+		mTypePair = new SpinnerPair();
+		mTypePair.values = getResources().getStringArray(R.array.event_type_values);
+		mTypePair.selectedValue = mTypePair.values[0];
+		mTypePair.sp = (Spinner) contentView.findViewById(R.id.sp_type);
+		mTypePair.adapter = ArrayAdapter.createFromResource(ctx,R.array.event_type_names, R.layout.spinner_item);
+		mTypePair.adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		mTypePair.sp.setAdapter(mTypePair.adapter);
+		
+		mTypePair.sp.setOnItemSelectedListener(new OnItemSelectedListener() {
+			
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				mTypePair.selectedValue = mTypePair.values[position];
+				mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
+			}
+			
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+
 	public void init(RequestQueue queue, ImageLoader imageLoader) {
 		Context ctx = getActivity().getApplicationContext();
 		mGetEvents = new GetEvents(ctx, queue, this);
 		mEventAdapter = new EventAdapter(ctx, imageLoader);
 	}
-
-
+	
 
 	@Override
 	public void onStart() {
 		super.onStart();
-		mGetEvents.query("hangzhou");
+		mGetEvents.query(mLocPair.selectedValue);
 	}
 
 	public void updateEvents(EventList eventList) {
@@ -112,7 +178,7 @@ public class EventFragment extends Fragment {
 								.setLastUpdatedLabel(label);
 
 						// Do work to refresh the list here.
-						mGetEvents.query("hangzhou");
+						mGetEvents.query(mLocPair.selectedValue);
 					}
 				});
 
@@ -126,7 +192,7 @@ public class EventFragment extends Fragment {
 								.show();
 					}
 				});
-		
+
 		mPullRefreshListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -135,17 +201,16 @@ public class EventFragment extends Fragment {
 				Event evt = (Event) mEventAdapter.getItem(position);
 				showEventDetail(evt);
 			}
-			
+
 		});
-		
+
 		ListView actualListView = mPullRefreshListView.getRefreshableView();
 		actualListView.setAdapter(mEventAdapter);
 
 		// Need to use the Actual ListView when registering for Context Menu
 		registerForContextMenu(actualListView);
 	}
-	
-	
+
 	private void showEventDetail(Event evt) {
 		Context ctx = this.getActivity();
 		Intent intent = new Intent(ctx, EventDetailActivity.class);
@@ -154,6 +219,6 @@ public class EventFragment extends Fragment {
 		intent.putExtras(bundle);
 		ctx.startActivity(intent);
 	}
-	
+
 
 }
