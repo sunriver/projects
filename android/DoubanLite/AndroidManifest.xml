@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.douban.lite"
+    package="com.like"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -11,13 +11,13 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="com.douban.lite.MyApplication"
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat" >
         <activity
-            android:name="com.douban.lite.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +26,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.douban.lite.event.EventDetailActivity"
+            android:name=".douban.event.EventDetailActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".douban.event.EventLocationActivity"
             android:label="@string/app_name" >
         </activity>
     </application>
