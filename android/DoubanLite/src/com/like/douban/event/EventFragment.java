@@ -8,8 +8,11 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.like.douban.event.api.GetEvents;
+import com.like.douban.event.api.GetLocations;
 import com.like.douban.event.bean.Event;
 import com.like.douban.event.bean.EventList;
+import com.like.douban.event.bean.LocationList;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -54,7 +57,6 @@ public class EventFragment extends Fragment {
 		initDayTypeSpinner(ctx, contentView);
 		initEventTypeSpinner(ctx, contentView);
 		initPullRefreshListView(ctx);
-		
 		return contentView;
 	}
 	
@@ -152,6 +154,11 @@ public class EventFragment extends Fragment {
 	public void updateEvents(EventList eventList) {
 		mEventAdapter.updateEventList(eventList);
 		mPullRefreshListView.onRefreshComplete();
+	}
+	
+	public void updateLocations(LocationList locationList) {
+		mLocPair.values = locationList.getAllLocationUids();
+		mLocPair.adapter.addAll(locationList.getAllLocationNames());
 	}
 
 	private void initPullRefreshListView(final Context ctx) {
