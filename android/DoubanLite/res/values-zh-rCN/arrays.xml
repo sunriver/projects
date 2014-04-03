@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="event_loc">
+    <string-array name="event_location_names">
         <item>北京</item>
         <item>广州</item>
         <item>杭州</item>
         <item>上海</item>
         <item>深圳</item>
-        <item>深圳</item>
-        <item>深圳</item>
-        <item>深圳</item>
-        <item>深圳</item>
-        <item>深圳</item>
-        <item>深圳</item>
-        <item>深圳</item>
-        <item>深圳</item>
-        <item>深圳</item>
-        <item>深圳</item>
-        <item>深圳</item>
-        <item>深圳</item>
-        <item>深圳</item>
-        <item>深圳</item>
-        <item>深圳</item>
+    </string-array>
+    <string-array name="event_dayType_names">
+        <item>任何时间</item>
+        <item>最近一周</item>
+        <item>周末</item>
+        <item>今天</item>
+        <item>明天</item>
+    </string-array>
+
+    <!-- type -->
+    <string-array name="event_type_names">
+        <item>全部类型</item>
+        <item>音乐</item>
+        <item>电影</item>
+        <item>戏剧</item>
+        <item>讲座</item>
+        <item>展览</item>
+        <item>聚会</item>
+        <item>运动</item>
+        <item>旅行</item>
+        <item>其他</item>
     </string-array>
 
 </resources>

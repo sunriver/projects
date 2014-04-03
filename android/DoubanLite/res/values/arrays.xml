@@ -1,12 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="event_loc">
-        <item>Beijing</item>
-        <item>Guangzhou</item>
-        <item>Hangzhou</item>
-        <item>Shanghai</item>
-        <item>Shenzheng</item>
+    <!-- location -->
+    <string-array name="event_location_names">
+        <item>beijing</item>
+        <item>guangzhou</item>
+        <item>hangzhou</item>
+        <item>shanghai</item>
+        <item>shenzheng</item>
+    </string-array>
+    <string-array name="event_location_values">
+        <item>beijing</item>
+        <item>guangzhou</item>
+        <item>hangzhou</item>
+        <item>shanghai</item>
+        <item>shenzheng</item>
+    </string-array>
+
+    <!-- day type -->
+    <string-array name="event_dayType_names">
+        <item>future</item>
+        <item>week</item>
+        <item>weekend</item>
+        <item>today</item>
+        <item>tomorrow</item>
+    </string-array>
+    <string-array name="event_dayType_values">
+        <item>future</item>
+        <item>week</item>
+        <item>weekend</item>
+        <item>today</item>
+        <item>tomorrow</item>
+    </string-array>
+
+    <!-- type -->
+    <string-array name="event_type_names">
+        <item>all</item>
+        <item>music</item>
+        <item>film</item>
+        <item>drama</item>
+        <item>salon</item>
+        <item>exhibition</item>
+        <item>party</item>
+        <item>sports</item>
+        <item>travel</item>
+        <item>others</item>
+    </string-array>
+    <string-array name="event_type_values">
+        <item>all</item>
+        <item>music</item>
+        <item>film</item>
+        <item>drama</item>
+        <item>salon</item>
+        <item>exhibition</item>
+        <item>party</item>
+        <item>sports</item>
+        <item>travel</item>
+        <item>others</item>
     </string-array>
 
 </resources>

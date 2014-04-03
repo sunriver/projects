@@ -6,8 +6,9 @@
 
     <!-- douban -->
     <string name="douban_tongchen">同城</string>
-    
+
     <!-- event -->
     <string name="event_introduction">活动介绍</string>
+    <string name="event_detail">活动详情</string>
 
 </resources>

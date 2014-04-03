@@ -8,5 +8,6 @@
     <string name="douban_tongchen">City</string>
     <!-- event -->
     <string name="event_introduction">Introduction</string>
+    <string name="event_detail">Event Detail</string>
 
 </resources>
