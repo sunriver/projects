@@ -202,7 +202,6 @@ public class EventFragment extends Fragment {
 			}
 
 		});
-
 		ListView actualListView = mPullRefreshListView.getRefreshableView();
 		actualListView.setAdapter(mEventAdapter);
 
