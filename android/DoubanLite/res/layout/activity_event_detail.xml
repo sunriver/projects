@@ -80,8 +80,10 @@
 
             <TextView
                 android:id="@+id/tv_event_content"
+           		android:lineSpacingMultiplier="2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="2dp"
                 android:autoLink="web"
                 android:textColor="@android:color/black" >
             </TextView>
