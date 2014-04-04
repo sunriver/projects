@@ -12,6 +12,7 @@ import com.like.douban.event.api.GetLocations;
 import com.like.douban.event.bean.Event;
 import com.like.douban.event.bean.EventList;
 import com.like.douban.event.bean.LocationList;
+import com.sunriver.common.view.PopuMenuLayout;
 
 import android.app.Activity;
 import android.content.Context;
@@ -53,11 +54,22 @@ public class EventFragment extends Fragment {
 		Context ctx = getActivity().getApplicationContext();
 		ViewGroup contentView = (ViewGroup) inflater.inflate(R.layout.fragment_event, null, false);
 		mPullRefreshListView = (PullToRefreshListView) contentView.findViewById(R.id.lv_event);
+		
+		initLocationPopupMenu(ctx, contentView);
 		initLocationSpinner(ctx, contentView);
 		initDayTypeSpinner(ctx, contentView);
 		initEventTypeSpinner(ctx, contentView);
 		initPullRefreshListView(ctx);
 		return contentView;
+	}
+	
+	private void initLocationPopupMenu(Context ctx, ViewGroup parent) {
+		PopuMenuLayout pml = (PopuMenuLayout) parent.findViewById(R.id.pml_loc);
+		ViewGroup contentView = (ViewGroup) LayoutInflater.from(ctx).inflate(R.layout.popumenu_layout, null, false);
+		ListView locListView = (ListView) contentView.findViewById(R.id.lv_loc);
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ctx,R.array.event_location_names, R.layout.spinner_item);
+		locListView.setAdapter(adapter);
+		pml.setContentView(contentView);
 	}
 	
 	private void initLocationSpinner(Context ctx, ViewGroup contentView) {
