@@ -11,9 +11,6 @@ import android.widget.PopupWindow;
 import android.view.View.OnClickListener;
 
 public class PopuMenuLayout extends LinearLayout implements OnClickListener {
-	
-
-
 	private ViewGroup mContentView;
 	private PopupWindow mPopup;
 	private int mPopuWidth;
