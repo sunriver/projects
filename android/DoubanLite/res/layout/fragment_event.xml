@@ -16,9 +16,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:scrollbars="vertical"
-            custom:popupBackground="@android:color/black"
+            custom:popupBackground="@drawable/dark_half_transparent"
             custom:popupHeight="300dp"
-            custom:popupWidth="100dp" >
+            custom:popupMaxHeight="300dp"
+            custom:popupWidth="200dp" >
 
             <TextView
                 android:gravity="center"
