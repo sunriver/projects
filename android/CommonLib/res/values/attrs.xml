@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="com.sunriver.common.view.PopuMenu">
+        <attr name="popupWidth" format="dimension" />
+        <attr name="popupHeight" format="dimension" />
+        <attr name="popupBackground" format="reference" />
+    </declare-styleable>
+
+</resources>
