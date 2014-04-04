@@ -43,6 +43,7 @@ public class PopuMenuLayout extends LinearLayout implements OnClickListener {
 
 	private void show() {
 		mPopup = new PopupWindow(mContentView, mPopuWidth, mPopuHeight);
+		mPopup.setFocusable(true);
 		mPopup.setBackgroundDrawable(mPopuDrawable);
 		mPopup.showAsDropDown(this);
 	}
