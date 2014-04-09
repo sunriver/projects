@@ -40,6 +40,7 @@ public class EventFragment extends Fragment {
 	private SpinnerPair mLocPair;
 	private SpinnerPair mDateTypePair;
 	private SpinnerPair mTypePair;
+	private PopuMenuLayout mLocPopuMenuLayout;
 
 	private static class SpinnerPair {
 		String selectedValue;
@@ -64,12 +65,24 @@ public class EventFragment extends Fragment {
 	}
 	
 	private void initLocationPopupMenu(Context ctx, ViewGroup parent) {
-		PopuMenuLayout pml = (PopuMenuLayout) parent.findViewById(R.id.pml_loc);
+		mLocPopuMenuLayout = (PopuMenuLayout) parent.findViewById(R.id.pml_loc);
+		//set popup content layout
 		ViewGroup contentView = (ViewGroup) LayoutInflater.from(ctx).inflate(R.layout.popumenu_layout, null, false);
 		ListView locListView = (ListView) contentView.findViewById(R.id.lv_loc);
-		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ctx,R.array.event_location_names, R.layout.spinner_item);
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ctx, R.array.event_location_names, R.layout.spinner_item);
 		locListView.setAdapter(adapter);
-		pml.setContentView(contentView);
+		locListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				mLocPair.selectedValue = mLocPair.values[position];
+				mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
+				mLocPopuMenuLayout.dimiss();
+			}
+			
+		});
+		mLocPopuMenuLayout.setContentView(contentView);
 	}
 	
 	private void initLocationSpinner(Context ctx, ViewGroup contentView) {
@@ -160,7 +173,7 @@ public class EventFragment extends Fragment {
 	@Override
 	public void onStart() {
 		super.onStart();
-		mGetEvents.query(mLocPair.selectedValue);
+		mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
 	}
 
 	public void updateEvents(EventList eventList) {
