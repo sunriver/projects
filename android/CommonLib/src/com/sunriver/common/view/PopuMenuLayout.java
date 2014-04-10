@@ -15,6 +15,7 @@ public class PopuMenuLayout extends LinearLayout implements OnClickListener {
 	private PopupWindow mPopup;
 	private int mPopuWidth;
 	private int mPopuHeight;
+	private int mPopuMaxHeight;
 	private Drawable mPopuDrawable;
 	
 	public PopuMenuLayout(Context context, AttributeSet attrs) {
@@ -27,6 +28,7 @@ public class PopuMenuLayout extends LinearLayout implements OnClickListener {
         TypedArray a = context.obtainStyledAttributes(attrs, com.sunriver.R.styleable.com_sunriver_common_view_PopuMenuLayout, defStyle, 0);
         mPopuWidth = a.getLayoutDimension(com.sunriver.R.styleable.com_sunriver_common_view_PopuMenuLayout_popupWidth, ViewGroup.LayoutParams.WRAP_CONTENT);
         mPopuHeight = a.getLayoutDimension(com.sunriver.R.styleable.com_sunriver_common_view_PopuMenuLayout_popupHeight, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mPopuMaxHeight = a.getLayoutDimension(com.sunriver.R.styleable.com_sunriver_common_view_PopuMenuLayout_popupMaxHeight, ViewGroup.LayoutParams.WRAP_CONTENT);
         mPopuDrawable = a.getDrawable(com.sunriver.R.styleable.com_sunriver_common_view_PopuMenuLayout_popupBackground);
         
         for (int i = 0, len = this.getChildCount(); i < len; i++) {
@@ -41,11 +43,17 @@ public class PopuMenuLayout extends LinearLayout implements OnClickListener {
 		this.mContentView = contentView;
 	}
 
-	private void show() {
+	public void show() {
 		mPopup = new PopupWindow(mContentView, mPopuWidth, mPopuHeight);
 		mPopup.setFocusable(true);
 		mPopup.setBackgroundDrawable(mPopuDrawable);
 		mPopup.showAsDropDown(this);
+	}
+	
+	public void dimiss() {
+        if (mPopup != null && mPopup.isShowing()) {
+            mPopup.dismiss();
+        }
 	}
 	
 	private boolean isShowing() {
@@ -58,10 +66,7 @@ public class PopuMenuLayout extends LinearLayout implements OnClickListener {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        
-        if (mPopup != null && mPopup.isShowing()) {
-            mPopup.dismiss();
-        }
+        dimiss();
     }
 
 	@Override
