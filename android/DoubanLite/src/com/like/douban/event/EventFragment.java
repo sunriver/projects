@@ -26,6 +26,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class EventFragment extends Fragment {
 	private PullToRefreshListView mPullRefreshListView;
@@ -34,13 +35,23 @@ public class EventFragment extends Fragment {
 	private SpinnerPair mLocPair;
 	private SpinnerPair mDateTypePair;
 	private SpinnerPair mTypePair;
-//	private PopuMenuLayout mLocPopuMenuLayout;
 	private PopuListView mLocPopuListView;
+	private PopuListViewPair mPopuListViewPair;
+	
 
 	private static class SpinnerPair {
 		String selectedValue;
 		String[] values;
 		Spinner sp;
+		ArrayAdapter<CharSequence> adapter;
+	}
+	
+
+	private static class PopuListViewPair {
+		String selectedValue;
+		String[] values;
+		PopuListView plv;
+		TextView titleTv;
 		ArrayAdapter<CharSequence> adapter;
 	}
 
@@ -60,15 +71,20 @@ public class EventFragment extends Fragment {
 	}
 	
 	private void initLocationPopupListView(Context ctx, ViewGroup parent) {
-		mLocPopuListView = (PopuListView) parent.findViewById(R.id.pml_loc);
+		mPopuListViewPair = new PopuListViewPair();
+		mPopuListViewPair.values = ctx.getResources().getStringArray(R.array.event_location_values);
+		mPopuListViewPair.selectedValue = mPopuListViewPair.values[0];
+		PopuListView plv  = (PopuListView) parent.findViewById(R.id.pml_loc);
+		mPopuListViewPair.plv = plv;
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ctx, R.array.event_location_names, R.layout.spinner_item);
-		mLocPopuListView.setAdapter(adapter);
-		mLocPopuListView.setOnItemClickListener(new OnItemClickListener() {
+		plv.setAdapter(adapter);
+		plv.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				mLocPair.selectedValue = mLocPair.values[position];
-				mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
+				String value = mLocPair.values[position];
+				mPopuListViewPair.selectedValue = value;
+				mGetEvents.query(mPopuListViewPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
 			}
 			
 		});
