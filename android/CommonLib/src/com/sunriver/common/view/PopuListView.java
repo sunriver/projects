@@ -16,7 +16,6 @@ import android.widget.PopupWindow;
 import android.view.View.OnClickListener;
 
 public class PopuListView extends LinearLayout implements OnClickListener {
-	private ViewGroup mContentView;
 	private PopupWindow mPopup;
 	private int mPopuWidth;
 	private int mPopuHeight;
@@ -32,11 +31,11 @@ public class PopuListView extends LinearLayout implements OnClickListener {
 
 	public PopuListView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-        TypedArray a = context.obtainStyledAttributes(attrs, com.sunriver.R.styleable.com_sunriver_common_view_PopuMenuLayout, defStyle, 0);
-        mPopuWidth = a.getLayoutDimension(com.sunriver.R.styleable.com_sunriver_common_view_PopuMenuLayout_popupWidth, ViewGroup.LayoutParams.WRAP_CONTENT);
-        mPopuHeight = a.getLayoutDimension(com.sunriver.R.styleable.com_sunriver_common_view_PopuMenuLayout_popupHeight, ViewGroup.LayoutParams.WRAP_CONTENT);
-        mPopuMaxHeight = a.getLayoutDimension(com.sunriver.R.styleable.com_sunriver_common_view_PopuMenuLayout_popupMaxHeight, ViewGroup.LayoutParams.WRAP_CONTENT);
-        mPopuDrawable = a.getDrawable(com.sunriver.R.styleable.com_sunriver_common_view_PopuMenuLayout_popupBackground);
+        TypedArray a = context.obtainStyledAttributes(attrs, com.sunriver.R.styleable.com_sunriver_common_view_PopuListView, defStyle, 0);
+        mPopuWidth = a.getLayoutDimension(com.sunriver.R.styleable.com_sunriver_common_view_PopuListView_popupWidth, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mPopuHeight = a.getLayoutDimension(com.sunriver.R.styleable.com_sunriver_common_view_PopuListView_popupHeight, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mPopuMaxHeight = a.getLayoutDimension(com.sunriver.R.styleable.com_sunriver_common_view_PopuListView_popupMaxHeight, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mPopuDrawable = a.getDrawable(com.sunriver.R.styleable.com_sunriver_common_view_PopuListView_popupBackground);
         mListView = new ListView(context);
         LayoutParams lp = new LinearLayout.LayoutParams(mPopuWidth, mPopuHeight);
         mListView.setLayoutParams(lp);
