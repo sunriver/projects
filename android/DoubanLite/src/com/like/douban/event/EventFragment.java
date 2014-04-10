@@ -8,13 +8,10 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.like.douban.event.api.GetEvents;
-import com.like.douban.event.api.GetLocations;
 import com.like.douban.event.bean.Event;
 import com.like.douban.event.bean.EventList;
 import com.like.douban.event.bean.LocationList;
-import com.sunriver.common.view.PopuMenuLayout;
-
-import android.app.Activity;
+import com.sunriver.common.view.PopuListView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,7 +19,6 @@ import android.support.v4.app.Fragment;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -30,8 +26,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class EventFragment extends Fragment {
 	private PullToRefreshListView mPullRefreshListView;
@@ -40,7 +34,8 @@ public class EventFragment extends Fragment {
 	private SpinnerPair mLocPair;
 	private SpinnerPair mDateTypePair;
 	private SpinnerPair mTypePair;
-	private PopuMenuLayout mLocPopuMenuLayout;
+//	private PopuMenuLayout mLocPopuMenuLayout;
+	private PopuListView mLocPopuListView;
 
 	private static class SpinnerPair {
 		String selectedValue;
@@ -56,7 +51,7 @@ public class EventFragment extends Fragment {
 		ViewGroup contentView = (ViewGroup) inflater.inflate(R.layout.fragment_event, null, false);
 		mPullRefreshListView = (PullToRefreshListView) contentView.findViewById(R.id.lv_event);
 		
-		initLocationPopupMenu(ctx, contentView);
+		initLocationPopupListView(ctx, contentView);
 		initLocationSpinner(ctx, contentView);
 		initDayTypeSpinner(ctx, contentView);
 		initEventTypeSpinner(ctx, contentView);
@@ -64,26 +59,41 @@ public class EventFragment extends Fragment {
 		return contentView;
 	}
 	
-	private void initLocationPopupMenu(Context ctx, ViewGroup parent) {
-		mLocPopuMenuLayout = (PopuMenuLayout) parent.findViewById(R.id.pml_loc);
-		//set popup content layout
-		ViewGroup contentView = (ViewGroup) LayoutInflater.from(ctx).inflate(R.layout.popumenu_layout, null, false);
-		ListView locListView = (ListView) contentView.findViewById(R.id.lv_loc);
+	private void initLocationPopupListView(Context ctx, ViewGroup parent) {
+		mLocPopuListView = (PopuListView) parent.findViewById(R.id.pml_loc);
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ctx, R.array.event_location_names, R.layout.spinner_item);
-		locListView.setAdapter(adapter);
-		locListView.setOnItemClickListener(new OnItemClickListener() {
-
+		mLocPopuListView.setAdapter(adapter);
+		mLocPopuListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				mLocPair.selectedValue = mLocPair.values[position];
 				mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
-				mLocPopuMenuLayout.dimiss();
 			}
 			
 		});
-		mLocPopuMenuLayout.setContentView(contentView);
 	}
+	
+//	private void initLocationPopupMenu(Context ctx, ViewGroup parent) {
+//		mLocPopuMenuLayout = (PopuMenuLayout) parent.findViewById(R.id.pml_loc);
+//		//set popup content layout
+//		ViewGroup contentView = (ViewGroup) LayoutInflater.from(ctx).inflate(R.layout.popumenu_layout, null, false);
+//		ListView locListView = (ListView) contentView.findViewById(R.id.lv_loc);
+//		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ctx, R.array.event_location_names, R.layout.spinner_item);
+//		locListView.setAdapter(adapter);
+//		locListView.setOnItemClickListener(new OnItemClickListener() {
+//
+//			@Override
+//			public void onItemClick(AdapterView<?> parent, View view,
+//					int position, long id) {
+//				mLocPair.selectedValue = mLocPair.values[position];
+//				mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
+//				mLocPopuMenuLayout.dimiss();
+//			}
+//			
+//		});
+//		mLocPopuMenuLayout.setContentView(contentView);
+//	}
 	
 	private void initLocationSpinner(Context ctx, ViewGroup contentView) {
 		mLocPair = new SpinnerPair();
