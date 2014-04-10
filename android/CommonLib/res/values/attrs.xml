@@ -2,8 +2,36 @@
 <resources>
 
     <declare-styleable name="com.sunriver.common.view.PopuMenuLayout">
-        <attr name="popupWidth" format="dimension" />
-        <attr name="popupHeight" format="dimension" />
+        <attr name="popupWidth" format="dimension">
+            <enum name="fill_parent" value="-1" />
+            <!--
+                 The view should be as big as its parent (minus padding).
+                 Introduced in API Level 8.
+            -->
+            <enum name="match_parent" value="-1" />
+            <!-- The view should be only big enough to enclose its content (plus padding). -->
+            <enum name="wrap_content" value="-2" />
+        </attr>
+        <attr name="popupHeight" format="dimension">
+            <enum name="fill_parent" value="-1" />
+            <!--
+                 The view should be as big as its parent (minus padding).
+                 Introduced in API Level 8.
+            -->
+            <enum name="match_parent" value="-1" />
+            <!-- The view should be only big enough to enclose its content (plus padding). -->
+            <enum name="wrap_content" value="-2" />
+        </attr>
+        <attr name="popupMaxHeight" format="dimension">
+            <enum name="fill_parent" value="-1" />
+            <!--
+                 The view should be as big as its parent (minus padding).
+                 Introduced in API Level 8.
+            -->
+            <enum name="match_parent" value="-1" />
+            <!-- The view should be only big enough to enclose its content (plus padding). -->
+            <enum name="wrap_content" value="-2" />
+        </attr>
         <attr name="popupBackground" format="reference" />
     </declare-styleable>
 
