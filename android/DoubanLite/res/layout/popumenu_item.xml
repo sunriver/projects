@@ -3,7 +3,7 @@
     android:layout_height="@dimen/popupmenu_item__height" >
 
     <TextView
-        android:id="@+id/tv_popumenu"
+        android:id="@+id/tv_popumenu_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"

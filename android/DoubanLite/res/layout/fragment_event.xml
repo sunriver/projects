@@ -10,25 +10,6 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@drawable/bg_base" >
 
-        <com.sunriver.common.view.PopuMenuLayout
-            android:id="@+id/pml_loc"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:scrollbars="vertical"
-            custom:popupBackground="@drawable/dark_half_transparent"
-            custom:popupHeight="300dp"
-            custom:popupMaxHeight="300dp"
-            custom:popupWidth="200dp" >
-
-            <TextView
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:text="test"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </com.sunriver.common.view.PopuMenuLayout>
-
         <Spinner
             android:id="@+id/sp_loc"
             android:layout_width="0dp"
