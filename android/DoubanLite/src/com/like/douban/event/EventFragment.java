@@ -139,6 +139,7 @@ public class EventFragment extends Fragment {
 	private void initEventTypeSpinner(Context ctx, ViewGroup contentView) {
 		SpinnerPair pair = new SpinnerPair();
 		mTypePair = pair;
+		
 		pair.values = getResources().getStringArray(R.array.event_type_values);
 		pair.selectedValue = mTypePair.values[0];
 		pair.sp = (Spinner) contentView.findViewById(R.id.sp_type);
