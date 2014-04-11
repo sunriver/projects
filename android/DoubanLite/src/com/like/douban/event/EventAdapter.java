@@ -48,8 +48,11 @@ public class EventAdapter extends BaseAdapter {
 
 	private static class ViewHolder {
 		TextView eventNameTv;
+		TextView eventCategoryNameTv;
 		TextView eventAddressTv;
 		TextView eventTimeTv;
+		TextView eventWisherCountTv;
+		TextView eventParticipantCountTv;
 		NetworkImageView  eventThumbIv;
 	}
 	
@@ -61,8 +64,11 @@ public class EventAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			ViewGroup vg = (ViewGroup) mInflater.inflate(R.layout.listview_item_event, null, false);
 			holder.eventNameTv = (TextView) vg.findViewById(R.id.tv_event_name);
+			holder.eventCategoryNameTv = (TextView) vg.findViewById(R.id.tv_event_category_name);
 			holder.eventAddressTv = (TextView) vg.findViewById(R.id.tv_event_address);
 			holder.eventTimeTv = (TextView) vg.findViewById(R.id.tv_event_time);
+			holder.eventWisherCountTv = (TextView) vg.findViewById(R.id.tv_event_wisher_count);
+			holder.eventParticipantCountTv = (TextView) vg.findViewById(R.id.tv_event_participant_count);
 			holder.eventThumbIv = (NetworkImageView) vg.findViewById(R.id.niv_event_thumb);
 			vg.setTag(holder);
 			convertView = vg;
@@ -71,7 +77,10 @@ public class EventAdapter extends BaseAdapter {
 		}
 		Event evt = mEvents.events[position];
 		holder.eventNameTv.setText(evt.title);
+		holder.eventCategoryNameTv.setText(" < " + evt.category_name + " > ");
 		holder.eventAddressTv.setText(evt.address);
+		holder.eventParticipantCountTv.setText(String.valueOf(evt.participant_count));
+		holder.eventWisherCountTv.setText(String.valueOf(evt.wisher_count));
 		
 		holder.eventTimeTv.setText(evt.getEventTime());
 		holder.eventThumbIv.setImageUrl(evt.image, mImageLoader);

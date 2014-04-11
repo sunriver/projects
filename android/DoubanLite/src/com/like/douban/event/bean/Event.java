@@ -5,6 +5,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.json.JSONObject;
+
+import android.graphics.Point;
+import android.graphics.PointF;
 import android.util.Log;
 public class Event implements Serializable {
 	private static final String TAG = Event.class.getSimpleName();
@@ -20,8 +23,18 @@ public class Event implements Serializable {
 		public static final String END_TIME = "end_time";
 		public static final String IMAGE_LMOBILE = "image_lmobile";
 		public static final String IMAGE = "image";
+		public static final String GEO = "geo";
+		public static final String PARTICIPANT_COUNT = "participant_count";
+		public static final String WISHER_COUNT = "wisher_count";
+		public static final String CATEGORY = "category";
+		public static final String CATEGORY_NAME = "category_name";
 	}
 
+	public String geo;
+	public int participant_count;
+	public int wisher_count;
+	public String category;
+	public String category_name;
 	public String title;
 	public String image_lmobile;
 	public String image;
@@ -107,6 +120,14 @@ public class Event implements Serializable {
 		String sEndTime = sdf.format(end_time);
 		return sBeginTime + " - " + sEndTime;
 	}
+	
+	public PointF getGeo() {
+		PointF p = new PointF();
+		String[] subs = this.geo.split(" ");
+		p.x = Float.valueOf(subs[0]);
+		p.y = Float.valueOf(subs[1]);
+		return p;
+	}
 
 	public static Event fromJSONObject(JSONObject obj) {
 		Event evt = new Event();
@@ -139,6 +160,21 @@ public class Event implements Serializable {
 			if (obj.has(Property.END_TIME)) {
 				String endTime = obj.getString(Property.END_TIME);
 				evt.end_time = convertToDate(endTime);
+			}
+			if (obj.has(Property.GEO)) {
+				evt.geo = obj.getString(Property.GEO);
+			}
+			if (obj.has(Property.PARTICIPANT_COUNT)) {
+				evt.participant_count  = obj.getInt(Property.PARTICIPANT_COUNT);
+			}
+			if (obj.has(Property.WISHER_COUNT)) {
+				evt.wisher_count  = obj.getInt(Property.WISHER_COUNT);
+			}
+			if (obj.has(Property.CATEGORY)) {
+				evt.category = obj.getString(Property.CATEGORY);
+			}
+			if (obj.has(Property.CATEGORY_NAME)) {
+				evt.category_name = obj.getString(Property.CATEGORY_NAME);
 			}
 
 		} catch (Exception any) {
