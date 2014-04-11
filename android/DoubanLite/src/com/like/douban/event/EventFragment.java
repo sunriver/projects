@@ -13,6 +13,7 @@ import com.like.douban.event.api.GetEvents;
 import com.like.douban.event.bean.Event;
 import com.like.douban.event.bean.EventList;
 import com.like.douban.event.bean.LocationList;
+import com.sunriver.common.utils.ViewUtil;
 import com.sunriver.common.view.PopuListView;
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +24,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -107,6 +109,7 @@ public class EventFragment extends Fragment {
 		}
 		
 	}
+
 	
 	private void initDayTypeSpinner(Context ctx, ViewGroup contentView) {
 		SpinnerPair pair = new SpinnerPair();
@@ -118,6 +121,7 @@ public class EventFragment extends Fragment {
 		pair.adapter = ArrayAdapter.createFromResource(ctx,R.array.event_dayType_names, R.layout.spinner_item);
 		pair.adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		pair.sp.setAdapter(mDateTypePair.adapter);
+		
 
 		pair.sp.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -170,6 +174,18 @@ public class EventFragment extends Fragment {
 		Context ctx = getActivity().getApplicationContext();
 		mGetEvents = new GetEvents(ctx, queue, this);
 		mEventAdapter = new EventAdapter(ctx, imageLoader);
+	}
+	
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		WindowManager manager = getActivity().getWindow().getWindowManager();
+		int width = ViewUtil.getScreenWidth(manager) / 3;
+		mLocPair.sp.setDropDownWidth(width);
+		mDateTypePair.sp.setDropDownWidth(width);
+		mTypePair.sp.setDropDownWidth(width);
+
+		super.onActivityCreated(savedInstanceState);
 	}
 	
 
