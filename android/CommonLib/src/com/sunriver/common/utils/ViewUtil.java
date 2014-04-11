@@ -13,6 +13,8 @@ import android.text.Spannable;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
 import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TabWidget;
@@ -197,5 +199,15 @@ public class ViewUtil {
 		int index = fulltext.indexOf(subtext);
 		str.setSpan(new ForegroundColorSpan(color), index, index + subtext.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		str.setSpan(new UnderlineSpan(), index, index + subtext.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+	}
+	
+	public static int getScreenWidth(WindowManager manager) {
+	     Display display = manager.getDefaultDisplay();
+	     return display.getWidth();
+	}
+	
+	public static int getScreenHeight(WindowManager manager) {
+		Display display = manager.getDefaultDisplay();
+		return display.getHeight();
 	}
 }
