@@ -38,7 +38,7 @@ import android.widget.TextView;
 
 public class EventFragment extends Fragment {
 	private static final String TAG = EventFragment.class.getSimpleName();
-	private static final int POPUP_HEIGHT = 690;
+	private static final int POPUP_HEIGHT = 700;
 	private PullToRefreshListView mPullRefreshListView;
 	private GetEvents mGetEvents;
 	private EventAdapter mEventAdapter;
@@ -75,9 +75,9 @@ public class EventFragment extends Fragment {
 		pair.selectedValue = mLocPair.values[0];
 		pair.sp = (Spinner) contentView.findViewById(R.id.sp_loc);
 		setDropDownHeight(pair.sp, POPUP_HEIGHT);
-		pair.adapter = ArrayAdapter.createFromResource(ctx,R.array.event_location_names, R.layout.spinner_item);
-		pair.adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		pair.sp.setAdapter(mLocPair.adapter);
+		String[] locations = this.getResources().getStringArray(R.array.event_location_names);
+		pair.adapter = new ArrayAdapter<CharSequence>(ctx, R.layout.spinner_item, R.id.tv_spinner_item, locations);
+		pair.sp.setAdapter(pair.adapter);
 		pair.sp.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
@@ -119,9 +119,9 @@ public class EventFragment extends Fragment {
 		pair.selectedValue = mDateTypePair.values[0];
 		pair.sp = (Spinner) contentView.findViewById(R.id.sp_dateType);
 //		setDropDownHeight(pair.sp, POPUP_HEIGHT);
-		pair.adapter = ArrayAdapter.createFromResource(ctx,R.array.event_dayType_names, R.layout.spinner_item);
-		pair.adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		pair.sp.setAdapter(mDateTypePair.adapter);
+		String[] dayTypes = this.getResources().getStringArray(R.array.event_dayType_names);
+		pair.adapter = new ArrayAdapter<CharSequence>(ctx, R.layout.spinner_item, R.id.tv_spinner_item, dayTypes);
+		pair.sp.setAdapter(pair.adapter);
 		
 
 		pair.sp.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -150,9 +150,10 @@ public class EventFragment extends Fragment {
 		pair.sp = (Spinner) contentView.findViewById(R.id.sp_type);
 		setDropDownHeight(pair.sp, POPUP_HEIGHT);
 		
-		pair.adapter = ArrayAdapter.createFromResource(ctx,R.array.event_type_names, R.layout.spinner_item);
-		pair.adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		pair.sp.setAdapter(mTypePair.adapter);
+		String[] typeNames = this.getResources().getStringArray(R.array.event_type_names);
+		pair.adapter = new ArrayAdapter<CharSequence>(ctx, R.layout.spinner_item, R.id.tv_spinner_item, typeNames);
+		
+		pair.sp.setAdapter(pair.adapter);
 		
 		pair.sp.setOnItemSelectedListener(new OnItemSelectedListener() {
 			
