@@ -1,8 +1,17 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    style="?android:attr/spinnerItemStyle"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/popupmenu_item__height"
-    android:ellipsize="marquee"
-    android:gravity="center"
-    android:textAlignment="center"
-    android:singleLine="true" />
+    android:layout_height="wrap_content" >
+
+    <CheckedTextView
+        android:id="@+id/tv_spinner_item"
+        style="?android:attr/spinnerDropDownItemStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/popupmenu_item__height"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:ellipsize="marquee"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textAlignment="inherit" />
+
+</LinearLayout>
