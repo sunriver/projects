@@ -111,7 +111,7 @@ public class EventDetailActivity extends ActionBarActivity {
 
 	private void locateAddressInMap() {
 		PointF p = mEvent.getGeoPoint();
-		String sAddress = "geo:" + p.x + "," + p.y;
+		String sAddress = "geo:" + p.x + "," + p.y + "?q=" + Uri.encode(mEvent.address);
 		Uri uri = Uri.parse(sAddress);
 		Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -132,7 +132,7 @@ public class EventDetailActivity extends ActionBarActivity {
 		intent.putExtra(Intent.EXTRA_TEXT, shareText.toString());
 		intent.putExtra(Intent.EXTRA_TITLE, mEvent.title);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		startActivity(Intent.createChooser(intent,getString(R.string.event_share_chooser)));
+		startActivity(Intent.createChooser(intent, getString(R.string.event_share_chooser)));
 
 	}
 
