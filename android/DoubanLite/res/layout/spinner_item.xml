@@ -8,7 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/popupmenu_item__height"
         android:layout_gravity="center"
-        android:layout_margin="5dp"
         android:ellipsize="marquee"
         android:gravity="center"
         android:singleLine="true"
