@@ -19,7 +19,8 @@
             android:background="@null"
             android:dropDownHorizontalOffset="10dp"
             android:dropDownWidth="100dp"
-            android:gravity="center" >
+            android:gravity="center"
+            android:popupBackground="@drawable/dropdown_panel_dark" >
         </Spinner>
 
         <Spinner
@@ -30,7 +31,8 @@
             android:layout_weight="1"
             android:background="@null"
             android:dropDownHorizontalOffset="10dp"
-            android:dropDownWidth="100dp" >
+            android:dropDownWidth="100dp"
+            android:popupBackground="@drawable/dropdown_panel_dark" >
         </Spinner>
 
         <Spinner
@@ -41,7 +43,8 @@
             android:layout_weight="1"
             android:background="@null"
             android:dropDownHorizontalOffset="10dp"
-            android:dropDownWidth="100dp" >
+            android:dropDownWidth="100dp"
+            android:popupBackground="@drawable/dropdown_panel_dark" >
         </Spinner>
     </LinearLayout>
 
