@@ -3,6 +3,9 @@
 
     <string name="app_name">豆瓣Lite</string>
     <string name="action_settings">设置</string>
+    <string name="event_address">地址</string>
+    <string name="event_date">时间</string>
+    <string name="event_detail">详情</string>
 
     <!-- douban -->
     <string name="douban_tongchen">同城</string>
@@ -12,4 +15,7 @@
     <string name="event_detail">活动详情</string>
     <string name="event_wisher_count">有兴趣</string>
     <string name="event_participant_count">参加</string>
+    <string name="event_share_subject">分享</string>
+    <string name="event_share_chooser">请选择</string>
+
 </resources>
