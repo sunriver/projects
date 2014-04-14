@@ -38,7 +38,7 @@ import android.widget.TextView;
 
 public class EventFragment extends Fragment {
 	private static final String TAG = EventFragment.class.getSimpleName();
-	private static final int POPUP_HEIGHT = 800;
+	private static final int POPUP_HEIGHT = 690;
 	private PullToRefreshListView mPullRefreshListView;
 	private GetEvents mGetEvents;
 	private EventAdapter mEventAdapter;
@@ -118,7 +118,7 @@ public class EventFragment extends Fragment {
 		pair.values = getResources().getStringArray(R.array.event_dayType_values);
 		pair.selectedValue = mDateTypePair.values[0];
 		pair.sp = (Spinner) contentView.findViewById(R.id.sp_dateType);
-		setDropDownHeight(pair.sp, POPUP_HEIGHT);
+//		setDropDownHeight(pair.sp, POPUP_HEIGHT);
 		pair.adapter = ArrayAdapter.createFromResource(ctx,R.array.event_dayType_names, R.layout.spinner_item);
 		pair.adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		pair.sp.setAdapter(mDateTypePair.adapter);
