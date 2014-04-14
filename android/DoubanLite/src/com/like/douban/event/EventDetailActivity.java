@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 public class EventDetailActivity extends ActionBarActivity {
 	private final static String TAG = EventDetailActivity.class.getSimpleName();
-	
+
 	private ImageLoader mImageLoader;
 	final static String STATE_EVENT = "state_event";
 	private TextView mEventNameTv;
@@ -38,28 +38,28 @@ public class EventDetailActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_event_detail);
 		init();
 	}
-	
+
 	private void init() {
 		MyApplication myApp = (MyApplication) this.getApplication();
 		mImageLoader = myApp.getImageLoader();
-		
+
 		initViews();
 		initActionBar();
-		
+
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.event_detail, menu);
-	    MenuItem mapItem = menu.findItem(R.id.action_map);
-	    MenuItem shareItem = menu.findItem(R.id.action_share);
-	    
-	    MenuItemCompat.setShowAsAction(mapItem, MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
-	    MenuItemCompat.setShowAsAction(shareItem, MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
+		MenuItem mapItem = menu.findItem(R.id.action_map);
+		MenuItem shareItem = menu.findItem(R.id.action_share);
+
+		MenuItemCompat.setShowAsAction(mapItem,
+				MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
+		MenuItemCompat.setShowAsAction(shareItem,
+				MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
 		return true;
 	}
-	
-	
 
 	private void initActionBar() {
 		ActionBar actionBar = getSupportActionBar();
@@ -67,7 +67,8 @@ public class EventDetailActivity extends ActionBarActivity {
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP
 				| ActionBar.DISPLAY_SHOW_TITLE, ActionBar.DISPLAY_HOME_AS_UP
 				| ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_HOME);
-		ViewUtil.setActionBarBackgroundRepeat(this, actionBar, R.drawable.bg_base);
+		ViewUtil.setActionBarBackgroundRepeat(this, actionBar,
+				R.drawable.bg_base);
 	}
 
 	private void initViews() {
@@ -76,7 +77,8 @@ public class EventDetailActivity extends ActionBarActivity {
 		mEventTimeTv = (TextView) this.findViewById(R.id.tv_event_time);
 		mEventAddressTv = (TextView) this.findViewById(R.id.tv_event_address);
 		mEventTypeTv = (TextView) this.findViewById(R.id.tv_event_type);
-		mEventThumbNiv = (NetworkImageView) this.findViewById(R.id.niv_event_thumb);
+		mEventThumbNiv = (NetworkImageView) this
+				.findViewById(R.id.niv_event_thumb);
 
 		Bundle bundle = this.getIntent().getExtras();
 		if (bundle != null) {
@@ -106,26 +108,32 @@ public class EventDetailActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	private void locateAddressInMap() {
 		PointF p = mEvent.getGeoPoint();
 		String sAddress = "geo:" + p.x + "," + p.y;
 		Uri uri = Uri.parse(sAddress);
 		Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(intent);
 	}
-	
-	
+
 	private void shareEvent() {
-		Intent intent=new Intent(Intent.ACTION_SEND); 
+		Intent intent = new Intent(Intent.ACTION_SEND);
 		intent.setType("text/plain");
-//		intent.setPackage("com.sina.weibo"); 
-		intent.putExtra(Intent.EXTRA_SUBJECT, "分享"); 
-		intent.putExtra(Intent.EXTRA_TEXT, "你好 ");
-		intent.putExtra(Intent.EXTRA_TITLE, "我是标题");
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
-		startActivity(Intent.createChooser(intent, "请选择")); 
+		intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.event_share_subject));
 		
+		StringBuffer shareText = new StringBuffer();
+		shareText.append(mEvent.title + "\n");
+		shareText.append(getString(R.string.event_date) + " ： " + mEvent.getEventTime() + "\n");
+		shareText.append(getString(R.string.event_address) + " ： " + mEvent.address + "\n");
+		shareText.append(getString(R.string.event_detail) + " ： " + mEvent.adapt_url + "\n");
+		
+		intent.putExtra(Intent.EXTRA_TEXT, shareText.toString());
+		intent.putExtra(Intent.EXTRA_TITLE, mEvent.title);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(Intent.createChooser(intent,getString(R.string.event_share_chooser)));
+
 	}
 
 }

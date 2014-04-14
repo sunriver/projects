@@ -28,8 +28,10 @@ public class Event implements Serializable {
 		public static final String WISHER_COUNT = "wisher_count";
 		public static final String CATEGORY = "category";
 		public static final String CATEGORY_NAME = "category_name";
+		public static final String ADAPT_URL = "adapt_url";
 	}
 
+	public String adapt_url;
 	public String geo;
 	public int participant_count;
 	public int wisher_count;
@@ -175,6 +177,9 @@ public class Event implements Serializable {
 			}
 			if (obj.has(Property.CATEGORY_NAME)) {
 				evt.category_name = obj.getString(Property.CATEGORY_NAME);
+			}
+			if (obj.has(Property.ADAPT_URL)) {
+				evt.adapt_url = obj.getString(Property.ADAPT_URL);
 			}
 
 		} catch (Exception any) {
