@@ -14,10 +14,9 @@ import com.like.douban.event.bean.Event;
 import com.like.douban.event.bean.EventList;
 import com.like.douban.event.bean.LocationList;
 import com.sunriver.common.utils.ViewUtil;
-import com.sunriver.common.view.PopuListView;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.format.DateUtils;
@@ -32,22 +31,25 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListPopupWindow;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 public class EventFragment extends Fragment {
 	private static final String TAG = EventFragment.class.getSimpleName();
 	private static final int POPUP_HEIGHT = 700;
+	private static final String FILE_EVENT_PREF = "event.pref";
+	private static final String PREF_SELECTED_CITY = "pref.selected.city";
+	private static final String PREF_SELECTED_CITY_INDEX = "pref.selected.city.index";
 	private PullToRefreshListView mPullRefreshListView;
 	private GetEvents mGetEvents;
 	private EventAdapter mEventAdapter;
 	private SpinnerPair mLocPair;
 	private SpinnerPair mDateTypePair;
 	private SpinnerPair mTypePair;
+	SharedPreferences mSharedPreferences;
 
 	private static class SpinnerPair {
 		String selectedValue;
+		int selectedPos;
 		String[] values;
 		Spinner sp;
 		ArrayAdapter<CharSequence> adapter;
@@ -60,6 +62,7 @@ public class EventFragment extends Fragment {
 		Context ctx = getActivity().getApplicationContext();
 		ViewGroup contentView = (ViewGroup) inflater.inflate(R.layout.fragment_event, null, false);
 		mPullRefreshListView = (PullToRefreshListView) contentView.findViewById(R.id.lv_event);
+		mSharedPreferences = ctx.getSharedPreferences(FILE_EVENT_PREF, Context.MODE_PRIVATE);
 		
 		initLocationSpinner(ctx, contentView);
 		initDayTypeSpinner(ctx, contentView);
@@ -72,17 +75,22 @@ public class EventFragment extends Fragment {
 		SpinnerPair pair = new SpinnerPair();
 		mLocPair = pair;
 		pair.values = ctx.getResources().getStringArray(R.array.event_location_values);
-		pair.selectedValue = mLocPair.values[0];
+	
+		pair.selectedValue = mSharedPreferences.getString(PREF_SELECTED_CITY, mLocPair.values[0]);
+		pair.selectedPos = mSharedPreferences.getInt(PREF_SELECTED_CITY_INDEX, 0);
+		
 		pair.sp = (Spinner) contentView.findViewById(R.id.sp_loc);
 		setDropDownHeight(pair.sp, POPUP_HEIGHT);
 		String[] locations = this.getResources().getStringArray(R.array.event_location_names);
 		pair.adapter = new ArrayAdapter<CharSequence>(ctx, R.layout.spinner_item, R.id.tv_spinner_item, locations);
 		pair.sp.setAdapter(pair.adapter);
+		pair.sp.setSelection(pair.selectedPos);
 		pair.sp.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
+				mLocPair.selectedPos = position;
 				mLocPair.selectedValue = mLocPair.values[position];
 				mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
 			}
@@ -96,6 +104,14 @@ public class EventFragment extends Fragment {
 		
 	}
 	
+	@Override
+	public void onDestroy() {
+		mSharedPreferences.edit().putString(PREF_SELECTED_CITY, mLocPair.selectedValue)
+		.putInt(PREF_SELECTED_CITY_INDEX, mLocPair.selectedPos)
+		.commit();
+		super.onDestroy();
+	}
+
 	private static void setDropDownHeight(Spinner sp, int height) {
 		try {
 			Field popupField = Spinner.class.getDeclaredField("mPopup");
@@ -187,6 +203,7 @@ public class EventFragment extends Fragment {
 		mDateTypePair.sp.setDropDownWidth(width);
 		mTypePair.sp.setDropDownWidth(width);
 
+		mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
 		super.onActivityCreated(savedInstanceState);
 	}
 	
@@ -194,7 +211,7 @@ public class EventFragment extends Fragment {
 	@Override
 	public void onStart() {
 		super.onStart();
-		mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
+//		mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
 	}
 
 	public void updateEvents(EventList eventList) {
