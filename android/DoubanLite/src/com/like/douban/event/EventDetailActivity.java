@@ -7,10 +7,15 @@ import com.like.MyApplication;
 import com.like.douban.event.bean.Event;
 import com.sunriver.common.utils.ViewUtil;
 
+import android.content.Intent;
+import android.graphics.PointF;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -25,6 +30,7 @@ public class EventDetailActivity extends ActionBarActivity {
 	private TextView mEventTypeTv;
 	private TextView mEventAddressTv;
 	private NetworkImageView mEventThumbNiv;
+	private Event mEvent;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,19 @@ public class EventDetailActivity extends ActionBarActivity {
 		initActionBar();
 		
 	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.event_detail, menu);
+	    MenuItem mapItem = menu.findItem(R.id.action_map);
+	    MenuItem shareItem = menu.findItem(R.id.action_share);
+	    
+	    MenuItemCompat.setShowAsAction(mapItem, MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
+	    MenuItemCompat.setShowAsAction(shareItem, MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
+		return true;
+	}
+	
+	
 
 	private void initActionBar() {
 		ActionBar actionBar = getSupportActionBar();
@@ -67,6 +86,7 @@ public class EventDetailActivity extends ActionBarActivity {
 			mEventAddressTv.setText(evt.address);
 			mEventTimeTv.setText(evt.getEventTime());
 			mEventThumbNiv.setImageUrl(evt.image, mImageLoader);
+			mEvent = evt;
 		}
 	}
 
@@ -77,8 +97,35 @@ public class EventDetailActivity extends ActionBarActivity {
 		case android.R.id.home:
 			super.onBackPressed();
 			break;
+		case R.id.action_share:
+			shareEvent();
+			break;
+		case R.id.action_map:
+			locateAddressInMap();
+			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	private void locateAddressInMap() {
+		PointF p = mEvent.getGeoPoint();
+		String sAddress = "geo:" + p.x + "," + p.y;
+		Uri uri = Uri.parse(sAddress);
+		Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+		startActivity(intent);
+	}
+	
+	
+	private void shareEvent() {
+		Intent intent=new Intent(Intent.ACTION_SEND); 
+		intent.setType("text/plain");
+//		intent.setPackage("com.sina.weibo"); 
+		intent.putExtra(Intent.EXTRA_SUBJECT, "分享"); 
+		intent.putExtra(Intent.EXTRA_TEXT, "你好 ");
+		intent.putExtra(Intent.EXTRA_TITLE, "我是标题");
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+		startActivity(Intent.createChooser(intent, "请选择")); 
+		
 	}
 
 }

@@ -121,7 +121,7 @@ public class Event implements Serializable {
 		return sBeginTime + " - " + sEndTime;
 	}
 	
-	public PointF getGeo() {
+	public PointF getGeoPoint() {
 		PointF p = new PointF();
 		String[] subs = this.geo.split(" ");
 		p.x = Float.valueOf(subs[0]);
