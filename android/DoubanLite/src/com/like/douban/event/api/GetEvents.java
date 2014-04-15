@@ -5,17 +5,12 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
-import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.like.R;
 import com.like.douban.event.EventFragment;
 import com.like.douban.event.bean.EventList;
 
