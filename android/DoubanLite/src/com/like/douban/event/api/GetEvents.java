@@ -46,11 +46,7 @@ public class GetEvents {
 
 		@Override
 		public void onErrorResponse(VolleyError error) {
-			if (error instanceof NoConnectionError) {
-				Toast.makeText(mContext, R.string.error_network_disconnect, Toast.LENGTH_SHORT).show();
-			} else if (error instanceof TimeoutError) {
-				Toast.makeText(mContext, R.string.error_connection_timeout, Toast.LENGTH_SHORT).show();
-			}
+			ApiUtils.checkError(mContext, error);
 			mFragment.updateEvents(null);
 		}
 
