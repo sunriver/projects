@@ -16,7 +16,6 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:singleLine="true"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@android:color/black" />
 
         <TextView
@@ -27,7 +26,6 @@
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:singleLine="true"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@android:color/black" />
     </LinearLayout>
 
@@ -50,7 +48,7 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:singleLine="true"
-                android:textColor="@android:color/black" />
+                android:textColor="@color/lighter_gray" />
 
             <TextView
                 android:id="@+id/tv_event_address"
@@ -59,8 +57,7 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:singleLine="true"
-                android:textColor="@android:color/black" />
-
+                android:textColor="@color/lighter_gray" />
 
             <View
                 android:layout_width="match_parent"
@@ -82,7 +79,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="2dp"
                         android:text="@string/event_wisher_count"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@color/lighter_gray" />
 
                     <TextView
                         android:id="@+id/tv_event_wisher_count"
@@ -103,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="2dp"
                         android:text="@string/event_participant_count"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@color/lighter_gray" />
 
                     <TextView
                         android:id="@+id/tv_event_participant_count"

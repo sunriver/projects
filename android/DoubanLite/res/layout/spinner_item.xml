@@ -4,13 +4,14 @@
 
     <CheckedTextView
         android:id="@+id/tv_spinner_item"
-        style="?android:attr/spinnerDropDownItemStyle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/popupmenu_item__height"
         android:layout_gravity="center"
         android:ellipsize="marquee"
         android:gravity="center"
         android:singleLine="true"
-        android:textAlignment="inherit" />
+        android:textAlignment="inherit"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>
