@@ -5,10 +5,21 @@
     android:background="@android:color/white" >
 
     <ImageView
+        android:layout_marginRight="10dp"
         android:id="@+id/iv_splash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:background="@drawable/balloon" />
+
+    <TextView
+        android:id="@+id/tv_splash_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/iv_splash"
+        android:layout_centerVertical="true"
+        android:text="@string/event_splash_title"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/black" />
 
 </RelativeLayout>

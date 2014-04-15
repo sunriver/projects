@@ -15,5 +15,6 @@
     <string name="event_participant_count">Participant</string>
     <string name="event_share_subject">Share</string>
     <string name="event_share_chooser">Please choose</string>
+    <string name="event_splash_title">" I like!"</string>
 
 </resources>
