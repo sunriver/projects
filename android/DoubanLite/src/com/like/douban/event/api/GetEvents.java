@@ -1,13 +1,10 @@
 package com.like.douban.event.api;
 
-import java.lang.reflect.Field;
 
 import org.json.JSONObject;
-
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
