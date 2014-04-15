@@ -10,6 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Animation.AnimationListener;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class SplashActivity extends ActionBarActivity implements AnimationListener {
 
@@ -24,6 +25,10 @@ public class SplashActivity extends ActionBarActivity implements AnimationListen
         
         ImageView splashIv = (ImageView) splashView.findViewById(R.id.iv_splash);
         splashIv.startAnimation(animation);
+        
+        TextView splashTv = (TextView) splashView.findViewById(R.id.tv_splash_title);
+        animation = AnimationUtils.loadAnimation(appCtx, R.anim.alpha);
+        splashTv.startAnimation(animation);
     }
 
 
