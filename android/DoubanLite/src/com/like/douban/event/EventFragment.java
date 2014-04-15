@@ -215,7 +215,9 @@ public class EventFragment extends Fragment {
 	}
 
 	public void updateEvents(EventList eventList) {
-		mEventAdapter.updateEventList(eventList);
+		if (eventList != null) {
+			mEventAdapter.updateEventList(eventList);
+		}
 		mPullRefreshListView.onRefreshComplete();
 	}
 	
