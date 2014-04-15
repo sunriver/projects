@@ -222,7 +222,9 @@ public class EventFragment extends Fragment {
 	}
 	
 	public void updateLocations(LocationList locationList) {
-		mLocPair.values = locationList.getAllLocationUids();
+		if (locationList != null) {
+			mLocPair.values = locationList.getAllLocationUids();
+		}
 		mLocPair.adapter.addAll(locationList.getAllLocationNames());
 	}
 

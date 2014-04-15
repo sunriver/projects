@@ -39,8 +39,8 @@ public class GetLocations {
 
 		@Override
 		public void onErrorResponse(VolleyError error) {
-			// TODO Auto-generated method stub
-
+			ApiUtils.checkError(mContext, error);
+			mFragment.updateLocations(null);
 		}
 
 	};
