@@ -17,6 +17,7 @@ import com.sunriver.common.utils.ViewUtil;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.format.DateUtils;
@@ -128,6 +129,12 @@ public class EventFragment extends Fragment {
 	}
 
 	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		setDropDownWidth();
+		super.onConfigurationChanged(newConfig);
+	}
+
 	private void initDayTypeSpinner(Context ctx, ViewGroup contentView) {
 		SpinnerPair pair = new SpinnerPair();
 		mDateTypePair = pair;
@@ -194,14 +201,18 @@ public class EventFragment extends Fragment {
 		mEventAdapter = new EventAdapter(ctx, imageLoader);
 	}
 	
-	
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
+	private void setDropDownWidth() {
 		WindowManager manager = getActivity().getWindow().getWindowManager();
 		int width = ViewUtil.getScreenWidth(manager) / 3;
 		mLocPair.sp.setDropDownWidth(width);
 		mDateTypePair.sp.setDropDownWidth(width);
 		mTypePair.sp.setDropDownWidth(width);
+	}
+	
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		setDropDownWidth();
 
 		mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
 		super.onActivityCreated(savedInstanceState);
