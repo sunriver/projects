@@ -10,9 +10,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 
 public class MainActivity extends ActionBarActivity {
+	private final static String TAG = MainActivity.class.getSimpleName();
 	private RequestQueue mRequestQueue;
 	private ImageLoader mImageLoader;
 
@@ -48,6 +50,7 @@ public class MainActivity extends ActionBarActivity {
 			break;
 		}
     }
+	
 
 	@Override
 	protected void onDestroy() {
@@ -55,7 +58,7 @@ public class MainActivity extends ActionBarActivity {
 		myApp.clear();
 		super.onDestroy();
 	}
-	
+
 	
 
 }

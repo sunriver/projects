@@ -46,7 +46,7 @@ public class EventFragment extends Fragment {
 	private SpinnerPair mLocPair;
 	private SpinnerPair mDateTypePair;
 	private SpinnerPair mTypePair;
-	SharedPreferences mSharedPreferences;
+	private SharedPreferences mSharedPreferences;
 
 	private static class SpinnerPair {
 		String selectedValue;

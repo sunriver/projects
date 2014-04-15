@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -13,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class SplashActivity extends ActionBarActivity implements AnimationListener {
-
+	private final static String TAG = SplashActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +53,7 @@ public class SplashActivity extends ActionBarActivity implements AnimationListen
 	public void onAnimationRepeat(Animation animation) {
 		// TODO Auto-generated method stub
 	}
+
 
 
 }
