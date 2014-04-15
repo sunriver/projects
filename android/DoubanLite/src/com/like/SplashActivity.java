@@ -41,7 +41,7 @@ public class SplashActivity extends ActionBarActivity implements AnimationListen
 	public void onAnimationEnd(Animation animation) {
 		Intent intent = new Intent(this, MainActivity.class);
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 		} catch (InterruptedException ignore) {
 		}
 		startActivity(intent);
