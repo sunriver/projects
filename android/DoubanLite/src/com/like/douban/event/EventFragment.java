@@ -13,6 +13,7 @@ import com.like.douban.event.api.GetEvents;
 import com.like.douban.event.bean.Event;
 import com.like.douban.event.bean.EventList;
 import com.like.douban.event.bean.LocationList;
+import com.sunriver.common.utils.ApiLevel;
 import com.sunriver.common.utils.ViewUtil;
 import android.content.Context;
 import android.content.Intent;
@@ -30,8 +31,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.ListPopupWindow;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.Spinner;
 
 public class EventFragment extends Fragment {
@@ -119,14 +120,17 @@ public class EventFragment extends Fragment {
 			popupField.setAccessible(true);
 			Object value = popupField.get(sp);
 			Log.d(TAG, "setDropDownHeight()-");
-			if (value instanceof ListPopupWindow) {
-				((ListPopupWindow) value).setHeight(height);
+			if (value instanceof PopupWindow) {
+				((PopupWindow) value).setHeight(height);
 			}
 		} catch (Throwable ignored) {
 			Log.w(TAG, "Can't set spinner's height", ignored);
 		}
 		
 	}
+	
+	
+
 
 	
 	@Override
@@ -201,19 +205,35 @@ public class EventFragment extends Fragment {
 		mEventAdapter = new EventAdapter(ctx, imageLoader);
 	}
 	
+	private static void setDropDownWidth(Spinner sp, int width) {
+		try {
+			Field dropDownWidthField = Spinner.class.getDeclaredField("mDropDownWidth");
+			dropDownWidthField.setAccessible(true);
+			dropDownWidthField.set(sp, width);
+			Log.d(TAG, "setDropDownWidth()-");
+		} catch (Throwable ignored) {
+			Log.w(TAG, "Can't set spinner's width", ignored);
+		}
+	}
+	
 	private void setDropDownWidth() {
 		WindowManager manager = getActivity().getWindow().getWindowManager();
 		int width = ViewUtil.getScreenWidth(manager) / 3;
-		mLocPair.sp.setDropDownWidth(width);
-		mDateTypePair.sp.setDropDownWidth(width);
-		mTypePair.sp.setDropDownWidth(width);
+		if (ApiLevel.hasJellyBean()) {
+			mLocPair.sp.setDropDownWidth(width);
+			mDateTypePair.sp.setDropDownWidth(width);
+			mTypePair.sp.setDropDownWidth(width);
+		} else {
+			setDropDownWidth(mLocPair.sp, width);
+			setDropDownWidth(mDateTypePair.sp, width);
+			setDropDownWidth(mTypePair.sp, width);
+		}
 	}
 	
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		setDropDownWidth();
-
 		mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
 		super.onActivityCreated(savedInstanceState);
 	}
