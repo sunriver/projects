@@ -67,7 +67,7 @@ public class ViewUtil {
 	@TargetApi(13)
 	public static int getSmallestScreenWidthDp(Context context) {
 		int value = 0;
-		if (ApiUtil.hasHoneycombMR2()) {
+		if (ApiLevel.hasHoneycombMR2()) {
 			value = context.getResources().getConfiguration().smallestScreenWidthDp;
 		} else {
 			//Display disp = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
