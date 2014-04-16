@@ -7,7 +7,7 @@ import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
 import android.util.Log;
 import com.android.volley.toolbox.ImageLoader.ImageCache;
-import com.sunriver.common.utils.ApiUtil;
+import com.sunriver.common.utils.ApiLevel;
 
 public class BitmapCache implements ImageCache {
 	private final static String TAG = BitmapCache.class.getSimpleName();
@@ -19,7 +19,7 @@ public class BitmapCache implements ImageCache {
 		mCache = new LruCache<String, Bitmap>(maxSize) {
 			@Override
 			protected int sizeOf(String key, Bitmap value) {
-				if (ApiUtil.hasHoneycombMR1()) {
+				if (ApiLevel.hasHoneycombMR1()) {
 					return value.getByteCount();
 				} else {
 					return value.getRowBytes() * value.getHeight();
