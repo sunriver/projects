@@ -31,6 +31,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.ListPopupWindow;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
@@ -120,8 +121,10 @@ public class EventFragment extends Fragment {
 			popupField.setAccessible(true);
 			Object value = popupField.get(sp);
 			Log.d(TAG, "setDropDownHeight()-");
-			if (value instanceof PopupWindow) {
-				((PopupWindow) value).setHeight(height);
+			if (ApiLevel.hasHoneycomb()) {
+				if (value instanceof ListPopupWindow) {
+					((ListPopupWindow) value).setHeight(height);
+				}
 			}
 		} catch (Throwable ignored) {
 			Log.w(TAG, "Can't set spinner's height", ignored);
