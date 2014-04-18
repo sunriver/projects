@@ -1,8 +1,9 @@
-package com.like.douban.event.api;
+package com.like.douban.login.api;
 
 
 import org.json.JSONObject;
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -12,12 +13,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.like.douban.ApiUtils;
 import com.like.douban.event.EventFragment;
-import com.like.douban.event.bean.LocationList;
+import com.like.douban.event.bean.EventList;
 
 
-public class GetLocations {
-	private final static String TAG = GetLocations.class.getSimpleName();
-	private final static String URL = "https://api.douban.com/v2/loc/list";
+public class GetAccessToken {
+	private final static String TAG = GetAccessToken.class.getSimpleName();
+	private final static String BASE_URL = "https://api.douban.com/v2/event/list";
+
 	private Context mContext;
 	private RequestQueue mRequestQueue;
 	private EventFragment mFragment;
@@ -29,8 +31,8 @@ public class GetLocations {
 			if (null == response) {
 				return;
 			}
-			LocationList locationList = LocationList.fromJSONObject(response);
-			mFragment.updateLocations(locationList);
+			EventList eventList = EventList.fromJSONObject(response);
+			mFragment.updateEvents(eventList);
 			Log.d(TAG, "onResponse()-");
 		}
 
@@ -41,24 +43,36 @@ public class GetLocations {
 		@Override
 		public void onErrorResponse(VolleyError error) {
 			ApiUtils.checkError(mContext, error);
-			mFragment.updateLocations(null);
+			mFragment.updateEvents(null);
 		}
 
 	};
 
-	public GetLocations(Context ctx, RequestQueue queue, EventFragment fragment) {
+	public GetAccessToken(Context ctx, RequestQueue queue, EventFragment fragment) {
 		this.mContext = ctx;
 		this.mRequestQueue = queue;
 		this.mFragment = fragment;
 	}
 
-	public void query() {
+	public void query(final String loc, final String dayType,
+			final String eventType) {
+		StringBuffer urlBuf = new StringBuffer();
+		urlBuf.append(BASE_URL + "?loc=" + loc);
+		if (!TextUtils.isEmpty(dayType)) {
+			urlBuf.append("&day_type=" + dayType);
+		}
+		if (!TextUtils.isEmpty(eventType)) {
+			urlBuf.append("&type=" + eventType);
+		}
+
 		JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-				Request.Method.GET, URL, null, new GetEventsListener(),
+				Request.Method.GET, urlBuf.toString(), null, new GetEventsListener(),
 				new GetEventsErrorListener());
 		mRequestQueue.add(jsonObjectRequest);
 	}
 	
-	
+	public void query(final String loc) {
+		query(loc, null, null);
+	}
 
 }
