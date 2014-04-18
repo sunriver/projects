@@ -1,6 +1,11 @@
 package com.like.douban.login;
 
+import com.android.volley.RequestQueue;
+import com.like.MyApplication;
 import com.like.R;
+import com.like.douban.login.api.GetAccessToken;
+import com.like.douban.login.api.GetAccessToken.OnTokenRequestListener;
+import com.like.douban.login.api.TokenResult;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,16 +22,14 @@ import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-public class LoginActivity extends ActionBarActivity implements OnClickListener {
+public class LoginActivity extends ActionBarActivity implements OnTokenRequestListener {
 	private final static String TAG = LoginActivity.class.getSimpleName();
 	private final static String  GET_AUTHORIZATION_CODE_URL = "https://www.douban.com/service/auth2/auth?client_id=${API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=shuo_basic_r,shuo_basic_w,douban_basic_common";
-	private final static String  POST_ACCESS_TOKEN_URL = "https://www.douban.com/service/auth2/token?client_id=${API_KEY}&client_secret=${CLIENT_SECRET}&redirect_uri=${REDIRECT_URI}&grant_type=authorization_code&code=${AUTHORIZATION_CODE}";
 	private final static String API_KEY = "0feda5e1f219879d2fc8f1a5d64c96d7";
 	private final static String CLIENT_SECRET = "24e8af830d5eb113";
 	private final static String REDIRECT_URI = "http://www.douban.com/callback";
-	private String mAuthorizationCode;
-	private ImageView mLoginIv;
 	private WebView mLoginWv;
+	private RequestQueue mRequestQueue;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,17 +39,26 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener 
 	}
 	
 	private void requestAccessToken(final String authCode) {
-		mLoginWv.postUrl(getAccessTokenUrl(authCode), null);
+		GetAccessToken.Builder builder = new GetAccessToken.Builder(getApplicationContext(), mRequestQueue);
+		GetAccessToken request = builder.setAuthCode(authCode)
+			   .setClicentSecret(CLIENT_SECRET)
+			   .setClientID(API_KEY)
+			   .setRedirectUri(REDIRECT_URI)
+			   .build();
+		request.query();
 	}
 	
 	private void requestAuthCode() {
 		mLoginWv.loadUrl(getAuthorizationCodeUrl());
 	}
-
+	
 	private void init() {
-		mLoginIv = (ImageView) this.findViewById(R.id.iv_login);
-		mLoginIv.setOnClickListener(this);
-		mLoginWv = (WebView) this.findViewById(R.id.wv_login);
+		initViews();
+		MyApplication myApp = (MyApplication) getApplication();
+		mRequestQueue = myApp.getRequestQueue();
+	}
+
+	private void initViews() {
 		requestAuthCode();
 		mLoginWv.setWebViewClient(new WebViewClient(){
 
@@ -57,7 +69,6 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener 
 					Uri uri = Uri.parse(url);
 					String code = uri.getQueryParameter("code");
 					if (!TextUtils.isEmpty(code)) {
-						mAuthorizationCode = code;
 						requestAccessToken(code);
 					}
 				}
@@ -74,6 +85,7 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener 
 		}); 
 	}
 	
+	
 	/**
 	 * Get Method
 	 * @return
@@ -84,32 +96,19 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener 
 		return url;
 	}
 	
-	/**
-	 * Post Method
-	 * @return
-	 */
-	private static String getAccessTokenUrl(String code) {
-		String url = POST_ACCESS_TOKEN_URL.replace("${API_KEY}", API_KEY);
-		url = url.replace("${CLIENT_SECRET}", CLIENT_SECRET);
-		url = url.replace("${REDIRECT_URI}", REDIRECT_URI);
-		url = url.replace("${AUTHORIZATION_CODE}", code);
-		return url;
-	}
 
-	private void doLogin() {
-		Intent viewIntent = new Intent("android.intent.action.VIEW", Uri.parse(getAuthorizationCodeUrl()));
-		startActivity(viewIntent);
+	@Override
+	public void onSuccess(TokenResult result) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.iv_login:
-			doLogin();
-			break;
-		default:
-			;
-		}
+	public void onFailure() {
+		// TODO Auto-generated method stub
+		
 	}
+
+
 
 }

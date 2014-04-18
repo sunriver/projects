@@ -3,7 +3,6 @@ package com.like.douban.login.api;
 
 import org.json.JSONObject;
 import android.content.Context;
-import android.text.TextUtils;
 import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -12,67 +11,128 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.like.douban.ApiUtils;
-import com.like.douban.event.EventFragment;
-import com.like.douban.event.bean.EventList;
 
 
 public class GetAccessToken {
 	private final static String TAG = GetAccessToken.class.getSimpleName();
-	private final static String BASE_URL = "https://api.douban.com/v2/event/list";
+	private final static String  POST_ACCESS_TOKEN_URL = "https://www.douban.com/service/auth2/token?client_id=${API_KEY}&client_secret=${CLIENT_SECRET}&redirect_uri=${REDIRECT_URI}&grant_type=authorization_code&code=${AUTHORIZATION_CODE}";
 
 	private Context mContext;
 	private RequestQueue mRequestQueue;
-	private EventFragment mFragment;
+	private String mClientID;
+	private String mClientSecret;
+	private String mRedirectUri;
+	private String mAuthCode;
+	private OnTokenRequestListener mOnTokenRequestListener;
+	
+	
+	public interface OnTokenRequestListener {
+		public void onSuccess(final TokenResult result);
+		public void onFailure();
+	}
+	
 
-	private  class GetEventsListener implements Listener<JSONObject> {
+	private  class GetTokenListener implements Listener<JSONObject> {
 
 		@Override
 		public void onResponse(JSONObject response) {
 			if (null == response) {
 				return;
 			}
-			EventList eventList = EventList.fromJSONObject(response);
-			mFragment.updateEvents(eventList);
+			TokenResult tokenResult = TokenResult.fromJSONObject(response);
+			if (mOnTokenRequestListener != null) {
+				mOnTokenRequestListener.onSuccess(tokenResult);
+			}
+//			mFragment.updateEvents(eventList);
 			Log.d(TAG, "onResponse()-");
 		}
 
 	};
 
-	private  class GetEventsErrorListener implements ErrorListener {
+	private  class GetTokensErrorListener implements ErrorListener {
 
 		@Override
 		public void onErrorResponse(VolleyError error) {
 			ApiUtils.checkError(mContext, error);
-			mFragment.updateEvents(null);
+			if (mOnTokenRequestListener != null) {
+				mOnTokenRequestListener.onFailure();
+			}
 		}
 
 	};
+	
 
-	public GetAccessToken(Context ctx, RequestQueue queue, EventFragment fragment) {
+
+	public GetAccessToken(Context ctx, RequestQueue queue) {
 		this.mContext = ctx;
 		this.mRequestQueue = queue;
-		this.mFragment = fragment;
 	}
 
-	public void query(final String loc, final String dayType,
-			final String eventType) {
-		StringBuffer urlBuf = new StringBuffer();
-		urlBuf.append(BASE_URL + "?loc=" + loc);
-		if (!TextUtils.isEmpty(dayType)) {
-			urlBuf.append("&day_type=" + dayType);
-		}
-		if (!TextUtils.isEmpty(eventType)) {
-			urlBuf.append("&type=" + eventType);
-		}
-
+	public void query() {
 		JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-				Request.Method.GET, urlBuf.toString(), null, new GetEventsListener(),
-				new GetEventsErrorListener());
+				Request.Method.POST, getAccessTokenUrl(), null, new GetTokenListener(),
+				new GetTokensErrorListener());
 		mRequestQueue.add(jsonObjectRequest);
 	}
 	
-	public void query(final String loc) {
-		query(loc, null, null);
+
+	
+	
+	
+	/**
+	 * Post Method
+	 * @return
+	 */
+	private  String getAccessTokenUrl() {
+		String url = POST_ACCESS_TOKEN_URL.replace("${API_KEY}", mClientID);
+		url = url.replace("${CLIENT_SECRET}", mClientSecret);
+		url = url.replace("${REDIRECT_URI}", mRedirectUri);
+		url = url.replace("${AUTHORIZATION_CODE}", mAuthCode);
+		return url;
+	}
+	
+	
+	public static class Builder {
+		private  Context context;
+		private  RequestQueue queue;
+		private  String clientID;
+		private  String clientSecret;
+		private  String redirectUri;
+		private  String authCode;
+		
+		public Builder(Context ctx, RequestQueue queue) {
+			this.context = ctx;
+			this.queue = queue;
+		}
+		
+		public Builder setClientID(final String clientID) {
+			this.clientID = clientID;
+			return this;
+		}
+		
+		public Builder setClicentSecret(final String clientSecret) {
+			this.clientSecret = clientSecret;
+			return this;
+		}
+		
+		public Builder setRedirectUri(final String redirectUri) {
+			this.redirectUri = redirectUri;
+			return this;
+		}
+		
+		public Builder setAuthCode(final String authCode) {
+			this.authCode = authCode;
+			return this;
+		}
+		
+		public GetAccessToken build() {
+			GetAccessToken api = new GetAccessToken(context, queue);
+			api.mClientID = clientID;
+			api.mClientSecret = clientSecret;
+			api.mRedirectUri = redirectUri;
+			api.mAuthCode = authCode;
+			return api;
+		}
 	}
 
 }
