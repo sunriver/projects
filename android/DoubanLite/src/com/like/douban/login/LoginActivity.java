@@ -45,6 +45,7 @@ public class LoginActivity extends ActionBarActivity implements OnTokenRequestLi
 			   .setClientID(API_KEY)
 			   .setRedirectUri(REDIRECT_URI)
 			   .build();
+		request.setTokenRequestListener(this);
 		request.query();
 	}
 	

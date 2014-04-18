@@ -67,6 +67,11 @@ public class GetAccessToken {
 		this.mContext = ctx;
 		this.mRequestQueue = queue;
 	}
+	
+	
+	public void setTokenRequestListener(OnTokenRequestListener listener) {
+		this.mOnTokenRequestListener = listener;
+	}
 
 	public void query() {
 		JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
