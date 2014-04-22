@@ -42,6 +42,7 @@ public class LoginActivity extends ActionBarActivity implements OnTokenRequestLi
 	}
 	
 	private void requestAccessToken(final String authCode) {
+		Log.d(TAG, "requestAccessToken()+");
 		GetAccessToken.Builder builder = new GetAccessToken.Builder(getApplicationContext(), mRequestQueue);
 		GetAccessToken request = builder.setAuthCode(authCode)
 			   .setClicentSecret(CLIENT_SECRET)
@@ -125,8 +126,8 @@ public class LoginActivity extends ActionBarActivity implements OnTokenRequestLi
 
 	@Override
 	public void onSuccess(TokenResult result) {
-		// TODO Auto-generated method stub
-		
+		LoginUtil.saveToken(getApplicationContext(), result);
+		finish();
 	}
 
 	@Override
