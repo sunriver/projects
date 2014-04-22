@@ -57,12 +57,12 @@ public class LoginActivity extends ActionBarActivity implements OnTokenRequestLi
 		initViews();
 		MyApplication myApp = (MyApplication) getApplication();
 		mRequestQueue = myApp.getRequestQueue();
+		requestAuthCode();
 	}
 
 	private void initViews() {
-		requestAuthCode();
+		mLoginWv = (WebView) findViewById(R.id.wv_login);
 		mLoginWv.setWebViewClient(new WebViewClient(){
-
 			@Override
 			public void onPageStarted(WebView view, String url, Bitmap favicon) {
 				Log.d(TAG, "request url:" + url);
