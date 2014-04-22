@@ -2,8 +2,6 @@ package com.like.douban.event;
 
 import java.lang.reflect.Field;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.ImageLoader;
 import com.like.MyApplication;
 import com.like.R;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -14,6 +12,7 @@ import com.like.douban.event.api.GetEvents;
 import com.like.douban.event.bean.Event;
 import com.like.douban.event.bean.EventList;
 import com.like.douban.event.bean.LocationList;
+import com.like.douban.login.LoginActivity;
 import com.sunriver.common.utils.ApiLevel;
 import com.sunriver.common.utils.ViewUtil;
 import android.content.Context;
@@ -26,18 +25,19 @@ import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListPopupWindow;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.Spinner;
 
-public class EventFragment extends Fragment {
+public class EventFragment extends Fragment implements OnClickListener {
 	private static final String TAG = EventFragment.class.getSimpleName();
 	private static final int POPUP_HEIGHT = 700;
 	private static final String FILE_EVENT_PREF = "event.pref";
@@ -50,6 +50,7 @@ public class EventFragment extends Fragment {
 	private SpinnerPair mDateTypePair;
 	private SpinnerPair mTypePair;
 	private SharedPreferences mSharedPreferences;
+	private ImageView mLoginIv;
 
 	private static class SpinnerPair {
 		String selectedValue;
@@ -67,6 +68,8 @@ public class EventFragment extends Fragment {
 		ViewGroup contentView = (ViewGroup) inflater.inflate(R.layout.fragment_event, null, false);
 		mPullRefreshListView = (PullToRefreshListView) contentView.findViewById(R.id.lv_event);
 		mSharedPreferences = ctx.getSharedPreferences(FILE_EVENT_PREF, Context.MODE_PRIVATE);
+		mLoginIv = (ImageView) contentView.findViewById(R.id.iv_login);
+		mLoginIv.setOnClickListener(this);
 		
 		initLocationSpinner(ctx, contentView);
 		initDayTypeSpinner(ctx, contentView);
@@ -314,6 +317,22 @@ public class EventFragment extends Fragment {
 		bundle.putSerializable(EventDetailActivity.STATE_EVENT, evt);
 		intent.putExtras(bundle);
 		ctx.startActivity(intent);
+	}
+
+	private void doLogin() {
+		Intent intent = new Intent(getActivity().getApplicationContext(), LoginActivity.class);
+		startActivity(intent);
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.iv_login:
+			doLogin();
+			break;
+		default:
+			break;
+		}
 	}
 
 

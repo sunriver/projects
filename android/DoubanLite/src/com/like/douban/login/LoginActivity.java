@@ -6,11 +6,13 @@ import com.like.R;
 import com.like.douban.login.api.GetAccessToken;
 import com.like.douban.login.api.GetAccessToken.OnTokenRequestListener;
 import com.like.douban.login.api.TokenResult;
+import com.sunriver.common.utils.ViewUtil;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -54,10 +56,16 @@ public class LoginActivity extends ActionBarActivity implements OnTokenRequestLi
 	}
 	
 	private void init() {
+//		initActionBar();
 		initViews();
 		MyApplication myApp = (MyApplication) getApplication();
 		mRequestQueue = myApp.getRequestQueue();
 		requestAuthCode();
+	}
+	
+	private void initActionBar() {
+		ActionBar actionBar = this.getSupportActionBar();
+		ViewUtil.setActionBarBackgroundRepeat(getApplicationContext(), actionBar, R.drawable.bg_base);
 	}
 
 	private void initViews() {
