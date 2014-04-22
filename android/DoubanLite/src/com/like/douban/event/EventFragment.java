@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
+import com.like.MyApplication;
 import com.like.R;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -202,11 +203,6 @@ public class EventFragment extends Fragment {
 		});
 	}
 
-	public void init(RequestQueue queue, ImageLoader imageLoader) {
-		Context ctx = getActivity().getApplicationContext();
-		mGetEvents = new GetEvents(ctx, queue, this);
-		mEventAdapter = new EventAdapter(ctx, imageLoader);
-	}
 	
 	private static void setDropDownWidth(Spinner sp, int width) {
 		try {
@@ -236,17 +232,18 @@ public class EventFragment extends Fragment {
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
+		Context ctx = getActivity().getApplicationContext();
+		MyApplication myApp = (MyApplication) getActivity().getApplication();
+		mGetEvents = new GetEvents(ctx, myApp.getRequestQueue(), this);
+		mEventAdapter = new EventAdapter(ctx, myApp.getImageLoader());
+		ListView actualListView = mPullRefreshListView.getRefreshableView();
+		actualListView.setAdapter(mEventAdapter);
+		
 		setDropDownWidth();
 		mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
 		super.onActivityCreated(savedInstanceState);
 	}
 	
-
-	@Override
-	public void onStart() {
-		super.onStart();
-//		mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
-	}
 
 	public void updateEvents(EventList eventList) {
 		if (eventList != null) {
@@ -304,7 +301,7 @@ public class EventFragment extends Fragment {
 
 		});
 		ListView actualListView = mPullRefreshListView.getRefreshableView();
-		actualListView.setAdapter(mEventAdapter);
+//		actualListView.setAdapter(mEventAdapter);
 
 		// Need to use the Actual ListView when registering for Context Menu
 		registerForContextMenu(actualListView);
