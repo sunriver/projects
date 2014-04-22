@@ -8,6 +8,8 @@
     <string name="event_detail">详情</string>
     <string name="error_network_disconnect">没有网络连接</string>
     <string name="error_connection_timeout">请求超时</string>
+    <string name="user_name">用户名</string>
+    <string name="user_passwd">密 码</string>
 
     <!-- douban -->
     <string name="douban_tongchen">同城</string>

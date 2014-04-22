@@ -5,6 +5,7 @@
     android:orientation="vertical" >
 
     <TabHost
+        android:id="@+id/th_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
@@ -21,12 +22,18 @@
             <FrameLayout
                 android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0" >
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
 
                 <fragment
                     android:id="@+id/fragment_event"
                     android:name="com.like.douban.event.EventFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <fragment
+                    android:id="@+id/fragment_setting"
+                    android:name="com.like.setting.SettingFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </FrameLayout>
@@ -35,7 +42,6 @@
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0"
                 android:orientation="horizontal" />
         </LinearLayout>
     </TabHost>
