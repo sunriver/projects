@@ -16,6 +16,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.HttpAuthHandler;
@@ -99,6 +100,17 @@ public class LoginActivity extends ActionBarActivity implements OnTokenRequestLi
 		}); 
 	}
 	
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Log.d(TAG, "onOptionsItemSelected()+");
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			super.onBackPressed();
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 	
 	/**
 	 * Get Method
