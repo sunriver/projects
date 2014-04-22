@@ -13,6 +13,7 @@
 
     <!-- douban -->
     <string name="douban_tongchen">同城</string>
+    <string name="douban_login">用豆瓣账号登录</string>
 
     <!-- event -->
     <string name="event_introduction">活动介绍</string>

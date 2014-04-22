@@ -31,11 +31,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
-                <fragment
+<!--                 <fragment
                     android:id="@+id/fragment_setting"
                     android:name="com.like.setting.SettingFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent" /> -->
             </FrameLayout>
 
             <TabWidget

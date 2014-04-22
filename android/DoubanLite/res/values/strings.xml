@@ -16,6 +16,7 @@
     <string name="event_detail">Detail</string>
     <!-- douban -->
     <string name="douban_tongchen">TongChen</string>
+    <string name="douban_login">用豆瓣账号登录</string>
     <!-- event -->
     <string name="event_introduction">Introduction</string>
     <string name="event_detail">Event Detail</string>

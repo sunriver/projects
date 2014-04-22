@@ -10,6 +10,13 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@drawable/bg_base" >
 
+        <ImageView
+            android:layout_margin="10dp"
+            android:id="@+id/iv_login"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/join_icon" />
+
         <Spinner
             android:id="@+id/sp_loc"
             android:layout_width="0dp"
