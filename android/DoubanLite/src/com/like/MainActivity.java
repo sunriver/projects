@@ -36,7 +36,7 @@ public class MainActivity extends ActionBarActivity {
 		mImageLoader = new ImageLoader(mRequestQueue, new BitmapCache(appCtx));
 		myApp.setImageLoader(mImageLoader);
 		myApp.setRequestQueue(mRequestQueue);
-		initTabHost();
+//		initTabHost();
 	}
 
 	@Override
@@ -63,17 +63,17 @@ public class MainActivity extends ActionBarActivity {
 		super.onDestroy();
 	}
 
-	
-	private void initTabHost() {
-
-		TabHost tabHost = (TabHost) findViewById(R.id.th_main);
-		tabHost.setup();
-		
-		tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator(getString(R.string.douban_tongchen))
-				.setContent(R.id.fragment_event));
-		tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator(getString(R.string.action_settings))
-				.setContent(R.id.fragment_setting));
-	}
+//	
+//	private void initTabHost() {
+//
+//		TabHost tabHost = (TabHost) findViewById(R.id.th_main);
+//		tabHost.setup();
+//		
+//		tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator(getString(R.string.douban_tongchen))
+//				.setContent(R.id.fragment_event));
+//		tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator(getString(R.string.action_settings))
+//				.setContent(R.id.fragment_setting));
+//	}
 	
 
 }

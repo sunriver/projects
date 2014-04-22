@@ -56,7 +56,7 @@ public class LoginActivity extends ActionBarActivity implements OnTokenRequestLi
 	}
 	
 	private void init() {
-//		initActionBar();
+		initActionBar();
 		initViews();
 		MyApplication myApp = (MyApplication) getApplication();
 		mRequestQueue = myApp.getRequestQueue();
@@ -64,8 +64,13 @@ public class LoginActivity extends ActionBarActivity implements OnTokenRequestLi
 	}
 	
 	private void initActionBar() {
-		ActionBar actionBar = this.getSupportActionBar();
-		ViewUtil.setActionBarBackgroundRepeat(getApplicationContext(), actionBar, R.drawable.bg_base);
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setTitle(R.string.douban_login);
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP
+				| ActionBar.DISPLAY_SHOW_TITLE, ActionBar.DISPLAY_HOME_AS_UP
+				| ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_HOME);
+		ViewUtil.setActionBarBackgroundRepeat(this, actionBar,
+				R.drawable.bg_base);
 	}
 
 	private void initViews() {
