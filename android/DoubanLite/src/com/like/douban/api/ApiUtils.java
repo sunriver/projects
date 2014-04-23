@@ -1,4 +1,4 @@
-package com.like.douban;
+package com.like.douban.api;
 
 import android.content.Context;
 import android.widget.Toast;

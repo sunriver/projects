@@ -16,6 +16,8 @@ import com.like.douban.login.LoginActivity;
 import com.like.douban.login.LoginUtil;
 import com.sunriver.common.utils.ApiLevel;
 import com.sunriver.common.utils.ViewUtil;
+
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -69,7 +71,7 @@ public class EventFragment extends Fragment implements OnClickListener {
 		ViewGroup contentView = (ViewGroup) inflater.inflate(R.layout.fragment_event, null, false);
 		mPullRefreshListView = (PullToRefreshListView) contentView.findViewById(R.id.lv_event);
 		mSharedPreferences = ctx.getSharedPreferences(FILE_EVENT_PREF, Context.MODE_PRIVATE);
-		mLoginIv = (ImageView) contentView.findViewById(R.id.iv_login);
+		mLoginIv = (ImageView) contentView.findViewById(R.id.iv_account);
 		mLoginIv.setOnClickListener(this);
 		
 		initLocationSpinner(ctx, contentView);
@@ -324,8 +326,14 @@ public class EventFragment extends Fragment implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.iv_login:
-			LoginUtil.doLogin(getActivity());
+		case R.id.iv_account:
+			Activity act = getActivity();
+			if (LoginUtil.checkAccessValidity(act)) {
+				Intent intent = new Intent(act, PrivateEventActivity.class);
+				act.startActivity(intent);
+			} else {
+				LoginUtil.doLogin(act);
+			}
 			break;
 		default:
 			break;

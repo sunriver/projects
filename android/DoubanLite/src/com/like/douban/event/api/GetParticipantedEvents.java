@@ -15,10 +15,14 @@ import com.like.douban.api.ApiUtils;
 import com.like.douban.event.EventFragment;
 import com.like.douban.event.bean.EventList;
 
-
-public class GetEvents {
-	private final static String TAG = GetEvents.class.getSimpleName();
-	private final static String BASE_URL = "https://api.douban.com/v2/event/list";
+/**
+ * 
+ * @author alu
+ *
+ */
+public class GetParticipantedEvents {
+	private final static String TAG = GetParticipantedEvents.class.getSimpleName();
+	private final static String BASE_URL = "https://api.douban.com/v2/event/user_participated/:id";
 
 	private Context mContext;
 	private RequestQueue mRequestQueue;
@@ -48,31 +52,20 @@ public class GetEvents {
 
 	};
 
-	public GetEvents(Context ctx, RequestQueue queue, EventFragment fragment) {
+	public GetParticipantedEvents(Context ctx, RequestQueue queue, EventFragment fragment) {
 		this.mContext = ctx;
 		this.mRequestQueue = queue;
 		this.mFragment = fragment;
 	}
 
-	public void query(final String loc, final String dayType,
-			final String eventType) {
-		StringBuffer urlBuf = new StringBuffer();
-		urlBuf.append(BASE_URL + "?loc=" + loc);
-		if (!TextUtils.isEmpty(dayType)) {
-			urlBuf.append("&day_type=" + dayType);
-		}
-		if (!TextUtils.isEmpty(eventType)) {
-			urlBuf.append("&type=" + eventType);
-		}
-
+	public void query(final String userID) {
+		String url = BASE_URL.replace(":id", userID);
 		JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-				Request.Method.GET, urlBuf.toString(), null, new GetEventsListener(),
+				Request.Method.GET, url, null, new GetEventsListener(),
 				new GetEventsErrorListener());
 		mRequestQueue.add(jsonObjectRequest);
 	}
 	
-	public void query(final String loc) {
-		query(loc, null, null);
-	}
+
 
 }
