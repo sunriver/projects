@@ -142,23 +142,14 @@ public class PrivateEventActivity extends ActionBarActivity implements OnClickLi
 					}
 				});
 
-		// Add an end-of-list listener
-		mPullRefreshListView.setOnLastItemVisibleListener(new OnLastItemVisibleListener() {
-
-					@Override
-					public void onLastItemVisible() {
-//						Toast.makeText(ctx, "End of List!", Toast.LENGTH_SHORT)
-//								.show();
-					}
-				});
 
 		mPullRefreshListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-//				Event evt = (Event) mEventAdapter.getItem(position - 1);
-//				showEventDetail(evt);
+				Event evt = (Event) mEventAdapter.getItem(position - 1);
+				showEventDetail(evt);
 			}
 
 		});
@@ -169,7 +160,13 @@ public class PrivateEventActivity extends ActionBarActivity implements OnClickLi
 		registerForContextMenu(actualListView);
 	}
 
-
+	private void showEventDetail(Event evt) {
+		Intent intent = new Intent(this, EventDetailActivity.class);
+		Bundle bundle = new Bundle();
+		bundle.putSerializable(EventDetailActivity.STATE_EVENT, evt);
+		intent.putExtras(bundle);
+		this.startActivity(intent);
+	}
 
 	@Override
 	public void onClick(View v) {
