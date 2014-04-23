@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
 import com.like.douban.login.api.TokenResult;
 import com.like.douban.login.api.TokenResult.Property;
@@ -35,6 +36,15 @@ public class LoginUtil {
 		int expires = prefs.getInt(Property.EXPIRES_IN, 0);
 		result.setExpiresIn(expires);
 		return result;
+	}
+	
+	
+	public static boolean checkAccessValidity(Context ctx) {
+		TokenResult result = getToken(ctx);
+		if (!TextUtils.isEmpty(result.getAccessToken())) {
+			return true;
+		}
+		return false;
 	}
 	
 	
