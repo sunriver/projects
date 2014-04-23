@@ -15,6 +15,7 @@ public class Event implements Serializable {
 
 	private interface Property {
 		public static final String TITLE = "title";
+		public static final String ID = "id";
 		public static final String ADDRESS = "address";
 		public static final String LOC_NAME = "loc_name";
 		public static final String LOC_ID = "loc_id";
@@ -31,6 +32,7 @@ public class Event implements Serializable {
 		public static final String ADAPT_URL = "adapt_url";
 	}
 
+	public String id;
 	public String adapt_url;
 	public String geo;
 	public int participant_count;
@@ -136,6 +138,9 @@ public class Event implements Serializable {
 		try {
 			if (obj.has(Property.TITLE)) {
 				evt.title = obj.getString(Property.TITLE);
+			}
+			if (obj.has(Property.ID)) {
+				evt.id = obj.getString(Property.ID);
 			}
 			if (obj.has(Property.IMAGE_LMOBILE)) {
 				evt.image_lmobile = obj.getString(Property.IMAGE_LMOBILE);

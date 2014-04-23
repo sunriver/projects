@@ -1,6 +1,8 @@
 package com.like.douban.login;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.like.douban.login.api.TokenResult;
@@ -33,6 +35,12 @@ public class LoginUtil {
 		int expires = prefs.getInt(Property.EXPIRES_IN, 0);
 		result.setExpiresIn(expires);
 		return result;
+	}
+	
+	
+	public static void doLogin(Activity act) {
+		Intent intent = new Intent(act, LoginActivity.class);
+		act.startActivity(intent);
 	}
 	
 }

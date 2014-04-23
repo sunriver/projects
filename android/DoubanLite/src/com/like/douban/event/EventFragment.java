@@ -13,6 +13,7 @@ import com.like.douban.event.bean.Event;
 import com.like.douban.event.bean.EventList;
 import com.like.douban.event.bean.LocationList;
 import com.like.douban.login.LoginActivity;
+import com.like.douban.login.LoginUtil;
 import com.sunriver.common.utils.ApiLevel;
 import com.sunriver.common.utils.ViewUtil;
 import android.content.Context;
@@ -319,16 +320,12 @@ public class EventFragment extends Fragment implements OnClickListener {
 		ctx.startActivity(intent);
 	}
 
-	private void doLogin() {
-		Intent intent = new Intent(getActivity().getApplicationContext(), LoginActivity.class);
-		startActivity(intent);
-	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.iv_login:
-			doLogin();
+			LoginUtil.doLogin(getActivity());
 			break;
 		default:
 			break;

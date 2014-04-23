@@ -1,10 +1,14 @@
 package com.like.douban.event;
 
+import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.like.R;
 import com.like.MyApplication;
+import com.like.douban.event.api.JoinEvent;
 import com.like.douban.event.bean.Event;
+import com.like.douban.login.LoginUtil;
+import com.like.douban.login.api.TokenResult;
 import com.sunriver.common.utils.ViewUtil;
 
 import android.content.Intent;
@@ -14,16 +18,20 @@ import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-public class EventDetailActivity extends ActionBarActivity {
+public class EventDetailActivity extends ActionBarActivity implements OnClickListener {
 	private final static String TAG = EventDetailActivity.class.getSimpleName();
 
 	private ImageLoader mImageLoader;
+	private RequestQueue mRequestQueue;
 	final static String STATE_EVENT = "state_event";
 	private TextView mEventNameTv;
 	private TextView mEventContentTv;
@@ -31,7 +39,10 @@ public class EventDetailActivity extends ActionBarActivity {
 	private TextView mEventTypeTv;
 	private TextView mEventAddressTv;
 	private NetworkImageView mEventThumbNiv;
+	private TextView mEventWisherTv;
+	private TextView mEventParticipantTv;
 	private Event mEvent;
+	private TokenResult mTokenResult;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +55,7 @@ public class EventDetailActivity extends ActionBarActivity {
 	private void init() {
 		MyApplication myApp = (MyApplication) this.getApplication();
 		mImageLoader = myApp.getImageLoader();
-
+		mRequestQueue = myApp.getRequestQueue();
 		initViews();
 		initActionBar();
 
@@ -79,8 +90,12 @@ public class EventDetailActivity extends ActionBarActivity {
 		mEventTimeTv = (TextView) this.findViewById(R.id.tv_event_time);
 		mEventAddressTv = (TextView) this.findViewById(R.id.tv_event_address);
 		mEventTypeTv = (TextView) this.findViewById(R.id.tv_event_type);
-		mEventThumbNiv = (NetworkImageView) this
-				.findViewById(R.id.niv_event_thumb);
+		mEventThumbNiv = (NetworkImageView) this.findViewById(R.id.niv_event_thumb);
+		
+		mEventWisherTv = (TextView) this.findViewById(R.id.tv_event_wisher_count);
+		mEventParticipantTv = (TextView) this.findViewById(R.id.tv_event_participant_count);
+		mEventWisherTv.setOnClickListener(this);
+		mEventParticipantTv.setOnClickListener(this);
 
 		Bundle bundle = this.getIntent().getExtras();
 		if (bundle != null) {
@@ -138,4 +153,30 @@ public class EventDetailActivity extends ActionBarActivity {
 
 	}
 
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.tv_event_wisher_count:
+			doIntersting();
+			break;
+		case R.id.tv_event_participant_count:
+			doParticipant();
+			break;
+		}
+	}
+
+	private void doParticipant() {
+		JoinEvent joinEvent = new JoinEvent(getApplicationContext(), mRequestQueue);
+		TokenResult tokenResult = LoginUtil.getToken(getApplicationContext());
+		String accessToken = tokenResult.getAccessToken();
+		if (TextUtils.isEmpty(accessToken)) {
+			LoginUtil.doLogin(this);
+			return;
+		}
+		joinEvent.join(tokenResult.getAccessToken(), mEvent.id);
+	}
+	
+	private void doIntersting() {
+		
+	}
 }
