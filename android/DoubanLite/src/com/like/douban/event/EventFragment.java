@@ -8,6 +8,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
+import com.like.douban.api.ResponseListener;
 import com.like.douban.event.api.GetEvents;
 import com.like.douban.event.bean.Event;
 import com.like.douban.event.bean.EventList;
@@ -40,7 +41,7 @@ import android.widget.ListPopupWindow;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-public class EventFragment extends Fragment implements OnClickListener {
+public class EventFragment extends Fragment implements OnClickListener, ResponseListener {
 	private static final String TAG = EventFragment.class.getSimpleName();
 	private static final int POPUP_HEIGHT = 700;
 	private static final String FILE_EVENT_PREF = "event.pref";
@@ -250,13 +251,6 @@ public class EventFragment extends Fragment implements OnClickListener {
 		super.onActivityCreated(savedInstanceState);
 	}
 	
-
-	public void updateEvents(EventList eventList) {
-		if (eventList != null) {
-			mEventAdapter.updateEventList(eventList);
-		}
-		mPullRefreshListView.onRefreshComplete();
-	}
 	
 	public void updateLocations(LocationList locationList) {
 		if (locationList != null) {
@@ -340,5 +334,16 @@ public class EventFragment extends Fragment implements OnClickListener {
 		}
 	}
 
+	@Override
+	public <T> void onSuccess(T result) {
+		mEventAdapter.updateEventList((EventList) result);
+		mPullRefreshListView.onRefreshComplete();
+	}
+
+	@Override
+	public void onFailure() {
+		mPullRefreshListView.onRefreshComplete();
+	}
+	
 
 }

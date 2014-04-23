@@ -12,6 +12,7 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.like.douban.api.ApiUtils;
+import com.like.douban.api.ResponseListener;
 import com.like.douban.event.EventFragment;
 import com.like.douban.event.bean.EventList;
 
@@ -26,7 +27,7 @@ public class GetParticipantedEvents {
 
 	private Context mContext;
 	private RequestQueue mRequestQueue;
-	private EventFragment mFragment;
+	private ResponseListener mResponseListener;
 
 	private  class GetEventsListener implements Listener<JSONObject> {
 
@@ -36,7 +37,7 @@ public class GetParticipantedEvents {
 				return;
 			}
 			EventList eventList = EventList.fromJSONObject(response);
-			mFragment.updateEvents(eventList);
+			mResponseListener.onSuccess(eventList);
 			Log.d(TAG, "onResponse()-");
 		}
 
@@ -47,15 +48,15 @@ public class GetParticipantedEvents {
 		@Override
 		public void onErrorResponse(VolleyError error) {
 			ApiUtils.checkError(mContext, error);
-			mFragment.updateEvents(null);
+			mResponseListener.onFailure();
 		}
 
 	};
 
-	public GetParticipantedEvents(Context ctx, RequestQueue queue, EventFragment fragment) {
+	public GetParticipantedEvents(Context ctx, RequestQueue queue, ResponseListener listener) {
 		this.mContext = ctx;
 		this.mRequestQueue = queue;
-		this.mFragment = fragment;
+		this.mResponseListener = listener;
 	}
 
 	public void query(final String userID) {

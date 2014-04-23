@@ -9,9 +9,12 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleLis
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.like.R;
 import com.like.MyApplication;
+import com.like.douban.api.ResponseListener;
 import com.like.douban.event.api.GetEvents;
+import com.like.douban.event.api.GetParticipantedEvents;
 import com.like.douban.event.api.JoinEvent;
 import com.like.douban.event.bean.Event;
+import com.like.douban.event.bean.EventList;
 import com.like.douban.login.LoginUtil;
 import com.like.douban.login.api.TokenResult;
 import com.sunriver.common.utils.ViewUtil;
@@ -42,7 +45,21 @@ public class PrivateEventActivity extends ActionBarActivity implements OnClickLi
 	private PullToRefreshListView mPullRefreshListView;
 	private ImageLoader mImageLoader;
 	private RequestQueue mRequestQueue;
-	private GetEvents mGetEvents;
+	private GetParticipantedEvents mGetParticipantedEvents;
+	private EventAdapter mEventAdapter;
+	private ResponseListener mGetParticipantedEventsListener = new ResponseListener() {
+		@Override
+		public <T> void onSuccess(T result) {
+			mEventAdapter.updateEventList((EventList) result);
+			mPullRefreshListView.onRefreshComplete();
+		}
+
+		@Override
+		public void onFailure() {
+			mPullRefreshListView.onRefreshComplete();
+		}
+		
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +67,7 @@ public class PrivateEventActivity extends ActionBarActivity implements OnClickLi
 		requestWindowFeature(Window.FEATURE_ACTION_BAR);
 		setContentView(R.layout.activity_event_private);
 		init();
+		mGetParticipantedEvents.query(LoginUtil.getLoginUserID(getApplicationContext()));
 	}
 
 	private void init() {
@@ -57,13 +75,11 @@ public class PrivateEventActivity extends ActionBarActivity implements OnClickLi
 		mImageLoader = myApp.getImageLoader();
 		mRequestQueue = myApp.getRequestQueue();
 		Context ctx = this.getApplicationContext();
-//		mGetEvents = new GetEvents(ctx, myApp.getRequestQueue(), this);
-//		mEventAdapter = new EventAdapter(ctx, myApp.getImageLoader());
-//		ListView actualListView = mPullRefreshListView.getRefreshableView();
-//		actualListView.setAdapter(mEventAdapter);
-		initViews();
+		mGetParticipantedEvents = new GetParticipantedEvents(ctx, myApp.getRequestQueue(), mGetParticipantedEventsListener);
+		mEventAdapter = new EventAdapter(ctx, myApp.getImageLoader());
+		
 		initActionBar();
-
+		initViews();
 	}
 
 	@Override
@@ -81,7 +97,7 @@ public class PrivateEventActivity extends ActionBarActivity implements OnClickLi
 
 	private void initActionBar() {
 		ActionBar actionBar = getSupportActionBar();
-		actionBar.setTitle(R.string.event_detail);
+		actionBar.setTitle(R.string.event_private);
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP
 				| ActionBar.DISPLAY_SHOW_TITLE, ActionBar.DISPLAY_HOME_AS_UP
 				| ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_HOME);
@@ -90,7 +106,7 @@ public class PrivateEventActivity extends ActionBarActivity implements OnClickLi
 	}
 
 	private void initViews() {
-		mPullRefreshListView = (PullToRefreshListView) this.findViewById(R.id.prlv_event);
+		initPullRefreshListView(this.getApplicationContext());
 	}
 
 	@Override
@@ -105,6 +121,7 @@ public class PrivateEventActivity extends ActionBarActivity implements OnClickLi
 	}
 
 	private void initPullRefreshListView(final Context ctx) {
+		mPullRefreshListView = (PullToRefreshListView) this.findViewById(R.id.prlv_event);
 		// Set a listener to be invoked when the list should be refreshed.
 		mPullRefreshListView.setOnRefreshListener(new OnRefreshListener<ListView>() {
 					@Override
@@ -146,7 +163,7 @@ public class PrivateEventActivity extends ActionBarActivity implements OnClickLi
 
 		});
 		ListView actualListView = mPullRefreshListView.getRefreshableView();
-//		actualListView.setAdapter(mEventAdapter);
+		actualListView.setAdapter(mEventAdapter);
 
 		// Need to use the Actual ListView when registering for Context Menu
 		registerForContextMenu(actualListView);
@@ -180,4 +197,6 @@ public class PrivateEventActivity extends ActionBarActivity implements OnClickLi
 	private void doIntersting() {
 		
 	}
+	
+	
 }

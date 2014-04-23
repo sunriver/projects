@@ -53,4 +53,9 @@ public class LoginUtil {
 		act.startActivity(intent);
 	}
 	
+	public static String getLoginUserID(Context ctx){
+		TokenResult result = getToken(ctx);
+		return result.getUserID();
+	}
+	
 }
