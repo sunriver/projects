@@ -39,7 +39,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class PrivateEventActivity extends ActionBarActivity implements OnClickListener {
+public class PrivateEventActivity extends ActionBarActivity {
 	private final static String TAG = PrivateEventActivity.class.getSimpleName();
 
 	private PullToRefreshListView mPullRefreshListView;
@@ -168,32 +168,4 @@ public class PrivateEventActivity extends ActionBarActivity implements OnClickLi
 		this.startActivity(intent);
 	}
 
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.tv_event_wisher_count:
-			doIntersting();
-			break;
-		case R.id.tv_event_participant_count:
-			doParticipant();
-			break;
-		}
-	}
-
-	private void doParticipant() {
-		JoinEvent joinEvent = new JoinEvent(getApplicationContext(), mRequestQueue);
-		TokenResult tokenResult = LoginUtil.getToken(getApplicationContext());
-		String accessToken = tokenResult.getAccessToken();
-		if (TextUtils.isEmpty(accessToken)) {
-			LoginUtil.doLogin(this);
-			return;
-		}
-//		joinEvent.join(tokenResult.getAccessToken(), mEvent.id);
-	}
-	
-	private void doIntersting() {
-		
-	}
-	
-	
 }

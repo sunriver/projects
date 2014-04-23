@@ -5,6 +5,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.like.R;
 import com.like.MyApplication;
+import com.like.douban.api.ResponseListener;
 import com.like.douban.event.api.JoinEvent;
 import com.like.douban.event.bean.Event;
 import com.like.douban.login.LoginUtil;
@@ -43,6 +44,20 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 	private TextView mEventParticipantTv;
 	private Event mEvent;
 	private TokenResult mTokenResult;
+	private ResponseListener mJoinEventResListener = new ResponseListener() {
+		@Override
+		public <T> void onSuccess(T result) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onFailure() {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -165,8 +180,9 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 		}
 	}
 
+	
 	private void doParticipant() {
-		JoinEvent joinEvent = new JoinEvent(getApplicationContext(), mRequestQueue);
+		JoinEvent joinEvent = new JoinEvent(getApplicationContext(), mRequestQueue, mJoinEventResListener);
 		TokenResult tokenResult = LoginUtil.getToken(getApplicationContext());
 		String accessToken = tokenResult.getAccessToken();
 		if (TextUtils.isEmpty(accessToken)) {

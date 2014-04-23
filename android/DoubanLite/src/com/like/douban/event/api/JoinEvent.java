@@ -18,6 +18,7 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.like.douban.api.ApiUtils;
+import com.like.douban.api.ResponseListener;
 
 /**
  * Post Method
@@ -30,14 +31,13 @@ public class JoinEvent {
 
 	private Context mContext;
 	private RequestQueue mRequestQueue;
+	private ResponseListener mResponseListener;
 
-	private  class ResponseListener implements Listener<JSONObject> {
+	private  class WrapResponseListener implements Listener<JSONObject> {
 
 		@Override
 		public void onResponse(JSONObject response) {
-			if (null == response) {
-				return;
-			}
+			mResponseListener.onSuccess(response);
 			Log.d(TAG, "onResponse()-");
 		}
 
@@ -48,13 +48,24 @@ public class JoinEvent {
 		@Override
 		public void onErrorResponse(VolleyError error) {
 			ApiUtils.checkError(mContext, error);
+			mResponseListener.onFailure();
 		}
 
 	};
 
-	public JoinEvent(Context ctx, RequestQueue queue) {
+	public JoinEvent(Context ctx, RequestQueue queue, ResponseListener mJoinEventResListener) {
 		this.mContext = ctx;
 		this.mRequestQueue = queue;
+		this.mResponseListener = mJoinEventResListener;
+	}
+	
+	public void cancel(final String accessToken, final String eventID) {
+		String url = BASE_URL.replace(":id", eventID);
+		JoinEventRequest request = new JoinEventRequest(
+				Request.Method.DELETE, url, null, new WrapResponseListener(),
+				new WrapErrorListener());
+		request.putHeader("Authorization", "Bearer " + accessToken);
+		mRequestQueue.add(request);
 	}
 	
 	public void join(final String accessToken, final String eventID) {
@@ -62,7 +73,7 @@ public class JoinEvent {
 		String participate_date = (String) DateFormat.format("yyyy-MM-dd", System.currentTimeMillis());
 //		url = url + "?participate_date=" + participate_date;
 		JoinEventRequest request = new JoinEventRequest(
-				Request.Method.POST, url, null, new ResponseListener(),
+				Request.Method.POST, url, null, new WrapResponseListener(),
 				new WrapErrorListener());
 		request.putHeader("Authorization", "Bearer " + accessToken);
 		request.putPostParam("participate_date", participate_date);
