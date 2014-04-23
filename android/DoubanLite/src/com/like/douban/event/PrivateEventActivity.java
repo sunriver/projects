@@ -138,7 +138,7 @@ public class PrivateEventActivity extends ActionBarActivity implements OnClickLi
 								.setLastUpdatedLabel(label);
 
 						// Do work to refresh the list here.
-//						mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
+						mGetParticipantedEvents.query(LoginUtil.getLoginUserID(getApplicationContext()));
 					}
 				});
 
