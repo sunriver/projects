@@ -18,7 +18,7 @@ import android.view.MenuItem;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class LoginActivity extends ActionBarActivity implements ResponseListener {
+public class LoginActivity extends ActionBarActivity {
 	private final static String TAG = LoginActivity.class.getSimpleName();
 	private final static String SCOPE = "event_basic_r,event_basic_w,douban_basic_common";
 	private final static String GET_AUTHORIZATION_CODE_URL = "https://www.douban.com/service/auth2/auth?client_id=${API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=" + SCOPE;
@@ -27,6 +27,21 @@ public class LoginActivity extends ActionBarActivity implements ResponseListener
 	private final static String REDIRECT_URI = "http://www.douban.com/callback";
 	private WebView mLoginWv;
 	private RequestQueue mRequestQueue;
+	private ResponseListener<TokenResult> mResponseListener = new ResponseListener<TokenResult>() {
+		
+		@Override
+		public void onFailure() {
+			// TODO Auto-generated method stub
+		}
+
+		
+		@Override
+		public  void onSuccess(TokenResult result) {
+			LoginUtil.saveToken(getApplicationContext(), result);
+			finish();
+		}
+
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +52,7 @@ public class LoginActivity extends ActionBarActivity implements ResponseListener
 	
 	private void requestAccessToken(final String authCode) {
 		Log.d(TAG, "requestAccessToken()+");
-		GetAccessToken.Builder builder = new GetAccessToken.Builder(getApplicationContext(), mRequestQueue, this);
+		GetAccessToken.Builder builder = new GetAccessToken.Builder(getApplicationContext(), mRequestQueue, mResponseListener);
 		GetAccessToken request = builder.setAuthCode(authCode)
 			   .setClicentSecret(CLIENT_SECRET)
 			   .setClientID(API_KEY)
@@ -115,18 +130,5 @@ public class LoginActivity extends ActionBarActivity implements ResponseListener
 		url = url.replace("${REDIRECT_URI}", REDIRECT_URI);
 		return url;
 	}
-	
-	@Override
-	public void onFailure() {
-		// TODO Auto-generated method stub
-	}
-
-	
-	@Override
-	public <T> void onSuccess(T result) {
-		LoginUtil.saveToken(getApplicationContext(), (TokenResult) result);
-		finish();
-	}
-
 
 }
