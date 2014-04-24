@@ -1,7 +1,7 @@
 package com.like.setting;
 
 import com.like.R;
-import com.like.douban.login.LoginActivity;
+import com.like.douban.account.LoginActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
