@@ -54,7 +54,7 @@ public abstract class AbstractDoubanApi {
 	}
 
 	
-	public <T> T parseResponse(JSONObject response) {
+	protected <T> T parseResponse(JSONObject response) {
 		return null;
 	}
 

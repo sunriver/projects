@@ -3,12 +3,10 @@ package com.like.douban.login;
 import com.android.volley.RequestQueue;
 import com.like.MyApplication;
 import com.like.R;
+import com.like.douban.api.ResponseListener;
 import com.like.douban.login.api.GetAccessToken;
-import com.like.douban.login.api.GetAccessToken.OnTokenRequestListener;
 import com.like.douban.login.api.TokenResult;
 import com.sunriver.common.utils.ViewUtil;
-
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,15 +15,10 @@ import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.webkit.HttpAuthHandler;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.EditText;
-import android.widget.ImageView;
 
-public class LoginActivity extends ActionBarActivity implements OnTokenRequestListener {
+public class LoginActivity extends ActionBarActivity implements ResponseListener {
 	private final static String TAG = LoginActivity.class.getSimpleName();
 	private final static String SCOPE = "event_basic_r,event_basic_w,douban_basic_common";
 	private final static String GET_AUTHORIZATION_CODE_URL = "https://www.douban.com/service/auth2/auth?client_id=${API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=" + SCOPE;
@@ -44,13 +37,12 @@ public class LoginActivity extends ActionBarActivity implements OnTokenRequestLi
 	
 	private void requestAccessToken(final String authCode) {
 		Log.d(TAG, "requestAccessToken()+");
-		GetAccessToken.Builder builder = new GetAccessToken.Builder(getApplicationContext(), mRequestQueue);
+		GetAccessToken.Builder builder = new GetAccessToken.Builder(getApplicationContext(), mRequestQueue, this);
 		GetAccessToken request = builder.setAuthCode(authCode)
 			   .setClicentSecret(CLIENT_SECRET)
 			   .setClientID(API_KEY)
 			   .setRedirectUri(REDIRECT_URI)
 			   .build();
-		request.setTokenRequestListener(this);
 		request.query();
 	}
 	
@@ -124,19 +116,17 @@ public class LoginActivity extends ActionBarActivity implements OnTokenRequestLi
 		return url;
 	}
 	
-
-	@Override
-	public void onSuccess(TokenResult result) {
-		LoginUtil.saveToken(getApplicationContext(), result);
-		finish();
-	}
-
 	@Override
 	public void onFailure() {
 		// TODO Auto-generated method stub
-		
 	}
 
+	
+	@Override
+	public <T> void onSuccess(T result) {
+		LoginUtil.saveToken(getApplicationContext(), (TokenResult) result);
+		finish();
+	}
 
 
 }

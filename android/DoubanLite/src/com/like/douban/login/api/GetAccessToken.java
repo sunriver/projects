@@ -10,84 +10,43 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.like.douban.api.AbstractDoubanApi;
 import com.like.douban.api.ApiUtils;
+import com.like.douban.api.ResponseListener;
 
-
-public class GetAccessToken {
+/**
+ * Post method
+ * @author alu
+ *
+ */
+public class GetAccessToken extends AbstractDoubanApi {
 	private final static String TAG = GetAccessToken.class.getSimpleName();
 	private final static String  POST_ACCESS_TOKEN_URL = "https://www.douban.com/service/auth2/token?client_id=${API_KEY}&client_secret=${CLIENT_SECRET}&redirect_uri=${REDIRECT_URI}&grant_type=authorization_code&code=${AUTHORIZATION_CODE}";
 
-	private Context mContext;
-	private RequestQueue mRequestQueue;
 	private String mClientID;
 	private String mClientSecret;
 	private String mRedirectUri;
 	private String mAuthCode;
-	private OnTokenRequestListener mOnTokenRequestListener;
-	
-	
-	public interface OnTokenRequestListener {
-		public void onSuccess(final TokenResult result);
-		public void onFailure();
-	}
-	
-
-	private  class GetTokenListener implements Listener<JSONObject> {
-
-		@Override
-		public void onResponse(JSONObject response) {
-			if (null == response) {
-				return;
-			}
-			TokenResult tokenResult = TokenResult.fromJSONObject(response);
-			if (mOnTokenRequestListener != null) {
-				mOnTokenRequestListener.onSuccess(tokenResult);
-			}
-//			mFragment.updateEvents(eventList);
-			Log.d(TAG, "onResponse()-");
-		}
-
-	};
-
-	private  class GetTokensErrorListener implements ErrorListener {
-
-		@Override
-		public void onErrorResponse(VolleyError error) {
-			ApiUtils.checkError(mContext, error);
-			if (mOnTokenRequestListener != null) {
-				mOnTokenRequestListener.onFailure();
-			}
-		}
-
-	};
-	
 
 
-	public GetAccessToken(Context ctx, RequestQueue queue) {
-		this.mContext = ctx;
-		this.mRequestQueue = queue;
-	}
-	
-	
-	public void setTokenRequestListener(OnTokenRequestListener listener) {
-		this.mOnTokenRequestListener = listener;
+	private GetAccessToken(Context ctx, RequestQueue queue, ResponseListener listener) {
+		super(ctx, queue, listener);
 	}
 
 	public void query() {
-		JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-				Request.Method.POST, getAccessTokenUrl(), null, new GetTokenListener(),
-				new GetTokensErrorListener());
-		mRequestQueue.add(jsonObjectRequest);
+		Request request = this.createRequest(Request.Method.POST, getAccessTokenUrl());
+		this.sendRequest(request);
 	}
 	
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	protected TokenResult parseResponse(JSONObject response) {
+		TokenResult tokenResult = TokenResult.fromJSONObject(response);
+		return tokenResult;
+	}
 
-	
-	
-	
-	/**
-	 * Post Method
-	 * @return
-	 */
+
 	private  String getAccessTokenUrl() {
 		String url = POST_ACCESS_TOKEN_URL.replace("${API_KEY}", mClientID);
 		url = url.replace("${CLIENT_SECRET}", mClientSecret);
@@ -100,14 +59,16 @@ public class GetAccessToken {
 	public static class Builder {
 		private  Context context;
 		private  RequestQueue queue;
+		private ResponseListener listener;
 		private  String clientID;
 		private  String clientSecret;
 		private  String redirectUri;
 		private  String authCode;
 		
-		public Builder(Context ctx, RequestQueue queue) {
+		public Builder(Context ctx, RequestQueue queue, ResponseListener listener) {
 			this.context = ctx;
 			this.queue = queue;
+			this.listener = listener;
 		}
 		
 		public Builder setClientID(final String clientID) {
@@ -129,9 +90,10 @@ public class GetAccessToken {
 			this.authCode = authCode;
 			return this;
 		}
+
 		
 		public GetAccessToken build() {
-			GetAccessToken api = new GetAccessToken(context, queue);
+			GetAccessToken api = new GetAccessToken(context, queue, listener);
 			api.mClientID = clientID;
 			api.mClientSecret = clientSecret;
 			api.mRedirectUri = redirectUri;
