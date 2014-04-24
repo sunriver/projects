@@ -1,14 +1,9 @@
 package com.like.douban.account.bean;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import org.json.JSONObject;
-
-import android.graphics.Point;
-import android.graphics.PointF;
 import android.util.Log;
+
 public class User implements Serializable {
 	private static final String TAG = User.class.getSimpleName();
 	private static final long serialVersionUID = 1L;
