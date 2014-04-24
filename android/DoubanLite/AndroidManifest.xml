@@ -31,7 +31,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".douban.login.LoginActivity"
+            android:name=".douban.account.LoginActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
