@@ -31,7 +31,6 @@ public class JoinEvent extends AbstractDoubanApi {
 //		url = url + "?participate_date=" + participate_date;
 		
 		DoubanJsonRequest request = createRequest(Request.Method.POST, url);
-		sendRequest(request);
 		request.putHeader("Authorization", "Bearer " + accessToken);
 		request.putPostParam("participate_date", participate_date);
 		sendRequest(request);
