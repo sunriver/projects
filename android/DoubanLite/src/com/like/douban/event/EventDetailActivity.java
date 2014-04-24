@@ -9,8 +9,8 @@ import com.like.douban.api.ResponseListener;
 import com.like.douban.event.api.JoinEvent;
 import com.like.douban.event.bean.Event;
 import com.like.douban.event.bean.EventList;
-import com.like.douban.login.LoginUtil;
-import com.like.douban.login.api.TokenResult;
+import com.like.douban.account.LoginUtil;
+import com.like.douban.account.api.TokenResult;
 import com.sunriver.common.utils.ViewUtil;
 
 import android.content.Intent;
@@ -38,16 +38,14 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 	private TextView mEventNameTv;
 	private TextView mEventContentTv;
 	private TextView mEventTimeTv;
-	private TextView mEventTypeTv;
 	private TextView mEventAddressTv;
 	private NetworkImageView mEventThumbNiv;
 	private TextView mEventWisherTv;
 	private TextView mEventParticipantTv;
 	private Event mEvent;
-	private TokenResult mTokenResult;
-	private ResponseListener mJoinEventResListener = new ResponseListener<EventList> () {
+	private ResponseListener mJoinEventResListener = new ResponseListener<Void> () {
 		@Override
-		public void onSuccess(EventList result) {
+		public void onSuccess(Void result) {
 			// TODO Auto-generated method stub
 			
 		}
@@ -59,6 +57,7 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 		}
 		
 	};
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -105,11 +104,10 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 		mEventContentTv = (TextView) this.findViewById(R.id.tv_event_content);
 		mEventTimeTv = (TextView) this.findViewById(R.id.tv_event_time);
 		mEventAddressTv = (TextView) this.findViewById(R.id.tv_event_address);
-		mEventTypeTv = (TextView) this.findViewById(R.id.tv_event_type);
 		mEventThumbNiv = (NetworkImageView) this.findViewById(R.id.niv_event_thumb);
 		
-		mEventWisherTv = (TextView) this.findViewById(R.id.tv_event_wisher_count);
-		mEventParticipantTv = (TextView) this.findViewById(R.id.tv_event_participant_count);
+		mEventWisherTv = (TextView) this.findViewById(R.id.tv_event_wisher);
+		mEventParticipantTv = (TextView) this.findViewById(R.id.tv_event_participant);
 		mEventWisherTv.setOnClickListener(this);
 		mEventParticipantTv.setOnClickListener(this);
 

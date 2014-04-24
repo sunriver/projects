@@ -13,8 +13,8 @@ import com.like.douban.event.api.GetEvents;
 import com.like.douban.event.bean.Event;
 import com.like.douban.event.bean.EventList;
 import com.like.douban.event.bean.LocationList;
-import com.like.douban.login.LoginActivity;
-import com.like.douban.login.LoginUtil;
+import com.like.douban.account.LoginActivity;
+import com.like.douban.account.LoginUtil;
 import com.sunriver.common.utils.ApiLevel;
 import com.sunriver.common.utils.ViewUtil;
 
