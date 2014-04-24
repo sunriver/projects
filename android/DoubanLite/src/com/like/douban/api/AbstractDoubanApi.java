@@ -24,7 +24,9 @@ public abstract class AbstractDoubanApi {
 			if (null == response) {
 				return;
 			}
-			mResponseListener.onSuccess(parseResponse(response));
+			if (mResponseListener != null) {
+				mResponseListener.onSuccess(parseResponse(response));
+			}
 		}
 
 	};
@@ -34,7 +36,9 @@ public abstract class AbstractDoubanApi {
 		@Override
 		public void onErrorResponse(VolleyError error) {
 			ApiUtils.checkError(mContext, error);
-			mResponseListener.onFailure();
+			if (mResponseListener != null) {
+				mResponseListener.onFailure();
+			}
 		}
 
 	};
