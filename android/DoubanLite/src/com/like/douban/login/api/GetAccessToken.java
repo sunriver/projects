@@ -27,6 +27,7 @@ public class GetAccessToken extends AbstractDoubanApi {
 		super(ctx, queue, listener);
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void query() {
 		Request request = this.createRequest(Request.Method.POST, getAccessTokenUrl());
 		this.sendRequest(request);
@@ -50,6 +51,7 @@ public class GetAccessToken extends AbstractDoubanApi {
 	}
 	
 	
+	@SuppressWarnings("rawtypes")
 	public static class Builder {
 		private  Context context;
 		private  RequestQueue queue;
