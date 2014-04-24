@@ -4,17 +4,20 @@ import java.lang.reflect.Field;
 
 import com.like.MyApplication;
 import com.like.R;
+import com.android.volley.RequestQueue;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.like.douban.api.ResponseListener;
 import com.like.douban.event.api.GetEvents;
+import com.like.douban.event.api.GetParticipantedEvents;
+import com.like.douban.event.api.GetWisheredEvents;
 import com.like.douban.event.bean.Event;
 import com.like.douban.event.bean.EventList;
 import com.like.douban.event.bean.LocationList;
-import com.like.douban.account.LoginActivity;
 import com.like.douban.account.AccountManager;
+import com.like.douban.account.bean.TokenResult;
 import com.sunriver.common.utils.ApiLevel;
 import com.sunriver.common.utils.ViewUtil;
 
@@ -41,7 +44,7 @@ import android.widget.ListPopupWindow;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-public class EventFragment extends Fragment implements OnClickListener, ResponseListener<EventList> {
+public class EventFragment extends Fragment implements OnClickListener {
 	private static final String TAG = EventFragment.class.getSimpleName();
 	private static final int POPUP_HEIGHT = 700;
 	private static final String FILE_EVENT_PREF = "event.pref";
@@ -82,6 +85,70 @@ public class EventFragment extends Fragment implements OnClickListener, Response
 		return contentView;
 	}
 	
+	private void initParticipantedEvents(Context ctx, RequestQueue queue) {
+		if (!AccountManager.checkAccessValidity(ctx)) {
+			return ;
+		}
+		TokenResult tokenResult = AccountManager.getToken(ctx);
+		ResponseListener<EventList> listener = new ResponseListener<EventList> () {
+			@Override
+			public void onSuccess(EventList result) {
+				EventManager.getInstance().saveParticipantEvents(result);
+			}
+
+			@Override
+			public void onFailure() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		
+		GetParticipantedEvents request = new GetParticipantedEvents(ctx, queue, listener);
+		request.query(tokenResult.getUserID());
+	}
+	
+	
+	private void initWisheredEvents(Context ctx, RequestQueue queue) {
+		if (!AccountManager.checkAccessValidity(ctx)) {
+			return ;
+		}
+		TokenResult tokenResult = AccountManager.getToken(ctx);
+		ResponseListener<EventList> listener = new ResponseListener<EventList> () {
+			@Override
+			public void onSuccess(EventList result) {
+				EventManager.getInstance().saveWisheredEvents(result);
+			}
+			
+			@Override
+			public void onFailure() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		
+		GetWisheredEvents request = new GetWisheredEvents(ctx, queue, listener);
+		request.query(tokenResult.getUserID());
+	}
+	
+	
+	private void initEvents(Context ctx, RequestQueue queue) {
+		ResponseListener<EventList> listener = new ResponseListener<EventList> () {
+			@Override
+			public  void onSuccess(EventList result) {
+				mEventAdapter.updateEventList(result);
+				mPullRefreshListView.onRefreshComplete();
+			}
+
+			@Override
+			public void onFailure() {
+				mPullRefreshListView.onRefreshComplete();
+			}
+		};
+		
+		mGetEvents = new GetEvents(ctx, queue, listener);
+		mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
+	}
+	
 	private void initLocationSpinner(Context ctx, ViewGroup contentView) {
 		SpinnerPair pair = new SpinnerPair();
 		mLocPair = pair;
@@ -120,6 +187,7 @@ public class EventFragment extends Fragment implements OnClickListener, Response
 		mSharedPreferences.edit().putString(PREF_SELECTED_CITY, mLocPair.selectedValue)
 		.putInt(PREF_SELECTED_CITY_INDEX, mLocPair.selectedPos)
 		.commit();
+		EventManager.getInstance().clear();
 		super.onDestroy();
 	}
 
@@ -241,13 +309,16 @@ public class EventFragment extends Fragment implements OnClickListener, Response
 	public void onActivityCreated(Bundle savedInstanceState) {
 		Context ctx = getActivity().getApplicationContext();
 		MyApplication myApp = (MyApplication) getActivity().getApplication();
-		mGetEvents = new GetEvents(ctx, myApp.getRequestQueue(), this);
+		RequestQueue queue = myApp.getRequestQueue();
 		mEventAdapter = new EventAdapter(ctx, myApp.getImageLoader());
 		ListView actualListView = mPullRefreshListView.getRefreshableView();
 		actualListView.setAdapter(mEventAdapter);
 		
 		setDropDownWidth();
-		mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
+		
+		initEvents(ctx, queue);
+		initParticipantedEvents(ctx, queue);
+		initWisheredEvents(ctx, queue);
 		super.onActivityCreated(savedInstanceState);
 	}
 	
@@ -334,16 +405,5 @@ public class EventFragment extends Fragment implements OnClickListener, Response
 		}
 	}
 
-	@Override
-	public  void onSuccess(EventList result) {
-		mEventAdapter.updateEventList(result);
-		mPullRefreshListView.onRefreshComplete();
-	}
-
-	@Override
-	public void onFailure() {
-		mPullRefreshListView.onRefreshComplete();
-	}
-	
 
 }
