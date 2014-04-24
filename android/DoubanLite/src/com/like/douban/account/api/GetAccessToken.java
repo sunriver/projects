@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.like.douban.account.bean.TokenResult;
 import com.like.douban.api.AbstractDoubanApi;
 import com.like.douban.api.ResponseListener;
 

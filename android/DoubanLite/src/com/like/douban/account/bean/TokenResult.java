@@ -1,4 +1,4 @@
-package com.like.douban.account.api;
+package com.like.douban.account.bean;
 
 import org.json.JSONObject;
 

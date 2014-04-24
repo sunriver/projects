@@ -10,7 +10,7 @@ import com.like.douban.event.api.JoinEvent;
 import com.like.douban.event.bean.Event;
 import com.like.douban.event.bean.EventList;
 import com.like.douban.account.LoginUtil;
-import com.like.douban.account.api.TokenResult;
+import com.like.douban.account.bean.TokenResult;
 import com.sunriver.common.utils.ViewUtil;
 
 import android.content.Intent;

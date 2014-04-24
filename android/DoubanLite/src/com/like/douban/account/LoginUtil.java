@@ -5,9 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
-
-import com.like.douban.account.api.TokenResult;
-import com.like.douban.account.api.TokenResult.Property;
+import com.like.douban.account.bean.TokenResult;
+import com.like.douban.account.bean.TokenResult.Property;
 
 public class LoginUtil {
 	private static final String TOKEN_FILE = "token.file";

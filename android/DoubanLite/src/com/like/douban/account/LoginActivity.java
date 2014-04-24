@@ -5,7 +5,7 @@ import com.like.MyApplication;
 import com.like.R;
 import com.like.douban.api.ResponseListener;
 import com.like.douban.account.api.GetAccessToken;
-import com.like.douban.account.api.TokenResult;
+import com.like.douban.account.bean.TokenResult;
 import com.sunriver.common.utils.ViewUtil;
 import android.graphics.Bitmap;
 import android.net.Uri;
