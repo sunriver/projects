@@ -3,15 +3,9 @@ package com.like.douban.login.api;
 
 import org.json.JSONObject;
 import android.content.Context;
-import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response.ErrorListener;
-import com.android.volley.Response.Listener;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.like.douban.api.AbstractDoubanApi;
-import com.like.douban.api.ApiUtils;
 import com.like.douban.api.ResponseListener;
 
 /**
