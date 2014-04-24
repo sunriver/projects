@@ -20,7 +20,11 @@
     <string name="event_introduction">活动介绍</string>
     <string name="event_detail">活动详情</string>
     <string name="event_wisher_count">有兴趣</string>
+    <string name="event_wish">有兴趣</string>
+    <string name="event_unwish">没兴趣</string>
     <string name="event_participant_count">参加</string>
+    <string name="event_participant">我想去</string>
+    <string name="event_unparticipant">不去了</string>
     <string name="event_share_subject">分享</string>
     <string name="event_share_chooser">请选择</string>
     <string name="event_splash_title">" i like"</string>
