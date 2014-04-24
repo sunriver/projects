@@ -37,7 +37,7 @@ public class LoginActivity extends ActionBarActivity {
 		
 		@Override
 		public  void onSuccess(TokenResult result) {
-			LoginUtil.saveToken(getApplicationContext(), result);
+			AccountManager.saveToken(getApplicationContext(), result);
 			finish();
 		}
 

@@ -6,13 +6,16 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.like.R;
 import com.like.MyApplication;
 import com.like.douban.api.ResponseListener;
+import com.like.douban.event.api.GetParticipantedEvents;
+import com.like.douban.event.api.GetParticipantedUsers;
 import com.like.douban.event.api.JoinEvent;
 import com.like.douban.event.bean.Event;
 import com.like.douban.event.bean.EventList;
-import com.like.douban.account.LoginUtil;
+import com.like.douban.account.AccountManager;
 import com.like.douban.account.bean.TokenResult;
+import com.like.douban.account.bean.UserList;
 import com.sunriver.common.utils.ViewUtil;
-
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.PointF;
 import android.net.Uri;
@@ -71,9 +74,57 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 		MyApplication myApp = (MyApplication) this.getApplication();
 		mImageLoader = myApp.getImageLoader();
 		mRequestQueue = myApp.getRequestQueue();
-		initViews();
+		mEvent = extractEventFromBundle();
 		initActionBar();
+		initViews(mEvent);
+		initParticipantedEvents();
+	}
+	
+	private void initParticipantedEvents() {
+		Context ctx = this.getApplicationContext();
+		if (!AccountManager.checkAccessValidity(ctx)) {
+			return ;
+		}
+		TokenResult tokenResult = AccountManager.getToken(ctx);
+		ResponseListener<EventList> listener = new ResponseListener<EventList> () {
+			@Override
+			public void onSuccess(EventList result) {
+				for (Event evt : result.events) {
+					if (evt.id.equals(mEvent.id)) {
+						mEventParticipantTv.setText("Cancel");
+						return;
+					}
+				}
+			}
 
+			@Override
+			public void onFailure() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		
+		GetParticipantedEvents request = new GetParticipantedEvents(getApplicationContext(), mRequestQueue, listener);
+		request.query(tokenResult.getUserID());
+	}
+	
+	private void initParticipantedUsers(final String eventID) {
+		ResponseListener<UserList> listener = new ResponseListener<UserList> () {
+			@Override
+			public void onSuccess(UserList result) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onFailure() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		
+		GetParticipantedUsers request = new GetParticipantedUsers(getApplicationContext(), mRequestQueue, listener);
+		request.query(eventID);
 	}
 
 	@Override
@@ -98,8 +149,17 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 		ViewUtil.setActionBarBackgroundRepeat(this, actionBar,
 				R.drawable.bg_base);
 	}
+	
+	private Event extractEventFromBundle() {
+		Bundle bundle = this.getIntent().getExtras();
+		if (bundle != null) {
+			Event evt = (Event) bundle.getSerializable(STATE_EVENT);
+			return evt;
+		}
+		return null;
+	}
 
-	private void initViews() {
+	private void initViews(Event evt) {
 		mEventNameTv = (TextView) this.findViewById(R.id.tv_event_name);
 		mEventContentTv = (TextView) this.findViewById(R.id.tv_event_content);
 		mEventTimeTv = (TextView) this.findViewById(R.id.tv_event_time);
@@ -110,16 +170,12 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 		mEventParticipantTv = (TextView) this.findViewById(R.id.tv_event_participant);
 		mEventWisherTv.setOnClickListener(this);
 		mEventParticipantTv.setOnClickListener(this);
-
-		Bundle bundle = this.getIntent().getExtras();
-		if (bundle != null) {
-			Event evt = (Event) bundle.getSerializable(STATE_EVENT);
+		if (evt != null) {
 			mEventNameTv.setText(evt.title);
 			mEventContentTv.setText(evt.content);
 			mEventAddressTv.setText(evt.address);
 			mEventTimeTv.setText(evt.getEventTime());
 			mEventThumbNiv.setImageUrl(evt.image, mImageLoader);
-			mEvent = evt;
 		}
 	}
 
@@ -182,10 +238,10 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 	
 	private void doParticipant() {
 		JoinEvent joinEvent = new JoinEvent(getApplicationContext(), mRequestQueue, mJoinEventResListener);
-		TokenResult tokenResult = LoginUtil.getToken(getApplicationContext());
+		TokenResult tokenResult = AccountManager.getToken(getApplicationContext());
 		String accessToken = tokenResult.getAccessToken();
 		if (TextUtils.isEmpty(accessToken)) {
-			LoginUtil.doLogin(this);
+			AccountManager.doLogin(this);
 			return;
 		}
 		joinEvent.join(tokenResult.getAccessToken(), mEvent.id);

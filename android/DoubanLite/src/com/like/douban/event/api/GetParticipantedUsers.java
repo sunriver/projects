@@ -5,9 +5,9 @@ import org.json.JSONObject;
 import android.content.Context;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.like.douban.account.bean.UserList;
 import com.like.douban.api.AbstractDoubanApi;
 import com.like.douban.api.ResponseListener;
-import com.like.douban.event.bean.EventList;
 
 /**
  * Get Method
@@ -31,9 +31,9 @@ public class GetParticipantedUsers extends AbstractDoubanApi {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public EventList parseResponse(JSONObject response) {
-		EventList eventList = EventList.fromJSONObject(response);
-		return eventList;
+	public UserList parseResponse(JSONObject response) {
+		UserList userList = UserList.fromJSONObject(response);
+		return userList;
 	}
 	
 

@@ -14,7 +14,7 @@ import com.like.douban.event.bean.Event;
 import com.like.douban.event.bean.EventList;
 import com.like.douban.event.bean.LocationList;
 import com.like.douban.account.LoginActivity;
-import com.like.douban.account.LoginUtil;
+import com.like.douban.account.AccountManager;
 import com.sunriver.common.utils.ApiLevel;
 import com.sunriver.common.utils.ViewUtil;
 
@@ -322,11 +322,11 @@ public class EventFragment extends Fragment implements OnClickListener, Response
 		switch (v.getId()) {
 		case R.id.iv_account:
 			Activity act = getActivity();
-			if (LoginUtil.checkAccessValidity(act)) {
+			if (AccountManager.checkAccessValidity(act)) {
 				Intent intent = new Intent(act, PrivateEventActivity.class);
 				act.startActivity(intent);
 			} else {
-				LoginUtil.doLogin(act);
+				AccountManager.doLogin(act);
 			}
 			break;
 		default:

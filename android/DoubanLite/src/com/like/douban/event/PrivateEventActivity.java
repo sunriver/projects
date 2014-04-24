@@ -11,7 +11,7 @@ import com.like.douban.api.ResponseListener;
 import com.like.douban.event.api.GetParticipantedEvents;
 import com.like.douban.event.bean.Event;
 import com.like.douban.event.bean.EventList;
-import com.like.douban.account.LoginUtil;
+import com.like.douban.account.AccountManager;
 import com.sunriver.common.utils.ViewUtil;
 import android.content.Context;
 import android.content.Intent;
@@ -56,7 +56,7 @@ public class PrivateEventActivity extends ActionBarActivity {
 		requestWindowFeature(Window.FEATURE_ACTION_BAR);
 		setContentView(R.layout.activity_event_private);
 		init();
-		mGetParticipantedEvents.query(LoginUtil.getLoginUserID(getApplicationContext()));
+		mGetParticipantedEvents.query(AccountManager.getLoginUserID(getApplicationContext()));
 	}
 
 	private void init() {
@@ -127,7 +127,7 @@ public class PrivateEventActivity extends ActionBarActivity {
 								.setLastUpdatedLabel(label);
 
 						// Do work to refresh the list here.
-						mGetParticipantedEvents.query(LoginUtil.getLoginUserID(getApplicationContext()));
+						mGetParticipantedEvents.query(AccountManager.getLoginUserID(getApplicationContext()));
 					}
 				});
 

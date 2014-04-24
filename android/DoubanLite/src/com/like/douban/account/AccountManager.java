@@ -8,11 +8,11 @@ import android.text.TextUtils;
 import com.like.douban.account.bean.TokenResult;
 import com.like.douban.account.bean.TokenResult.Property;
 
-public class LoginUtil {
-	private static final String TOKEN_FILE = "token.file";
+public class AccountManager {
+	private static final String ACCOUNT_FILE = "account.file";
 	
 	public static void saveToken(Context ctx, TokenResult result) {
-		SharedPreferences prefs = ctx.getSharedPreferences(TOKEN_FILE, Context.MODE_PRIVATE);
+		SharedPreferences prefs = ctx.getSharedPreferences(ACCOUNT_FILE, Context.MODE_PRIVATE);
 		prefs.edit().putString(Property.ACCESS_TOKEN, result.getAccessToken())
 					.putString(Property.DOUBAN_USER_ID, result.getUserID())
 					.putInt(Property.EXPIRES_IN, result.getExpiresIn())
@@ -21,7 +21,7 @@ public class LoginUtil {
 	}
 	
 	public static TokenResult getToken(Context ctx) {
-		SharedPreferences prefs = ctx.getSharedPreferences(TOKEN_FILE, Context.MODE_PRIVATE);
+		SharedPreferences prefs = ctx.getSharedPreferences(ACCOUNT_FILE, Context.MODE_PRIVATE);
 		TokenResult result = new TokenResult();
 		String accessToken = prefs.getString(Property.ACCESS_TOKEN, "");
 		result.setAccessToken(accessToken);
