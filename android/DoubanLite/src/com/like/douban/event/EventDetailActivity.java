@@ -46,6 +46,7 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 	private TextView mEventWisherTv;
 	private TextView mEventParticipantTv;
 	private Event mEvent;
+	private EventManager mEventManager;
 	private ResponseListener mJoinEventResListener = new ResponseListener<Void> () {
 		@Override
 		public void onSuccess(Void result) {
@@ -67,6 +68,7 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_ACTION_BAR);
 		setContentView(R.layout.activity_event_detail);
+		mEventManager = EventManager.getInstance();
 		init();
 	}
 
@@ -77,35 +79,6 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 		mEvent = extractEventFromBundle();
 		initActionBar();
 		initViews(mEvent);
-		initParticipantedEvents();
-	}
-	
-	private void initParticipantedEvents() {
-		Context ctx = this.getApplicationContext();
-		if (!AccountManager.checkAccessValidity(ctx)) {
-			return ;
-		}
-		TokenResult tokenResult = AccountManager.getToken(ctx);
-		ResponseListener<EventList> listener = new ResponseListener<EventList> () {
-			@Override
-			public void onSuccess(EventList result) {
-				for (Event evt : result.events) {
-					if (evt.id.equals(mEvent.id)) {
-						mEventParticipantTv.setText("Cancel");
-						return;
-					}
-				}
-			}
-
-			@Override
-			public void onFailure() {
-				// TODO Auto-generated method stub
-				
-			}
-		};
-		
-		GetParticipantedEvents request = new GetParticipantedEvents(getApplicationContext(), mRequestQueue, listener);
-		request.query(tokenResult.getUserID());
 	}
 	
 	private void initParticipantedUsers(final String eventID) {
@@ -168,8 +141,13 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 		
 		mEventWisherTv = (TextView) this.findViewById(R.id.tv_event_wisher);
 		mEventParticipantTv = (TextView) this.findViewById(R.id.tv_event_participant);
-		mEventWisherTv.setOnClickListener(this);
+		boolean isParticipanted = mEventManager.isParticipantedEvent(evt);
+		mEventParticipantTv.setText((isParticipanted ? getString(R.string.event_unparticipant) : getString(R.string.event_participant)));
 		mEventParticipantTv.setOnClickListener(this);
+		
+		boolean isWished = mEventManager.isWisheredEvent(evt);
+		mEventWisherTv.setText((isWished ? getString(R.string.event_unwish) : getString(R.string.event_wish)));
+		mEventWisherTv.setOnClickListener(this);
 		if (evt != null) {
 			mEventNameTv.setText(evt.title);
 			mEventContentTv.setText(evt.content);
