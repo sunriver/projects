@@ -9,13 +9,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 
+@SuppressWarnings("rawtypes")
 public abstract class AbstractDoubanApi {
 	protected Context mContext;
 	protected RequestQueue mRequestQueue;
+
 	protected ResponseListener mResponseListener;
 
 	private  class WrapResponseListener implements Listener<JSONObject> {
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void onResponse(JSONObject response) {
 			if (null == response) {
@@ -49,6 +52,7 @@ public abstract class AbstractDoubanApi {
 		return request;
 	}
 	
+	@SuppressWarnings("unchecked")
 	protected void sendRequest(Request request) {
 		mRequestQueue.add(request);
 	}

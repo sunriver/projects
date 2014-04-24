@@ -8,6 +8,7 @@ import com.like.MyApplication;
 import com.like.douban.api.ResponseListener;
 import com.like.douban.event.api.JoinEvent;
 import com.like.douban.event.bean.Event;
+import com.like.douban.event.bean.EventList;
 import com.like.douban.login.LoginUtil;
 import com.like.douban.login.api.TokenResult;
 import com.sunriver.common.utils.ViewUtil;
@@ -44,9 +45,9 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 	private TextView mEventParticipantTv;
 	private Event mEvent;
 	private TokenResult mTokenResult;
-	private ResponseListener mJoinEventResListener = new ResponseListener() {
+	private ResponseListener mJoinEventResListener = new ResponseListener<EventList> () {
 		@Override
-		public <T> void onSuccess(T result) {
+		public void onSuccess(EventList result) {
 			// TODO Auto-generated method stub
 			
 		}

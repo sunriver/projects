@@ -41,7 +41,7 @@ import android.widget.ListPopupWindow;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-public class EventFragment extends Fragment implements OnClickListener, ResponseListener {
+public class EventFragment extends Fragment implements OnClickListener, ResponseListener<EventList> {
 	private static final String TAG = EventFragment.class.getSimpleName();
 	private static final int POPUP_HEIGHT = 700;
 	private static final String FILE_EVENT_PREF = "event.pref";
@@ -335,8 +335,8 @@ public class EventFragment extends Fragment implements OnClickListener, Response
 	}
 
 	@Override
-	public <T> void onSuccess(T result) {
-		mEventAdapter.updateEventList((EventList) result);
+	public  void onSuccess(EventList result) {
+		mEventAdapter.updateEventList(result);
 		mPullRefreshListView.onRefreshComplete();
 	}
 

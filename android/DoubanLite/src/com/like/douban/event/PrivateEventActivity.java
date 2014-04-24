@@ -47,10 +47,10 @@ public class PrivateEventActivity extends ActionBarActivity {
 	private RequestQueue mRequestQueue;
 	private GetParticipantedEvents mGetParticipantedEvents;
 	private EventAdapter mEventAdapter;
-	private ResponseListener mGetParticipantedEventsListener = new ResponseListener() {
+	private ResponseListener<EventList> mGetParticipantedEventsListener = new ResponseListener<EventList>() {
 		@Override
-		public <T> void onSuccess(T result) {
-			mEventAdapter.updateEventList((EventList) result);
+		public void onSuccess(EventList result) {
+			mEventAdapter.updateEventList(result);
 			mPullRefreshListView.onRefreshComplete();
 		}
 
