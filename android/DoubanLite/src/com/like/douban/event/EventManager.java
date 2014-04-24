@@ -1,42 +1,74 @@
 package com.like.douban.event;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.like.douban.event.bean.Event;
 import com.like.douban.event.bean.EventList;
 
 public class EventManager {
 	private static EventManager mInstance = new EventManager();
 	
-	private EventList mParticipantedEvents;
+	private List<Event> mParticipantedEvents;
 	
-	private EventList mWishedEvents;
+	private List<Event> mWishedEvents;
 	
 	public static EventManager getInstance() {
 		return mInstance;
+	}
+	
+	private EventManager() {
+		mParticipantedEvents = new ArrayList<Event>();
+		mWishedEvents = new ArrayList<Event>();
 	}
 	
 	public void clear() {
 		mInstance = null;
 	}
 	
-	public  EventList getParticipantedEvents() {
+	public  List<Event> getParticipantedEvents() {
 		return mParticipantedEvents;
 	}
 	
 	public void saveParticipantEvents(final EventList events) {
-		this.mParticipantedEvents = events;
+		if (events != null ) {
+			for (Event evt : events.events) {
+				mParticipantedEvents.add(evt);
+			}
+		}
 	}
 	
-	public  EventList getWisheredEvents() {
+	public void removeParticipantEvent(final Event event) {
+		mParticipantedEvents.remove(event);
+	}
+	
+	public void saveParticipantEvent(final Event event) {
+		if (event != null ) {
+			mParticipantedEvents.add(event);
+		}
+	}
+	
+	public  List<Event> getWisheredEvents() {
 		return mWishedEvents;
 	}
 	
 	public void saveWisheredEvents(final EventList events) {
-		this.mWishedEvents = events;
+		if (events != null ) {
+			for (Event evt : events.events) {
+				mWishedEvents.add(evt);
+			}
+		}
+	}
+	
+	public void saveWisheredEvent(final Event event) {
+		if (event != null ) {
+			mWishedEvents.add(event);
+		}
 	}
 	
 	public boolean isParticipantedEvent(final String eventID) {
 		if (mParticipantedEvents != null) {
-			for (Event evt : mParticipantedEvents.events) {
+			for (Event evt : mParticipantedEvents) {
 				if (evt.id.equals(eventID)) {
 					return true;
 				}
@@ -51,7 +83,7 @@ public class EventManager {
 	
 	public boolean isWisheredEvent(final String eventID) {
 		if (mWishedEvents != null) {
-			for (Event evt : mWishedEvents.events) {
+			for (Event evt : mWishedEvents) {
 				if (evt.id.equals(eventID)) {
 					return true;
 				}

@@ -32,6 +32,24 @@ public class Event implements Serializable {
 		public static final String ADAPT_URL = "adapt_url";
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Event) {
+			Event evt = (Event) o;
+			return id.equals(evt.id);
+		}
+		return false;
+	}
+	
+	
+
+	@Override
+	public int hashCode() {
+		return Integer.valueOf(id);
+	}
+
+
+
 	public String id;
 	public String adapt_url;
 	public String geo;

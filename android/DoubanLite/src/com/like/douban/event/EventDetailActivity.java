@@ -50,8 +50,8 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 	private ResponseListener mJoinEventResListener = new ResponseListener<Void> () {
 		@Override
 		public void onSuccess(Void result) {
-			// TODO Auto-generated method stub
-			
+			mEventManager.saveParticipantEvent(mEvent);
+			updateParticipantTextView(true);
 		}
 
 		@Override
@@ -142,11 +142,11 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 		mEventWisherTv = (TextView) this.findViewById(R.id.tv_event_wisher);
 		mEventParticipantTv = (TextView) this.findViewById(R.id.tv_event_participant);
 		boolean isParticipanted = mEventManager.isParticipantedEvent(evt);
-		mEventParticipantTv.setText((isParticipanted ? getString(R.string.event_unparticipant) : getString(R.string.event_participant)));
+		updateParticipantTextView(isParticipanted);
 		mEventParticipantTv.setOnClickListener(this);
-		
+
 		boolean isWished = mEventManager.isWisheredEvent(evt);
-		mEventWisherTv.setText((isWished ? getString(R.string.event_unwish) : getString(R.string.event_wish)));
+		updateWishTextView(isWished);
 		mEventWisherTv.setOnClickListener(this);
 		if (evt != null) {
 			mEventNameTv.setText(evt.title);
@@ -155,6 +155,14 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 			mEventTimeTv.setText(evt.getEventTime());
 			mEventThumbNiv.setImageUrl(evt.image, mImageLoader);
 		}
+	}
+	
+	private void updateParticipantTextView(boolean isParticipanted) {
+		mEventParticipantTv.setText((isParticipanted ? getString(R.string.event_unparticipant) : getString(R.string.event_participant)));
+	}
+	
+	private void updateWishTextView(boolean isWished) {
+		mEventWisherTv.setText((isWished ? getString(R.string.event_unwish) : getString(R.string.event_wish)));
 	}
 
 	@Override
@@ -204,10 +212,10 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.tv_event_wisher_count:
+		case R.id.tv_event_wisher:
 			doIntersting();
 			break;
-		case R.id.tv_event_participant_count:
+		case R.id.tv_event_participant:
 			doParticipant();
 			break;
 		}
