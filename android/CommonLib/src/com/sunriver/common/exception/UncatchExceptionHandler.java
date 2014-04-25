@@ -38,6 +38,7 @@ public class UncatchExceptionHandler implements Thread.UncaughtExceptionHandler 
 			mLogWriter = new PrintWriter(new FileOutputStream(mLogFile, true));
 			CharSequence currTime = DateFormat.format("yyyy-MM-dd hh:ss", System.currentTimeMillis());
 			mLogWriter.append("------" + currTime + "\n");
+			mLogWriter.append("Thread: id=" + thread.getId() + ", name=" + thread.getName());
 			ex.printStackTrace(mLogWriter);
 			mLogWriter.append("\n");
 			mLogWriter.flush();
