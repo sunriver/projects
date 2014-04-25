@@ -6,6 +6,11 @@ import java.util.List;
 import com.like.douban.event.bean.Event;
 import com.like.douban.event.bean.EventList;
 
+/**
+ * Note: this class is not thread safe.
+ * @author alu
+ *
+ */
 public class EventManager {
 	private static EventManager sInstance = null;
 	
@@ -15,11 +20,7 @@ public class EventManager {
 	
 	public static EventManager getInstance() {
 		if (null == sInstance) {
-			synchronized (EventManager.class) {
-				if (null == sInstance) {
-					sInstance = new EventManager();
-				}
-			}
+			sInstance = new EventManager();
 		}
 		return sInstance;
 	}
@@ -29,7 +30,7 @@ public class EventManager {
 		mWishedEvents = new ArrayList<Event>();
 	}
 	
-	public synchronized static void clearInstance() {
+	public  static void clearInstance() {
 		sInstance = null;
 	}
 	
@@ -45,8 +46,16 @@ public class EventManager {
 		}
 	}
 	
+	public void removeAllParticipantEvents() {
+		mParticipantedEvents.clear();
+	}
+	
 	public void removeParticipantEvent(final Event event) {
 		mParticipantedEvents.remove(event);
+	}
+	
+	public void removeAllWishEvents() {
+		mWishedEvents.clear();
 	}
 	
 	public void saveParticipantEvent(final Event event) {
@@ -67,10 +76,15 @@ public class EventManager {
 		}
 	}
 	
-	public void saveWisheredEvent(final Event event) {
+	public void saveWishedEvent(final Event event) {
 		if (event != null ) {
 			mWishedEvents.add(event);
 		}
+	}
+	
+	
+	public void removeWishedEvent(final Event event) {
+		mWishedEvents.remove(event);
 	}
 	
 	public boolean isParticipantedEvent(final String eventID) {

@@ -40,8 +40,10 @@ public class PrivateEventActivity extends ActionBarActivity {
 		@Override
 		public void onSuccess(EventList result) {
 			mEventAdapter.updateEventList(result);
-			EventManager.getInstance().saveParticipantEvents(result);
 			mPullRefreshListView.onRefreshComplete();
+			EventManager manager = EventManager.getInstance();
+			manager.removeAllParticipantEvents();
+			manager.saveParticipantEvents(result);
 		}
 
 		@Override

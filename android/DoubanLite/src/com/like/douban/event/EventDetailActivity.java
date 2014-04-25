@@ -6,16 +6,16 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.like.R;
 import com.like.MyApplication;
 import com.like.douban.api.ResponseListener;
-import com.like.douban.event.api.GetParticipantedEvents;
 import com.like.douban.event.api.GetParticipantedUsers;
 import com.like.douban.event.api.JoinEvent;
+import com.like.douban.event.api.UnJoinEvent;
+import com.like.douban.event.api.UnWishEvent;
+import com.like.douban.event.api.WishEvent;
 import com.like.douban.event.bean.Event;
-import com.like.douban.event.bean.EventList;
 import com.like.douban.account.AccountManager;
 import com.like.douban.account.bean.TokenResult;
 import com.like.douban.account.bean.UserList;
 import com.sunriver.common.utils.ViewUtil;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.PointF;
 import android.net.Uri;
@@ -47,21 +47,8 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 	private TextView mEventParticipantTv;
 	private Event mEvent;
 	private EventManager mEventManager;
-	private ResponseListener mJoinEventResListener = new ResponseListener<Void> () {
-		@Override
-		public void onSuccess(Void result) {
-			mEventManager.saveParticipantEvent(mEvent);
-			updateParticipantTextView(true);
-		}
-
-		@Override
-		public void onFailure() {
-			// TODO Auto-generated method stub
-			
-		}
-		
-	};
-	
+	private boolean mParticipanted = false;
+	private boolean mWished = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -141,12 +128,12 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 		
 		mEventWisherTv = (TextView) this.findViewById(R.id.tv_event_wisher);
 		mEventParticipantTv = (TextView) this.findViewById(R.id.tv_event_participant);
-		boolean isParticipanted = mEventManager.isParticipantedEvent(evt);
-		updateParticipantTextView(isParticipanted);
+		mParticipanted= mEventManager.isParticipantedEvent(evt);
+		updateParticipantTextView(mParticipanted);
 		mEventParticipantTv.setOnClickListener(this);
 
-		boolean isWished = mEventManager.isWisheredEvent(evt);
-		updateWishTextView(isWished);
+		mWished = mEventManager.isWisheredEvent(evt);
+		updateWishTextView(mWished);
 		mEventWisherTv.setOnClickListener(this);
 		if (evt != null) {
 			mEventNameTv.setText(evt.title);
@@ -213,27 +200,118 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.tv_event_wisher:
-			doIntersting();
+			onClickWishView();
 			break;
-		case R.id.tv_event_participant:
-			doParticipant();
+		case R.id.tv_event_participant: 
+			onClickParticipantView();
 			break;
 		}
 	}
-
 	
-	private void doParticipant() {
-		JoinEvent joinEvent = new JoinEvent(getApplicationContext(), mRequestQueue, mJoinEventResListener);
+	private void onClickWishView() {
 		TokenResult tokenResult = AccountManager.getToken(getApplicationContext());
 		String accessToken = tokenResult.getAccessToken();
 		if (TextUtils.isEmpty(accessToken)) {
 			AccountManager.doLogin(this);
 			return;
 		}
-		joinEvent.join(tokenResult.getAccessToken(), mEvent.id);
+		if (mWished) {
+			doUnWish(accessToken);
+		} else {
+			doWish(accessToken);
+		}
 	}
 	
-	private void doIntersting() {
+	private void doUnWish(final String accessToken) {
+		ResponseListener<Void> unWishlistener = new ResponseListener<Void>() {
+			@Override
+			public void onSuccess(Void result) {
+				mEventManager.removeWishedEvent(mEvent);
+				mWished = false;
+				updateWishTextView(false);
+			}
+
+			@Override
+			public void onFailure() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		UnWishEvent unwishEvent = new UnWishEvent(getApplicationContext(), mRequestQueue, unWishlistener);
+		unwishEvent.unWish(accessToken, mEvent.id);
+	}
+	
+	private void doWish(final String accessToken) {
+		ResponseListener<Void> wishListener = new ResponseListener<Void>() {
+			@Override
+			public void onSuccess(Void result) {
+				mEventManager.saveWishedEvent(mEvent);
+				mWished = true;
+				updateWishTextView(true);
+			}
+
+			@Override
+			public void onFailure() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		WishEvent wishEvent = new WishEvent(getApplicationContext(), mRequestQueue, wishListener);
+		wishEvent.wish(accessToken, mEvent.id);
+		
+	}
+	
+	private void onClickParticipantView() {
+		TokenResult tokenResult = AccountManager.getToken(getApplicationContext());
+		String accessToken = tokenResult.getAccessToken();
+		if (TextUtils.isEmpty(accessToken)) {
+			AccountManager.doLogin(this);
+			return;
+		}
+		if (mParticipanted) {
+			doUnJoin(accessToken);
+		} else {
+			doJoin(accessToken);
+		}
+	}
+	
+	private void doUnJoin(final String accessToken) {
+		ResponseListener<Void> unJoinListener = new ResponseListener<Void>() {
+			@Override
+			public void onSuccess(Void result) {
+				mEventManager.removeParticipantEvent(mEvent);
+				mParticipanted = false;
+				updateParticipantTextView(false);
+			}
+
+			@Override
+			public void onFailure() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		UnJoinEvent unJoinEvent = new UnJoinEvent(getApplicationContext(), mRequestQueue, unJoinListener);
+		unJoinEvent.unJoin(accessToken, mEvent.id);
+		
+	}
+	
+	private void doJoin(final String accessToken) {
+		ResponseListener<Void> joinListener = new ResponseListener<Void>() {
+			@Override
+			public void onSuccess(Void result) {
+				mEventManager.saveParticipantEvent(mEvent);
+				mParticipanted = true;
+				updateParticipantTextView(true);
+			}
+
+			@Override
+			public void onFailure() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		JoinEvent joinEvent = new JoinEvent(getApplicationContext(), mRequestQueue, joinListener);
+		joinEvent.join(accessToken, mEvent.id);
 		
 	}
 }
