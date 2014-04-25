@@ -7,13 +7,20 @@ import com.like.douban.event.bean.Event;
 import com.like.douban.event.bean.EventList;
 
 public class EventManager {
-	private static EventManager sInstance = new EventManager();
+	private static EventManager sInstance = null;
 	
 	private List<Event> mParticipantedEvents;
 	
 	private List<Event> mWishedEvents;
 	
 	public static EventManager getInstance() {
+		if (null == sInstance) {
+			synchronized (EventManager.class) {
+				if (null == sInstance) {
+					sInstance = new EventManager();
+				}
+			}
+		}
 		return sInstance;
 	}
 	
@@ -22,11 +29,11 @@ public class EventManager {
 		mWishedEvents = new ArrayList<Event>();
 	}
 	
-	public void clear() {
+	public synchronized static void clearInstance() {
 		sInstance = null;
 	}
 	
-	public  List<Event> getParticipantedEvents() {
+	public List<Event> getParticipantedEvents() {
 		return mParticipantedEvents;
 	}
 	

@@ -187,7 +187,7 @@ public class EventFragment extends Fragment implements OnClickListener {
 		mSharedPreferences.edit().putString(PREF_SELECTED_CITY, mLocPair.selectedValue)
 		.putInt(PREF_SELECTED_CITY_INDEX, mLocPair.selectedPos)
 		.commit();
-		EventManager.getInstance().clear();
+		EventManager.clearInstance();
 		super.onDestroy();
 	}
 
