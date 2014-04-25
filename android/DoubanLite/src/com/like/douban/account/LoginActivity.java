@@ -3,6 +3,7 @@ package com.like.douban.account;
 import com.android.volley.RequestQueue;
 import com.like.MyApplication;
 import com.like.R;
+import com.like.douban.api.Consts;
 import com.like.douban.api.ResponseListener;
 import com.like.douban.account.api.GetAccessToken;
 import com.like.douban.account.bean.TokenResult;
@@ -22,9 +23,6 @@ public class LoginActivity extends ActionBarActivity {
 	private final static String TAG = LoginActivity.class.getSimpleName();
 	private final static String SCOPE = "event_basic_r,event_basic_w,douban_basic_common";
 	private final static String GET_AUTHORIZATION_CODE_URL = "https://www.douban.com/service/auth2/auth?client_id=${API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=" + SCOPE;
-	private final static String API_KEY = "0feda5e1f219879d2fc8f1a5d64c96d7";
-	private final static String CLIENT_SECRET = "24e8af830d5eb113";
-	private final static String REDIRECT_URI = "http://www.douban.com/callback";
 	private WebView mLoginWv;
 	private RequestQueue mRequestQueue;
 	private ResponseListener<TokenResult> mResponseListener = new ResponseListener<TokenResult>() {
@@ -54,9 +52,9 @@ public class LoginActivity extends ActionBarActivity {
 		Log.d(TAG, "requestAccessToken()+");
 		GetAccessToken.Builder builder = new GetAccessToken.Builder(getApplicationContext(), mRequestQueue, mResponseListener);
 		GetAccessToken request = builder.setAuthCode(authCode)
-			   .setClicentSecret(CLIENT_SECRET)
-			   .setClientID(API_KEY)
-			   .setRedirectUri(REDIRECT_URI)
+			   .setClicentSecret(Consts.CLIENT_SECRET)
+			   .setClientID(Consts.API_KEY)
+			   .setRedirectUri(Consts.REDIRECT_URI)
 			   .build();
 		request.query();
 	}
@@ -89,7 +87,7 @@ public class LoginActivity extends ActionBarActivity {
 			@Override
 			public void onPageStarted(WebView view, String url, Bitmap favicon) {
 				Log.d(TAG, "request url:" + url);
-				if (!TextUtils.isEmpty(url) && url.startsWith(REDIRECT_URI)) {
+				if (!TextUtils.isEmpty(url) && url.startsWith(Consts.REDIRECT_URI)) {
 					Uri uri = Uri.parse(url);
 					String code = uri.getQueryParameter("code");
 					if (!TextUtils.isEmpty(code)) {
@@ -126,8 +124,8 @@ public class LoginActivity extends ActionBarActivity {
 	 * @return
 	 */
 	private static String getAuthorizationCodeUrl() {
-		String url = GET_AUTHORIZATION_CODE_URL.replace("${API_KEY}", API_KEY);
-		url = url.replace("${REDIRECT_URI}", REDIRECT_URI);
+		String url = GET_AUTHORIZATION_CODE_URL.replace("${API_KEY}", Consts.API_KEY);
+		url = url.replace("${REDIRECT_URI}", Consts.REDIRECT_URI);
 		return url;
 	}
 

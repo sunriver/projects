@@ -6,6 +6,7 @@ import android.content.Context;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.like.douban.api.AbstractDoubanApi;
+import com.like.douban.api.Consts;
 import com.like.douban.api.ResponseListener;
 import com.like.douban.event.bean.EventList;
 
@@ -24,7 +25,9 @@ public class GetWisheredEvents extends AbstractDoubanApi {
 	}
 
 	public void query(final String userID) {
-		String url = BASE_URL.replace(":id", userID);
+		StringBuffer urlBuf = new StringBuffer(BASE_URL);
+		urlBuf.append("&apikey=" + Consts.API_KEY);
+		String url = urlBuf.toString().replace(":id", userID);
 		Request request = createRequest(Request.Method.GET, url);
 		sendRequest(request);
 	}

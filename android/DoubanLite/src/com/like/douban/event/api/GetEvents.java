@@ -8,6 +8,7 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.like.douban.api.AbstractDoubanApi;
+import com.like.douban.api.Consts;
 import com.like.douban.api.ResponseListener;
 import com.like.douban.event.bean.EventList;
 
@@ -23,8 +24,9 @@ public class GetEvents extends AbstractDoubanApi {
 
 	public void query(final String loc, final String dayType,
 			final String eventType) {
-		StringBuffer urlBuf = new StringBuffer();
-		urlBuf.append(BASE_URL + "?loc=" + loc);
+		StringBuffer urlBuf = new StringBuffer(BASE_URL);
+		urlBuf.append("?apikey=" + Consts.API_KEY);
+		urlBuf.append("&loc=" + loc);
 		if (!TextUtils.isEmpty(dayType)) {
 			urlBuf.append("&day_type=" + dayType);
 		}

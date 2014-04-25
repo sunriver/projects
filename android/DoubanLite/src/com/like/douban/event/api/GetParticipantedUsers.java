@@ -7,6 +7,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.like.douban.account.bean.UserList;
 import com.like.douban.api.AbstractDoubanApi;
+import com.like.douban.api.Consts;
 import com.like.douban.api.ResponseListener;
 
 /**
@@ -24,7 +25,9 @@ public class GetParticipantedUsers extends AbstractDoubanApi {
 	}
 
 	public void query(final String eventID) {
-		String url = BASE_URL.replace(":id", eventID);
+		StringBuffer urlBuf = new StringBuffer(BASE_URL);
+		urlBuf.append("?apikey=" + Consts.API_KEY);
+		String url = urlBuf.toString().replace(":id", eventID);
 		Request request = createRequest(Request.Method.GET, url);
 		sendRequest(request);
 	}
