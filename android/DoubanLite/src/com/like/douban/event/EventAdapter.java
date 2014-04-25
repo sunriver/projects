@@ -15,8 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class EventAdapter extends BaseAdapter {
-	
-	private EventList mEvents = new EventList();
+	private Event[] mEvents = new Event[0];
 	private LayoutInflater mInflater;
 	private ImageLoader mImageLoader;
 	
@@ -27,12 +26,12 @@ public class EventAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		return mEvents.events.length;
+		return mEvents.length;
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return mEvents.events[position];
+		return mEvents[position];
 	}
 
 	@Override
@@ -41,6 +40,11 @@ public class EventAdapter extends BaseAdapter {
 	}
 	
 	public void updateEventList(EventList eventList) {
+		this.mEvents = eventList.events;
+		this.notifyDataSetChanged();
+	}
+	
+	public void updateEventList(Event[] eventList) {
 		this.mEvents = eventList;
 		this.notifyDataSetChanged();
 	}
@@ -75,7 +79,7 @@ public class EventAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		Event evt = mEvents.events[position];
+		Event evt = mEvents[position];
 		holder.eventNameTv.setText(evt.title);
 		holder.eventCategoryNameTv.setText(" < " + evt.category_name + " > ");
 		holder.eventAddressTv.setText(evt.address);

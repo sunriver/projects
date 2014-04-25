@@ -1,5 +1,7 @@
 package com.like.douban.event;
 
+import java.util.List;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -29,7 +31,8 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class PrivateEventActivity extends ActionBarActivity {
-	private final static String TAG = PrivateEventActivity.class.getSimpleName();
+	private final static String TAG = PrivateEventActivity.class
+			.getSimpleName();
 
 	private PullToRefreshListView mPullRefreshListView;
 	private ImageLoader mImageLoader;
@@ -50,7 +53,7 @@ public class PrivateEventActivity extends ActionBarActivity {
 		public void onFailure() {
 			mPullRefreshListView.onRefreshComplete();
 		}
-		
+
 	};
 
 	@Override
@@ -67,23 +70,24 @@ public class PrivateEventActivity extends ActionBarActivity {
 		mImageLoader = myApp.getImageLoader();
 		mRequestQueue = myApp.getRequestQueue();
 		Context ctx = this.getApplicationContext();
-		mGetParticipantedEvents = new GetParticipantedEvents(ctx, myApp.getRequestQueue(), mGetParticipantedEventsListener);
+		mGetParticipantedEvents = new GetParticipantedEvents(ctx,
+				myApp.getRequestQueue(), mGetParticipantedEventsListener);
 		mEventAdapter = new EventAdapter(ctx, myApp.getImageLoader());
-		
+
 		initActionBar();
 		initViews();
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-//		getMenuInflater().inflate(R.menu.event_detail, menu);
-//		MenuItem mapItem = menu.findItem(R.id.action_map);
-//		MenuItem shareItem = menu.findItem(R.id.action_share);
-//
-//		MenuItemCompat.setShowAsAction(mapItem,
-//				MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
-//		MenuItemCompat.setShowAsAction(shareItem,
-//				MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
+		// getMenuInflater().inflate(R.menu.event_detail, menu);
+		// MenuItem mapItem = menu.findItem(R.id.action_map);
+		// MenuItem shareItem = menu.findItem(R.id.action_share);
+		//
+		// MenuItemCompat.setShowAsAction(mapItem,
+		// MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
+		// MenuItemCompat.setShowAsAction(shareItem,
+		// MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
 		return true;
 	}
 
@@ -113,9 +117,11 @@ public class PrivateEventActivity extends ActionBarActivity {
 	}
 
 	private void initPullRefreshListView(final Context ctx) {
-		mPullRefreshListView = (PullToRefreshListView) this.findViewById(R.id.prlv_event);
+		mPullRefreshListView = (PullToRefreshListView) this
+				.findViewById(R.id.prlv_event);
 		// Set a listener to be invoked when the list should be refreshed.
-		mPullRefreshListView.setOnRefreshListener(new OnRefreshListener<ListView>() {
+		mPullRefreshListView
+				.setOnRefreshListener(new OnRefreshListener<ListView>() {
 					@Override
 					public void onRefresh(
 							PullToRefreshBase<ListView> refreshView) {
@@ -130,10 +136,10 @@ public class PrivateEventActivity extends ActionBarActivity {
 								.setLastUpdatedLabel(label);
 
 						// Do work to refresh the list here.
-						mGetParticipantedEvents.query(AccountManager.getLoginUserID(getApplicationContext()));
+						mGetParticipantedEvents.query(AccountManager
+								.getLoginUserID(getApplicationContext()));
 					}
 				});
-
 
 		mPullRefreshListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -152,12 +158,20 @@ public class PrivateEventActivity extends ActionBarActivity {
 		registerForContextMenu(actualListView);
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (EventDetailActivity.REQUEST_CODE == requestCode) {
+			List<Event> events = EventManager.getInstance().getParticipantedEvents();
+			mEventAdapter.updateEventList(events.toArray(new Event[events.size()]));
+		}
+	}
+
 	private void showEventDetail(Event evt) {
 		Intent intent = new Intent(this, EventDetailActivity.class);
 		Bundle bundle = new Bundle();
 		bundle.putSerializable(EventDetailActivity.STATE_EVENT, evt);
 		intent.putExtras(bundle);
-		this.startActivity(intent);
+		startActivityForResult(intent, EventDetailActivity.REQUEST_CODE);
 	}
 
 }

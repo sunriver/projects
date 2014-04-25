@@ -34,7 +34,8 @@ import android.widget.TextView;
 
 public class EventDetailActivity extends ActionBarActivity implements OnClickListener {
 	private final static String TAG = EventDetailActivity.class.getSimpleName();
-
+	public final static int REQUEST_CODE = 0x01;
+			
 	private ImageLoader mImageLoader;
 	private RequestQueue mRequestQueue;
 	final static String STATE_EVENT = "state_event";
@@ -157,6 +158,7 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 		Log.d(TAG, "onOptionsItemSelected()+");
 		switch (item.getItemId()) {
 		case android.R.id.home:
+			setResult(RESULT_OK);
 			super.onBackPressed();
 			break;
 		case R.id.action_share:
@@ -168,6 +170,7 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
 
 	private void locateAddressInMap() {
 		PointF p = mEvent.getGeoPoint();
