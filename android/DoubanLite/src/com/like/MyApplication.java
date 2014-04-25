@@ -2,7 +2,11 @@ package com.like;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
+import com.sunriver.common.exception.UncatchExceptionHandler;
+import com.sunriver.common.exception.UncatchExceptionHandler.OnUncatchExeptionListener;
+
 import android.app.Application;
+import android.os.Environment;
 import android.util.Log;
 
 public class MyApplication extends Application {
@@ -35,10 +39,27 @@ public class MyApplication extends Application {
 		mImageLoader = null;
 	}
 
-
+	private void registerUncatchExceptionHandler() {
+		final String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + getPackageName();
+		final String fileName = "uncatch_exception.log";
+		OnUncatchExeptionListener listener = new OnUncatchExeptionListener() {
+			@Override
+			public void onUncacth(Throwable ex) {
+				//kill process
+				Log.e("Application", "", ex);
+				int pid = android.os.Process.myPid();
+				android.os.Process.killProcess(pid);
+			}
+		};
+		
+		UncatchExceptionHandler handler = new UncatchExceptionHandler(path, fileName, listener);
+		Thread.setDefaultUncaughtExceptionHandler(handler);
+	}
+	
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		registerUncatchExceptionHandler();
 		Log.d(TAG, "onCreate()+");
 	}
 	
