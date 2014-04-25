@@ -2,6 +2,7 @@ package com.sunriver.common.exception;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -10,7 +11,9 @@ import android.text.format.DateFormat;
 public class UncatchExceptionHandler implements Thread.UncaughtExceptionHandler {
 	private PrintWriter mLogWriter;
 	private File mLogFile;
-	public UncatchExceptionHandler(final String filePath, final String fileName) {
+	private OnUncatchExeptionListener mOnUncatchExeptionListener;
+	
+	public UncatchExceptionHandler(final String filePath, final String fileName, OnUncatchExeptionListener listener) {
 		try {
 			File dir = new File(filePath);
 			if (!dir.exists()) {
@@ -20,7 +23,7 @@ public class UncatchExceptionHandler implements Thread.UncaughtExceptionHandler 
 			if (!mLogFile.exists()) {
 				mLogFile.createNewFile();
 			}
-	
+			this.mOnUncatchExeptionListener = listener;
 		} catch (IOException ignored) {
 		}
 	}
@@ -32,11 +35,15 @@ public class UncatchExceptionHandler implements Thread.UncaughtExceptionHandler 
 			return;
 		}
 		try {
-			mLogWriter = new PrintWriter(mLogFile);
+			mLogWriter = new PrintWriter(new FileOutputStream(mLogFile, true));
 			CharSequence currTime = DateFormat.format("yyyy-MM-dd hh:ss", System.currentTimeMillis());
-			mLogWriter.append("\n" + currTime);
+			mLogWriter.append("------" + currTime + "\n");
 			ex.printStackTrace(mLogWriter);
-			
+			mLogWriter.append("\n");
+			mLogWriter.flush();
+			if (mOnUncatchExeptionListener != null) {
+				mOnUncatchExeptionListener.onUncacth(ex);
+			}
 		} catch (FileNotFoundException e) {
 		} finally {
 			if (mLogWriter != null) {
@@ -44,6 +51,11 @@ public class UncatchExceptionHandler implements Thread.UncaughtExceptionHandler 
 				mLogWriter.close();
 			}
 		}
+	}
+	
+	
+	public  interface OnUncatchExeptionListener {
+		public void onUncacth(Throwable ex);
 	}
 
 }
