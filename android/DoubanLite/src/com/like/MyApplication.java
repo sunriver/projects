@@ -53,7 +53,7 @@ public class MyApplication extends Application {
 		};
 		
 		UncatchExceptionHandler handler = new UncatchExceptionHandler(path, fileName, listener);
-		Thread.setDefaultUncaughtExceptionHandler(handler);
+		Thread.currentThread().setUncaughtExceptionHandler(handler);
 	}
 	
 	@Override
