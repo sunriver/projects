@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="event_location_names">
+
+    <string-array name="actionview_items">
+        <item>参加</item>
+        <item>收藏</item>
+    </string-array>
+    <string-array name="event_location_names">
         <item>北京</item>
         <item>广州</item>
         <item>杭州</item>

@@ -28,5 +28,7 @@
     <string name="event_share_subject">分享</string>
     <string name="event_share_chooser">请选择</string>
     <string name="event_splash_title">" i like"</string>
+    <string name="event_menu_item_participanted">已报名</string>
+    <string name="event_menu_item_wished">已收藏</string>
 
 </resources>
