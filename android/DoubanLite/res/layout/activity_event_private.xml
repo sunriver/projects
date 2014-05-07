@@ -11,4 +11,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="1" />
 
+    <com.viewpagerindicator.IconPageIndicator
+        android:id="@+id/ic_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
