@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -49,17 +50,46 @@ public class PrivateEventActivity extends ActionBarActivity {
 		pagerAdapter.addFragment(mWishedFragment);
 		mEventViewPager.setAdapter(pagerAdapter);
 		
-		mEventIndicator = (IconPageIndicator)findViewById(R.id.ic_indicator);
+		mEventIndicator = (IconPageIndicator) findViewById(R.id.ic_indicator);
+		mEventIndicator.setOnPageChangeListener(new OnPageChangeListener() {
+
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onPageSelected(int index) {
+				ActionBar actionBar = getSupportActionBar();
+				switch (index) {
+				case 0:
+					actionBar.setTitle(R.string.event_private_participanted);
+					break;
+				case 1:
+					actionBar.setTitle(R.string.event_private_wished);
+					break;
+				}
+				
+			}
+			
+		});
 		mEventIndicator.setViewPager(mEventViewPager);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.event_private, menu);
-		 MenuItem item = menu.findItem(R.id.menu_private);
-		 item.setActionView(R.layout.actionview_private_participanted);
-		 MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
+//		MenuInflater inflater = getMenuInflater();
+//		inflater.inflate(R.menu.event_private, menu);
+//		 MenuItem item = menu.findItem(R.id.menu_private);
+//		 item.setActionView(R.layout.actionview_private_participanted);
+//		 MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
 //		 participantedMenuItem.setActionView(view);
 //		 participantedMenuItem.set
 //		 participantedMenuItem.getActionView().setBackgroundResource(R.drawable.dark_half_transparent);
@@ -72,7 +102,7 @@ public class PrivateEventActivity extends ActionBarActivity {
 
 	private void initActionBar() {
 		ActionBar actionBar = getSupportActionBar();
-		actionBar.setTitle(R.string.event_private);
+		actionBar.setTitle(R.string.event_private_participanted);
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP
 				| ActionBar.DISPLAY_SHOW_TITLE, ActionBar.DISPLAY_HOME_AS_UP
 				| ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_HOME);
@@ -111,12 +141,5 @@ public class PrivateEventActivity extends ActionBarActivity {
 		}
 	}
 
-	private void showEventDetail(Event evt) {
-		Intent intent = new Intent(this, EventDetailActivity.class);
-		Bundle bundle = new Bundle();
-		bundle.putSerializable(EventDetailActivity.STATE_EVENT, evt);
-		intent.putExtras(bundle);
-		startActivityForResult(intent, EventDetailActivity.REQUEST_CODE);
-	}
 
 }
