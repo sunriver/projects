@@ -9,11 +9,13 @@
         android:id="@+id/vp_private"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:background="@android:color/white" />
 
     <com.viewpagerindicator.IconPageIndicator
         android:id="@+id/ic_indicator"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@android:color/white" />
 
 </LinearLayout>
