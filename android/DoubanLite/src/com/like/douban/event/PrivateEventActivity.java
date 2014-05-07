@@ -5,27 +5,25 @@ import java.util.List;
 import com.like.R;
 import com.like.douban.event.bean.Event;
 import com.sunriver.common.utils.ViewUtil;
-import android.content.Context;
+import com.viewpagerindicator.IconPageIndicator;
+import com.viewpagerindicator.PageIndicator;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class PrivateEventActivity extends ActionBarActivity {
 	private final static String TAG = PrivateEventActivity.class.getSimpleName();
 	private ViewPager mEventViewPager;
+	private  PageIndicator mEventIndicator;;
 	private ParticipantedEventFragment mParticipantedFragment;
 	private WishedEventFragment mWishedFragment;
 
@@ -43,15 +41,16 @@ public class PrivateEventActivity extends ActionBarActivity {
 
 	private void initViews() {
 		mEventViewPager = (ViewPager) this.findViewById(R.id.vp_private);
+		
 		PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
 		mParticipantedFragment = new ParticipantedEventFragment();
 		mWishedFragment = new WishedEventFragment();
-		// add fragment
 		pagerAdapter.addFragment(mParticipantedFragment);
 		pagerAdapter.addFragment(mWishedFragment);
-
 		mEventViewPager.setAdapter(pagerAdapter);
-		mEventViewPager.setOffscreenPageLimit(pagerAdapter.getCount());
+		
+		mEventIndicator = (IconPageIndicator)findViewById(R.id.ic_indicator);
+		mEventIndicator.setViewPager(mEventViewPager);
 	}
 
 	@Override
