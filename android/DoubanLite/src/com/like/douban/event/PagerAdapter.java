@@ -16,8 +16,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 public class PagerAdapter extends FragmentPagerAdapter implements IconPagerAdapter  {
 	
     protected static final int[] ICONS = new int[] {
-        R.drawable.ic_launcher,
-        R.drawable.ic_launcher
+        R.drawable.ic_event_private,
+        R.drawable.ic_event_private
     };
 
     private final ArrayList<Fragment> mFragments = new ArrayList<Fragment>();
