@@ -26,7 +26,7 @@ public class GetWisheredEvents extends AbstractDoubanApi {
 
 	public void query(final String userID) {
 		StringBuffer urlBuf = new StringBuffer(BASE_URL);
-		urlBuf.append("&apikey=" + Consts.API_KEY);
+		urlBuf.append("?apikey=" + Consts.API_KEY);
 		String url = urlBuf.toString().replace(":id", userID);
 		Request request = createRequest(Request.Method.GET, url);
 		sendRequest(request);

@@ -2,19 +2,8 @@ package com.like.douban.event;
 
 import java.util.List;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.ImageLoader;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.like.R;
-import com.like.MyApplication;
-import com.like.douban.api.ResponseListener;
-import com.like.douban.event.api.GetParticipantedEvents;
-import com.like.douban.event.api.GetWisheredEvents;
 import com.like.douban.event.bean.Event;
-import com.like.douban.event.bean.EventList;
-import com.like.douban.account.AccountManager;
 import com.sunriver.common.utils.ViewUtil;
 import android.content.Context;
 import android.content.Intent;

@@ -367,7 +367,7 @@ public class EventFragment extends Fragment implements OnClickListener {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Event evt = (Event) mEventAdapter.getItem(position - 1);
-				showEventDetail(evt);
+				EventUtil.showEventDetail(getActivity(), evt);
 			}
 
 		});
@@ -378,14 +378,7 @@ public class EventFragment extends Fragment implements OnClickListener {
 		registerForContextMenu(actualListView);
 	}
 
-	private void showEventDetail(Event evt) {
-		Context ctx = this.getActivity();
-		Intent intent = new Intent(ctx, EventDetailActivity.class);
-		Bundle bundle = new Bundle();
-		bundle.putSerializable(EventDetailActivity.STATE_EVENT, evt);
-		intent.putExtras(bundle);
-		ctx.startActivity(intent);
-	}
+
 
 
 	@Override

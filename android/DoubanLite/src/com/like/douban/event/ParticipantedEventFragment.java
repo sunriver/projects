@@ -59,7 +59,7 @@ public class ParticipantedEventFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_event_participanted, container, false);
+		ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_event_private, container, false);
 		initPullRefreshListView(root);
 
 		return root;
@@ -110,9 +110,8 @@ public class ParticipantedEventFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				EventAdapter adapter = (EventAdapter) parent.getAdapter();
-				Event evt = (Event) adapter.getItem(position - 1);
-//				showEventDetail(evt);
+				Event evt = (Event) mParticipantEventAdapter.getItem(position - 1);
+				EventUtil.showEventDetail(getActivity(), evt);
 			}
 
 		});
