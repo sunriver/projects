@@ -110,8 +110,7 @@ public class WishedEventFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				EventAdapter adapter = (EventAdapter) parent.getAdapter();
-				Event evt = (Event) adapter.getItem(position - 1);
+				Event evt = (Event) mWishEventAdapter.getItem(position - 1);
 				EventUtil.showEventDetail(getActivity(), evt);
 			}
 
