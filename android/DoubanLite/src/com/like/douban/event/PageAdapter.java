@@ -13,7 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-public class PagerAdapter extends FragmentPagerAdapter implements IconPagerAdapter  {
+public class PageAdapter extends FragmentPagerAdapter implements IconPagerAdapter  {
 	
     protected static final int[] ICONS = new int[] {
         R.drawable.ic_event_private,
@@ -22,7 +22,7 @@ public class PagerAdapter extends FragmentPagerAdapter implements IconPagerAdapt
 
     private final ArrayList<Fragment> mFragments = new ArrayList<Fragment>();
 
-    public PagerAdapter(FragmentManager manager) {
+    public PageAdapter(FragmentManager manager) {
         super(manager);
     }
 

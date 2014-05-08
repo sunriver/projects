@@ -43,7 +43,7 @@ public class PrivateEventActivity extends ActionBarActivity {
 	private void initViews() {
 		mEventViewPager = (ViewPager) this.findViewById(R.id.vp_private);
 		
-		PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+		PageAdapter pagerAdapter = new PageAdapter(getSupportFragmentManager());
 		mParticipantedFragment = new ParticipantedEventFragment();
 		mWishedFragment = new WishedEventFragment();
 		pagerAdapter.addFragment(mParticipantedFragment);
