@@ -1,5 +1,7 @@
 package com.like.douban.event;
 
+import java.util.List;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -16,9 +18,11 @@ import com.like.douban.event.bean.EventList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +31,7 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class ParticipantedEventFragment extends Fragment {
+	private final static String TAG = ParticipantedEventFragment.class.getSimpleName();
 	private PullToRefreshListView mPullRefreshListView;
 	private GetParticipantedEvents mGetParticipantedEvents;
 	private ImageLoader mImageLoader;
@@ -122,4 +127,15 @@ public class ParticipantedEventFragment extends Fragment {
 		// Need to use the Actual ListView when registering for Context Menu
 	}
 
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (EventDetailActivity.REQUEST_CODE == requestCode) {
+			Log.d(TAG, "onActivityResult()+");
+			EventManager manager = EventManager.getInstance();
+			List<Event> participantEvents = manager.getParticipantedEvents();
+			mParticipantEventAdapter.updateEventList(participantEvents.toArray(new Event[participantEvents.size()]));
+		}
+	}
+
+	
 }

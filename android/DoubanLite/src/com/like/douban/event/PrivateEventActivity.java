@@ -1,15 +1,14 @@
 package com.like.douban.event;
 
-import java.util.List;
 
 import com.like.R;
-import com.like.douban.event.bean.Event;
 import com.sunriver.common.utils.ViewUtil;
 import com.viewpagerindicator.IconPageIndicator;
 import com.viewpagerindicator.PageIndicator;
 
-import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -19,7 +18,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
+import android.widget.PopupWindow;
 
 public class PrivateEventActivity extends ActionBarActivity {
 	private final static String TAG = PrivateEventActivity.class.getSimpleName();
@@ -86,19 +88,35 @@ public class PrivateEventActivity extends ActionBarActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 //		MenuInflater inflater = getMenuInflater();
-//		inflater.inflate(R.menu.event_private, menu);
-//		 MenuItem item = menu.findItem(R.id.menu_private);
-//		 item.setActionView(R.layout.actionview_private_participanted);
-//		 MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
-//		 participantedMenuItem.setActionView(view);
-//		 participantedMenuItem.set
-//		 participantedMenuItem.getActionView().setBackgroundResource(R.drawable.dark_half_transparent);
-		 
-		 
-		// MenuItemCompat.setShowAsAction(shareItem,
-		// MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
-		return true;
+		 MenuInflater inflater = new MenuInflater(getApplicationContext());
+		inflater.inflate(R.menu.event_private, menu);
+//		ViewUtil.setMenuBackground(getLayoutInflater(), R.drawable.dark_half_transparent);
+		MenuItem settingItem = menu.findItem(R.id.menu_item_setting);
+		MenuItemCompat.setShowAsAction(settingItem, MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
+//		MenuItem logoutItem = settingItem.getSubMenu().findItem(R.id.submenu_item_logout);
+//		MenuItemCompat.setShowAsAction(logoutItem, MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
+//		View v = MenuItemCompat.getActionView(logoutItem);
+//		View v = logoutItem.getActionView();
+//		v.setBackgroundResource(R.drawable.dark_half_transparent);
+//		MenuItemCompat.setActionView(logoutItem, R.layout.actionview_private_participanted);
+//		settingItem.getSubMenu().add(R.string.douban_logout);
+//		final MenuItem logoutItem = menu.findItem(R.id.submenu_item_logout);
+//		new Handler().post(new Runnable() {
+//
+//			@Override
+//			public void run() {
+//				logoutItem.setActionView(R.layout.actionview_private_participanted);
+//			}
+//			
+//		});
+//		MenuItemCompat.setShowAsAction(logoutItem, MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
+		return super.onCreateOptionsMenu(menu);
+		
+		
 	}
+	
+
+
 
 	private void initActionBar() {
 		ActionBar actionBar = getSupportActionBar();
@@ -117,29 +135,20 @@ public class PrivateEventActivity extends ActionBarActivity {
 		case android.R.id.home:
 			super.onBackPressed();
 			break;
-//		case R.id.menu_private_participanted:
-//			selectParticipantItem();
-//			break;
-//		case R.id.menu_private_wished:
-//			selectWishItem();
-//			break;
-			
+		case R.id.menu_item_setting:
+			showSettings();
+			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (EventDetailActivity.REQUEST_CODE == requestCode) {
-			EventManager manager = EventManager.getInstance();
-			List<Event> participantEvents = manager.getParticipantedEvents();
-//			mParticipantEventAdapter.updateEventList(participantEvents.toArray(new Event[participantEvents.size()]));
-//			
-//			List<Event> wishedEvents = manager.getWisheredEvents();
-//			mWishEventAdapter.updateEventList(wishedEvents.toArray(new Event[wishedEvents.size()]));
-		}
+	public void showSettings() {
+//        View popupView = getLayoutInflater().inflate(R.layout.layout_popupwindow, null);
+//
+//        PopupWindow mPopupWindow = new PopupWindow(popupView, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, true);
+//        mPopupWindow.setTouchable(true);
+//        mPopupWindow.setOutsideTouchable(true);
+//        mPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(), (Bitmap) null));
 	}
-
 
 }
