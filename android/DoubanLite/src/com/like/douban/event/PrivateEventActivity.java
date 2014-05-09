@@ -6,6 +6,7 @@ import com.sunriver.common.utils.ViewUtil;
 import com.viewpagerindicator.IconPageIndicator;
 import com.viewpagerindicator.PageIndicator;
 
+import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +15,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.internal.widget.ListPopupWindow;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,7 +23,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
 
 public class PrivateEventActivity extends ActionBarActivity {
 	private final static String TAG = PrivateEventActivity.class.getSimpleName();
@@ -87,32 +93,11 @@ public class PrivateEventActivity extends ActionBarActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-//		MenuInflater inflater = getMenuInflater();
 		 MenuInflater inflater = new MenuInflater(getApplicationContext());
 		inflater.inflate(R.menu.event_private, menu);
-//		ViewUtil.setMenuBackground(getLayoutInflater(), R.drawable.dark_half_transparent);
 		MenuItem settingItem = menu.findItem(R.id.menu_item_setting);
 		MenuItemCompat.setShowAsAction(settingItem, MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
-//		MenuItem logoutItem = settingItem.getSubMenu().findItem(R.id.submenu_item_logout);
-//		MenuItemCompat.setShowAsAction(logoutItem, MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
-//		View v = MenuItemCompat.getActionView(logoutItem);
-//		View v = logoutItem.getActionView();
-//		v.setBackgroundResource(R.drawable.dark_half_transparent);
-//		MenuItemCompat.setActionView(logoutItem, R.layout.actionview_private_participanted);
-//		settingItem.getSubMenu().add(R.string.douban_logout);
-//		final MenuItem logoutItem = menu.findItem(R.id.submenu_item_logout);
-//		new Handler().post(new Runnable() {
-//
-//			@Override
-//			public void run() {
-//				logoutItem.setActionView(R.layout.actionview_private_participanted);
-//			}
-//			
-//		});
-//		MenuItemCompat.setShowAsAction(logoutItem, MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
 		return super.onCreateOptionsMenu(menu);
-		
-		
 	}
 	
 
@@ -142,13 +127,44 @@ public class PrivateEventActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	private boolean mSubMenuClosed = true;
 	public void showSettings() {
-//        View popupView = getLayoutInflater().inflate(R.layout.layout_popupwindow, null);
-//
-//        PopupWindow mPopupWindow = new PopupWindow(popupView, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, true);
-//        mPopupWindow.setTouchable(true);
-//        mPopupWindow.setOutsideTouchable(true);
-//        mPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(), (Bitmap) null));
+		if (!mSubMenuClosed) {
+			return;
+		}
+		Context ctx = this.getApplicationContext();
+		final ListPopupWindow lpw = new ListPopupWindow(ctx);
+		lpw.setModal(true);
+		lpw.setBackgroundDrawable(getResources().getDrawable(R.drawable.dropdown_panel_dark));
+//		lpw.setInputMethodMode(ListPopupWindow.INPUT_METHOD_NOT_NEEDED);  
+		
+        final String[] strs = { getString(R.string.douban_logout) };  
+        lpw.setOnItemClickListener(new OnItemClickListener() {  
+            @Override  
+            public void onItemClick(AdapterView<?> parent, View view,  
+                    int position, long id) {  
+            	lpw.dismiss();
+            }  
+        }); 
+        
+        lpw.setOnDismissListener(new OnDismissListener() {
+
+			@Override
+			public void onDismiss() {
+				// TODO Auto-generated method stub
+				mSubMenuClosed = true;
+			}
+        	
+        });
+        
+        lpw.setContentWidth(250);
+
+        lpw.setAdapter(new ArrayAdapter<String>(ctx, R.layout.actionview_private_participanted, strs));  
+        View archor = findViewById(R.id.menu_item_setting);
+        lpw.setAnchorView(archor);
+        mSubMenuClosed = false;
+        lpw.show();
 	}
+	
 
 }

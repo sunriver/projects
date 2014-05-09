@@ -10,6 +10,7 @@ import com.like.douban.account.bean.TokenResult.Property;
 
 public class AccountManager {
 	private static final String ACCOUNT_FILE = "account.file";
+	private final static String IS_LOGINED = "logined";
 	
 	public static void saveToken(Context ctx, TokenResult result) {
 		SharedPreferences prefs = ctx.getSharedPreferences(ACCOUNT_FILE, Context.MODE_PRIVATE);
@@ -17,6 +18,7 @@ public class AccountManager {
 					.putString(Property.DOUBAN_USER_ID, result.getUserID())
 					.putInt(Property.EXPIRES_IN, result.getExpiresIn())
 					.putString(Property.REFRESH_TOKEN, result.getRefreshToken())
+					.putBoolean(IS_LOGINED, true)
 					.commit();
 	}
 	
@@ -46,6 +48,11 @@ public class AccountManager {
 		return false;
 	}
 	
+	public static boolean isLogined(Context ctx) {
+		SharedPreferences prefs = ctx.getSharedPreferences(ACCOUNT_FILE, Context.MODE_PRIVATE);
+		return prefs.getBoolean(IS_LOGINED, false);
+	}
+	
 	
 	public static void doLogin(Activity act) {
 		Intent intent = new Intent(act, LoginActivity.class);
@@ -55,6 +62,12 @@ public class AccountManager {
 	public static String getLoginUserID(Context ctx){
 		TokenResult result = getToken(ctx);
 		return result.getUserID();
+	}
+	
+	public static void logout(Context ctx) {
+		SharedPreferences prefs = ctx.getSharedPreferences(ACCOUNT_FILE, Context.MODE_PRIVATE);
+		prefs.edit().putBoolean(IS_LOGINED, false)
+					.commit();
 	}
 	
 }
