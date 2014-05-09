@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
-
-    <Spinner
-        android:id="@+id/sp_loc"
-        android:layout_width="wrap_content"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_gravity="center"
-        android:background="@null"
-        android:dropDownHorizontalOffset="10dp"
-        android:dropDownWidth="wrap_content"
-        android:entries="@array/actionview_items"
-        android:gravity="center"
-        android:popupBackground="@drawable/dropdown_panel_dark" >
-    </Spinner>
-
-</LinearLayout>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="30dp"
+    android:layout_gravity="center"
+    android:background="@null"
+    android:gravity="center" />

@@ -16,6 +16,7 @@
     <!-- douban -->
     <string name="douban_tongchen">同城</string>
     <string name="douban_login">用豆瓣账号登录</string>
+    <string name="douban_logout">退出</string>
 
     <!-- event -->
     <string name="event_introduction">活动介绍</string>
@@ -31,5 +32,5 @@
     <string name="event_splash_title">" i like"</string>
     <string name="event_menu_item_participanted">已报名</string>
     <string name="event_menu_item_wished">已收藏</string>
-    
+
 </resources>
