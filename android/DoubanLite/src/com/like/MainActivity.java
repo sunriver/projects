@@ -32,7 +32,7 @@ public class MainActivity extends ActionBarActivity {
 		mImageLoader = new ImageLoader(mRequestQueue, new BitmapCache(appCtx));
 		myApp.setImageLoader(mImageLoader);
 		myApp.setRequestQueue(mRequestQueue);
-		initTabHost();
+//		initTabHost();
 	}
 
 	@Override
@@ -60,19 +60,18 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	
-	private void initTabHost() {
-
-		TabHost tabHost = (TabHost) findViewById(R.id.th_main);
-		tabHost.setup();
-		LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
-		View eventIndicator = inflater.inflate(R.layout.tab_indicator_event, null, false);
-		tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator(eventIndicator)
-				.setContent(R.id.fragment_event));
-		
-		View settingIndicator = inflater.inflate(R.layout.tab_indicator_setting, null, false);
-		tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator(settingIndicator).setContent(R.id.fragment_setting));
-	}
-	
+//	private void initTabHost() {
+//
+//		TabHost tabHost = (TabHost) findViewById(R.id.th_main);
+//		tabHost.setup();
+//		LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+//		View eventIndicator = inflater.inflate(R.layout.tab_indicator_event, null, false);
+//		tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator(eventIndicator)
+//				.setContent(R.id.fragment_event));
+//		
+//		View settingIndicator = inflater.inflate(R.layout.tab_indicator_setting, null, false);
+//		tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator(settingIndicator).setContent(R.id.fragment_setting));
+//	}
 	
 
 }

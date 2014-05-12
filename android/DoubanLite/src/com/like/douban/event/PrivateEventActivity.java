@@ -98,14 +98,14 @@ public class PrivateEventActivity extends ActionBarActivity {
 		mEventIndicator.setViewPager(mEventViewPager);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		 MenuInflater inflater = new MenuInflater(getApplicationContext());
-		inflater.inflate(R.menu.event_private, menu);
-		MenuItem settingItem = menu.findItem(R.id.menu_item_setting);
-		MenuItemCompat.setShowAsAction(settingItem, MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
-		return super.onCreateOptionsMenu(menu);
-	}
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//		 MenuInflater inflater = new MenuInflater(getApplicationContext());
+//		inflater.inflate(R.menu.event_private, menu);
+//		MenuItem settingItem = menu.findItem(R.id.menu_item_setting);
+//		MenuItemCompat.setShowAsAction(settingItem, MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
+//		return super.onCreateOptionsMenu(menu);
+//	}
 	
 
 
@@ -127,55 +127,51 @@ public class PrivateEventActivity extends ActionBarActivity {
 		case android.R.id.home:
 			super.onBackPressed();
 			break;
-		case R.id.menu_item_setting:
-//			showSettings();
-			test();
-			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
-	private void test() {
-		AccountManager.doLogin(this);
-	}
-	private boolean mSubMenuClosed = true;
-	public void showSettings() {
-		if (!mSubMenuClosed) {
-			return;
-		}
-		Context ctx = this.getApplicationContext();
-		final ListPopupWindow lpw = new ListPopupWindow(ctx);
-		lpw.setModal(true);
-		lpw.setBackgroundDrawable(getResources().getDrawable(R.drawable.dropdown_panel_dark));
-//		lpw.setInputMethodMode(ListPopupWindow.INPUT_METHOD_NOT_NEEDED);  
-		
-        final String[] strs = { getString(R.string.douban_logout) };  
-        lpw.setOnItemClickListener(new OnItemClickListener() {  
-            @Override  
-            public void onItemClick(AdapterView<?> parent, View view,  
-                    int position, long id) {  
-            	lpw.dismiss();
-            }  
-        }); 
-        
-        lpw.setOnDismissListener(new OnDismissListener() {
-
-			@Override
-			public void onDismiss() {
-				// TODO Auto-generated method stub
-				mSubMenuClosed = true;
-			}
-        	
-        });
-        
-        lpw.setContentWidth(250);
-
-        lpw.setAdapter(new ArrayAdapter<String>(ctx, R.layout.actionview_private_participanted, strs));  
-        View archor = findViewById(R.id.menu_item_setting);
-        lpw.setAnchorView(archor);
-        mSubMenuClosed = false;
-        lpw.show();
-	}
+//	private void test() {
+//		AccountManager.doLogin(this);
+//	}
+//	private boolean mSubMenuClosed = true;
+//	public void showSettings() {
+//		if (!mSubMenuClosed) {
+//			return;
+//		}
+//		Context ctx = this.getApplicationContext();
+//		final ListPopupWindow lpw = new ListPopupWindow(ctx);
+//		lpw.setModal(true);
+//		lpw.setBackgroundDrawable(getResources().getDrawable(R.drawable.dropdown_panel_dark));
+////		lpw.setInputMethodMode(ListPopupWindow.INPUT_METHOD_NOT_NEEDED);  
+//		
+//        final String[] strs = { getString(R.string.douban_logout) };  
+//        lpw.setOnItemClickListener(new OnItemClickListener() {  
+//            @Override  
+//            public void onItemClick(AdapterView<?> parent, View view,  
+//                    int position, long id) {  
+//            	lpw.dismiss();
+//            }  
+//        }); 
+//        
+//        lpw.setOnDismissListener(new OnDismissListener() {
+//
+//			@Override
+//			public void onDismiss() {
+//				// TODO Auto-generated method stub
+//				mSubMenuClosed = true;
+//			}
+//        	
+//        });
+//        
+//        lpw.setContentWidth(250);
+//
+//        lpw.setAdapter(new ArrayAdapter<String>(ctx, R.layout.actionview_private_participanted, strs));  
+//        View archor = findViewById(R.id.menu_item_setting);
+//        lpw.setAnchorView(archor);
+//        mSubMenuClosed = false;
+//        lpw.show();
+//	}
 	
 
 }
