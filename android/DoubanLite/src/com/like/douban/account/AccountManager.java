@@ -81,6 +81,8 @@ public class AccountManager {
 	public static void logout(Context ctx) {
 		SharedPreferences prefs = ctx.getSharedPreferences(ACCOUNT_FILE, Context.MODE_PRIVATE);
 		prefs.edit().putBoolean(IS_LOGINED, false)
+					.putString(TokenResult.Property.ACCESS_TOKEN, null)
+					.putString(User.Property.NAME, null)
 					.commit();
 	}
 	

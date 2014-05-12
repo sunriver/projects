@@ -23,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -57,6 +58,17 @@ public class PrivateEventActivity extends ActionBarActivity {
 		User user = AccountManager.getUser(getApplicationContext());
 		mAccountTv.setText(getString(R.string.douban_logout) + "(" + user.name + ")");
 		mEventViewPager = (ViewPager) this.findViewById(R.id.vp_private);
+		mAccountTv.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				AccountManager.logout(getApplicationContext());
+				AccountManager.doLogin(PrivateEventActivity.this);
+				finish();
+			}
+			
+		});
 		
 		PageAdapter pagerAdapter = new PageAdapter(getSupportFragmentManager());
 		mParticipantedFragment = new ParticipantedEventFragment();
