@@ -6,7 +6,9 @@ import com.like.R;
 import com.like.douban.api.Consts;
 import com.like.douban.api.ResponseListener;
 import com.like.douban.account.api.GetAccessToken;
+import com.like.douban.account.api.GetAccountInfo;
 import com.like.douban.account.bean.TokenResult;
+import com.like.douban.account.bean.User;
 import com.sunriver.common.utils.ViewUtil;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -36,10 +38,33 @@ public class LoginActivity extends ActionBarActivity {
 		@Override
 		public  void onSuccess(TokenResult result) {
 			AccountManager.saveToken(getApplicationContext(), result);
-			finish();
+			requestGetAccount(result.getAccessToken());
 		}
 
 	};
+	
+	private ResponseListener<User> mGetAccountResponseListener = new ResponseListener<User>() {
+		
+		@Override
+		public void onFailure() {
+			// TODO Auto-generated method stub
+		}
+		
+		
+		@Override
+		public  void onSuccess(User result) {
+			AccountManager.saveLoginUser(getApplicationContext(), result);
+			finish();
+		}
+		
+	};
+	
+	
+	private void requestGetAccount(final String accessToken) {
+		GetAccountInfo request = new GetAccountInfo(this.getApplicationContext(), mRequestQueue, mGetAccountResponseListener);
+		request.query(accessToken);
+	}
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

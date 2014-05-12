@@ -8,11 +8,12 @@ public class User implements Serializable {
 	private static final String TAG = User.class.getSimpleName();
 	private static final long serialVersionUID = 1L;
 
-	private interface Property {
+	public interface Property {
 		public static final String NAME = "name";
 		public static final String ID = "id";
 		public static final String AVATAR = "avatar";
 		public static final String UID = "uid";
+		public static final String LOC_NAME = "loc_name";
 
 	}
 
@@ -20,6 +21,7 @@ public class User implements Serializable {
 	public String uid;
 	public String name;
 	public String avatar;
+	public String loc_name;
 
 	public static User fromJSONObject(JSONObject obj) {
 		User user = new User();
@@ -36,10 +38,21 @@ public class User implements Serializable {
 			if (obj.has(Property.AVATAR)) {
 				user.avatar = obj.getString(Property.AVATAR);
 			}
+			if (obj.has(Property.LOC_NAME)) {
+				user.loc_name = obj.getString(Property.LOC_NAME);
+			}
 
 		} catch (Exception any) {
 			Log.w(TAG, "Fail to parse json object", any);
 		}
 		return user;
 	}
+
+	@Override
+	public String toString() {
+		return "User: name=" + name;
+	}
+	
+	
+	
 }

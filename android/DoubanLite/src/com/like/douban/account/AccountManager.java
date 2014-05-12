@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 import com.like.douban.account.bean.TokenResult;
 import com.like.douban.account.bean.TokenResult.Property;
+import com.like.douban.account.bean.User;
 
 public class AccountManager {
 	private static final String ACCOUNT_FILE = "account.file";
@@ -37,6 +38,19 @@ public class AccountManager {
 		int expires = prefs.getInt(Property.EXPIRES_IN, 0);
 		result.setExpiresIn(expires);
 		return result;
+	}
+	
+	public static void saveLoginUser(Context ctx, User user) {
+		SharedPreferences prefs = ctx.getSharedPreferences(ACCOUNT_FILE, Context.MODE_PRIVATE);
+		prefs.edit().putString(User.Property.NAME, user.name)
+					.commit();
+	}
+	
+	public static User getUser(Context ctx) {
+		SharedPreferences prefs = ctx.getSharedPreferences(ACCOUNT_FILE, Context.MODE_PRIVATE);
+		User user = new User();
+		user.name = prefs.getString(User.Property.NAME, null);
+		return user;
 	}
 	
 	

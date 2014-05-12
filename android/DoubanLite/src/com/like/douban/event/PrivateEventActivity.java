@@ -2,6 +2,8 @@ package com.like.douban.event;
 
 
 import com.like.R;
+import com.like.douban.account.AccountManager;
+import com.like.douban.account.bean.User;
 import com.sunriver.common.utils.ViewUtil;
 import com.viewpagerindicator.IconPageIndicator;
 import com.viewpagerindicator.PageIndicator;
@@ -28,6 +30,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
+import android.widget.TextView;
 
 public class PrivateEventActivity extends ActionBarActivity {
 	private final static String TAG = PrivateEventActivity.class.getSimpleName();
@@ -35,6 +38,7 @@ public class PrivateEventActivity extends ActionBarActivity {
 	private  PageIndicator mEventIndicator;;
 	private ParticipantedEventFragment mParticipantedFragment;
 	private WishedEventFragment mWishedFragment;
+	private TextView mAccountTv;
 
 
 	
@@ -49,6 +53,9 @@ public class PrivateEventActivity extends ActionBarActivity {
 
 
 	private void initViews() {
+		mAccountTv = (TextView) this.findViewById(R.id.tv_account);
+		User user = AccountManager.getUser(getApplicationContext());
+		mAccountTv.setText(getString(R.string.douban_logout) + "(" + user.name + ")");
 		mEventViewPager = (ViewPager) this.findViewById(R.id.vp_private);
 		
 		PageAdapter pagerAdapter = new PageAdapter(getSupportFragmentManager());
@@ -121,12 +128,16 @@ public class PrivateEventActivity extends ActionBarActivity {
 			super.onBackPressed();
 			break;
 		case R.id.menu_item_setting:
-			showSettings();
+//			showSettings();
+			test();
 			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
+	private void test() {
+		AccountManager.doLogin(this);
+	}
 	private boolean mSubMenuClosed = true;
 	public void showSettings() {
 		if (!mSubMenuClosed) {
