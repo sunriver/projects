@@ -31,22 +31,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
-                <fragment
+                <!--
+                     <fragment
                     android:id="@+id/fragment_setting"
                     android:name="com.like.setting.SettingFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
+                -->
             </FrameLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#f5f5f5" />
 
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="0dp"
                 android:background="@android:color/white"
                 android:orientation="horizontal" />
         </LinearLayout>
