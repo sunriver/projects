@@ -15,6 +15,7 @@
 
     <!-- douban -->
     <string name="douban_tongchen">同城</string>
+    <string name="douban_setting">设置</string>
     <string name="douban_login">用豆瓣账号登录</string>
     <string name="douban_logout">退出</string>
 
