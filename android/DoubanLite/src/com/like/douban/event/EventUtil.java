@@ -12,6 +12,6 @@ public class EventUtil {
 		Bundle bundle = new Bundle();
 		bundle.putSerializable(EventDetailActivity.STATE_EVENT, evt);
 		intent.putExtras(bundle);
-		act.startActivity(intent);
+		act.startActivityForResult(intent, EventDetailActivity.REQUEST_CODE);
 	}
 }

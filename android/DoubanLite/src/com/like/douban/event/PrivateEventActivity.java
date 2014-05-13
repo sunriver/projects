@@ -1,14 +1,18 @@
 package com.like.douban.event;
 
 
+import java.util.List;
+
 import com.like.R;
 import com.like.douban.account.AccountManager;
 import com.like.douban.account.bean.User;
+import com.like.douban.event.bean.Event;
 import com.sunriver.common.utils.ViewUtil;
 import com.viewpagerindicator.IconPageIndicator;
 import com.viewpagerindicator.PageIndicator;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -120,7 +124,14 @@ public class PrivateEventActivity extends ActionBarActivity {
 //	}
 	
 
-
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (EventDetailActivity.REQUEST_CODE == requestCode) {
+			mParticipantedFragment.onActivityResult(requestCode, resultCode, data);
+			mWishedFragment.onActivityResult(requestCode, resultCode, data);
+//			mParticipantEventAdapter.updateEventList(participantEvents.toArray(new Event[participantEvents.size()]));
+		}
+	}
 
 	private void initActionBar() {
 		ActionBar actionBar = getSupportActionBar();
