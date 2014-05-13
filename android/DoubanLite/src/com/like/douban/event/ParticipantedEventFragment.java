@@ -12,10 +12,8 @@ import com.like.R;
 import com.like.douban.account.AccountManager;
 import com.like.douban.api.ResponseListener;
 import com.like.douban.event.api.GetParticipantedEvents;
-import com.like.douban.event.api.GetWisheredEvents;
 import com.like.douban.event.bean.Event;
 import com.like.douban.event.bean.EventList;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
