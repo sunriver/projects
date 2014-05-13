@@ -1,0 +1,8 @@
+The convention of the versioning
+The versions in the main-branch have the schema "1.r.v.m", where the "m" is not equal to 0. If there is interface-changes including new interfaces, we should increment "v" by 1.
+The versions in the release-branches have the schema "1.r.v.0", where the "v" must be greater than the greatest "v" in the main branch of "1.r.v.m".
+After creating the new release branch, we should increment the the version in the main branch to "1.r+1.0.1".
+
+主分支：                    1.r.0.m，  m > 0, 当有更新时，增加m; 
+release分支：       1.r.v.0， 有变化时，增加v。
+创建新的branch： 主分支变为“1.(r+1).0.1”， 分支变为1.r.0.0
