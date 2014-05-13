@@ -4,7 +4,6 @@ package com.like.douban.event.api;
 
 
 import android.content.Context;
-import android.text.format.DateFormat;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.like.douban.api.AbstractDoubanApi;
