@@ -18,7 +18,7 @@
         <shape android:shape="oval" >
 
             <!-- 填充颜色 -->
-            <!-- <solid android:color="#F0F0F0" /> -->
+            <solid android:color="#00F0F0F0" /> 
 
 
             <!-- 线的宽度，颜色灰色 -->
