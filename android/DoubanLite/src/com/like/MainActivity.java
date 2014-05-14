@@ -7,6 +7,7 @@ import com.like.common.BitmapCache;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -54,6 +55,7 @@ public class MainActivity extends ActionBarActivity {
 
 	@Override
 	protected void onDestroy() {
+		Log.d(TAG, "onDestroy()+");
 		MyApplication myApp = (MyApplication) getApplication();
 		myApp.clear();
 		super.onDestroy();
