@@ -31,6 +31,12 @@ public class GetWisheredEvents extends AbstractDoubanApi {
 		Request request = createRequest(Request.Method.GET, url);
 		sendRequest(request);
 	}
+	
+	
+	public void query(final String userID, final int start, final int count) {
+		query(userID, start, count);
+	}
+
 
 	@SuppressWarnings("unchecked")
 	@Override

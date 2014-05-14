@@ -6,6 +6,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.like.MyApplication;
 import com.like.R;
@@ -118,6 +119,14 @@ public class WishedEventFragment extends Fragment {
 			}
 
 		});
+		mPullRefreshListView.setOnLastItemVisibleListener(new OnLastItemVisibleListener() {
+
+			@Override
+			public void onLastItemVisible() {
+				if (mWishEventAdapter.hasNextEvent()) {
+					mGetWisheredEvents.query(AccountManager.getLoginUserID(ctx), mWishEventAdapter.getCount(), 20);
+				}
+			}});
 		ListView actualListView = mPullRefreshListView.getRefreshableView();
 		registerForContextMenu(actualListView);
 //		selectParticipantItem();
