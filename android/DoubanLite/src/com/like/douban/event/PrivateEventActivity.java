@@ -23,7 +23,7 @@ import android.widget.TextView;
 public class PrivateEventActivity extends ActionBarActivity {
 	private final static String TAG = PrivateEventActivity.class.getSimpleName();
 	private ViewPager mEventViewPager;
-	private  PageIndicator mEventIndicator;;
+	private PageIndicator mEventIndicator;;
 	private ParticipantedEventFragment mParticipantedFragment;
 	private WishedEventFragment mWishedFragment;
 	private TextView mAccountTv;
