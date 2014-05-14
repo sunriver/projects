@@ -41,7 +41,7 @@ public class MyApplication extends Application {
 
 	private void registerUncatchExceptionHandler() {
 		final String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + getPackageName();
-		final String fileName = "uncatch_exception.log";
+		final String fileName = "crash.log";
 		OnUncatchExeptionListener listener = new OnUncatchExeptionListener() {
 			@Override
 			public void onUncacth(Throwable ex) {
