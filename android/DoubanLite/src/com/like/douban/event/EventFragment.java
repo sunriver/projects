@@ -356,8 +356,9 @@ public class EventFragment extends Fragment implements OnClickListener {
 
 					@Override
 					public void onLastItemVisible() {
-//						Toast.makeText(ctx, "End of List!", Toast.LENGTH_SHORT)
-//								.show();
+						if (mEventAdapter.hasNextEvent()) {
+							mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue, mEventAdapter.getCount(), 20);
+						}
 					}
 				});
 

@@ -132,7 +132,7 @@ public class WishedEventFragment extends Fragment {
 			Log.d(TAG, "onActivityResult()+");
 			EventManager manager = EventManager.getInstance();
 			List<Event> wishedEvents = manager.getWisheredEvents();
-			mWishEventAdapter.updateEventList(wishedEvents.toArray(new Event[wishedEvents.size()]));
+			mWishEventAdapter.updateEventList(wishedEvents);
 		}
 	}
 }

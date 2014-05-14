@@ -131,7 +131,7 @@ public class ParticipantedEventFragment extends Fragment {
 			Log.d(TAG, "onActivityResult()+");
 			EventManager manager = EventManager.getInstance();
 			List<Event> participantEvents = manager.getParticipantedEvents();
-			mParticipantEventAdapter.updateEventList(participantEvents.toArray(new Event[participantEvents.size()]));
+			mParticipantEventAdapter.updateEventList(participantEvents);
 		}
 	}
 

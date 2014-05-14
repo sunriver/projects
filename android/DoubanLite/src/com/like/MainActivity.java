@@ -20,7 +20,7 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getSupportActionBar().hide();
+//		getSupportActionBar().hide();
 		setContentView(R.layout.activity_main);
 		init();
 	}
@@ -35,12 +35,12 @@ public class MainActivity extends ActionBarActivity {
 //		initTabHost();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//		// Inflate the menu; this adds items to the action bar if it is present.
+//		getMenuInflater().inflate(R.menu.main, menu);
+//		return true;
+//	}
 	
 //	@Override
 //    public void onAttachFragment(Fragment fragment) {

@@ -23,7 +23,7 @@ public class GetEvents extends AbstractDoubanApi {
 	}
 
 	public void query(final String loc, final String dayType,
-			final String eventType) {
+			final String eventType, final int start, final int count) {
 		StringBuffer urlBuf = new StringBuffer(BASE_URL);
 		urlBuf.append("?apikey=" + Consts.API_KEY);
 		urlBuf.append("&loc=" + loc);
@@ -33,12 +33,22 @@ public class GetEvents extends AbstractDoubanApi {
 		if (!TextUtils.isEmpty(eventType)) {
 			urlBuf.append("&type=" + eventType);
 		}
+		urlBuf.append("&start=" + start);
+		urlBuf.append("&count=" + count);
 		Request request = createRequest(Request.Method.GET, urlBuf.toString());
 		sendRequest(request);
 	}
 	
+	public void query(final String loc, final String dayType, final String eventType) {
+		query(loc, dayType, eventType, 0, Consts.RESULT_COUNT);
+	}
+	
+	public void query(final String loc, final int start, final int count) {
+		query(loc, null, null, start, count);
+	}
+	
 	public void query(final String loc) {
-		query(loc, null, null);
+		query(loc, null, null, 0, Consts.RESULT_COUNT);
 	}
 
 	@SuppressWarnings("unchecked")

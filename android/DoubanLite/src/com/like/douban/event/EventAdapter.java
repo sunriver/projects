@@ -1,5 +1,8 @@
 package com.like.douban.event;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.like.R;
@@ -13,9 +16,11 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 public class EventAdapter extends BaseAdapter {
-	private Event[] mEvents = new Event[0];
+//	private Event[] mEvents = new Event[0];
 	private LayoutInflater mInflater;
 	private ImageLoader mImageLoader;
+	private List<Event> mEvents = new ArrayList<Event>();
+	private int mTotal = 0;
 	
 	public EventAdapter(Context ctx, ImageLoader loader) {
 		mInflater = LayoutInflater.from(ctx);
@@ -24,12 +29,20 @@ public class EventAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		return mEvents.length;
+		return mEvents.size();
+	}
+	
+	public boolean hasNextEvent() {
+		return (mEvents.size() < mTotal);
+	}
+	
+	public int getTotal() {
+		return mTotal;
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return mEvents[position];
+		return mEvents.get(position);
 	}
 
 	@Override
@@ -38,12 +51,25 @@ public class EventAdapter extends BaseAdapter {
 	}
 	
 	public void updateEventList(EventList eventList) {
-		this.mEvents = eventList.events;
+		List<Event> events = mEvents;
+		if (eventList.start >= events.size()) {
+			for (Event evt : eventList.events) {
+				events.add(evt);
+			}
+		} else if (eventList.start == 0 ) {
+			events.clear();
+			for (Event evt : eventList.events) {
+				events.add(evt);
+			}
+		}
+		mTotal = eventList.total;
 		this.notifyDataSetChanged();
 	}
 	
-	public void updateEventList(Event[] eventList) {
-		this.mEvents = eventList;
+	public void updateEventList(List<Event> eventList) {
+		this.mEvents.clear();
+		this.mEvents.addAll(eventList);
+		mTotal = eventList.size();
 		this.notifyDataSetChanged();
 	}
 	
@@ -77,7 +103,7 @@ public class EventAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		Event evt = mEvents[position];
+		Event evt = mEvents.get(position);
 		holder.eventNameTv.setText(evt.title);
 		holder.eventCategoryNameTv.setText(" < " + evt.category_name + " > ");
 		holder.eventAddressTv.setText(evt.address);
