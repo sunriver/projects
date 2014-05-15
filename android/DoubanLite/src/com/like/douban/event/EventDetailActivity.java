@@ -188,9 +188,9 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 		
 		StringBuffer shareText = new StringBuffer();
 		shareText.append(mEvent.title + "\n");
-		shareText.append(getString(R.string.event_date) + " ： " + mEvent.getEventTime() + "\n");
-		shareText.append(getString(R.string.event_address) + " ： " + mEvent.address + "\n");
-		shareText.append(getString(R.string.event_detail) + " ： " + mEvent.adapt_url + "\n");
+		shareText.append(getString(R.string.event_date) + " : " + mEvent.getEventTime() + "\n");
+		shareText.append(getString(R.string.event_address) + " : " + mEvent.address + "\n");
+		shareText.append(getString(R.string.event_detail) + " : " + mEvent.adapt_url + "\n");
 		
 		intent.putExtra(Intent.EXTRA_TEXT, shareText.toString());
 		intent.putExtra(Intent.EXTRA_TITLE, mEvent.title);
