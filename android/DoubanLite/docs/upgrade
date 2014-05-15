@@ -6,3 +6,5 @@ After creating the new release branch, we should increment the the version in th
 主分支：                    1.r.0.m，  m > 0, 当有更新时，增加m; 
 release分支：       1.r.v.0， 有变化时，增加v。
 创建新的branch： 主分支变为“1.(r+1).0.1”， 分支变为1.r.0.0
+
+versionCode form=（原始） + （2） + （3） + （3）；
