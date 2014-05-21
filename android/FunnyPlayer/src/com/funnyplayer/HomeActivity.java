@@ -27,7 +27,6 @@ import com.funnyplayer.ui.fragment.IFragment;
 import com.funnyplayer.ui.fragment.PlaylistFragment;
 import com.funnyplayer.ui.widgets.ScrollTabView;
 import com.funnyplayer.util.MusicUtil;
-import com.funnyplayer.util.UncatchExceptionHandler;
 import com.funnyplayer.util.ViewUtil;
 
 public class HomeActivity extends ActionBarActivity implements OnClickListener {
