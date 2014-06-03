@@ -15,7 +15,13 @@ import com.like.douban.event.bean.Event;
 import com.like.douban.account.AccountManager;
 import com.like.douban.account.bean.TokenResult;
 import com.like.douban.account.bean.UserList;
+import com.like.weixin.WeixinUtil;
 import com.sunriver.common.utils.ViewUtil;
+import com.tencent.mm.sdk.openapi.BaseReq;
+import com.tencent.mm.sdk.openapi.BaseResp;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
+
 import android.content.Intent;
 import android.graphics.PointF;
 import android.net.Uri;
@@ -32,7 +38,7 @@ import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-public class EventDetailActivity extends ActionBarActivity implements OnClickListener {
+public class EventDetailActivity extends ActionBarActivity implements OnClickListener{
 	private final static String TAG = EventDetailActivity.class.getSimpleName();
 	public final static int REQUEST_CODE = 0x01;
 			
@@ -50,6 +56,7 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 	private EventManager mEventManager;
 	private boolean mParticipanted = false;
 	private boolean mWished = false;
+	private IWXAPI mWXApi;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +64,7 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 		requestWindowFeature(Window.FEATURE_ACTION_BAR);
 		setContentView(R.layout.activity_event_detail);
 		mEventManager = EventManager.getInstance();
+		mWXApi = WeixinUtil.registerAppToWX(getApplicationContext());
 		init();
 	}
 
@@ -162,7 +170,8 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 			super.onBackPressed();
 			break;
 		case R.id.action_share:
-			shareEvent();
+			WeixinUtil.shareWXFriends(mWXApi, "share to weixin friends!");
+//			shareEvent();
 			break;
 		case R.id.action_map:
 			locateAddressInMap();
@@ -170,6 +179,7 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
 	
 
 	private void locateAddressInMap() {
@@ -317,4 +327,5 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 		joinEvent.join(accessToken, mEvent.id);
 		
 	}
+
 }
