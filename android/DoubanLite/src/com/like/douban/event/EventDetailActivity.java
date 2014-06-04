@@ -1,7 +1,13 @@
 package com.like.douban.event;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.ImageLoader.ImageContainer;
 import com.android.volley.toolbox.NetworkImageView;
 import com.like.R;
 import com.like.MyApplication;
@@ -17,13 +23,19 @@ import com.like.douban.account.bean.TokenResult;
 import com.like.douban.account.bean.UserList;
 import com.like.weixin.WeixinUtil;
 import com.sunriver.common.utils.ViewUtil;
-import com.tencent.mm.sdk.openapi.BaseReq;
-import com.tencent.mm.sdk.openapi.BaseResp;
 import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
+import com.tencent.mm.sdk.openapi.SendMessageToWX;
+import com.tencent.mm.sdk.openapi.WXImageObject;
+import com.tencent.mm.sdk.openapi.WXMediaMessage;
+import com.tencent.mm.sdk.openapi.WXTextObject;
+import com.tencent.mm.sdk.openapi.WXWebpageObject;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PointF;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -169,9 +181,8 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 			setResult(RESULT_OK);
 			super.onBackPressed();
 			break;
-		case R.id.action_share:
-			WeixinUtil.shareWXFriends(mWXApi, "share to weixin friends!");
-//			shareEvent();
+		case R.id.action_share_weixin_friends:
+			shareToWeixinFriends();
 			break;
 		case R.id.action_map:
 			locateAddressInMap();
@@ -180,7 +191,33 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 		return super.onOptionsItemSelected(item);
 	}
 	
+	private static byte[] bmpToByteArray(final Bitmap bmp, final boolean needRecycle) {
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
+		bmp.compress(CompressFormat.PNG, 100, output);
+		if (needRecycle) {
+			bmp.recycle();
+		}
+		
+		byte[] result = output.toByteArray();
+		try {
+			output.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 	
+	private void shareToWeixinFriends() {
+		StringBuffer eventDes = new StringBuffer();
+		eventDes.append(getString(R.string.event_date) + " : "
+				+ mEvent.getEventTime() + "\n");
+		eventDes.append(getString(R.string.event_address) + " : "
+				+ mEvent.address + "\n");
+
+		BitmapDrawable bd = (BitmapDrawable) mEventThumbNiv.getDrawable();
+		WeixinUtil.shareToWeixinFriends(mWXApi, mEvent.adapt_url, mEvent.title, eventDes.toString(), bd.getBitmap());
+	}
 
 	private void locateAddressInMap() {
 		PointF p = mEvent.getGeoPoint();
