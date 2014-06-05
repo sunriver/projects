@@ -9,6 +9,24 @@
         android:id="@+id/action_share"
         android:icon="@drawable/menu_share"
         android:orderInCategory="100"
-        android:showAsAction="always"/>
+        android:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/action_share_weixin_friends"
+                android:title="@string/event_share_weixin_friends"
+                android:orderInCategory="100"
+                android:showAsAction="always"/>
+            <item
+                android:id="@+id/action_share_weixin_friend"
+                android:title="@string/event_share_weixin_friend"
+                android:orderInCategory="100"
+                android:showAsAction="always"/>
+            <item
+                android:id="@+id/action_share_all"
+                android:title="@string/event_share"
+                android:orderInCategory="100"
+                android:showAsAction="always"/>
+        </menu>
+    </item>
 
 </menu>

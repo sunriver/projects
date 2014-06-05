@@ -1,10 +1,9 @@
 <resources>
 
-
-
     <!-- Application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="android:itemTextAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:itemBackground">@drawable/menu_selector</item>  
     </style>
 
     <style name="AppTheme.Splash">
@@ -12,7 +11,7 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
-     <style name="AppTheme.Main">
+    <style name="AppTheme.Main">
         <item name="android:windowNoTitle">true</item>
     </style>
 
