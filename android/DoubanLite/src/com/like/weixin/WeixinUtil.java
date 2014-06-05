@@ -1,20 +1,18 @@
 package com.like.weixin;
 
-import com.like.R;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.SendMessageToWX;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.tencent.mm.sdk.openapi.WXMediaMessage;
 import com.tencent.mm.sdk.openapi.WXTextObject;
 import com.tencent.mm.sdk.openapi.WXWebpageObject;
-
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
+import android.util.Log;
 
 public class WeixinUtil {
 	public final static String APP_ID = "wx9ffcd7d57299099c";
-
+	private final static String TAG = WeixinUtil.class.getSimpleName();
 	
 	public static IWXAPI registerAppToWX(Context ctx) {
 		IWXAPI api = WXAPIFactory.createWXAPI(ctx, APP_ID, true);
@@ -38,12 +36,20 @@ public class WeixinUtil {
 		api.sendReq(req);
 	}
 	
-	public static void shareToWeixinFriends(final IWXAPI wxApi, final String webUrl, final String title, final String description, final Bitmap thumb) {
+	public static void shareToWeixinFriends(final IWXAPI wxApi, final String webUrl, final String title, final String description, final Bitmap thumbBitmap) {
 		WXWebpageObject webpage = new WXWebpageObject();
 		webpage.webpageUrl =  webUrl;
 		WXMediaMessage msg = new WXMediaMessage(webpage);
-		msg.setThumbImage(thumb);
-		
+		try {
+			float ratio = 0.5f;
+			int width = (int) (thumbBitmap.getWidth() * ratio);
+			int height = (int) (thumbBitmap.getHeight() * ratio);
+			Bitmap tmpThumb = Bitmap.createScaledBitmap(thumbBitmap, width, height, true);
+			msg.setThumbImage(tmpThumb);
+			tmpThumb.recycle();
+		} catch (Exception any) {
+			Log.w(TAG, any);
+		}
 		msg.description = description;
 		msg.title = title;
 
