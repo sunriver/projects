@@ -26,7 +26,7 @@
 集成豆瓣的同城活动，包含音乐，展览，运动，聚会，旅行，戏剧，电影等活动，丰富生活，提高品质。
 
 
-weixin:
+weixin
 ApiID:wx9ffcd7d57299099c
 AppSecret：1a035dbda16d62e9bc82b8696b518803
 debug md5:052cc53ef63749fd1d853e672e747877
