@@ -182,7 +182,13 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 			super.onBackPressed();
 			break;
 		case R.id.action_share_weixin_friends:
-			shareToWeixinFriends();
+			shareToWeixinFriends(true);
+			break;
+		case R.id.action_share_weixin_friend:
+			shareToWeixinFriends(false);
+			break;
+		case R.id.action_share_all:
+			shareEvent();
 			break;
 		case R.id.action_map:
 			locateAddressInMap();
@@ -191,24 +197,7 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 		return super.onOptionsItemSelected(item);
 	}
 	
-	private static byte[] bmpToByteArray(final Bitmap bmp, final boolean needRecycle) {
-		ByteArrayOutputStream output = new ByteArrayOutputStream();
-		bmp.compress(CompressFormat.PNG, 100, output);
-		if (needRecycle) {
-			bmp.recycle();
-		}
-		
-		byte[] result = output.toByteArray();
-		try {
-			output.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return result;
-	}
-	
-	private void shareToWeixinFriends() {
+	private void shareToWeixinFriends(boolean isTimeLine) {
 		StringBuffer eventDes = new StringBuffer();
 		eventDes.append(getString(R.string.event_date) + " : "
 				+ mEvent.getEventTime() + "\n");
@@ -216,7 +205,7 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 				+ mEvent.address + "\n");
 
 		BitmapDrawable bd = (BitmapDrawable) mEventThumbNiv.getDrawable();
-		WeixinUtil.shareToWeixinFriends(mWXApi, mEvent.adapt_url, mEvent.title, eventDes.toString(), bd.getBitmap());
+		WeixinUtil.shareToWeixinFriends(mWXApi, mEvent.adapt_url, mEvent.title, eventDes.toString(), bd.getBitmap(), isTimeLine);
 	}
 
 	private void locateAddressInMap() {
