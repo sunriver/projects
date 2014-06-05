@@ -36,7 +36,7 @@ public class WeixinUtil {
 		api.sendReq(req);
 	}
 	
-	public static void shareToWeixinFriends(final IWXAPI wxApi, final String webUrl, final String title, final String description, final Bitmap thumbBitmap) {
+	public static void shareToWeixinFriends(final IWXAPI wxApi, final String webUrl, final String title, final String description, final Bitmap thumbBitmap, final boolean isTimeLine ) {
 		WXWebpageObject webpage = new WXWebpageObject();
 		webpage.webpageUrl =  webUrl;
 		WXMediaMessage msg = new WXMediaMessage(webpage);
@@ -56,7 +56,7 @@ public class WeixinUtil {
 		SendMessageToWX.Req req = new SendMessageToWX.Req();
 		req.transaction = String.valueOf(System.currentTimeMillis());
 		req.message = msg;
-		req.scene = SendMessageToWX.Req.WXSceneTimeline;
+		req.scene = isTimeLine ? SendMessageToWX.Req.WXSceneTimeline : SendMessageToWX.Req.WXSceneSession;
 		wxApi.sendReq(req);
 	}
 	

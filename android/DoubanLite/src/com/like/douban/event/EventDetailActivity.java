@@ -41,6 +41,7 @@ import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -113,7 +114,6 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 		getMenuInflater().inflate(R.menu.event_detail, menu);
 		MenuItem mapItem = menu.findItem(R.id.action_map);
 		MenuItem shareItem = menu.findItem(R.id.action_share);
-
 		MenuItemCompat.setShowAsAction(mapItem,
 				MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
 		MenuItemCompat.setShowAsAction(shareItem,
@@ -196,6 +196,7 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
 	
 	private void shareToWeixinFriends(boolean isTimeLine) {
 		StringBuffer eventDes = new StringBuffer();
