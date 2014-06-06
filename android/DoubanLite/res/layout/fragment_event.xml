@@ -70,6 +70,7 @@
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false"
         android:smoothScrollbar="true"
+        ptr:ptrHeaderTextColor="#ddd"
         ptr:ptrMode="pullFromStart" />
 
 </LinearLayout>
