@@ -30,3 +30,11 @@ weixin
 ApiID:wx9ffcd7d57299099c
 AppSecret：1a035dbda16d62e9bc82b8696b518803
 debug md5:052cc53ef63749fd1d853e672e747877
+
+TODO: 
+r1.0.0.1
+1.集成百度地图API显示周边活动
+2.集成微信API，分享同城活动
+
+r1.0.1.0
+2.重新设计主界面
