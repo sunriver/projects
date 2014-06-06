@@ -2,7 +2,7 @@
 <resources>
 
     <drawable name="dark_half_transparent">#80000000</drawable>
-    <drawable name="gray_light">#ddd</drawable>
+    <color name="gray_sliver">#ddd</color>
 
     <color name="blue_light">#ff33b5e5</color>
     <color name="gray_deep">#aaa</color>
