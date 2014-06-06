@@ -19,22 +19,7 @@ public class WeixinUtil {
 		api.registerApp(APP_ID);
 		return api;
 	}
-	
-	
-	public static void shareWXFriends(IWXAPI api, String text) {
-		WXTextObject textObj = new WXTextObject();
-		textObj.text = text;
 
-		WXMediaMessage msg = new WXMediaMessage();
-		msg.mediaObject = textObj;
-		msg.description = text;
-		
-		SendMessageToWX.Req req = new SendMessageToWX.Req();
-		req.transaction = buildTransaction("img");
-		req.message = msg;
-		req.scene = SendMessageToWX.Req.WXSceneTimeline;
-		api.sendReq(req);
-	}
 	
 	public static void shareToWeixinFriends(final IWXAPI wxApi, final String webUrl, final String title, final String description, final Bitmap thumbBitmap, final boolean isTimeLine ) {
 		WXWebpageObject webpage = new WXWebpageObject();
@@ -54,7 +39,7 @@ public class WeixinUtil {
 		msg.title = title;
 
 		SendMessageToWX.Req req = new SendMessageToWX.Req();
-		req.transaction = String.valueOf(System.currentTimeMillis());
+		req.transaction = buildTransaction("mixed");
 		req.message = msg;
 		req.scene = isTimeLine ? SendMessageToWX.Req.WXSceneTimeline : SendMessageToWX.Req.WXSceneSession;
 		wxApi.sendReq(req);
