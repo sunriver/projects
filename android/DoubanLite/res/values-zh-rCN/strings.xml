@@ -26,8 +26,8 @@
     <string name="event_wish">有兴趣</string>
     <string name="event_unwish">没兴趣</string>
     <string name="event_participant_count">参加</string>
-    <string name="event_participant">我想去</string>
-    <string name="event_unparticipant">不去了</string>
+    <string name="event_participant">报名</string>
+    <string name="event_unparticipant">取消报名</string>
     <string name="event_share_subject">分享</string>
     <string name="event_share_chooser">请选择</string>
     <string name="event_splash_title">" i like"</string>
