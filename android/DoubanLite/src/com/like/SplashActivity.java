@@ -29,8 +29,8 @@ public class SplashActivity extends ActionBarActivity implements AnimationListen
         
         TextView splashTv = (TextView) splashView.findViewById(R.id.tv_splash_title);
         animation = AnimationUtils.loadAnimation(appCtx, R.anim.alpha);
-        splashTv.startAnimation(animation);
-//        fowardToMainActivity();
+//        splashTv.startAnimation(animation);
+        fowardToMainActivity();
     }
 
 

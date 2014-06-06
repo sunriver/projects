@@ -6,6 +6,7 @@ import com.like.MyApplication;
 import com.like.R;
 import com.android.volley.RequestQueue;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
@@ -146,9 +147,10 @@ public class EventFragment extends Fragment implements OnClickListener {
 		};
 		
 		mGetEvents = new GetEvents(ctx, queue, listener);
-		mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
+		mPullRefreshListView.setRefreshing();
 	}
 	
+
 	private void initLocationSpinner(Context ctx, ViewGroup contentView) {
 		SpinnerPair pair = new SpinnerPair();
 		mLocPair = pair;
@@ -170,7 +172,7 @@ public class EventFragment extends Fragment implements OnClickListener {
 					int position, long id) {
 				mLocPair.selectedPos = position;
 				mLocPair.selectedValue = mLocPair.values[position];
-				mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
+				mPullRefreshListView.setRefreshing();
 			}
 
 			@Override
@@ -236,7 +238,7 @@ public class EventFragment extends Fragment implements OnClickListener {
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
 				mDateTypePair.selectedValue = mDateTypePair.values[position];
-				mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
+				mPullRefreshListView.setRefreshing();
 			}
 
 			@Override
@@ -267,7 +269,7 @@ public class EventFragment extends Fragment implements OnClickListener {
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
 				mTypePair.selectedValue = mTypePair.values[position];
-				mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
+				mPullRefreshListView.setRefreshing();
 			}
 			
 			@Override
@@ -343,8 +345,7 @@ public class EventFragment extends Fragment implements OnClickListener {
 										| DateUtils.FORMAT_ABBREV_ALL);
 
 						// Update the LastUpdatedLabel
-						refreshView.getLoadingLayoutProxy()
-								.setLastUpdatedLabel(label);
+						refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
 
 						// Do work to refresh the list here.
 						mGetEvents.query(mLocPair.selectedValue, mDateTypePair.selectedValue, mTypePair.selectedValue);
