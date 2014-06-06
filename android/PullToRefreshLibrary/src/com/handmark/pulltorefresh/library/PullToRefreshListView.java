@@ -69,7 +69,15 @@ public class PullToRefreshListView extends PullToRefreshAdapterViewBase<ListView
 		 * the header/footer views won't show so we use the normal method.
 		 */
 		ListAdapter adapter = mRefreshableView.getAdapter();
-		if (!mListViewExtrasEnabled || !getShowViewWhileRefreshing() || null == adapter || adapter.isEmpty()) {
+		
+//Raw code as below		
+//		if (!mListViewExtrasEnabled || !getShowViewWhileRefreshing() || null == adapter || adapter.isEmpty()) {
+//			super.onRefreshing(doScroll);
+//			return;
+//		}
+		
+		//Remove condition that adapter is empty
+		if (!mListViewExtrasEnabled || !getShowViewWhileRefreshing() || null == adapter) {
 			super.onRefreshing(doScroll);
 			return;
 		}
