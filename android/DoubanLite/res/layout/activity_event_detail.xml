@@ -117,6 +117,7 @@
                 android:layout_margin="2dp"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:text="@string/event_wisher_count"
                 android:textColor="@color/text_color_common" />
 
@@ -128,7 +129,8 @@
                 android:layout_margin="2dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/event_participant_count"
+                android:textStyle="bold"
+                android:text="@string/event_participant"
                 android:textColor="@color/text_color_common" />
         </LinearLayout>
     </LinearLayout>
