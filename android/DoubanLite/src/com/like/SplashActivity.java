@@ -30,6 +30,7 @@ public class SplashActivity extends ActionBarActivity implements AnimationListen
         TextView splashTv = (TextView) splashView.findViewById(R.id.tv_splash_title);
         animation = AnimationUtils.loadAnimation(appCtx, R.anim.alpha);
         splashTv.startAnimation(animation);
+//        fowardToMainActivity();
     }
 
 
@@ -40,11 +41,15 @@ public class SplashActivity extends ActionBarActivity implements AnimationListen
 
 	@Override
 	public void onAnimationEnd(Animation animation) {
-		Intent intent = new Intent(this, MainActivity.class);
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException ignore) {
 		}
+		fowardToMainActivity();
+	}
+	
+	private void fowardToMainActivity() {
+		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 		finish();
 	}
