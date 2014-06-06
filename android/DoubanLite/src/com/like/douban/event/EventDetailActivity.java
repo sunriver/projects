@@ -1,13 +1,8 @@
 package com.like.douban.event;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.ImageLoader.ImageContainer;
 import com.android.volley.toolbox.NetworkImageView;
 import com.like.R;
 import com.like.MyApplication;
@@ -24,24 +19,16 @@ import com.like.douban.account.bean.UserList;
 import com.like.weixin.WeixinUtil;
 import com.sunriver.common.utils.ViewUtil;
 import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.SendMessageToWX;
-import com.tencent.mm.sdk.openapi.WXImageObject;
-import com.tencent.mm.sdk.openapi.WXMediaMessage;
-import com.tencent.mm.sdk.openapi.WXTextObject;
-import com.tencent.mm.sdk.openapi.WXWebpageObject;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PointF;
-import android.graphics.Bitmap.CompressFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -198,15 +185,20 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 	}
 	
 	
-	private void shareToWeixinFriends(boolean isTimeLine) {
-		StringBuffer eventDes = new StringBuffer();
-		eventDes.append(getString(R.string.event_date) + " : "
-				+ mEvent.getEventTime() + "\n");
-		eventDes.append(getString(R.string.event_address) + " : "
-				+ mEvent.address + "\n");
-
-		BitmapDrawable bd = (BitmapDrawable) mEventThumbNiv.getDrawable();
-		WeixinUtil.shareToWeixinFriends(mWXApi, mEvent.adapt_url, mEvent.title, eventDes.toString(), bd.getBitmap(), isTimeLine);
+	private void shareToWeixinFriends(boolean isTimeLine) { 
+		try {
+			StringBuffer eventDes = new StringBuffer();
+			eventDes.append(getString(R.string.event_date) + " : "
+					+ mEvent.getEventTime() + "\n");
+			eventDes.append(getString(R.string.event_address) + " : "
+					+ mEvent.address + "\n");
+			
+			BitmapDrawable bd = (BitmapDrawable) mEventThumbNiv.getDrawable();
+			Bitmap bitmap = (bd != null) ? bd.getBitmap() : BitmapFactory.decodeResource(getResources(), R.drawable.app_icon);
+			WeixinUtil.shareToWeixinFriends(mWXApi, mEvent.adapt_url, mEvent.title, eventDes.toString(), bitmap, isTimeLine);
+		} catch (Exception any) {
+			
+		}
 	}
 
 	private void locateAddressInMap() {
