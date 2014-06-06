@@ -34,7 +34,7 @@
     <string name="event_menu_item_participanted">已报名</string>
     <string name="event_menu_item_wished">已收藏</string>
     <string name="event_share_weixin_friends">分享到微信朋友圈</string>
-    <string name="event_share_weixin_friend">分享给微信朋好友</string>
+    <string name="event_share_weixin_friend">分享给微信好友</string>
     <string name="event_share">一键分享</string>
 
 </resources>
