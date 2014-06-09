@@ -1,6 +1,8 @@
 package com.like.douban.event;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.like.MyApplication;
 import com.like.R;
@@ -10,6 +12,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
+import com.like.baidu.MapActivity;
 import com.like.douban.api.ResponseListener;
 import com.like.douban.event.api.GetEvents;
 import com.like.douban.event.api.GetParticipantedEvents;
@@ -59,6 +62,7 @@ public class EventFragment extends Fragment implements OnClickListener {
 	private SpinnerPair mTypePair;
 	private SharedPreferences mSharedPreferences;
 	private ImageView mLoginIv;
+	private ImageView mMapIv;
 
 	private static class SpinnerPair {
 		String selectedValue;
@@ -78,6 +82,8 @@ public class EventFragment extends Fragment implements OnClickListener {
 		mSharedPreferences = ctx.getSharedPreferences(FILE_EVENT_PREF, Context.MODE_PRIVATE);
 		mLoginIv = (ImageView) contentView.findViewById(R.id.iv_account);
 		mLoginIv.setOnClickListener(this);
+		mMapIv = (ImageView) contentView.findViewById(R.id.iv_map);
+		mMapIv.setOnClickListener(this);
 		
 		initLocationSpinner(ctx, contentView);
 		initDayTypeSpinner(ctx, contentView);
@@ -381,6 +387,15 @@ public class EventFragment extends Fragment implements OnClickListener {
 	}
 
 
+	private void openEventMap() {
+		Activity act = this.getActivity();
+		Intent intent = new Intent(act, MapActivity.class);
+		ArrayList<Event> items = mEventAdapter.asItemList();
+		Bundle bundle = new Bundle();
+		bundle.putSerializable(MapActivity.BUNDLE_KEY_EVENT, items);
+		intent.putExtras(bundle);
+		act.startActivity(intent);
+	}
 
 
 	@Override
@@ -394,6 +409,9 @@ public class EventFragment extends Fragment implements OnClickListener {
 			} else {
 				AccountManager.doLogin(act);
 			}
+			break;
+		case R.id.iv_map:
+			openEventMap();
 			break;
 		default:
 			break;

@@ -1,6 +1,8 @@
 package com.like.douban.event;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -49,6 +51,13 @@ public class EventAdapter extends BaseAdapter {
 	public long getItemId(int position) {
 		return position;
 	}
+	
+	public ArrayList<Event> asItemList() {
+		ArrayList<Event> eventDst = new ArrayList<Event>(mEvents);
+		return eventDst;
+	}
+	
+
 	
 	public void updateEventList(EventList eventList) {
 		List<Event> events = mEvents;

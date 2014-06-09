@@ -8,8 +8,9 @@ import org.json.JSONObject;
 
 import android.graphics.Point;
 import android.graphics.PointF;
+import android.text.TextUtils;
 import android.util.Log;
-public class Event implements Serializable {
+public final class Event implements Serializable {
 	private static final String TAG = Event.class.getSimpleName();
 	private static final long serialVersionUID = 1L;
 
@@ -66,6 +67,26 @@ public class Event implements Serializable {
 	public String content;
 	public Date begin_time;
 	public Date end_time;
+	
+	public double getLongitude() {
+		if (!TextUtils.isEmpty(geo)) {
+			String[] subs = geo.split(" ");
+			if (subs.length == 2) {
+				return Double.valueOf(subs[1]);
+			}
+		}
+		return -1;
+	}
+	
+	public double getLatitude() {
+		if (!TextUtils.isEmpty(geo)) {
+			String[] subs = geo.split(" ");
+			if (subs.length == 2) {
+				return Double.valueOf(subs[0]);
+			}
+		}
+		return -1;
+	}
 
 	public String getTitle() {
 		return title;
