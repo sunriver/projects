@@ -26,11 +26,15 @@ import com.baidu.mapapi.model.LatLng;
 import com.like.MyApplication;
 import com.like.R;
 import com.like.douban.event.bean.Event;
+import com.sunriver.common.utils.ViewUtil;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -58,11 +62,11 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 		super.onCreate(savedInstanceState);
 		SDKInitializer.initialize(getApplicationContext());
 		setContentView(R.layout.activity_baidu_map_event);
-		init();
-		testMarker(getIntent().getExtras());
+		initView();
+		initMarker(getIntent().getExtras());
 	}
 
-	private void init() {
+	private void initView() {
 		MyApplication myApp = (MyApplication) this.getApplication();
 		mImageLoader = myApp.getImageLoader();
 		mLatLngHashMap = new HashMap<String, Event>();
@@ -92,6 +96,8 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 				}
 			}
 		});
+		
+		initActionBar();
 	}
 
 	private void updateCity(LatLng latLng) {
@@ -99,7 +105,7 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 		mBaiduMap.setMapStatus(msUpdate);
 	}
 
-	private void testMarker(Bundle bundle) {
+	private void initMarker(Bundle bundle) {
 		@SuppressWarnings("unchecked")
 		ArrayList<Event> events = (ArrayList<Event>) bundle.getSerializable(BUNDLE_KEY_EVENT);
 
@@ -116,6 +122,26 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 			}
 		}
 
+	}
+	
+	private void initActionBar() {
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setTitle(R.string.event_map);
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP
+				| ActionBar.DISPLAY_SHOW_TITLE, ActionBar.DISPLAY_HOME_AS_UP
+				| ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_HOME);
+		ViewUtil.setActionBarBackgroundRepeat(this, actionBar,
+				R.drawable.bg_base);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			super.onBackPressed();
+			break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
