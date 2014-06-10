@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@drawable/bg_base" >
@@ -14,28 +14,16 @@
             android:id="@+id/iv_account"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_margin="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="50dp"
             android:src="@drawable/ic_account" />
-
-        <ImageView
-            android:id="@+id/iv_map"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_margin="10dp"
-            android:src="@drawable/ic_map" />
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white" >
 
         <Spinner
             android:id="@+id/sp_loc"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:dropDownWidth="100dp"
@@ -46,7 +34,7 @@
         <Spinner
             android:id="@+id/sp_type"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:dropDownWidth="100dp"
@@ -56,12 +44,19 @@
         <Spinner
             android:id="@+id/sp_dateType"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:dropDownWidth="100dp"
             android:popupBackground="@color/gray_whitesmoke" >
         </Spinner>
+
+        <ImageView
+            android:id="@+id/iv_map"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:src="@drawable/ic_map" />
     </LinearLayout>
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
