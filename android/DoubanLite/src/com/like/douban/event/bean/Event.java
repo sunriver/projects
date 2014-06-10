@@ -200,7 +200,7 @@ public final class Event implements Serializable {
 			if (obj.has(Property.GEO)) {
 				evt.geo = obj.getString(Property.GEO);
 				if (!TextUtils.isEmpty(evt.geo)) {
-					String[] subs = evt.geo.split(" ");
+					String[] subs = evt.geo.split("\\s+");
 					if (subs.length == 2) {
 						evt.latitude = Double.valueOf(subs[0]);
 						evt.longitude = Double.valueOf(subs[1]);
