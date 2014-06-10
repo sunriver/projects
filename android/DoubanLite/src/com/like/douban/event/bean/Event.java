@@ -48,7 +48,9 @@ public final class Event implements Serializable {
 	public int hashCode() {
 		return Integer.valueOf(id);
 	}
-
+	
+	private double longitude = -1;
+	private double latitude = -1;
 
 
 	public String id;
@@ -69,23 +71,11 @@ public final class Event implements Serializable {
 	public Date end_time;
 	
 	public double getLongitude() {
-		if (!TextUtils.isEmpty(geo)) {
-			String[] subs = geo.split(" ");
-			if (subs.length == 2) {
-				return Double.valueOf(subs[1]);
-			}
-		}
-		return -1;
+		return longitude;
 	}
 	
 	public double getLatitude() {
-		if (!TextUtils.isEmpty(geo)) {
-			String[] subs = geo.split(" ");
-			if (subs.length == 2) {
-				return Double.valueOf(subs[0]);
-			}
-		}
-		return -1;
+		return latitude;
 	}
 
 	public String getTitle() {
@@ -209,6 +199,13 @@ public final class Event implements Serializable {
 			}
 			if (obj.has(Property.GEO)) {
 				evt.geo = obj.getString(Property.GEO);
+				if (!TextUtils.isEmpty(evt.geo)) {
+					String[] subs = evt.geo.split(" ");
+					if (subs.length == 2) {
+						evt.latitude = Double.valueOf(subs[0]);
+						evt.longitude = Double.valueOf(subs[1]);
+					}
+				}
 			}
 			if (obj.has(Property.PARTICIPANT_COUNT)) {
 				evt.participant_count  = obj.getInt(Property.PARTICIPANT_COUNT);
