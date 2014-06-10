@@ -6,6 +6,7 @@
     <string name="event_address">地址</string>
     <string name="event_date">时间</string>
     <string name="event_detail">详情</string>
+    <string name="event_map">地图模式</string>
     <string name="event_private_participanted">我报名的活动</string>
     <string name="event_private_wished">我感兴趣的活动</string>
     <string name="error_network_disconnect">没有网络连接</string>
