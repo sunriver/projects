@@ -116,8 +116,7 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 				String key = evt.getLatitude() + "_" + evt.getLongitude();
 				mLatLngHashMap.put(key, evt);
 				LatLng point = new LatLng(evt.getLatitude(), evt.getLongitude());
-				BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_red);
-				OverlayOptions option = new MarkerOptions().position(point).icon(bitmap);
+				OverlayOptions option = new MarkerOptions().position(point).icon(redMarkerBitmap);
 				mBaiduMap.addOverlay(option);
 			}
 		}
@@ -191,15 +190,15 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 	}
 	
 	private Marker mPreMarker;
+	private final BitmapDescriptor redMarkerBitmap = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_red);
+	private final BitmapDescriptor blueMarkerBitmap = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_blue);
 
 	@Override
 	public boolean onMarkerClick(Marker marker) {
 		if (mPreMarker != null) {
-			BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_red);
-			mPreMarker.setIcon(bitmap);
+			mPreMarker.setIcon(redMarkerBitmap);
 		}
-		BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_blue);
-		marker.setIcon(bitmap);
+		marker.setIcon(blueMarkerBitmap);
 		mPreMarker = marker;
 		return showEvent(marker.getPosition());
 	}
@@ -208,8 +207,7 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 	public void onMapClick(LatLng latLng) {
 		if (!showEvent(latLng)) {
 			if (mPreMarker != null) {
-				BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_red);
-				mPreMarker.setIcon(bitmap);
+				mPreMarker.setIcon(redMarkerBitmap);
 				mPreMarker = null;
 			}
 		}
