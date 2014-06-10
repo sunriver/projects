@@ -16,12 +16,6 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:src="@drawable/ic_account" />
-        <ImageView
-            android:id="@+id/iv_map"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:src="@drawable/ic_account" />
 
         <Spinner
             android:id="@+id/sp_loc"
@@ -29,7 +23,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@null"
             android:dropDownHorizontalOffset="10dp"
             android:dropDownWidth="100dp"
             android:gravity="center"
@@ -42,7 +35,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@null"
             android:dropDownHorizontalOffset="10dp"
             android:dropDownWidth="100dp"
             android:popupBackground="@drawable/dropdown_panel_dark" >
@@ -54,11 +46,17 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@null"
             android:dropDownHorizontalOffset="10dp"
             android:dropDownWidth="100dp"
             android:popupBackground="@drawable/dropdown_panel_dark" >
         </Spinner>
+
+        <ImageView
+            android:id="@+id/iv_map"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_map" />
     </LinearLayout>
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
