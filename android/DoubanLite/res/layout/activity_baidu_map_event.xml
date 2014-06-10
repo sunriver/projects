@@ -10,11 +10,19 @@
         android:clickable="true" >
     </com.baidu.mapapi.map.MapView>
 
+    <View
+        android:background="@null"
+        android:id="@+id/space"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_alignParentBottom="true" />
+
     <include
         android:id="@+id/ll_event"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/space"
+        android:layout_margin="5dp"
         layout="@layout/listview_item_event"
         android:visibility="invisible" />
 
