@@ -2,17 +2,13 @@ package com.like.douban.event;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.List;
-
 import com.like.MyApplication;
 import com.like.R;
 import com.android.volley.RequestQueue;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
-import com.like.baidu.MapActivity;
 import com.like.douban.api.ResponseListener;
 import com.like.douban.event.api.GetEvents;
 import com.like.douban.event.api.GetParticipantedEvents;
@@ -24,7 +20,6 @@ import com.like.douban.account.AccountManager;
 import com.like.douban.account.bean.TokenResult;
 import com.sunriver.common.utils.ApiLevel;
 import com.sunriver.common.utils.ViewUtil;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -389,10 +384,10 @@ public class EventFragment extends Fragment implements OnClickListener {
 
 	private void openEventMap() {
 		Activity act = this.getActivity();
-		Intent intent = new Intent(act, MapActivity.class);
+		Intent intent = new Intent(act, EventMapActivity.class);
 		ArrayList<Event> items = mEventAdapter.asItemList();
 		Bundle bundle = new Bundle();
-		bundle.putSerializable(MapActivity.BUNDLE_KEY_EVENT, items);
+		bundle.putSerializable(EventMapActivity.BUNDLE_KEY_EVENT, items);
 		intent.putExtras(bundle);
 		act.startActivity(intent);
 	}
