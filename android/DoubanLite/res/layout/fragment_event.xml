@@ -26,9 +26,8 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:dropDownWidth="100dp"
             android:gravity="center"
-            android:popupBackground="@color/gray_whitesmoke" >
+            android:popupBackground="@drawable/dropdown_panel_dark" >
         </Spinner>
 
         <Spinner
@@ -37,8 +36,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:dropDownWidth="100dp"
-            android:popupBackground="@color/gray_whitesmoke" >
+           android:popupBackground="@drawable/dropdown_panel_dark" >
         </Spinner>
 
         <Spinner
@@ -47,8 +45,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:dropDownWidth="100dp"
-            android:popupBackground="@color/gray_whitesmoke" >
+            android:popupBackground="@drawable/dropdown_panel_dark" >
         </Spinner>
 
         <ImageView

@@ -12,6 +12,6 @@
         android:singleLine="true"
         android:textAlignment="inherit"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/white" />
 
 </LinearLayout>
