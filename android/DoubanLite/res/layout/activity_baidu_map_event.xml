@@ -10,22 +10,12 @@
         android:clickable="true" >
     </com.baidu.mapapi.map.MapView>
 
-    <LinearLayout
-        android:visibility="invisible"
+    <include
         android:id="@+id/ll_event"
-        android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" >
-
-        <TextView
-            android:singleLine="true"
-            android:id="@+id/tv_event_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/black" />
-    </LinearLayout>
+        android:layout_alignParentBottom="true"
+        layout="@layout/listview_item_event"
+        android:visibility="invisible" />
 
 </RelativeLayout>
