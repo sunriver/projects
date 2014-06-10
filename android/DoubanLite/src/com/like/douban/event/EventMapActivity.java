@@ -110,7 +110,7 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 				String key = evt.getLatitude() + "_" + evt.getLongitude();
 				mLatLngHashMap.put(key, evt);
 				LatLng point = new LatLng(evt.getLatitude(), evt.getLongitude());
-				BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker);
+				BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_red);
 				OverlayOptions option = new MarkerOptions().position(point).icon(bitmap);
 				mBaiduMap.addOverlay(option);
 			}
@@ -136,7 +136,7 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 		mMapView.onPause();
 	}
 
-	private void showEvent(LatLng latLng) {
+	private boolean showEvent(LatLng latLng) {
 		String key = latLng.latitude + "_" + latLng.longitude;
 		Event evt = mLatLngHashMap.get(key);
 		if (evt != null) {
@@ -155,21 +155,38 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 			mEventVg.startAnimation(animation);
 			mEventVg.setVisibility(View.VISIBLE);
 			mEventVg.setTag(evt);
+			return true;
 		} else {
+			//hide event tip
 			mEventVg.setTag(null);
 			mEventVg.setVisibility(View.INVISIBLE);
+			return false;
 		}
 	}
+	
+	private Marker mPreMarker;
 
 	@Override
 	public boolean onMarkerClick(Marker marker) {
-		showEvent(marker.getPosition());
-		return true;
+		if (mPreMarker != null) {
+			BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_red);
+			mPreMarker.setIcon(bitmap);
+		}
+		BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_blue);
+		marker.setIcon(bitmap);
+		mPreMarker = marker;
+		return showEvent(marker.getPosition());
 	}
 
 	@Override
 	public void onMapClick(LatLng latLng) {
-		showEvent(latLng);		
+		if (!showEvent(latLng)) {
+			if (mPreMarker != null) {
+				BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_red);
+				mPreMarker.setIcon(bitmap);
+				mPreMarker = null;
+			}
+		}
 	}
 
 	@Override
