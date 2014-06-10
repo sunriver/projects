@@ -56,6 +56,8 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 	private NetworkImageView mEventThumbIv;
 	private HashMap<String, Event> mLatLngHashMap;
 	private ImageLoader mImageLoader;
+	private  BitmapDescriptor mRedMarkerBitmap;
+	private  BitmapDescriptor mBlueMarkerBitmap;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,10 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 	private void initView() {
 		MyApplication myApp = (MyApplication) this.getApplication();
 		mImageLoader = myApp.getImageLoader();
+		
+		mRedMarkerBitmap = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_red);
+		mBlueMarkerBitmap = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_blue);
+		
 		mLatLngHashMap = new HashMap<String, Event>();
 		MapView mv = (MapView) this.findViewById(R.id.bmv_event);
 		mBaiduMap = mv.getMap();
@@ -116,7 +122,7 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 				String key = evt.getLatitude() + "_" + evt.getLongitude();
 				mLatLngHashMap.put(key, evt);
 				LatLng point = new LatLng(evt.getLatitude(), evt.getLongitude());
-				OverlayOptions option = new MarkerOptions().position(point).icon(redMarkerBitmap);
+				OverlayOptions option = new MarkerOptions().position(point).icon(mRedMarkerBitmap);
 				mBaiduMap.addOverlay(option);
 			}
 		}
@@ -190,15 +196,13 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 	}
 	
 	private Marker mPreMarker;
-	private final BitmapDescriptor redMarkerBitmap = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_red);
-	private final BitmapDescriptor blueMarkerBitmap = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_blue);
 
 	@Override
 	public boolean onMarkerClick(Marker marker) {
 		if (mPreMarker != null) {
-			mPreMarker.setIcon(redMarkerBitmap);
+			mPreMarker.setIcon(mRedMarkerBitmap);
 		}
-		marker.setIcon(blueMarkerBitmap);
+		marker.setIcon(mBlueMarkerBitmap);
 		mPreMarker = marker;
 		return showEvent(marker.getPosition());
 	}
@@ -207,7 +211,7 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 	public void onMapClick(LatLng latLng) {
 		if (!showEvent(latLng)) {
 			if (mPreMarker != null) {
-				mPreMarker.setIcon(redMarkerBitmap);
+				mPreMarker.setIcon(mRedMarkerBitmap);
 				mPreMarker = null;
 			}
 		}
