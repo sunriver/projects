@@ -65,7 +65,6 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 	private BitmapDescriptor mRedMarkerBitmap;
 	private BitmapDescriptor mBlueMarkerBitmap;
 	private Properties mGeoProperties;
-	private String mCityName = "beijing";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -143,8 +142,8 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 	private void initMarker(Bundle bundle) {
 		@SuppressWarnings("unchecked")
 		ArrayList<Event> events = (ArrayList<Event>) bundle.getSerializable(BUNDLE_KEY_EVENT);
-		mCityName = bundle.getString(BUNDLE_KEY_EVENT_CITY, "beijing");
-		updateCity(mCityName);
+		String cityName = bundle.getString(BUNDLE_KEY_EVENT_CITY, "beijing");
+		updateCity(cityName);
 		if (events != null && events.size() > 0) {
 			for (Event evt : events) {
 				String key = evt.getLatitude() + "_" + evt.getLongitude();
