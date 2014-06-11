@@ -11,6 +11,7 @@
         <item>杭州</item>
         <item>上海</item>
         <item>深圳</item>
+        <item>重庆</item>
         <item>武汉</item>
         <item>成都</item>
         <item>南京</item>
@@ -25,6 +26,7 @@
         <item>青岛</item>
         <item>济南</item>
         <item>温州</item>
+        <item>厦门</item>
     </string-array>
     <string-array name="event_dayType_names">
         <item>任何时间</item>
@@ -53,6 +55,7 @@
         <item>hangzhou</item>
         <item>shanghai</item>
         <item>shenzhen</item>
+        <item>chongqing</item>
         <item>wuhan</item>
         <item>chengdu</item>
         <item>nanjing</item>
@@ -67,7 +70,31 @@
         <item>qingdao</item>
         <item>jinan</item>
         <item>wenzhou</item>
+        <item>xiamen</item>
     </string-array>
+
+    <string name="geo_beijing">116.41667,39.91667</string>
+    <string name="geo_guangzhou">113.23333,23.16667</string>
+    <string name="geo_hangzhou">120.20000,30.26667</string>
+    <string name="geo_shanghai">121.43333,34.50000</string>
+    <string name="geo_shenzhen">114.06667,22.61667</string>
+    <string name="geo_chongqing">106.45000,29.56667</string>
+    <string name="geo_wuhan">114.31667,30.51667</string>
+    <string name="geo_chengdu">104.04,30.40</string>
+    <string name="geo_nanjing">118.78333,32.05000</string>
+    <string name="geo_xian">108.95000,34.26667</string>
+    <string name="geo_zhengzhou">113.65000,34.76667</string>
+    <string name="geo_tianjin">117.20000,39.13333</string>
+    <string name="geo_changsha">113.00000,28.21667</string>
+    <string name="geo_suzhou">120.37,31.19</string>
+    <string name="geo_fuzhou">119.30000,26.08333</string>
+    <string name="geo_haerbin">126.63333,45.75000</string>
+    <string name="geo_shenyang">123.38333,41.80000</string>
+    <string name="geo_qingdao">120.33333,36.06667</string>
+    <string name="geo_jinan">117.00,36.40</string>
+    <string name="geo_wenzhou">120.39,28.01</string>
+    <string name="geo_xiamen">118.10000,24.46667</string>
+
     <string-array name="event_dayType_values">
         <item>future</item>
         <item>week</item>
