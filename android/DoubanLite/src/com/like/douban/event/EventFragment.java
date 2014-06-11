@@ -388,6 +388,7 @@ public class EventFragment extends Fragment implements OnClickListener {
 		ArrayList<Event> items = mEventAdapter.asItemList();
 		Bundle bundle = new Bundle();
 		bundle.putSerializable(EventMapActivity.BUNDLE_KEY_EVENT, items);
+		bundle.putString(EventMapActivity.BUNDLE_KEY_EVENT_CITY, mLocPair.selectedValue);
 		intent.putExtras(bundle);
 		act.startActivity(intent);
 	}

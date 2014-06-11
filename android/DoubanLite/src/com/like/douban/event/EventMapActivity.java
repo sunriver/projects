@@ -49,6 +49,7 @@ import android.widget.TextView;
 public class EventMapActivity extends ActionBarActivity implements OnMarkerClickListener , OnMapClickListener {
 	private static final String TAG = EventMapActivity.class.getSimpleName();
 	public static final String BUNDLE_KEY_EVENT = "bundle.key.event";
+	public static final String BUNDLE_KEY_EVENT_CITY = "bundle.key.event.city";
 	private BaiduMap mBaiduMap;
 	private MapView mMapView;
 	private TextView mEventNameTv;
@@ -64,6 +65,7 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 	private  BitmapDescriptor mRedMarkerBitmap;
 	private  BitmapDescriptor mBlueMarkerBitmap;
 	private Properties mGeoProperties;
+	private String mCityName = "beijing";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -130,8 +132,8 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 			String geo = mGeoProperties.getProperty(cityName);
 			if (geo != null) {
 				String[] subs = geo.split(",");
-				double latitude = Double.valueOf(subs[0]);
-				double longtitude = Double.valueOf(subs[1]);
+				double longtitude = Double.valueOf(subs[0]);
+				double latitude = Double.valueOf(subs[1]);
 				MapStatusUpdate msUpdate = MapStatusUpdateFactory.newLatLng(new LatLng(latitude, longtitude));
 				mBaiduMap.setMapStatus(msUpdate);
 			}
@@ -141,9 +143,9 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 	private void initMarker(Bundle bundle) {
 		@SuppressWarnings("unchecked")
 		ArrayList<Event> events = (ArrayList<Event>) bundle.getSerializable(BUNDLE_KEY_EVENT);
-
+		mCityName = bundle.getString(BUNDLE_KEY_EVENT_CITY, "beijing");
+		updateCity(mCityName);
 		if (events != null && events.size() > 0) {
-			updateCity("shenzheng");
 			for (Event evt : events) {
 				String key = evt.getLatitude() + "_" + evt.getLongitude();
 				mLatLngHashMap.put(key, evt);
