@@ -62,8 +62,8 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 	private NetworkImageView mEventThumbIv;
 	private HashMap<String, Event> mLatLngHashMap;
 	private ImageLoader mImageLoader;
-	private  BitmapDescriptor mRedMarkerBitmap;
-	private  BitmapDescriptor mBlueMarkerBitmap;
+	private BitmapDescriptor mRedMarkerBitmap;
+	private BitmapDescriptor mBlueMarkerBitmap;
 	private Properties mGeoProperties;
 	private String mCityName = "beijing";
 
