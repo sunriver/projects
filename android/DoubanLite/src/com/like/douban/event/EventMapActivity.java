@@ -1,7 +1,9 @@
 package com.like.douban.event;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Properties;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
@@ -23,6 +25,8 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.SupportMapFragment;
 import com.baidu.mapapi.map.TextOptions;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.poi.PoiCitySearchOption;
+import com.baidu.mapapi.search.poi.PoiSearch;
 import com.like.MyApplication;
 import com.like.R;
 import com.like.douban.event.bean.Event;
@@ -43,6 +47,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 public class EventMapActivity extends ActionBarActivity implements OnMarkerClickListener , OnMapClickListener {
+	private static final String TAG = EventMapActivity.class.getSimpleName();
 	public static final String BUNDLE_KEY_EVENT = "bundle.key.event";
 	private BaiduMap mBaiduMap;
 	private MapView mMapView;
@@ -58,6 +63,7 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 	private ImageLoader mImageLoader;
 	private  BitmapDescriptor mRedMarkerBitmap;
 	private  BitmapDescriptor mBlueMarkerBitmap;
+	private Properties mGeoProperties;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +71,7 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 		SDKInitializer.initialize(getApplicationContext());
 		setContentView(R.layout.activity_baidu_map_event);
 		initView();
+		initCityGeo();
 		initMarker(getIntent().getExtras());
 	}
 
@@ -105,10 +112,30 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 		
 		initActionBar();
 	}
+	
+	private void initCityGeo() {
+		Properties configFile = new Properties();
+		try {
+			configFile.load(getClassLoader().getResourceAsStream("city_geo.properties"));
+			mGeoProperties = configFile;
+		} catch (IOException e) {
+			Log.w(TAG, "Can't load city geo property file", e);
+			mGeoProperties = null;
+		}
 
-	private void updateCity(LatLng latLng) {
-		MapStatusUpdate msUpdate = MapStatusUpdateFactory.newLatLng(latLng);
-		mBaiduMap.setMapStatus(msUpdate);
+	}
+
+	private void updateCity(final String cityName) {
+		if (mGeoProperties != null) {
+			String geo = mGeoProperties.getProperty(cityName);
+			if (geo != null) {
+				String[] subs = geo.split(",");
+				double latitude = Double.valueOf(subs[0]);
+				double longtitude = Double.valueOf(subs[1]);
+				MapStatusUpdate msUpdate = MapStatusUpdateFactory.newLatLng(new LatLng(latitude, longtitude));
+				mBaiduMap.setMapStatus(msUpdate);
+			}
+		}
 	}
 
 	private void initMarker(Bundle bundle) {
@@ -116,8 +143,7 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 		ArrayList<Event> events = (ArrayList<Event>) bundle.getSerializable(BUNDLE_KEY_EVENT);
 
 		if (events != null && events.size() > 0) {
-			Event initEvt = events.get(0);
-			updateCity(new LatLng(initEvt.getLatitude(), initEvt.getLongitude()));
+			updateCity("shenzheng");
 			for (Event evt : events) {
 				String key = evt.getLatitude() + "_" + evt.getLongitude();
 				mLatLngHashMap.put(key, evt);
@@ -222,6 +248,5 @@ public class EventMapActivity extends ActionBarActivity implements OnMarkerClick
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 
 }
