@@ -26,18 +26,29 @@
 集成豆瓣的同城活动，包含音乐，展览，运动，聚会，旅行，戏剧，电影等活动，丰富生活，提高品质。
 
 
-weixin
+---weixin
+debug
 ApiID:wx9ffcd7d57299099c
 AppSecret：1a035dbda16d62e9bc82b8696b518803
-debug md5:052cc53ef63749fd1d853e672e747877
-release md5:f1991930053a8082970e416b53aac406
+md5:052cc53ef63749fd1d853e672e747877
 
-baidu sdk:
+release 
+md5:f1991930053a8082970e416b53aac406
+AppID：wx9ffcd7d57299099c
+AppSecret：1a035dbda16d62e9bc82b8696b518803
+
+---baidu sdk:
 debug ak:CGjv8UMOx0xoPrBy2t2CsA9w
+release ak:
+CGjv8UMOx0xoPrBy2t2CsA9w
 
 ----signaure
-release sha1:BB:02:1C:53:85:97:0E:4E:79:1D:3F:C1:4B:35:12:A6:21:E8:46:8E
-debug sha1:DE:FF:79:02:AC:C6:80:5C:29:26:73:3D:BB:9D:04:FF:F6:C1:B2:43
+release sha1:
+09:A3:B0:8C:68:F3:F5:65:52:61:0B:86:5D:5E:44:9F:55:D8:80:CA
+
+
+debug sha1:
+DE:FF:79:02:AC:C6:80:5C:29:26:73:3D:BB:9D:04:FF:F6:C1:B2:43
 
 
 TODO: 
