@@ -51,6 +51,11 @@ release sha1:
 debug sha1:
 DE:FF:79:02:AC:C6:80:5C:29:26:73:3D:BB:9D:04:FF:F6:C1:B2:43
 
+应用宝
+豆瓣同城Lite
+创建时间:2014-06-13 07:06:15
+APP ID:1101507907
+APP KEY:Q5IYxom5cMLIjq73
 
 TODO: 
 r1.0.0.1
