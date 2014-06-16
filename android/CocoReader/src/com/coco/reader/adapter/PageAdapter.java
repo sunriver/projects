@@ -6,7 +6,8 @@ import com.coco.reader.view.PageView;
 import com.coco.reader.data.Document;
 import com.coco.reader.data.DocumentManager;
 import com.coco.reader.data.Page;
-import com.sunriver.common.utils.ApiUtil;
+import com.sunriver.common.utils.ApiLevel;
+
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -118,7 +119,7 @@ public class PageAdapter extends BaseAdapter implements View.OnClickListener {
 
 		@Override
 		public void run() {
-			if (ApiUtil.hasHoneycomb()) {
+			if (ApiLevel.hasHoneycomb()) {
 				this.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 			} else {
 				this.execute();
