@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">我的豆瓣</string>
+    <string name="app_name">豆瓣同城Lite</string>
     <string name="action_settings">设置</string>
     <string name="event_address">地址</string>
     <string name="event_date">时间</string>
