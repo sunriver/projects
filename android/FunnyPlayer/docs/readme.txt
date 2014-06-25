@@ -26,3 +26,6 @@ TODO:
 r1.0.0.1
 1.删除歌词
 
+admob
+广告单元 ID： ca-app-pub-6945905795258722/2034065357
+广告单元名称： banner_lyric_bottom
