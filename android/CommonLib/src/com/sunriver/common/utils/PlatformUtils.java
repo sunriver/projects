@@ -1,5 +1,7 @@
 package com.sunriver.common.utils;
 
+import java.io.DataOutputStream;
+
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.os.Build;
@@ -63,5 +65,57 @@ public class PlatformUtils {
 		}
 
 		return isLocked && isSecure;
+	}
+	
+	public static boolean runRootCommand(String command) {
+		Process process = null;
+		DataOutputStream os = null;
+		try {
+			process = Runtime.getRuntime().exec("su");
+			os = new DataOutputStream(process.getOutputStream());
+			os.writeBytes(command + "\n");
+			os.writeBytes("exit\n");
+			os.flush();
+			process.waitFor();
+		} catch (Exception e) {
+			return false;
+		} finally {
+			try {
+				if (os != null) {
+					os.close();
+				}
+				process.destroy();
+			} catch (Exception e) {
+			}
+		}
+		return true;
+	}
+	
+	
+	public static boolean hasRootPermission() {
+		Process process = null;
+		DataOutputStream os = null;
+		boolean rooted = true;
+		try {
+			process = Runtime.getRuntime().exec("su");
+			os = new DataOutputStream(process.getOutputStream());
+			os.writeBytes("exit\n");
+			os.flush();
+			process.waitFor();
+			if (process.exitValue() != 0) {
+				rooted = false;
+			}
+		} catch (Exception e) {
+			rooted = false;
+		} finally {
+			if (os != null) {
+				try {
+					os.close();
+					process.destroy();
+				} catch (Exception e) {
+				}
+			}
+		}
+		return rooted;
 	}
 }
