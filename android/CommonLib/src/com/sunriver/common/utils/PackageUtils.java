@@ -8,6 +8,7 @@ import java.security.cert.X509Certificate;
 
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -64,5 +65,17 @@ public class PackageUtils {
 		String packageName = ctx.getPackageName();
 		PackageInfo pinfo = ctx.getPackageManager().getPackageInfo(packageName, 0);
 		return pinfo;
+	}
+	
+	public static boolean isDebugBuild(Context ctx) {
+		ApplicationInfo appInfo = ctx.getApplicationInfo();
+//		Log.d(ApplicationHelper.class.getSimpleName(), "isDebugBuild, application-info: " + appInfo.flags);
+		return ((appInfo.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0);
+	}
+	
+	public static boolean isSystemApk(Context ctx) {
+		ApplicationInfo appInfo = ctx.getApplicationInfo();
+		int flagSystem = appInfo.flags & ApplicationInfo.FLAG_SYSTEM;
+		return (flagSystem != 0);
 	}
 }
