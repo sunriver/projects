@@ -203,6 +203,14 @@ public class WiFiConnectedHelper {
 		}
 
 	}
+	
+	private static boolean isWifiConnected(Context ctx) {
+		// we could get device IP by system property "dhcp.tiwlan0.ipaddress"
+		ConnectivityManager cm = (ConnectivityManager) ctx
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo wifi = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+		return wifi.isConnected();
+	}
 
 	public interface WiFiConnectedReceiver {
 		 void onWiFiChanged(WiFiState wifiState);
