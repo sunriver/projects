@@ -59,4 +59,10 @@ public class PackageUtils {
 		}
 		return null;
 	}
+	
+	public static PackageInfo getPackageInfo(final Context ctx) throws NameNotFoundException  {
+		String packageName = ctx.getPackageName();
+		PackageInfo pinfo = ctx.getPackageManager().getPackageInfo(packageName, 0);
+		return pinfo;
+	}
 }
