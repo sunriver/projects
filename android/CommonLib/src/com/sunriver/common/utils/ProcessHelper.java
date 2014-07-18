@@ -1,6 +1,8 @@
 package com.sunriver.common.utils;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
@@ -33,5 +35,15 @@ public class ProcessHelper {
 		return null;
 	}
 	
+	
+	public static List<Thread> getAllThreads() {
+		List<Thread> threads = new ArrayList<Thread>();
+		Map<Thread, StackTraceElement[]> maps = Thread.getAllStackTraces();
+		for (Map.Entry<Thread, StackTraceElement[]> entry : maps.entrySet()) {
+			Thread td = entry.getKey();
+			threads.add(td);
+		}
+		return threads;
+	}
 	
 }
