@@ -18,6 +18,14 @@
         android:background="@drawable/bg" >
     </ListView>
 
+    <com.sunriver.advs.adchina.AdChinaBanner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        adspace_id="2196666"
+        autoStart="true"
+        log="false" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,13 +37,5 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
-
-    <com.sunriver.advs.adchina.AdChinaBanner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        adspace_id="2196666"
-        autoStart="true"
-        log="false" />
 
 </LinearLayout>
