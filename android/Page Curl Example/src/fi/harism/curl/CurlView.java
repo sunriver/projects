@@ -271,7 +271,7 @@ public class CurlView extends GLSurfaceView implements View.OnTouchListener,
 
 		}
 		case MotionEvent.ACTION_MOVE: {
-			if (isFingerTap(me, mDownEvent)) {
+			if (!isHorizonalScroll(me, mDownEvent)) {
 				break;
 			}
 			if (mCurlState == CURL_NONE) {
@@ -645,6 +645,13 @@ public class CurlView extends GLSurfaceView implements View.OnTouchListener,
 		float dy = evt.getY() - downEvt.getY();
 		float dist = (float) Math.sqrt(dx * dx + dy * dy);
 		return dist < mTouchSlop;
+	}
+	
+	private boolean isHorizonalScroll(MotionEvent evt, MotionEvent downEvt) {
+		float dx = evt.getX() - downEvt.getX();
+		float dy = evt.getY() - downEvt.getY();
+		float dist = (float) Math.sqrt(dx * dx + dy * dy);
+		return dist >= mTouchSlop && Math.abs(dx) >= 7 ;
 	}
 
 	/**
