@@ -16,6 +16,10 @@
 
 package fi.harism.curl;
 
+import java.io.IOException;
+
+import fi.harism.curl.doc.Document;
+import fi.harism.curl.doc.ReadView;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -24,6 +28,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -33,8 +38,9 @@ import android.widget.TextView;
  * @author harism
  */
 public class TextCurlActivity extends Activity {
-
+	private final static String TAG = TextCurlActivity.class.getSimpleName();
 	private CurlView mCurlView;
+	private Document mDoc;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -51,10 +57,21 @@ public class TextCurlActivity extends Activity {
 		mCurlView.setCurrentIndex(index);
 		mCurlView.setBackgroundColor(0xFF202830);
 		mCurlView.setRenderLeftPage(false);
-
+		
+		initData();
 		// This is something somewhat experimental. Before uncommenting next
 		// line, please see method comments in CurlView.
 		// mCurlView.setEnableTouchPressure(true);
+	}
+	
+	private void initData() {
+		
+		try {
+			Document doc = new Document(getApplicationContext(), "doc/text.txt");
+			mDoc = doc;
+		} catch (Throwable e) {
+			Log.w(TAG, e);
+		}
 	}
 
 	@Override
@@ -93,7 +110,7 @@ public class TextCurlActivity extends Activity {
 
 		@Override
 		public int getPageCount() {
-			return 5;
+			return Integer.MAX_VALUE;
 		}
 
 		private Bitmap loadBitmap(int width, int height, int index) {
@@ -136,7 +153,7 @@ public class TextCurlActivity extends Activity {
 			return b;
 		}
 		
-		private Bitmap drawText(int width, int height, final String text) {
+		private Bitmap drawText(int width, int height, int index) {
 			Bitmap b = Bitmap.createBitmap(width, height,
 					Bitmap.Config.ARGB_8888);
 			b.eraseColor(0xFFFFFFFF);
@@ -149,17 +166,40 @@ public class TextCurlActivity extends Activity {
 			p.setColor(0xFFC0C0C0);
 			c.drawRect(r, p);
 			
-            TextView tv = new TextView( getApplicationContext() );
+            ReadView tv = new ReadView(getApplicationContext());
             tv.setSingleLine(false);
-            tv.setText(text );
             tv.setTextColor( 0xa00050ff );
-            tv.setTextSize( 24 );
-//            tv.setTypeface( typeface );
-
-
+            tv.setTextSize(24);
+//            int lineHeight = tv.getLineHeight();
+//            tv.setLineSpacing(10, 2);
+//            lineHeight = tv.getLineHeight();
             tv.layout( 0, 0, width, height);
-            tv.draw(c);
-			
+            Layout layout = tv.getLayout();
+//            int charNum = tv.getCharNum();
+//            lineHeight = tv.getLineHeight();
+            int lineNum = height / tv.getLineHeight();
+            float textSize = tv.getTextSize();
+//            tv.setTextScaleX(2);
+            textSize = tv.getTextSize();
+            int charNumOfLine = (int) (width / (tv.getTextScaleX() * textSize));
+            int charNum = lineNum * charNumOfLine;
+            
+//            tv.setTypeface( typeface );
+			String text = null;
+			try {
+				if (index > mLastIndex) {
+					text = mDoc.nextPage(charNum);
+				} else {
+					text = mDoc.prevPage(charNum);
+				}
+			} catch (Exception e) {
+				Log.e(TAG, "", e);
+			}
+			mLastIndex = index;
+			float realTextWidth = tv.getPaint().measureText(text);
+			tv.setTextScaleX(width * lineNum * tv.getTextScaleX() / realTextWidth);
+            tv.setText(text);
+			tv.draw(c);
 //			p.setColor(Color.BLACK);
 //			p.setTextSize(20f);
 //			p.setTextScaleX(2.0f);
@@ -167,15 +207,22 @@ public class TextCurlActivity extends Activity {
 			return b;
 		}
 		
+		private int mLastIndex = -1;
+		
 		@Override
 		public void updatePage(CurlPage page, int width, int height, int index) {
-			Log.d("", "");
-			Bitmap front = drawText(width, height, mTextArray[index]);
-//			Bitmap front = loadBitmap(width, height, index);
+			Log.d(TAG, "updatePage() mLastIndex=" + mLastIndex + "	index="
+					+ index);
+			if (null == mDoc || mLastIndex == index) {
+				return;
+			}
+			Bitmap front = drawText(width, height, index);
+			// Bitmap front = loadBitmap(width, height, index);
 			page.setTexture(front, CurlPage.SIDE_BOTH);
-			page.setColor(Color.argb(127, 255, 255, 255),
-					CurlPage.SIDE_BACK);
+			page.setColor(Color.argb(127, 255, 255, 255), CurlPage.SIDE_BACK);
+
 		}
+
 
 //		@Override
 //		public void updatePage(CurlPage page, int width, int height, int index) {

@@ -1,4 +1,4 @@
-/*
+﻿/*
    Copyright 2012 Harri Smatt
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -282,7 +282,7 @@ public class CurlView extends GLSurfaceView implements View.OnTouchListener,
 					// page we'll mark drag position to left edge of left page.
 					// Additionally checking mCurrentIndex is higher than zero tells
 					// us there is a visible page at all.
-					if (mDragStartPos.x < rightRect.left && mCurrentIndex > 0) {
+					if (mDragStartPos.x < rightRect.left && mCurrentIndex >= 0) {
 						mDragStartPos.x = leftRect.left;
 						startCurl(CURL_LEFT);
 					}
@@ -298,7 +298,7 @@ public class CurlView extends GLSurfaceView implements View.OnTouchListener,
 					}
 				} else if (mViewMode == SHOW_ONE_PAGE) {
 					float halfX = (rightRect.right + rightRect.left) / 2;
-					if (mDragStartPos.x < halfX && mCurrentIndex > 0) {
+					if (mDragStartPos.x < halfX && mCurrentIndex >= 0) {
 						mDragStartPos.x = rightRect.left;
 						startCurl(CURL_LEFT);
 					} else if (mDragStartPos.x >= halfX
@@ -599,8 +599,8 @@ public class CurlView extends GLSurfaceView implements View.OnTouchListener,
 			mPageLeft = mPageCurl;
 			mPageCurl = curl;
 
-			if (mCurrentIndex > 1) {
-				updatePage(mPageLeft.getTexturePage(), mCurrentIndex - 2);
+			if (mCurrentIndex >= 0) {
+				updatePage(mPageLeft.getTexturePage(), mCurrentIndex - 1);
 				mPageLeft.setFlipTexture(true);
 				mPageLeft
 						.setRect(mRenderer.getPageRect(CurlRenderer.PAGE_LEFT));
