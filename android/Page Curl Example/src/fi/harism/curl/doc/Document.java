@@ -30,7 +30,9 @@ public class Document {
 	private BufferedReader mReader;
 	private final int mAvaiableSize;
 	//number of char which has been readed.
-	private int mOffset;
+//	private int mOffset;
+	private int mStart;
+	private int mEnd;
 	private boolean mHasRemaining = true;
 	private StringBuffer mContentBuffer;
 
@@ -43,14 +45,16 @@ public class Document {
 //		mByteBuffer = ByteBuffer.allocate(2048);
 		mContentBuffer = new StringBuffer();
 		mAvaiableSize = mInputStream.available();
-		mOffset = 0;
+		mStart = 0;
+		mEnd = 0;
+//		mOffset = 0;
 		mHasRemaining = true;
 		mReader = new BufferedReader(new InputStreamReader(mInputStream));
 	}
 	
 	
 	public String nextPage(int len) throws IOException {
-		int start = mOffset;
+		int start = mEnd;
 		if (start < 0) {
 			start = 0;
 		}
@@ -71,7 +75,9 @@ public class Document {
 		if (end > mContentBuffer.length()) {
 			end = mContentBuffer.length();
 		}
-		mOffset = end;
+		mStart = start;
+		mEnd = end;
+		Log.d(TAG, "nextPage() start=" + mStart + ", end=" + mEnd);
 		return mContentBuffer.substring(start, end);
 	}
 //	public String nextPage(int len) throws IOException {
@@ -81,7 +87,7 @@ public class Document {
 //	}
 	
 	public String prevPage(int len) throws IOException {
-		int start = mOffset - len;
+		int start = mStart - len;
 		if (start < 0) {
 			start = 0;
 		}
@@ -90,7 +96,9 @@ public class Document {
 			end = mContentBuffer.length();
 		}
 		String text = mContentBuffer.substring(start, end);
-		mOffset = start;
+		mStart = start;
+		mEnd = end;
+		Log.d(TAG, "prevPage() start=" + mStart + ", end=" + mEnd);
 		return text;
 	}
 	
@@ -103,10 +111,10 @@ public class Document {
 	}
 	
 	public boolean hasPrevPage() {
-		return mContentBuffer.length() > 0;
+		return mStart > 0;
 	}
 	
-	public void closeDocument() {
+	public void close() {
 		if (mInputStream != null) {
 			try {
 				mInputStream.close();
