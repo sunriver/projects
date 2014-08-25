@@ -64,6 +64,14 @@ public class TextCurlActivity extends Activity {
 		// mCurlView.setEnableTouchPressure(true);
 	}
 	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if (mDoc != null) {
+			mDoc.close();
+		}
+	}
+
 	private void initData() {
 		
 		try {
@@ -86,10 +94,10 @@ public class TextCurlActivity extends Activity {
 		mCurlView.onResume();
 	}
 
-	@Override
-	public Object onRetainNonConfigurationInstance() {
-		return mCurlView.getCurrentIndex();
-	}
+//	@Override
+//	public Object onRetainNonConfigurationInstance() {
+//		return mCurlView.getCurrentIndex();
+//	}
 
 	/**
 	 * Bitmap provider.
@@ -107,6 +115,9 @@ public class TextCurlActivity extends Activity {
 				"ddddddddddddddddddddd"
 				
 		};
+		
+		
+		
 
 		@Override
 		public int getPageCount() {
@@ -153,7 +164,7 @@ public class TextCurlActivity extends Activity {
 			return b;
 		}
 		
-		private Bitmap drawText(int width, int height, int index) {
+		private Bitmap drawText(int width, int height, boolean isNextPage) {
 			Bitmap b = Bitmap.createBitmap(width, height,
 					Bitmap.Config.ARGB_8888);
 			b.eraseColor(0xFFFFFFFF);
@@ -187,7 +198,7 @@ public class TextCurlActivity extends Activity {
 //            tv.setTypeface( typeface );
 			String text = null;
 			try {
-				if (index > mLastIndex) {
+				if (isNextPage) {
 					text = mDoc.nextPage(charNum);
 				} else {
 					text = mDoc.prevPage(charNum);
@@ -195,7 +206,6 @@ public class TextCurlActivity extends Activity {
 			} catch (Exception e) {
 				Log.e(TAG, "", e);
 			}
-			mLastIndex = index;
 			float realTextWidth = tv.getPaint().measureText(text);
 			tv.setTextScaleX(width * lineNum * tv.getTextScaleX() / realTextWidth);
             tv.setText(text);
@@ -207,20 +217,55 @@ public class TextCurlActivity extends Activity {
 			return b;
 		}
 		
-		private int mLastIndex = -1;
 		
+//		@Override
+//		public void updatePage(CurlPage page, int width, int height, int index) {
+//			Log.d(TAG, "updatePage() mLastIndex=" + mLastIndex + "	index="
+//					+ index);
+//			if (null == mDoc || mLastIndex == index) {
+//				return;
+//			}
+//			Bitmap front = drawText(width, height, index);
+//			// Bitmap front = loadBitmap(width, height, index);
+//			page.setTexture(front, CurlPage.SIDE_BOTH);
+//			page.setColor(Color.argb(127, 255, 255, 255), CurlPage.SIDE_BACK);
+//
+//		}
+
 		@Override
-		public void updatePage(CurlPage page, int width, int height, int index) {
-			Log.d(TAG, "updatePage() mLastIndex=" + mLastIndex + "	index="
-					+ index);
-			if (null == mDoc || mLastIndex == index) {
+		public boolean hasNextPage() {
+			return mDoc.hasNextPage();
+		}
+
+		@Override
+		public boolean hasPrevPage() {
+			// TODO Auto-generated method stub
+			return mDoc.hasPrevPage();
+		}
+
+		@Override
+		public void nextPage(CurlPage page, int width, int height) {
+			if (null == mDoc) {
 				return;
 			}
-			Bitmap front = drawText(width, height, index);
+			Bitmap front = drawText(width, height, true);
 			// Bitmap front = loadBitmap(width, height, index);
 			page.setTexture(front, CurlPage.SIDE_BOTH);
 			page.setColor(Color.argb(127, 255, 255, 255), CurlPage.SIDE_BACK);
 
+			
+		}
+
+		@Override
+		public void prevPage(CurlPage page, int width, int height) {
+			if (null == mDoc) {
+				return;
+			}
+			Bitmap front = drawText(width, height, false);
+			// Bitmap front = loadBitmap(width, height, index);
+			page.setTexture(front, CurlPage.SIDE_BOTH);
+			page.setColor(Color.argb(127, 255, 255, 255), CurlPage.SIDE_BACK);	// TODO Auto-generated method stub
+			
 		}
 
 
