@@ -56,7 +56,7 @@ public class TextCurlActivity extends Activity {
 		mCurlView.setSizeChangedObserver(new SizeChangedObserver());
 		mCurlView.setCurrentIndex(index);
 		mCurlView.setBackgroundColor(0xFF202830);
-		mCurlView.setRenderLeftPage(false);
+		mCurlView.setRenderLeftPage(true);
 		
 		initData();
 		// This is something somewhat experimental. Before uncommenting next
@@ -119,10 +119,10 @@ public class TextCurlActivity extends Activity {
 		
 		
 
-		@Override
-		public int getPageCount() {
-			return Integer.MAX_VALUE;
-		}
+//		@Override
+//		public int getPageCount() {
+//			return Integer.MAX_VALUE;
+//		}
 
 		private Bitmap loadBitmap(int width, int height, int index) {
 			Bitmap b = Bitmap.createBitmap(width, height,
