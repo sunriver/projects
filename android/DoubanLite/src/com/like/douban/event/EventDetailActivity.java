@@ -6,7 +6,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.like.R;
 import com.like.MyApplication;
-import com.like.douban.api.ResponseListener;
+import com.like.douban.api.DoubanResponseListener;
 import com.like.douban.event.api.GetParticipantedUsers;
 import com.like.douban.event.api.JoinEvent;
 import com.like.douban.event.api.UnJoinEvent;
@@ -78,7 +78,7 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 	}
 	
 	private void initParticipantedUsers(final String eventID) {
-		ResponseListener<UserList> listener = new ResponseListener<UserList> () {
+		DoubanResponseListener<UserList> listener = new DoubanResponseListener<UserList> () {
 			@Override
 			public void onSuccess(UserList result) {
 				// TODO Auto-generated method stub
@@ -255,7 +255,7 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 	}
 	
 	private void doUnWish(final String accessToken) {
-		ResponseListener<Void> unWishlistener = new ResponseListener<Void>() {
+		DoubanResponseListener<Void> unWishlistener = new DoubanResponseListener<Void>() {
 			@Override
 			public void onSuccess(Void result) {
 				mEventManager.removeWishedEvent(mEvent);
@@ -274,7 +274,7 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 	}
 	
 	private void doWish(final String accessToken) {
-		ResponseListener<Void> wishListener = new ResponseListener<Void>() {
+		DoubanResponseListener<Void> wishListener = new DoubanResponseListener<Void>() {
 			@Override
 			public void onSuccess(Void result) {
 				mEventManager.saveWishedEvent(mEvent);
@@ -308,7 +308,7 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 	}
 	
 	private void doUnJoin(final String accessToken) {
-		ResponseListener<Void> unJoinListener = new ResponseListener<Void>() {
+		DoubanResponseListener<Void> unJoinListener = new DoubanResponseListener<Void>() {
 			@Override
 			public void onSuccess(Void result) {
 				mEventManager.removeParticipantEvent(mEvent);
@@ -328,7 +328,7 @@ public class EventDetailActivity extends ActionBarActivity implements OnClickLis
 	}
 	
 	private void doJoin(final String accessToken) {
-		ResponseListener<Void> joinListener = new ResponseListener<Void>() {
+		DoubanResponseListener<Void> joinListener = new DoubanResponseListener<Void>() {
 			@Override
 			public void onSuccess(Void result) {
 				mEventManager.saveParticipantEvent(mEvent);

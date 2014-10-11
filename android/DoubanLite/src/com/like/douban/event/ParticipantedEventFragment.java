@@ -11,7 +11,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.like.MyApplication;
 import com.like.R;
 import com.like.douban.account.AccountManager;
-import com.like.douban.api.ResponseListener;
+import com.like.douban.api.DoubanResponseListener;
 import com.like.douban.event.api.GetParticipantedEvents;
 import com.like.douban.event.bean.Event;
 import com.like.douban.event.bean.EventList;
@@ -36,7 +36,7 @@ public class ParticipantedEventFragment extends Fragment {
 	private ImageLoader mImageLoader;
 	private RequestQueue mRequestQueue;
 	private EventAdapter mParticipantEventAdapter;
-	private ResponseListener<EventList> mGetParticipantedEventsListener = new ResponseListener<EventList>() {
+	private DoubanResponseListener<EventList> mGetParticipantedEventsListener = new DoubanResponseListener<EventList>() {
 		@Override
 		public void onSuccess(EventList result) {
 			mParticipantEventAdapter.updateEventList(result);

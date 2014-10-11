@@ -9,7 +9,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
-import com.like.douban.api.ResponseListener;
+import com.like.douban.api.DoubanResponseListener;
 import com.like.douban.event.api.GetEvents;
 import com.like.douban.event.api.GetParticipantedEvents;
 import com.like.douban.event.api.GetWisheredEvents;
@@ -92,7 +92,7 @@ public class EventFragment extends Fragment implements OnClickListener {
 			return ;
 		}
 		TokenResult tokenResult = AccountManager.getToken(ctx);
-		ResponseListener<EventList> listener = new ResponseListener<EventList> () {
+		DoubanResponseListener<EventList> listener = new DoubanResponseListener<EventList> () {
 			@Override
 			public void onSuccess(EventList result) {
 				EventManager.getInstance().saveParticipantEvents(result);
@@ -115,7 +115,7 @@ public class EventFragment extends Fragment implements OnClickListener {
 			return ;
 		}
 		TokenResult tokenResult = AccountManager.getToken(ctx);
-		ResponseListener<EventList> listener = new ResponseListener<EventList> () {
+		DoubanResponseListener<EventList> listener = new DoubanResponseListener<EventList> () {
 			@Override
 			public void onSuccess(EventList result) {
 				EventManager.getInstance().saveWisheredEvents(result);
@@ -134,7 +134,7 @@ public class EventFragment extends Fragment implements OnClickListener {
 	
 	
 	private void initEvents(Context ctx, RequestQueue queue) {
-		ResponseListener<EventList> listener = new ResponseListener<EventList> () {
+		DoubanResponseListener<EventList> listener = new DoubanResponseListener<EventList> () {
 			@Override
 			public  void onSuccess(EventList result) {
 				mEventAdapter.updateEventList(result);
