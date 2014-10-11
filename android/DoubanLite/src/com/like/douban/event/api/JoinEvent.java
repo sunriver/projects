@@ -9,7 +9,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.like.douban.api.AbstractDoubanApi;
 import com.like.douban.api.DoubanJsonRequest;
-import com.like.douban.api.ResponseListener;
+import com.like.douban.api.DoubanResponseListener;
 
 /**
  * Post Method
@@ -20,7 +20,7 @@ public class JoinEvent extends AbstractDoubanApi {
 	private final static String TAG = JoinEvent.class.getSimpleName();
 	private final static String BASE_URL = "https://api.douban.com/v2/event/:id/participants";
 
-	public JoinEvent(Context ctx, RequestQueue queue, ResponseListener listener) {
+	public JoinEvent(Context ctx, RequestQueue queue, DoubanResponseListener listener) {
 		super(ctx, queue, listener);
 	}
 	

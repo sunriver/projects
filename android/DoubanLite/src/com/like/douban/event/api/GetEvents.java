@@ -9,7 +9,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.like.douban.api.AbstractDoubanApi;
 import com.like.douban.api.Consts;
-import com.like.douban.api.ResponseListener;
+import com.like.douban.api.DoubanResponseListener;
 import com.like.douban.event.bean.EventList;
 
 
@@ -18,7 +18,7 @@ public class GetEvents extends AbstractDoubanApi {
 	private final static String BASE_URL = "https://api.douban.com/v2/event/list";
 
 
-	public GetEvents(Context ctx, RequestQueue queue, ResponseListener listener) {
+	public GetEvents(Context ctx, RequestQueue queue, DoubanResponseListener listener) {
 		super(ctx, queue, listener);
 	}
 

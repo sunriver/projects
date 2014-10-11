@@ -8,7 +8,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.like.douban.api.AbstractDoubanApi;
 import com.like.douban.api.DoubanJsonRequest;
-import com.like.douban.api.ResponseListener;
+import com.like.douban.api.DoubanResponseListener;
 
 /**
  * Delete Method
@@ -19,7 +19,7 @@ public class UnJoinEvent extends AbstractDoubanApi {
 	private final static String TAG = UnJoinEvent.class.getSimpleName();
 	private final static String BASE_URL = "https://api.douban.com/v2/event/:id/participants";
 
-	public UnJoinEvent(Context ctx, RequestQueue queue, ResponseListener listener) {
+	public UnJoinEvent(Context ctx, RequestQueue queue, DoubanResponseListener listener) {
 		super(ctx, queue, listener);
 	}
 	

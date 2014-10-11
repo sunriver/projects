@@ -8,7 +8,7 @@ import com.android.volley.RequestQueue;
 import com.like.douban.account.bean.UserList;
 import com.like.douban.api.AbstractDoubanApi;
 import com.like.douban.api.Consts;
-import com.like.douban.api.ResponseListener;
+import com.like.douban.api.DoubanResponseListener;
 
 /**
  * Get Method
@@ -20,7 +20,7 @@ public class GetParticipantedUsers extends AbstractDoubanApi {
 	private final static String BASE_URL = "https://api.douban.com/v2/event/:id/participants";
 
 
-	public GetParticipantedUsers(Context ctx, RequestQueue queue, ResponseListener listener) {
+	public GetParticipantedUsers(Context ctx, RequestQueue queue, DoubanResponseListener listener) {
 		super(ctx, queue, listener);
 	}
 
