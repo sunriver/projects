@@ -13,7 +13,7 @@ import com.like.douban.account.bean.User;
 import com.like.douban.api.AbstractDoubanApi;
 import com.like.douban.api.Consts;
 import com.like.douban.api.DoubanJsonRequest;
-import com.like.douban.api.ResponseListener;
+import com.like.douban.api.DoubanResponseListener;
 import com.like.douban.event.api.GetEvents;
 import com.like.douban.event.bean.EventList;
 
@@ -27,7 +27,7 @@ public class GetAccountInfo extends AbstractDoubanApi {
 	private final static String BASE_URL = "https://api.douban.com/v2/user/~me";
 
 
-	public GetAccountInfo(Context ctx, RequestQueue queue, ResponseListener listener) {
+	public GetAccountInfo(Context ctx, RequestQueue queue, DoubanResponseListener listener) {
 		super(ctx, queue, listener);
 	}
 

@@ -7,7 +7,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.like.douban.account.bean.TokenResult;
 import com.like.douban.api.AbstractDoubanApi;
-import com.like.douban.api.ResponseListener;
+import com.like.douban.api.DoubanResponseListener;
 
 /**
  * Post method
@@ -24,7 +24,7 @@ public class GetAccessToken extends AbstractDoubanApi {
 	private String mAuthCode;
 
 
-	private GetAccessToken(Context ctx, RequestQueue queue, ResponseListener listener) {
+	private GetAccessToken(Context ctx, RequestQueue queue, DoubanResponseListener listener) {
 		super(ctx, queue, listener);
 	}
 
@@ -56,13 +56,13 @@ public class GetAccessToken extends AbstractDoubanApi {
 	public static class Builder {
 		private  Context context;
 		private  RequestQueue queue;
-		private ResponseListener listener;
+		private DoubanResponseListener listener;
 		private  String clientID;
 		private  String clientSecret;
 		private  String redirectUri;
 		private  String authCode;
 		
-		public Builder(Context ctx, RequestQueue queue, ResponseListener listener) {
+		public Builder(Context ctx, RequestQueue queue, DoubanResponseListener listener) {
 			this.context = ctx;
 			this.queue = queue;
 			this.listener = listener;

@@ -4,7 +4,7 @@ import com.android.volley.RequestQueue;
 import com.like.MyApplication;
 import com.like.R;
 import com.like.douban.api.Consts;
-import com.like.douban.api.ResponseListener;
+import com.like.douban.api.DoubanResponseListener;
 import com.like.douban.account.api.GetAccessToken;
 import com.like.douban.account.api.GetAccountInfo;
 import com.like.douban.account.bean.TokenResult;
@@ -27,7 +27,7 @@ public class LoginActivity extends ActionBarActivity {
 	private final static String GET_AUTHORIZATION_CODE_URL = "https://www.douban.com/service/auth2/auth?client_id=${API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=" + SCOPE;
 	private WebView mLoginWv;
 	private RequestQueue mRequestQueue;
-	private ResponseListener<TokenResult> mResponseListener = new ResponseListener<TokenResult>() {
+	private DoubanResponseListener<TokenResult> mResponseListener = new DoubanResponseListener<TokenResult>() {
 		
 		@Override
 		public void onFailure() {
@@ -43,7 +43,7 @@ public class LoginActivity extends ActionBarActivity {
 
 	};
 	
-	private ResponseListener<User> mGetAccountResponseListener = new ResponseListener<User>() {
+	private DoubanResponseListener<User> mGetAccountResponseListener = new DoubanResponseListener<User>() {
 		
 		@Override
 		public void onFailure() {
