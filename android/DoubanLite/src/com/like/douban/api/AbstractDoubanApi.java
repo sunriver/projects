@@ -1,69 +1,24 @@
 package com.like.douban.api;
 
-import org.json.JSONObject;
 import android.content.Context;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
-import com.android.volley.Response.ErrorListener;
-import com.android.volley.Response.Listener;
+import com.like.api.AbstractWebApi;
+import com.like.api.ResponseListener;
 
 @SuppressWarnings("rawtypes")
-public abstract class AbstractDoubanApi {
-	protected Context mContext;
-	protected RequestQueue mRequestQueue;
+public abstract class AbstractDoubanApi extends AbstractWebApi {
 
-	protected ResponseListener mResponseListener;
-
-	private  class WrapResponseListener implements Listener<JSONObject> {
-
-		@SuppressWarnings("unchecked")
-		@Override
-		public void onResponse(JSONObject response) {
-			if (null == response) {
-				return;
-			}
-			if (mResponseListener != null) {
-				mResponseListener.onSuccess(parseResponse(response));
-			}
-		}
-
-	};
-
-	private  class WrapErrorListener implements ErrorListener {
-
-		@Override
-		public void onErrorResponse(VolleyError error) {
-			ApiUtils.checkError(mContext, error);
-			if (mResponseListener != null) {
-				mResponseListener.onFailure();
-			}
-		}
-
-	};
-	
-	
-	public AbstractDoubanApi(Context ctx, RequestQueue queue, ResponseListener listener) {
-		this.mContext = ctx;
-		this.mRequestQueue = queue;
-		this.mResponseListener = listener;
+	public AbstractDoubanApi(Context ctx, RequestQueue queue,
+			ResponseListener listener) {
+		super(ctx, queue, listener);
+		// TODO Auto-generated constructor stub
 	}
-	
 
-	protected DoubanJsonRequest createRequest(final int method, final String url) {
-		DoubanJsonRequest request = new DoubanJsonRequest(method, url, null, new WrapResponseListener(), new WrapErrorListener());
+	@Override
+	protected DoubanJsonRequest createRequest(int method, String url) {
+		DoubanJsonRequest request = new DoubanJsonRequest(method, url, null, mSuccessListener, mFailureListener);
 		return request;
 	}
 	
-	@SuppressWarnings("unchecked")
-	protected void sendRequest(Request request) {
-		mRequestQueue.add(request);
-	}
-
-	
-	protected <T> T parseResponse(JSONObject response) {
-		return null;
-	}
-
 }
