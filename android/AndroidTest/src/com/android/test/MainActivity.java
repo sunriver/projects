@@ -24,14 +24,15 @@ public class MainActivity extends Activity {
 	
 	private void openPDF() {
 	     Intent intent = new Intent(this, TestPdfViewerActivity.class);
-	     intent.putExtra(PdfViewerActivity.EXTRA_PDFFILENAME, "PATH TO PDF GOES HERE");
+	     String path = this.getCacheDir().getAbsolutePath()  + "/content.pdf";
+	     intent.putExtra(PdfViewerActivity.EXTRA_PDFFILENAME, path);
 	     startActivity(intent);
 	}
 
 	@Override
 	protected void onStart() {
-		openPDF();
 		super.onStart();
+		openPDF();
 	}
 	
 	
